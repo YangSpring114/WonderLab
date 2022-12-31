@@ -1,0 +1,33 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:card="using:ControlX"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+             x:Class="WonderLab.Views.DownSettingView">
+	<Panel>
+		<ScrollViewer>
+			<StackPanel Margin="20,20,20,0">
+				<card:OptionsDisplayItem
+					IsExpanded="True" Name="downsetting"
+					Expands="True" Header="下载设置"
+					Description="启动器下载和补全时的配置">
+					<card:OptionsDisplayItem.Content>
+						<StackPanel>
+							<Grid>
+								<TextBlock Name="test" VerticalAlignment="Center" Text="当前下载源："/>
+								<ComboBox SelectedIndex="{Binding SelectDownloadAPI}" Items="{Binding DownloadAPI}" FontFamily="Din Pro" Name="sourcelist" HorizontalAlignment="Right"/>
+							</Grid>
+							<Grid Margin="0,25,0,0">
+								<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="最大线程数："/>
+								<Slider Value="{Binding Max}" Minimum="1" Maximum="512" HorizontalAlignment="Right" MinWidth="150" Margin="100,0,0,0"/>
+							</Grid>
+							<ui:InfoBar Title="小贴士：" Message="最大线程数能提升下载速度，但会显著影响启动器性能" Margin="0 20 0 0" IsOpen="True" IsClosable="False"/>
+						</StackPanel>
+					</card:OptionsDisplayItem.Content>
+				</card:OptionsDisplayItem>
+			</StackPanel>
+		</ScrollViewer>
+	</Panel>
+</UserControl>

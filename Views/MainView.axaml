@@ -1,0 +1,85 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	         xmlns:ui="using:FluentAvalonia.UI.Controls"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:cx="using:WonderLab.Modules.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="WonderLab.Views.MainView">
+	<UserControl.Resources>
+		<ui:PathIconSource x:Key="LaunchSettingIcon" Data="M260.41609691 907.70315886L389.81797199 500.33717006l-126.90269724-0.83305931 145.78537428-382.92958316H723.04168471l-113.85143517 277.68642726h153.00522143L260.41609691 907.70315886z m103.02166452-477.06528206l121.34896869 0.83305929-69.42160681 218.26153182 182.16229631-186.32759267h-91.35883461l113.85143519-277.68642727H456.46271455l-93.02495312 244.91942883z"/>
+	    <ui:PathIconSource x:Key="ListIcon" Data="M160 352a32 32 0 0 1-32-32V192a32 32 0 0 1 32-32h128a32 32 0 0 1 32 32v128a32 32 0 0 1-32 32z m32-64h64V224H192zM416 288a32 32 0 0 1 0-64h448a32 32 0 0 1 0 64zM160 608a32 32 0 0 1-32-32v-128a32 32 0 0 1 32-32h128a32 32 0 0 1 32 32v128a32 32 0 0 1-32 32z m32-64h64v-64H192zM416 544a32 32 0 0 1 0-64h448a32 32 0 0 1 0 64zM160 864a32 32 0 0 1-32-32v-128a32 32 0 0 1 32-32h128a32 32 0 0 1 32 32v128a32 32 0 0 1-32 32z m32-64h64v-64H192zM416 800a32 32 0 0 1 0-64h448a32 32 0 0 1 0 64z"/>
+	</UserControl.Resources>
+	<Panel>
+		<ui:NavigationView
+			PaneDisplayMode="Auto"
+			CornerRadius="1100"
+			IsBackEnabled="True"
+			Name="RootNavigationView"
+			IsSettingsVisible="False"
+			IsBackButtonVisible="True">
+			<ui:NavigationView.MenuItems>
+				<ui:NavigationViewItem Name="home" Tag="HomeView" SelectsOnInvoked="True" Icon="Home" Content="主页"/>
+				<ui:NavigationViewItem Name="gamelist" Tag="GameView" Icon="Play" Content="游戏列表">
+					<ui:NavigationViewItem.Icon>
+						<ui:IconSourceElement IconSource="{StaticResource ListIcon}" />
+					</ui:NavigationViewItem.Icon>
+				</ui:NavigationViewItem>
+				<ui:NavigationViewItem Name="main" Tag="BlessingView" Icon="Message" Content="祝福终端">
+					<ui:NavigationViewItem.Icon>
+						<ui:IconSourceElement IconSource="{StaticResource LaunchSettingIcon}" />
+					</ui:NavigationViewItem.Icon>
+					<ui:NavigationViewItem.InfoBadge>
+						<ui:InfoBadge Name="infoBadge1" Value="{Binding AllTaskCount}" IsVisible="{Binding IsBadgeVisible}"/>
+					</ui:NavigationViewItem.InfoBadge>
+				</ui:NavigationViewItem>
+				<ui:NavigationViewItem Tag="UsersView" Icon="People" Content="账户中心"/>
+			</ui:NavigationView.MenuItems>
+			<ui:NavigationView.FooterMenuItems>
+				<ui:NavigationViewItem ToolTip.Placement="AnchorAndGravity" Tag="SettingView" Icon="Settings" Content="设置">
+					<ToolTip.Tip>
+						<Border CornerRadius="2">
+							<TextBlock Classes="h1">设置</TextBlock>
+						</Border>
+					</ToolTip.Tip>
+				</ui:NavigationViewItem>
+			</ui:NavigationView.FooterMenuItems>
+			<ui:NavigationView.Content>
+				<!--<ui:Frame Margin="0,-100,0,0" Name="FrameView"/>-->
+				<cx:FrameX Margin="0,-100,0,0" Name="FrameView"/>
+			</ui:NavigationView.Content>
+		</ui:NavigationView>
+		<Grid
+            x:Name="AppTitleBar" Background="Transparent"
+            Height="{Binding ElementName=NavigationViewControl, Path=CompactPaneLength}"
+            VerticalAlignment="Top">
+			<TextBlock
+                x:Name="AppTitle"
+                Margin="0,15,0,0"
+				FontSize="12"
+				TextTrimming="None"  
+				TextWrapping="Wrap"
+                Text="WonderLab">
+				<TextBlock.Transitions>
+					<Transitions>
+						<ThicknessTransition Duration="0:0:0.25" Property="Margin">
+							<ThicknessTransition.Easing>
+								<CircularEaseIn/>
+							</ThicknessTransition.Easing>
+						</ThicknessTransition>
+					</Transitions>
+				</TextBlock.Transitions>
+			</TextBlock>
+			<Grid.Transitions>
+				<Transitions>
+					<ThicknessTransition Duration="0:0:0.25" Property="Margin">
+						<ThicknessTransition.Easing>
+							<CircularEaseIn/>
+						</ThicknessTransition.Easing>
+					</ThicknessTransition>
+				</Transitions>
+			</Grid.Transitions>
+		</Grid>
+		<!--<ui:Frame Background="Transparent" IsHitTestVisible="False" Name="SettingFrameView"/>-->
+	</Panel>
+</UserControl>

@@ -1,0 +1,63 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"			 
+			 xmlns:card="using:FluentAvaloniaSamples.Controls"
+			 xmlns:model="using:WonderLab.Modules.Models"
+             x:Class="WonderLab.Views.ModPropertyView">
+	<Panel>
+		<ListBox
+             x:Name="CoresList"
+             Grid.Row="1"
+             Margin="0,-2.5,0,7.5"
+             Padding="30,0"
+             Background="Transparent"
+             Items="{Binding ModPacks}">
+			<ListBox.Styles>
+				<Style Selector="ListBoxItem">
+					<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+					<Setter Property="BorderBrush" Value="Transparent" />
+					<Setter Property="BorderThickness" Value="0" />
+					<Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}"/>
+					<Setter Property="Margin" Value="0,3" />
+					<Setter Property="Template">
+						<Setter.Value>
+							<ControlTemplate TargetType="ListBoxItem">
+								<card:OptionsDisplayItem Icon="Pause" Header="{Binding Id}" Description="{Binding FileName}">
+									<card:OptionsDisplayItem.ActionButton>
+										<ToggleSwitch Command="{Binding ModStateChange}" MaxWidth="0" MinWidth="55" Margin="0,0,-20,0" HorizontalAlignment="Right" IsChecked="{Binding IsEnabled}" OnContent="" OffContent="" IsTabStop="False"/>
+									</card:OptionsDisplayItem.ActionButton>
+								</card:OptionsDisplayItem>
+							</ControlTemplate>
+						</Setter.Value>
+					</Setter>
+				</Style>
+				<Style Selector="ListBoxItem /template/ ToggleSwitch#check:pointerover">
+					<Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+				</Style>
+			</ListBox.Styles>			
+		</ListBox>
+
+		<StackPanel
+	        Margin="0,0,0,100"
+	        HorizontalAlignment="Center"
+	        VerticalAlignment="Center"
+	        IsVisible="{Binding HasMod}">
+			<TextBlock
+                HorizontalAlignment="Center"
+                FontSize="28"
+                FontWeight="Bold"
+                Foreground="White"
+				Opacity="0.65"
+                Text="还没有任何已安装的模组" />
+			<ui:HyperlinkButton
+                Margin="0,5,0,0" Click="Hyperlink_Click"
+                HorizontalAlignment="Center"
+                Content="转到 祝福终端>下载 以安装新的模组"
+                FontWeight="Bold"
+                Opacity="0.75" />
+		</StackPanel>
+	</Panel>
+</UserControl>

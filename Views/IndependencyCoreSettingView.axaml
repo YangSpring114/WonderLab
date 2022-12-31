@@ -1,0 +1,52 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:ui="using:ControlX"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="WonderLab.Views.IndependencyCoreSettingView">
+	<ScrollViewer>
+		<StackPanel Spacing="10" Orientation="Vertical">
+			<Border Margin="20,20,20,5" Height="50" CornerRadius="4" Background="{DynamicResource ControlFillColorDefaultBrush}">
+				<Panel>
+					<TextBlock DockPanel.Dock="Left" Text="启用独立版本设置" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,0,0,0"/>
+					<ToggleSwitch x:Name="IsIC" IsChecked="{Binding IsEnableIndependencyCore}" MaxWidth="0" MinWidth="55" HorizontalAlignment="Right" OnContent="" OffContent="" IsTabStop="False"/>
+				</Panel>
+			</Border>
+			<!--{Binding IsEnableIndependencyCore}-->
+			<ui:OptionsDisplayItem Expands="True" 
+								   IsEnabled="{Binding ElementName=IsIC,Path=IsChecked}"
+								   Margin="20 5"
+								   Header="游戏启动项设置"
+								   Description="这里的设置项会在您启用 独立版本设置 时生效，只会针对这个版本"
+	                               IsExpanded="{Binding IsExpand}">
+				<StackPanel Orientation="Vertical">
+					<Grid Margin="0">
+						<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="版本隔离："/>
+						<Grid HorizontalAlignment="Right" Width="550">
+							<ToggleSwitch IsChecked="{Binding IsOlate}" MaxWidth="0" MinWidth="75" HorizontalAlignment="Right" OnContent="开" OffContent="关" Name="isbbgl" IsTabStop="False"/>
+						</Grid>
+					</Grid>
+					<Grid Margin="0,25,0,0">
+						<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="全屏模式："/>
+						<Grid HorizontalAlignment="Right" Width="550">
+							<ToggleSwitch IsChecked="{Binding IsFullWindow}" MaxWidth="0" MinWidth="75" HorizontalAlignment="Right" OnContent="开" OffContent="关" Name="IsFull" IsTabStop="False"/>
+						</Grid>
+					</Grid>
+					<Grid Margin="0,25,0,0">
+						<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="游戏窗口大小："/>
+						<StackPanel Spacing="10" HorizontalAlignment="Right" Orientation="Horizontal">
+							<TextBox Text="{Binding WindowHeight}" Watermark="高度"/>
+							<TextBlock VerticalAlignment="Center" Text="X"/>
+							<TextBox Text="{Binding WindowWidth}" Watermark="宽度"/>
+						</StackPanel>
+					</Grid>
+					<Grid Margin="0,25,0,0">
+						<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="附加Jvm参数："/>
+						<TextBox Text="{Binding Jvm}" Name="Jvm" Watermark="Jvm参数" MinWidth="200" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+					</Grid> 
+				</StackPanel>
+			</ui:OptionsDisplayItem>
+		</StackPanel> 
+	</ScrollViewer>
+</UserControl>

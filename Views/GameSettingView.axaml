@@ -1,0 +1,103 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="650"
+	         xmlns:ui="using:FluentAvalonia.UI.Controls"
+			 xmlns:card="using:ControlX"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Class="WonderLab.Views.GameSettingView">		
+	<Panel>
+		<Panel.Resources>
+			<Path Data="M354.40128 0c-87.04 0-157.44 70.55872-157.44 157.59872v275.68128H78.72c-21.6576 0-39.36256 17.69984-39.36256 39.36256v236.31872c0 21.6576 17.69984 39.35744 39.36256 39.35744h118.24128v118.08256c0 87.04 70.4 157.59872 157.44 157.59872h472.63744c87.04 0 157.59872-70.55872 157.59872-157.59872V315.0336c0-41.74848-38.9888-81.93024-107.52-149.27872l-29.11744-29.12256L818.87744 107.52C751.5392 38.9888 711.39328 0 669.59872 0H354.4064z m0 78.72h287.20128c28.35456 7.0912 27.99616 42.1376 27.99616 76.8v120.16128c0 21.6576 17.69984 39.35744 39.36256 39.35744h118.07744c39.38816 0 78.87872-0.0256 78.87872 39.36256v512c0 43.32032-35.55328 78.87872-78.87872 78.87872H354.4064c-43.32544 0-78.72-35.5584-78.72-78.87872v-118.08256h393.91744c21.66272 0 39.36256-17.69472 39.36256-39.35744V472.64256c0-21.66272-17.69984-39.36256-39.36256-39.36256H275.68128V157.59872c0-43.32032 35.39456-78.87872 78.72-78.87872zM261.60128 485.91872h20.15744l65.28 176.64h-23.04l-19.2-54.71744h-65.28l-19.2 54.71744h-23.04l64.32256-176.64z m273.59744 0h20.16256l65.28 176.64h-23.04l-19.2-54.71744h-65.28l-19.2 54.71744h-23.04l64.31744-176.64z m-382.08 0.96256h22.08256v172.8c0 16-4.16256 28.16-12.48256 36.48-8.32 8.96-20.15744 13.44-35.51744 13.44-7.04 0-13.12256-0.96256-18.24256-2.88256v-19.2c6.4 1.28 12.8 1.92 19.2 1.92 8.32 0 14.40256-2.23744 18.24256-6.71744 4.48-4.48 6.71744-11.20256 6.71744-20.16256V486.88128z m186.24 0h24.00256l35.51744 111.36c3.2 10.88 6.72256 24.32 10.56256 40.32 1.92-11.52 5.43744-25.28256 10.55744-41.28256l35.52256-110.39744h23.04L419.9936 662.55872H397.9264L339.3536 486.88128z m-67.2 23.04c-1.92 8.96-4.79744 18.23744-8.63744 27.83744l-17.28 50.88256h51.84l-18.24256-50.88256c-3.84-10.88-6.4-20.15744-7.68-27.83744z m273.60256 0c-1.92 8.96-4.80256 18.23744-8.64256 27.83744l-17.28 50.88256h51.84l-18.23744-50.88256c-3.84-10.88-6.4-20.15744-7.68-27.83744z" x:Key="JavaIcon"/>
+		</Panel.Resources>
+		<!--JavaHelper.SearchJavaRuntime()-->
+		<ScrollViewer HorizontalScrollBarVisibility="Auto">
+			<StackPanel Margin="20,20,20,0">
+				<card:OptionsDisplayItem
+					Description="存储着你游戏核心的地方" 
+					Header="游戏文件夹设置" Expands="True"
+					IsExpanded="True" Name="gamesetting">
+					<card:OptionsDisplayItem.Content>
+						<StackPanel>
+							<Grid Grid.Row="2">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="1*" MaxWidth="100" />
+									<ColumnDefinition Width="0.10*" />
+									<ColumnDefinition Width="1*"/>
+								</Grid.ColumnDefinitions>
+								<ComboBox Items="{Binding GameFolders}" SelectedItem="{Binding CurrentGameFolder}" Grid.Column="2" FontFamily="Din Pro" Name="gamelist" HorizontalAlignment="Right"/>
+								<TextBlock TextTrimming="CharacterEllipsis" FontFamily="Din Pro" VerticalAlignment="Center" Text="当前游戏目录："/>
+							</Grid>
+							<Grid Margin="0,25,0,0">
+								<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="添加游戏目录："/>
+								<Button Command="{Binding AddGameAction}" Name="AddGame" Content="浏览" HorizontalAlignment="Right"/>
+							</Grid>
+							<Grid IsVisible="{Binding GameRemoveVisible}" Name="HasGameFolder" Margin="0,25,0,0">
+								<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="移除当前游戏目录："/>
+								<Button Background="{DynamicResource DeleteButtonBackground}" Command="{Binding OutGameAction}" Name="OutGame" Content="移除" HorizontalAlignment="Right"/>
+							</Grid>
+						</StackPanel>
+					</card:OptionsDisplayItem.Content>
+				</card:OptionsDisplayItem>
+
+				<card:OptionsDisplayItem
+					Margin="0,15,0,0" IsExpanded="True"
+					Expands="True" Name="javasetting"
+					Header="Java设置" Description="启动游戏时的必须文件">
+					<card:OptionsDisplayItem.Content>
+						<StackPanel>
+							<Grid Grid.Row="2">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="1*" MaxWidth="120" />
+									<ColumnDefinition Width="0.10*" />
+									<ColumnDefinition Width="1*"/>
+								</Grid.ColumnDefinitions>
+								<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="当前 Java 运行时："/>
+								<ComboBox SelectedItem="{Binding CurrentJava}" Items="{Binding Javas}" Grid.Column="2" Name="javalist" HorizontalAlignment="Right"/>
+							</Grid>
+							<Grid Margin="0,25,0,0">
+								<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="添加 Java 运行时："/>
+								<Button Command="{Binding AddJavaAction}" Name="AddJava" Content="浏览" HorizontalAlignment="Right"/>
+								<Button Command="{Binding FindJavasAction}" Margin="0,0,60,0" Name="FindJava" Content="自动搜索" HorizontalAlignment="Right"/>
+							</Grid>
+							<Grid IsVisible="{Binding JavaRemoveVisible}" Margin="0,25,0,0">
+								<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="移除当前 Java 运行时："/>
+								<Button Background="{DynamicResource DeleteButtonBackground}" Command="{Binding OutJavaAction}" Content="移除" HorizontalAlignment="Right"/>
+							</Grid>
+							<Grid Margin="0,25,0,0">
+								<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="游戏运行内存修改："/>
+                                <TextBox Text="{Binding MaxMemory}" Name="max" MinWidth="150" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+							</Grid>
+						</StackPanel>
+					</card:OptionsDisplayItem.Content>
+				</card:OptionsDisplayItem>
+
+				<card:OptionsDisplayItem 
+					Margin="0,15,0,10" Expands="True"
+					IsExpanded="True" Name="game1setting"
+					Header="游戏运行设置" Description="游戏运行设置">
+					<card:OptionsDisplayItem.Content>
+						<StackPanel Orientation="Vertical">
+							<Grid Margin="0">
+								<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="版本隔离："/>
+								<Grid HorizontalAlignment="Right" Width="550">
+									<ToggleSwitch IsChecked="{Binding IsOlate}" MaxWidth="0" MinWidth="75" HorizontalAlignment="Right" OnContent="开" OffContent="关" Name="isbbgl" IsTabStop="False"/>
+								</Grid>
+							</Grid>
+							<Grid Margin="0,25,0,0">
+								<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="全屏模式："/>
+								<Grid HorizontalAlignment="Right" Width="550">
+									<ToggleSwitch IsChecked="{Binding IsFullWindow}" MaxWidth="0" MinWidth="75" HorizontalAlignment="Right" OnContent="开" OffContent="关" Name="IsFull" IsTabStop="False"/>
+								</Grid>
+							</Grid>
+							<Grid Margin="0,30,0,0">
+								<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="附加Jvm参数："/>
+								<TextBox Text="{Binding Jvm}" Name="Jvm" Watermark="Jvm参数" MinWidth="200" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+							</Grid>
+						</StackPanel>
+					</card:OptionsDisplayItem.Content>
+				</card:OptionsDisplayItem>
+			</StackPanel>
+		</ScrollViewer>
+	</Panel>
+</UserControl>

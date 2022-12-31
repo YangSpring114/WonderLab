@@ -1,0 +1,47 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	         xmlns:ui="using:FluentAvalonia.UI.Controls"
+			 xmlns:wc="using:WonderLab.Modules.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="WonderLab.Views.SettingView">
+	<UserControl.Resources>
+		<ui:PathIconSource x:Key="ColorIcon" Data="M399.12 231.19c0-92.42-75.16-167.57-167.53-167.57-92.42 0-167.57 75.16-167.57 167.57 0 76.46 51.78 140.4 121.91 160.43l1.7 568.99h89.7V391.6c70.06-20.06 121.79-83.98 121.79-160.41zM231.59 327c-52.82 0-95.83-42.99-95.83-95.81 0-52.84 43.01-95.83 95.83-95.83s95.79 42.99 95.79 95.83c0 52.83-42.97 95.81-95.79 95.81zM838.31 632.61l-1.7-568.99h-89.7v569.02c-70.06 20.05-121.79 83.97-121.79 160.4 0 92.42 75.16 167.57 167.53 167.57 92.42 0 167.57-75.16 167.57-167.57 0-76.46-51.78-140.4-121.91-160.43z m-45.66 256.26c-52.82 0-95.79-42.99-95.79-95.83 0-52.82 42.97-95.81 95.79-95.81s95.83 42.99 95.83 95.81c0 52.85-43.01 95.83-95.83 95.83z"/>
+		<ui:PathIconSource x:Key="LaunchSettingIcon" Data="M260.41609691 907.70315886L389.81797199 500.33717006l-126.90269724-0.83305931 145.78537428-382.92958316H723.04168471l-113.85143517 277.68642726h153.00522143L260.41609691 907.70315886z m103.02166452-477.06528206l121.34896869 0.83305929-69.42160681 218.26153182 182.16229631-186.32759267h-91.35883461l113.85143519-277.68642727H456.46271455l-93.02495312 244.91942883z"/>
+        <ui:PathIconSource x:Key="OtherIcon" Data="M512 465.454545c-12.846545 0-23.272727 10.426182-23.272727 23.272727l0 279.272727c0 12.846545 10.426182 23.272727 23.272727 23.272727 12.846545 0 23.272727-10.426182 23.272727-23.272727l0-279.272727C535.272727 475.880727 524.846545 465.454545 512 465.454545zM512 69.818182c-257.070545 0-465.454545 208.384-465.454545 465.454545 0 257.070545 208.384 465.454545 465.454545 465.454545 257.070545 0 465.454545-208.384 465.454545-465.454545C977.454545 278.202182 769.070545 69.818182 512 69.818182zM512 954.181818c-231.377455 0-418.909091-187.531636-418.909091-418.909091 0-231.377455 187.531636-418.909091 418.909091-418.909091s418.909091 187.531636 418.909091 418.909091C930.909091 766.650182 743.377455 954.181818 512 954.181818zM512 279.272727c-25.693091 0-46.545455 20.852364-46.545455 46.545455s20.852364 46.545455 46.545455 46.545455 46.545455-20.852364 46.545455-46.545455S537.693091 279.272727 512 279.272727z"/>
+	</UserControl.Resources>
+	<Panel Margin="0,80,0,0">
+		<ui:NavigationView 
+			IsBackEnabled="False"
+			IsBackButtonVisible="False"
+			PaneDisplayMode="Top" 
+			Name="RootNavigationView"
+			IsSettingsVisible="False">
+			<ui:NavigationView.MenuItems>
+				<ui:NavigationViewItem Name="home" Tag="GameSettingView" SelectsOnInvoked="True" Icon="Message" Content="启动设置">
+					<ui:NavigationViewItem.Icon>
+						<ui:IconSourceElement IconSource="{StaticResource LaunchSettingIcon}" />
+					</ui:NavigationViewItem.Icon>
+				</ui:NavigationViewItem>
+				<ui:NavigationViewItem Tag="DownSettingView" Icon="Download" Content="下载设置"/>
+
+			</ui:NavigationView.MenuItems>
+			<ui:NavigationView.FooterMenuItems>
+				<ui:NavigationViewItem Tag="OtherView" Icon="Folder" Content="关于">
+					<ui:NavigationViewItem.Icon>
+						<ui:IconSourceElement IconSource="{StaticResource OtherIcon}" />
+					</ui:NavigationViewItem.Icon>
+				</ui:NavigationViewItem>
+			</ui:NavigationView.FooterMenuItems>
+			<Panel>
+				<wc:FrameX Name="FrameView"/>
+			</Panel>
+		</ui:NavigationView>
+	</Panel>
+</UserControl>
+<!--<ui:NavigationViewItem Name="tasks" Tag="Console" Content="个性化设置">
+	<ui:NavigationViewItem.Icon>
+		<ui:IconSourceElement IconSource="{StaticResource ColorIcon}" />
+	</ui:NavigationViewItem.Icon>
+</ui:NavigationViewItem>-->

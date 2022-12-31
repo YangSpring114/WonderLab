@@ -1,0 +1,124 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:local="using:FluentAvaloniaSamples.Controls"
+			 xmlns:card="using:ControlX"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+             x:Class="WonderLab.Views.DownView">
+	<UserControl.Resources>
+		<ui:PathIconSource Data="M464 144H160c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V160c0-8.8-7.2-16-16-16z m-52 268H212V212h200v200z m452-268H560c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V160c0-8.8-7.2-16-16-16z m-52 268H612V212h200v200z m52 132H560c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V560c0-8.8-7.2-16-16-16z m-52 268H612V612h200v200zM424 712H296V584c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v128H104c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h128v128c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V776h128c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8z" x:Key="AddCoreIcon" />
+		<ui:PathIconSource Data="M44.6 126l897.3 0 0 42.7-897.3 0 0-42.7Z" x:Key="GetModIcon1"/>
+		<ui:PathIconSource Data="M44.6 297.2l342.5 0 0 42.7-342.5 0 0-42.7Z" x:Key="GetModIcon2"/>
+		<ui:PathIconSource Data="M44.6 468.3l257.2 0 0 42.7-257.2 0 0-42.7Z" x:Key="GetModIcon3"/>
+		<ui:PathIconSource Data="M983.4 846.2 825.9 688.7c47.5-44.5 77.4-107.6 77.4-177.7 0-134.5-109.4-243.9-243.9-243.9-134.5 0-243.9 109.4-243.9 243.9s109.4 243.9 243.9 243.9c49 0 94.5-14.6 132.8-39.6l161.1 161.1L983.4 846.2zM458.2 510.9c0-111 90.3-201.2 201.2-201.2S860.6 400 860.6 510.9c0 110.9-90.3 201.2-201.2 201.2S458.2 621.9 458.2 510.9z" x:Key="GetModIcon4"/>
+		<ui:PathIconSource Data="M44.6 639.5l342.5 0 0 42.7-342.5 0 0-42.7Z" x:Key="GetModIcon5"/>
+		<ui:PathIconSource Data="M44.6 810.7l513.2 0 0 42.7-513.2 0 0-42.7Z" x:Key="GetModIcon6"/>
+		<ui:PathIconSource Data="M953.474215 908.234504l-152.576516-163.241391c61.92508-74.48211 95.81186-167.36973 95.81186-265.073744 0-229.294809-186.63531-415.930119-416.102133-415.930119-229.294809 0-415.930119 186.63531-415.930119 415.930119s186.63531 415.930119 415.930119 415.930119c60.032925 0 118.00168-12.55703 172.186125-37.327062 16.169326-7.396607 23.221905-26.318159 15.825298-42.315471-7.396607-16.169326-26.318159-23.221905-42.315471-15.825298-45.927768 20.813707-94.951789 31.478582-145.695952 31.478582-194.031917 0-351.94087-157.908953-351.94087-351.94087 0-194.031917 157.908953-351.94087 351.94087-351.94087 194.031917 0 351.94087 157.908953 351.94087 351.94087 0 91.339493-34.918864 177.86259-98.048043 243.743995-12.213002 12.729044-11.868974 33.026709 0.860071 45.239711 1.032085 0.860071 2.236183 1.204099 3.268268 2.064169 0.860071 1.204099 1.376113 2.752226 2.408198 3.95625l165.477574 177.00252c6.192508 6.70855 14.793214 10.148833 23.393919 10.148833 7.912649 0 15.653284-2.92424 21.845792-8.600706C964.827146 941.433227 965.515202 921.135562 953.474215 908.234504z" x:Key="GetModIcon"/>
+		<ui:PathIconSource Data="M354.40128 0c-87.04 0-157.44 70.55872-157.44 157.59872v275.68128H78.72c-21.6576 0-39.36256 17.69984-39.36256 39.36256v236.31872c0 21.6576 17.69984 39.35744 39.36256 39.35744h118.24128v118.08256c0 87.04 70.4 157.59872 157.44 157.59872h472.63744c87.04 0 157.59872-70.55872 157.59872-157.59872V315.0336c0-41.74848-38.9888-81.93024-107.52-149.27872l-29.11744-29.12256L818.87744 107.52C751.5392 38.9888 711.39328 0 669.59872 0H354.4064z m0 78.72h287.20128c28.35456 7.0912 27.99616 42.1376 27.99616 76.8v120.16128c0 21.6576 17.69984 39.35744 39.36256 39.35744h118.07744c39.38816 0 78.87872-0.0256 78.87872 39.36256v512c0 43.32032-35.55328 78.87872-78.87872 78.87872H354.4064c-43.32544 0-78.72-35.5584-78.72-78.87872v-118.08256h393.91744c21.66272 0 39.36256-17.69472 39.36256-39.35744V472.64256c0-21.66272-17.69984-39.36256-39.36256-39.36256H275.68128V157.59872c0-43.32032 35.39456-78.87872 78.72-78.87872zM261.60128 485.91872h20.15744l65.28 176.64h-23.04l-19.2-54.71744h-65.28l-19.2 54.71744h-23.04l64.32256-176.64z m273.59744 0h20.16256l65.28 176.64h-23.04l-19.2-54.71744h-65.28l-19.2 54.71744h-23.04l64.31744-176.64z m-382.08 0.96256h22.08256v172.8c0 16-4.16256 28.16-12.48256 36.48-8.32 8.96-20.15744 13.44-35.51744 13.44-7.04 0-13.12256-0.96256-18.24256-2.88256v-19.2c6.4 1.28 12.8 1.92 19.2 1.92 8.32 0 14.40256-2.23744 18.24256-6.71744 4.48-4.48 6.71744-11.20256 6.71744-20.16256V486.88128z m186.24 0h24.00256l35.51744 111.36c3.2 10.88 6.72256 24.32 10.56256 40.32 1.92-11.52 5.43744-25.28256 10.55744-41.28256l35.52256-110.39744h23.04L419.9936 662.55872H397.9264L339.3536 486.88128z m-67.2 23.04c-1.92 8.96-4.79744 18.23744-8.63744 27.83744l-17.28 50.88256h51.84l-18.24256-50.88256c-3.84-10.88-6.4-20.15744-7.68-27.83744z m273.60256 0c-1.92 8.96-4.80256 18.23744-8.64256 27.83744l-17.28 50.88256h51.84l-18.23744-50.88256c-3.84-10.88-6.4-20.15744-7.68-27.83744z" x:Key="JavaIcon"/>
+	</UserControl.Resources>
+	<ScrollViewer>
+		<StackPanel Margin="20">
+			<ui:ContentDialog x:Name="JavaInstallDialog" Classes="WinUiPro">
+				<ui:ContentDialog.Content>
+					<Grid Width="450">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="1*" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<TextBlock
+							Grid.Row="0"
+							Margin="0,0,0,10"
+							HorizontalAlignment="Left"
+							VerticalAlignment="Center"
+							FontSize="18"
+							FontWeight="Bold"
+							Text="安装新的 Java 运行时" />
+						<Grid Grid.Row="1" HorizontalAlignment="Stretch">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="1*" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<StackPanel>
+								<ComboBox
+									Margin="0,0,0,15"
+									HorizontalAlignment="Stretch"
+									Items="{Binding DownloadSources.Keys}"
+									PlaceholderText="OpenJDK 版本"
+									SelectedItem="{Binding CurrentDownloadSource, Mode=TwoWay}" />
+								<ComboBox
+									HorizontalAlignment="Stretch"
+									Items="{Binding Urls}"
+									PlaceholderText="下载源"
+									SelectedItem="{Binding CurrentUrl, Mode=TwoWay}">
+									<ComboBox.ItemTemplate>
+										<DataTemplate>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock TextTrimming="CharacterEllipsis" Text="{Binding Key}"/>
+												<!--<TextBlock Opacity="0.65" Foreground="White" TextTrimming="CharacterEllipsis" Text=" ("/>
+											<TextBlock Opacity="0.65" Foreground="White" TextTrimming="CharacterEllipsis" Text="{Binding Value}"/>
+											<TextBlock Opacity="0.65" Foreground="White" TextTrimming="CharacterEllipsis" Text=")"/>-->
+											</StackPanel>
+										</DataTemplate>
+									</ComboBox.ItemTemplate>
+								</ComboBox>
+							</StackPanel>
+						</Grid>
+						<StackPanel
+							Grid.Row="2"
+							Margin="0,10,0,0"
+							HorizontalAlignment="Right"
+							VerticalAlignment="Center"
+							Orientation="Horizontal">
+							<Button
+								Width="75" Click="ConfirmButton_Click"
+								Classes="accent"
+								Foreground="White"
+								IsEnabled="{Binding ConfirmEnabled, Mode=OneWay}">
+								<TextBlock Text="确定" />
+							</Button>
+							<Button
+								Width="75"
+								Margin="15,0,0,0"
+								Click="CancelButton_Click">
+								<TextBlock Text="取消" />
+							</Button>
+						</StackPanel>
+					</Grid>
+				</ui:ContentDialog.Content>
+			</ui:ContentDialog>
+			<local:OptionsDisplayItem Header="安装新的核心"
+									  Description="您可以在此页面安装新的游戏核心，核心将被安装至您选择的目录"
+									  Navigates="True"
+									  Name="coredown"
+									  NavigationCommand="{Binding NavigationToDownGameCore}">
+				<local:OptionsDisplayItem.Icon>
+					<ui:IconSourceElement IconSource="{StaticResource AddCoreIcon}" />
+				</local:OptionsDisplayItem.Icon>
+			</local:OptionsDisplayItem>
+			<local:OptionsDisplayItem NavigationCommand="{Binding NavigationToDownMod}" Header="搜索、下载模组" Margin="0,10,0,0" Navigates="True"
+							  Description="您可以在此页面搜索和下载模组，之后将由WonderLab自动安装至您选择的核心目录">
+				<local:OptionsDisplayItem.Icon>
+					<ui:IconSourceElement IconSource="{StaticResource GetModIcon}"/>
+				</local:OptionsDisplayItem.Icon>
+			</local:OptionsDisplayItem>
+			<local:OptionsDisplayItem Name="JavaInstall" Header="安装新的 Java 运行时" Icon="Save" Margin="0,10,0,0"
+					  Description="安装新的 Java 运行时，它将被安装至主磁盘目录"
+					  Navigates="True">
+				<local:OptionsDisplayItem.Icon>
+					<ui:IconSourceElement IconSource="{StaticResource JavaIcon}"/>
+				</local:OptionsDisplayItem.Icon>
+			</local:OptionsDisplayItem>
+			<local:OptionsDisplayItem NavigationCommand="{Binding NavigationToDown}" Header="自定义下载" Margin="0,10,0,0"
+			  Description="如名，一个简单的下载器"
+			 IsEnabled="False" Background="{DynamicResource ControlFillColorTertiaryBrush}"
+			  Navigates="True">
+				<local:OptionsDisplayItem.Icon>
+					<ui:SymbolIcon Symbol="Download"/>
+				</local:OptionsDisplayItem.Icon>
+			</local:OptionsDisplayItem>
+		</StackPanel>
+	</ScrollViewer>
+</UserControl>

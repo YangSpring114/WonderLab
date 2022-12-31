@@ -1,0 +1,280 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:nflc="using:Natsurainko.FluentCore.Class.Model.Install.Vanilla"
+			 xmlns:model="clr-namespace:Natsurainko.FluentCore.Class.Model.Install.Vanilla;assembly=Natsurainko.FluentCore"
+             xmlns:wonder="using:WonderLab.Modules.Models"
+	         xmlns:ui="using:FluentAvalonia.UI.Controls"
+			 xmlns:card="using:FluentAvaloniaSamples.Controls"
+			 xmlns:wvm="using:WonderLab.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="850"
+			 xmlns:cx="using:ControlX"
+			 Margin="0,80,0,0"
+             x:Class="WonderLab.Views.DownGameView">
+	<UserControl.Resources>
+		<ui:SymbolIconSource x:Key="SaveIcon" Symbol="Download" FontSize="25" />
+	</UserControl.Resources>
+	<Panel> 
+		<ScrollViewer Margin="0,0,0,50" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+			<StackPanel>
+				<TextBlock FontSize="16" Margin="20,20,0,0" FontWeight="Bold" Text="安装新的核心"/>
+				<cx:OptionsDisplayItem
+					Margin="20,15,20,0"
+					Name="versionex"
+					Expands="True" 
+					IsExpanded="{Binding IsExpand}"
+					Description="{Binding CurrentGameCoreType}"
+					Header="{Binding CurrentGameCore}">
+					<cx:OptionsDisplayItem.Content>
+						<Grid>
+							<ListBox SelectedItem="{Binding SelectedGameCore}"
+									 Items="{Binding GameCores}" Height="250">
+								<ListBox.ItemTemplate>
+									<DataTemplate DataType="{x:Type wonder:TransformationModel}">
+										<StackPanel>
+											<!--<Image Source=""/>-->
+											<StackPanel Orientation="Vertical">
+												<TextBlock Text="{Binding Id}"/>
+												<TextBlock Opacity="0.65" FontSize="12" Text="{Binding Type}"/>
+											</StackPanel>
+										</StackPanel>
+									</DataTemplate>
+								</ListBox.ItemTemplate>
+							</ListBox>
+							<ProgressBar IsHitTestVisible="{Binding IsGameListLoadOk}" IsVisible="{Binding IsGameListLoadOk}" VerticalAlignment="Center" HorizontalAlignment="Center" Classes="Circle" IsIndeterminate="True" Height="80" Width="80"/>							
+						</Grid>
+					</cx:OptionsDisplayItem.Content>
+				</cx:OptionsDisplayItem>
+				 
+				
+				<StackPanel Orientation="Horizontal" Margin="20,5,0,0">
+					<CheckBox IsChecked="{Binding Normal}" Command="{Binding SelectedRelease}" FontFamily="Din Pro" Name="Normal" Content="只显示正式版"/>
+					<CheckBox IsChecked="{Binding New}" Command="{Binding SelectedSnapshot}" FontFamily="Din Pro" Name="New" Content="只显示快照版"/>
+					<CheckBox IsChecked="{Binding Old}" Command="{Binding SelectedOldData}" FontFamily="Din Pro" Name="Old" Content="只显示远古版"/>
+				</StackPanel>
+				<Border Margin="20,5,20,5" Height="50" CornerRadius="4" Background="{DynamicResource ControlFillColorDefaultBrush}">
+					<Panel>
+						<TextBlock DockPanel.Dock="Left" Text="启用独立版本设置" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,0,0,0"/>
+						<ToggleSwitch IsChecked="{Binding IsEnableIndependencyCore}" MaxWidth="0" MinWidth="55" HorizontalAlignment="Right" OnContent="" OffContent="" IsTabStop="False"/>
+					</Panel>
+				</Border>
+				<Border Margin="20,5,20,5" Height="50" CornerRadius="4" Background="{DynamicResource ControlFillColorDefaultBrush}">
+					<Panel>
+						<TextBlock DockPanel.Dock="Left" Text="启用加载器" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,0,0,0"/>
+						<ToggleSwitch IsEnabled="{Binding CurrentGameCore,Converter={StaticResource BoolConverter}}" IsChecked="{Binding HasModLoader}" Name="HasModLoader" MaxWidth="0" MinWidth="55" HorizontalAlignment="Right" OnContent="" OffContent="" IsTabStop="False"/>
+					</Panel>
+				</Border>
+
+				<cx:OptionsDisplayItem Expands="{Binding CurrentForgeDescription,Converter={StaticResource LoaderEnabledConverter}}"
+									   IsEnabled="{Binding CurrentForgeDescription,Converter={StaticResource LoaderEnabledConverter}}"
+									   IsExpanded="False" Description="{Binding CurrentForgeDescription}" Header="Forge"
+									   IsVisible="{Binding ElementName=HasModLoader,Path=IsChecked}" Margin="20,10,20,10">
+					<cx:OptionsDisplayItem.Content>
+						<Grid>
+							<ListBox SelectedItem="{Binding SelectForge}"
+		                             Items="{Binding Forges}" Height="250">
+								<ListBox.ItemTemplate>
+									<DataTemplate> 
+										<StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,10">
+											<!--<Image Source=""/>-->
+											<StackPanel Orientation="Vertical">
+												<TextBlock Text="{Binding Data.LoaderName}"/>
+												<StackPanel Orientation="Horizontal">
+													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text="{Binding Data.Version}"/>
+													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text=" - "/>
+													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text="{Binding Data.McVersion}"/>
+													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text=" "/>
+													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text="{Binding Data.ReleaseTime}"/>												</StackPanel>
+											</StackPanel>
+										</StackPanel>
+									</DataTemplate>
+								</ListBox.ItemTemplate>
+							</ListBox>
+							<ProgressBar IsHitTestVisible="{Binding IsForgeListLoadOk}" IsVisible="{Binding IsForgeListLoadOk}" VerticalAlignment="Center" HorizontalAlignment="Center" Classes="Circle" IsIndeterminate="True" Height="80" Width="80"/>
+						</Grid>
+					</cx:OptionsDisplayItem.Content>
+					<cx:OptionsDisplayItem.ActionButton>
+						<Button IsVisible="{Binding ForgeRemoveVisible}" Command="{Binding RemoveForge}">
+							<Button.Styles>
+								<Style Selector="Button">
+									<Setter Property="Height" Value="30"/>
+									<Setter Property="Width" Value="30"/>
+									<Setter Property="Background" Value="Transparent"/>
+									<Setter Property="Template">
+										<Setter.Value>
+											<ControlTemplate>
+												<Border x:Name="LayMain"
+														CornerRadius="4"
+														Width="{TemplateBinding Width}"
+														Background="{TemplateBinding Background}">
+													<Border.Transitions>
+														<Transitions>
+															<DoubleTransition Property="Width" Duration="0:0:0.08" Easing="CircularEaseOut"/>
+															<BrushTransition Property="Background" Duration="0:0:0.08"/>
+														</Transitions>
+													</Border.Transitions>
+													<ui:SymbolIcon Symbol="Dismiss"/>
+												</Border>
+											</ControlTemplate>
+										</Setter.Value>
+									</Setter>
+								</Style>
+								<Style Selector="Button:pointerover">
+									<Setter Property="Background" Value="#10FFFFFF"/>
+								</Style>
+								<Style Selector="Button:pressed">
+									<Setter Property="Background" Value="#00FFFFFF"/>
+								</Style>
+							</Button.Styles>
+						</Button>
+					</cx:OptionsDisplayItem.ActionButton>
+				</cx:OptionsDisplayItem>
+				<cx:OptionsDisplayItem IsEnabled="{Binding CurrentFabricDescription,Converter={StaticResource LoaderEnabledConverter}}"
+									   IsExpanded="False" Description="{Binding CurrentFabricDescription}" Header="Fabric"
+									   Expands="{Binding CurrentFabricDescription,Converter={StaticResource LoaderEnabledConverter}}" IsVisible="{Binding ElementName=HasModLoader,Path=IsChecked}" Margin="20,0,20,10">
+					<cx:OptionsDisplayItem.Content>
+						<Grid>
+							<ListBox SelectedItem="{Binding SelectFabric}"
+		                             Items="{Binding Fabrics}" Height="250">
+								<ListBox.ItemTemplate>
+									<DataTemplate>
+										<StackPanel  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,10">
+											<!--<Image Source=""/>-->
+											<StackPanel Orientation="Vertical">
+												<TextBlock Text="{Binding Data.LoaderName}"/>
+												<StackPanel Orientation="Horizontal">
+													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text="{Binding Data.Version}"/>
+													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text=" - "/>
+													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text="{Binding Data.McVersion}"/>
+													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text=" "/>
+													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text="{Binding Data.ReleaseTime}"/>												</StackPanel>
+											</StackPanel>
+										</StackPanel>
+									</DataTemplate>
+								</ListBox.ItemTemplate>								
+							</ListBox>
+							<ProgressBar IsHitTestVisible="{Binding IsFabricListLoadOk}" IsVisible="{Binding IsFabricListLoadOk}" VerticalAlignment="Center" HorizontalAlignment="Center" Classes="Circle" IsIndeterminate="True" Height="80" Width="80"/>
+						</Grid>
+					</cx:OptionsDisplayItem.Content>
+					<cx:OptionsDisplayItem.ActionButton>
+						<Button IsVisible="{Binding FabricRemoveVisible}" Command="{Binding RemoveFabric}">
+							<Button.Styles>
+								<Style Selector="Button">
+									<Setter Property="Height" Value="30"/>
+									<Setter Property="Width" Value="30"/>
+									<Setter Property="Background" Value="Transparent"/>
+									<Setter Property="Template">
+										<Setter.Value>
+											<ControlTemplate>
+												<Border x:Name="LayMain"
+														CornerRadius="4"
+														Width="{TemplateBinding Width}"
+														Background="{TemplateBinding Background}">
+													<Border.Transitions>
+														<Transitions>
+															<DoubleTransition Property="Width" Duration="0:0:0.08" Easing="CircularEaseOut"/>
+															<BrushTransition Property="Background" Duration="0:0:0.08"/>
+														</Transitions>
+													</Border.Transitions>
+													<ui:SymbolIcon Symbol="Dismiss"/>
+												</Border>
+											</ControlTemplate>
+										</Setter.Value>
+									</Setter>
+								</Style>
+								<Style Selector="Button:pointerover">
+									<Setter Property="Background" Value="#10FFFFFF"/>
+								</Style>
+								<Style Selector="Button:pressed">
+									<Setter Property="Background" Value="#00FFFFFF"/>
+								</Style>
+							</Button.Styles>
+						</Button>
+					</cx:OptionsDisplayItem.ActionButton>
+				</cx:OptionsDisplayItem>
+				<cx:OptionsDisplayItem IsEnabled="{Binding CurrentOpitfineDescription,Converter={StaticResource LoaderEnabledConverter}}"
+									   IsExpanded="False" Description="{Binding CurrentOpitfineDescription}" Header="Optifine"
+									   Expands="{Binding CurrentOpitfineDescription,Converter={StaticResource LoaderEnabledConverter}}"
+									   IsVisible="{Binding ElementName=HasModLoader,Path=IsChecked}" Margin="20,0,20,30">
+					<cx:OptionsDisplayItem.Content>
+						<Grid>
+							<ListBox SelectedItem="{Binding SelectOptiFine}"
+		                             Items="{Binding OptiFines}" Height="250">
+								<ListBox.ItemTemplate>
+									<DataTemplate>
+										<StackPanel  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,10">
+											<!--<Image Source=""/>-->
+											<StackPanel Orientation="Vertical">
+												<TextBlock Text="{Binding Data.LoaderName}"/>
+												<StackPanel Orientation="Horizontal">
+													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text="{Binding Data.Version}"/>
+													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text=" - "/>
+													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text="{Binding Data.McVersion}"/>
+													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text=" "/>
+													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text="{Binding Data.ReleaseTime}"/>
+												</StackPanel>
+											</StackPanel>
+										</StackPanel>
+									</DataTemplate>
+								</ListBox.ItemTemplate>
+							</ListBox>
+							<ProgressBar IsHitTestVisible="{Binding IsOptiFineListLoadOk}" IsVisible="{Binding IsOptiFineListLoadOk}" VerticalAlignment="Center" HorizontalAlignment="Center" Classes="Circle" IsIndeterminate="True" Height="80" Width="80"/>
+						</Grid>
+					</cx:OptionsDisplayItem.Content>
+					<cx:OptionsDisplayItem.ActionButton>
+						<Button IsVisible="{Binding OptifineRemoveVisible}" Command="{Binding RemoveOptiFine}">
+							<Button.Styles>
+								<Style Selector="Button">
+									<Setter Property="Height" Value="30"/>
+									<Setter Property="Width" Value="30"/>
+									<Setter Property="Background" Value="Transparent"/>
+									<Setter Property="Template">
+										<Setter.Value>
+											<ControlTemplate>
+												<Border x:Name="LayMain"
+														CornerRadius="4"
+														Width="{TemplateBinding Width}"
+														Background="{TemplateBinding Background}">
+													<Border.Transitions>
+														<Transitions>
+															<DoubleTransition Property="Width" Duration="0:0:0.08" Easing="CircularEaseOut"/>
+															<BrushTransition Property="Background" Duration="0:0:0.08"/>
+														</Transitions>
+													</Border.Transitions>
+													<ui:SymbolIcon Symbol="Dismiss"/>
+												</Border>
+											</ControlTemplate>
+										</Setter.Value>
+									</Setter>
+								</Style>
+								<Style Selector="Button:pointerover">
+									<Setter Property="Background" Value="#10FFFFFF"/>
+								</Style>
+								<Style Selector="Button:pressed">
+									<Setter Property="Background" Value="#00FFFFFF"/>
+								</Style>
+							</Button.Styles>
+						</Button>
+					</cx:OptionsDisplayItem.ActionButton>
+				</cx:OptionsDisplayItem>
+			</StackPanel>
+		</ScrollViewer>
+
+		<Grid Grid.Row="2" VerticalAlignment="Bottom" Background="{DynamicResource ControlFillColorDefaultBrush}">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="1*"/>
+				<ColumnDefinition Width="0.10*" MaxWidth="10"/>
+				<ColumnDefinition MaxWidth="160" Width="1*"/>
+			</Grid.ColumnDefinitions>
+			<Button Click="ButtonClick" Grid.Column="2" Command="{Binding InstallAsync}" Width="150" Name="InstallGame" HorizontalAlignment="Right" Margin="0,10,10,10" Content="安装" Classes="accent" />
+			<Grid HorizontalAlignment="Left" Margin="10,0,0,0" >
+				<ui:IconSourceElement HorizontalAlignment="Left" IconSource="{StaticResource SaveIcon}" />
+				<Grid Margin="30,0,0,0" VerticalAlignment="Center">
+					<TextBlock Margin="0,0,0,10" Name="downversion" Text="{Binding DownloadCore}" FontFamily="Din Pro"/>
+					<TextBlock TextTrimming="CharacterEllipsis" Margin="0,17,0,0" FontSize="12" Name="downloader" Opacity="0.65" Text="{Binding DownloadCoreType}"/>
+				</Grid>
+			</Grid>
+		</Grid>
+	</Panel>
+</UserControl>

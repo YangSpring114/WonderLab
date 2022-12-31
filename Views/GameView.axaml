@@ -1,0 +1,244 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	         xmlns:ui="using:FluentAvalonia.UI.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:super="using:WonderLab.Modules.Models"	 
+			 xmlns:models="using:WonderLab.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="WonderLab.Views.GameView">
+	<Grid Margin="0 90 0 0">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<!--工具条-->
+		<ScrollViewer Margin="30 0 30 0" HorizontalScrollBarVisibility="Auto" 
+					  HorizontalAlignment="Left" x:Name="ScrollViewerHost" Classes="FluentLauncherUI">
+			<StackPanel x:Name="ts" Margin="0,0,0,10" Orientation="Horizontal">
+				<ComboBox SelectedItem="{Binding SelectedFooler}" Items="{Binding FodlerList}" Name="fodlercombo" VerticalAlignment="Center" Width="200"/>
+				<Rectangle VerticalAlignment="Center" Height="28" Margin="10,0,10,0" Fill="White" Opacity="0.25" Width="1"/>
+				<ui:Button Command="{Binding NavigatedToDownView}" Name="addgame" VerticalAlignment="Center" Width="130">
+					<ui:Button.Content>
+						<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+							<ui:SymbolIcon HorizontalAlignment="Center" VerticalAlignment="Center" Symbol="Add"/>
+							<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontFamily="DIN Pro" Text="安装新的核心"/>
+						</StackPanel>
+					</ui:Button.Content>
+				</ui:Button>
+				<Rectangle VerticalAlignment="Center" Height="28" Margin="10,0,10,0" Fill="White" Opacity="0.25" Width="1"/>
+				<TextBox Name="eee" MinWidth="150" MaxWidth="200"/>
+				<Rectangle VerticalAlignment="Center" Height="28" Margin="10,0,10,0" Fill="White" Opacity="0.25" Width="1"/>
+				<ComboBox SelectedIndex="{Binding SelectCoreSortOption}" Items="{Binding CoreSortOption}" VerticalAlignment="Center" MinWidth="120"/>
+				<Rectangle VerticalAlignment="Center" Height="28" Margin="10,0,10,0" Fill="White" Opacity="0.25" Width="1"/>
+				<ComboBox SelectedIndex="{Binding SelectCoreVisibilityOption}" Items="{Binding CoreVisibilityOption}" Margin="0,0,10,0" VerticalAlignment="Center" MinWidth="120"/>
+			</StackPanel>
+		</ScrollViewer>
+
+
+		<!--Click="NavigationToModInfo"-->
+		<!--Click="MenuFlyoutItem_Click"-->
+		<ListBox
+	      x:Name="CoresList"		  
+	      Grid.Row="1"
+	      Margin="0,-2.5,0,7.5"
+	      Padding="30,0"
+	      Background="Transparent"
+	      Items="{Binding GameCores}"
+	      SelectedItem="{Binding CurrentGameCore, Mode=TwoWay}">
+			<ListBox.Styles>
+				<Style Selector="ListBoxItem">
+					<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+					<Setter Property="BorderBrush" Value="Transparent" />
+					<Setter Property="BorderThickness" Value="0" />
+					<Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}"/>
+					<Setter Property="Margin" Value="0,3" />
+					<Setter Property="Template">
+						<Setter.Value>
+							<ControlTemplate TargetType="ListBoxItem">
+								<Grid Background="Transparent">
+									<Border
+										Height="{TemplateBinding Height}"
+										BorderBrush="{TemplateBinding BorderBrush}"
+										BorderThickness="{TemplateBinding BorderThickness}"
+										CornerRadius="5">
+										<ContentPresenter
+											Height="{TemplateBinding Height}"
+											HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+											VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+									</Border>
+
+									<Border Name="BackBorder"
+											HorizontalAlignment="Stretch"
+											VerticalAlignment="Stretch"
+											CornerRadius="8"
+											Height="60"
+											Background="{TemplateBinding Background}">
+									</Border>
+
+									<Border Name="OpBorder"
+				                            HorizontalAlignment="Stretch"
+				                            VerticalAlignment="Stretch"
+				                            CornerRadius="8"
+				                            Height="60"/>
+									<StackPanel Orientation="Horizontal" Name="ButtonsPanel" IsHitTestVisible="True" Margin="10,10" Height="30" HorizontalAlignment="Right">
+										<!--Placement="BottomEdgeAlignedRight"-->
+										<Button Width="80" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ButtonClick" Content="启动"></Button>
+										
+										<Button Margin="10,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+											<ui:SymbolIcon FontSize="16" Symbol="Setting"/>
+											<Button.Flyout>
+												<ui:MenuFlyout Placement="BottomEdgeAlignedRight">
+													<ui:MenuFlyoutItem Click="ButtonClick" FontSize="12" Text="启动该核心">
+														<ui:MenuFlyoutItem.Icon>
+															<ui:SymbolIcon Foreground="#8AE28A" Symbol="Play"/>
+														</ui:MenuFlyoutItem.Icon>
+													</ui:MenuFlyoutItem>
+
+													<ui:MenuFlyoutItem Click="ButtonClick2" FontSize="12" Text="重命名该核心">
+														<ui:MenuFlyoutItem.Icon>
+															<ui:SymbolIcon Foreground="#55AAFF" Symbol="Rename" />
+														</ui:MenuFlyoutItem.Icon>
+													</ui:MenuFlyoutItem>
+
+													<ui:MenuFlyoutItem FontSize="12" Text="删除该核心">
+														<ui:MenuFlyoutItem.Icon>
+															<ui:SymbolIcon Foreground="#F44B56" Symbol="Delete" />
+														</ui:MenuFlyoutItem.Icon>
+													</ui:MenuFlyoutItem>
+
+													<ui:MenuFlyoutItem Click="ButtonClick1" FontSize="12" Text="属性">
+														<ui:MenuFlyoutItem.Icon>
+															<ui:SymbolIcon Foreground="#92CAF4" Symbol="Target" />
+														</ui:MenuFlyoutItem.Icon>
+													</ui:MenuFlyoutItem>
+												</ui:MenuFlyout>
+											</Button.Flyout>
+										</Button>
+									</StackPanel>
+									
+									<Grid IsHitTestVisible="False" HorizontalAlignment="Stretch">
+										<Grid Margin="0,0,-60,0">
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="Auto" />
+												<ColumnDefinition Width="1*" />
+												<ColumnDefinition Width="Auto" />
+											</Grid.ColumnDefinitions>
+										</Grid>
+										<Border HorizontalAlignment="Left" Height="35" Width="35" Margin="20,10" CornerRadius="5">
+											<Border.Background>
+												<ImageBrush Source="{Binding HasModLoader,Mode=OneWay,Converter={StaticResource BitmapConverter}}"/>
+											</Border.Background>
+										</Border>
+										<Panel Margin="65,0,0,0" Grid.Column="1">
+											<TextBlock TextTrimming="CharacterEllipsis" Margin="0,15,10,0" FontSize="15" FontFamily="Din" Text="{Binding Id,Mode=OneWay}" />
+											<TextBlock Margin="0,34,10,0" TextTrimming="CharacterEllipsis" FontSize="12" Opacity="0.65" FontFamily="Din Pro" Text="{Binding Type,Mode=OneWay}" />
+										</Panel>
+									</Grid>
+								</Grid>
+							</ControlTemplate>
+						</Setter.Value>
+					</Setter>
+				</Style>
+
+				<Style Selector="ListBoxItem /template/ StackPanel#ButtonsPanel">
+					<Setter Property="IsVisible" Value="False"/>
+				</Style>
+
+				<Style Selector="ListBoxItem:pointerover /template/ StackPanel#ButtonsPanel">
+					<Setter Property="IsVisible" Value="True"/>
+				</Style>
+
+				<Style Selector="ListBoxItem:pointerover /template/ Border#BackBorder">
+					<Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+				</Style>
+
+				<Style Selector="ListBoxItem:selected /template/ Border#BackBorder">
+					<Setter Property="Background" Value="{DynamicResource SystemAccentColorDark1}" />
+				</Style>
+
+				<Style Selector="ListBoxItem:selected /template/ Border#BackBorder:pointerover">
+					<Setter Property="Background" Value="{DynamicResource SystemAccentColorDark2}" />
+				</Style>
+
+			</ListBox.Styles>
+		</ListBox>
+
+
+		<ui:ContentDialog x:Name="ChangeNameDialog" Classes="WinUiPro">
+			<ui:ContentDialog.Content>
+				<!--<StackPanel Orientation="Vertical">
+					<TextBlock FontWeight="Bold" FontSize="16" Text="请输入新的游戏核心名"/>
+					<TextBox Watermark="在此键入新的游戏核心名"/>
+				</StackPanel>-->
+
+				<Grid Width="450">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="1*" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+					<TextBlock
+						Grid.Row="0"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Center"
+						FontSize="18"
+						FontWeight="Bold"
+						Text="更改游戏核心名" />
+
+					<StackPanel
+	                      Grid.Row="1"
+	                      Margin="0,10"
+	                      HorizontalAlignment="Stretch">
+						<TextBox FontFamily="Din Pro" Text="{Binding NewGameCoreName}" Margin="0,10,0,0" Watermark="在此键入新的游戏核心名" HorizontalAlignment="Stretch"/>
+					</StackPanel>
+					<StackPanel
+						Grid.Row="2"
+						HorizontalAlignment="Right"
+						VerticalAlignment="Center"
+						Orientation="Horizontal">
+						<Button Name="OkButton"
+							Width="75" Click="ChangeGameCoreNameClick"
+							Foreground="White"
+							Classes="accent">
+							<TextBlock Text="确定" />
+						</Button>
+						<Button Click="CancelButtonClick"
+							Width="75"
+							Margin="15,0,0,0"
+							Foreground="White">
+							<TextBlock Text="取消" />
+						</Button>
+					</StackPanel>
+				</Grid>
+			</ui:ContentDialog.Content>
+		</ui:ContentDialog>
+
+		
+		<StackPanel IsVisible="False"
+					HorizontalAlignment="Center"
+					IsHitTestVisible="False" Grid.Row="1"
+					Name="IsCoreHave" VerticalAlignment="Center" Orientation="Vertical">
+			<TextBlock Opacity="0.85" FontFamily="DIN Pro" FontWeight="Bold" FontSize="25" HorizontalAlignment="Center" Text="未找到任何游戏核心"/>
+			<TextBlock Opacity="0.65" FontFamily="DIN Pro" FontSize="16" HorizontalAlignment="Center" Text="可能是您指定的文件夹目录下没有游戏导致的"/>
+		</StackPanel>
+		<!--Margin="0,0,0,100"-->
+		<StackPanel Grid.Row="1"	                
+	                HorizontalAlignment="Center"
+	                VerticalAlignment="Center"
+					IsHitTestVisible="{Binding IsCoresHas}"
+	                IsVisible="{Binding IsCoresHas}">
+			<TextBlock
+                HorizontalAlignment="Center"
+                FontSize="28"
+                FontWeight="Bold"
+                Text="未找到任何游戏核心" />
+			<ui:HyperlinkButton Command="{Binding NavigatedToDownView}"
+                Margin="0,5,0,0" FontSize="18"
+                HorizontalAlignment="Center"
+                Content="{Binding TipsLink,Mode=OneWay}"
+                FontWeight="Bold"
+                Opacity="0.75" />
+		</StackPanel>
+	</Grid>
+</UserControl>

@@ -1,0 +1,201 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+             x:Class="WonderLab.Views.UsersView">
+	<Grid Margin="0,100,0,0">
+		
+		<ui:ContentDialog Classes="WinUiPro" x:Name="AuthenticatorTypeDialog">
+			<ui:ContentDialog.Content>
+				<Grid Width="450">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="1*" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+					<TextBlock
+						Grid.Row="0"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Center"
+						FontSize="18"
+						FontWeight="Bold"
+						Text="添加新的账户" />
+					<StackPanel
+						Grid.Row="1"
+						Margin="0,10"
+						HorizontalAlignment="Stretch">
+						<TextBlock Margin="0,0,0,5" Text="账户验证器类型：" />
+						<ComboBox SelectedItem="{Binding SelectedAuthenticator}" HorizontalAlignment="Stretch" Items="{Binding Authenticators}"/>
+					</StackPanel>
+					<StackPanel
+						Grid.Row="2"
+						HorizontalAlignment="Right"
+						VerticalAlignment="Center"
+						Orientation="Horizontal">
+						<Button Name="OkButton"
+							Width="75" Command="{Binding AuthAsync}"						
+							Foreground="White"
+							Classes="accent">
+							<TextBlock Text="确定" />
+						</Button>
+						<Button Click="CancelButtonClick"
+							Width="75"
+							Margin="15,0,0,0">
+							<TextBlock Text="取消" />
+						</Button>
+					</StackPanel>
+				</Grid>
+			</ui:ContentDialog.Content>
+		</ui:ContentDialog>
+
+		<ui:ContentDialog Classes="WinUiPro" x:Name="LoginDialog">
+			<Grid Width="450">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="1*" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+
+				<TextBlock
+                    Grid.Row="0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="18"
+                    FontWeight="Bold"
+                    Text="{Binding LoginDialogTitle}" />
+				
+				<Grid Margin="0 10" Grid.Row="1" HorizontalAlignment="Stretch">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="1*" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+					<StackPanel Name="InfoPanel">
+						<TextBox IsVisible="{Binding FirstBoxVisibility}"
+                            Margin="0,0,0,15" Text="{Binding UrlTextBoxText}"
+                            Watermark="外置登录服务器地址："/>
+						<TextBox Text="{Binding TextBoxText}"
+                            Watermark="用户名：" IsVisible="{Binding TextBoxVisibility}"/>
+						<TextBox Text="{Binding PasswordBoxText}"
+							PasswordChar="*" IsVisible="{Binding PasswordBoxVisibility}"
+                            Margin="0,15,0,0"
+                            Watermark="密码："/>
+						<TextBlock Text="{Binding DeviceInfo}" Margin="0,0,0,8" FontSize="18" Opacity="0.85" Name="dcheader"/>
+						<TextBlock Text="{Binding DeviceTips}" TextWrapping="Wrap" FontSize="12" Opacity="0.65" Name="dcInfo"/>
+						<TextBlock Margin="0,5,0,0" TextWrapping="Wrap" FontSize="12" Opacity="0.65" Name="dcstate"/>
+						<ProgressBar IsVisible="{Binding ProgressBarVisibility}" Name="load" Margin="0,5,0,0" IsIndeterminate="True"/>
+					</StackPanel>
+				</Grid>
+				<StackPanel
+                    Grid.Row="2"
+                    Margin="0,10,0,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+					<Button Name="Add"
+                        Width="75" Command="{Binding FindllyAuth}"
+                        Classes="accent" IsVisible="{Binding TextBoxVisibility}"
+                        Foreground="White">
+						<TextBlock Text="确定" />
+					</Button>
+					<Button IsVisible="{Binding IsCilpboardButtonVisibility}"
+		                    Name="dcbutton" Margin="15,0,0,0"
+							Command="{Binding CopyCodeAsync}"
+		                    Classes="accent" Content="将代码复制至剪贴板"/>
+					<Button Command="{Binding StringsRefresh}"	
+                        Width="75" Click="CancelButtonClick1"
+                        Margin="15,0,0,0">
+						<TextBlock Text="取消" />
+					</Button>
+				</StackPanel>
+			</Grid>
+		</ui:ContentDialog>
+
+     	<ListBox
+	        x:Name="UsersList"
+	        Grid.Row="1"
+	        Margin="0,50,0,7.5"
+	        Padding="30,0"
+	        Items="{Binding Users}"
+	        SelectedItem="{Binding CurrentUser}">
+			<ListBox.Styles>
+				<Style Selector="ListBoxItem">
+					<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+					<Setter Property="BorderBrush" Value="Transparent" />
+					<Setter Property="BorderThickness" Value="0" />
+					<Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}"/>
+					<Setter Property="Margin" Value="0,3" />
+					<Setter Property="Template">
+						<Setter.Value>
+							<ControlTemplate TargetType="ListBoxItem">
+								<Grid Background="Transparent">
+									<Border
+										Height="{TemplateBinding Height}"
+										BorderBrush="{TemplateBinding BorderBrush}"
+										BorderThickness="{TemplateBinding BorderThickness}"
+										CornerRadius="5">
+										<ContentPresenter
+											Height="{TemplateBinding Height}"
+											HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+											VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+									</Border>
+
+									<Border Name="BackBorder"
+											HorizontalAlignment="Stretch"
+											VerticalAlignment="Stretch"
+											CornerRadius="8"
+											Height="60"
+											Background="{TemplateBinding Background}">
+									</Border>
+
+									<Border Name="OpBorder"
+				                            HorizontalAlignment="Stretch"
+				                            VerticalAlignment="Stretch"
+				                            CornerRadius="8"
+				                            Height="60"
+				                            IsVisible="{TemplateBinding IsVisible}"/>
+
+									<Grid IsHitTestVisible="False" HorizontalAlignment="Stretch">
+										<Grid Margin="0,0,-60,0">
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="Auto" />
+												<ColumnDefinition Width="1*" />
+												<ColumnDefinition Width="Auto" />
+											</Grid.ColumnDefinitions>
+										</Grid>
+										<Border HorizontalAlignment="Left" Height="45" Width="45" Margin="20,10" CornerRadius="4">
+											<Border.Background>
+												<ImageBrush Source="{Binding Icon,Mode=OneWay}"/>
+											</Border.Background>
+										</Border>
+										<Panel Margin="75,-8.5,0,0" Grid.Column="1">
+											<TextBlock TextTrimming="CharacterEllipsis" Margin="0,15,10,0" FontSize="15" FontFamily="Din" Text="{Binding Name,Mode=OneWay}" />
+											<TextBlock Margin="0,34,10,0" TextTrimming="CharacterEllipsis" FontSize="12" Opacity="0.65" FontFamily="Din Pro" Text="{Binding Type,Mode=OneWay}" />
+											<TextBlock Margin="0,48,10,0" TextTrimming="CharacterEllipsis" FontSize="12" Opacity="0.65" FontFamily="Din Pro" Text="{Binding AuthState,Mode=OneWay}" />
+										</Panel>
+									</Grid>
+								</Grid>
+							</ControlTemplate>
+						</Setter.Value>
+					</Setter>
+				</Style>
+
+				<Style Selector="ListBoxItem /template/ Border#BackBorder:pointerover">
+					<Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+				</Style>
+
+				<Style Selector="ListBoxItem:selected /template/ Border#BackBorder">
+					<Setter Property="Background" Value="{DynamicResource SystemAccentColorDark1}" />
+				</Style>
+
+				<Style Selector="ListBoxItem:selected /template/ Border#BackBorder:pointerover">
+					<Setter Property="Background" Value="{DynamicResource SystemAccentColorDark2}" />
+				</Style>
+
+			</ListBox.Styles>
+		</ListBox>
+		<Label FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="30,10" Content="账户中心"/>
+		<Button Click="StartButtonClick" Margin="30,10" HorizontalAlignment="Right" Content="添加新的游戏账户" VerticalAlignment="Top" Classes="accent"/>
+	</Grid>
+</UserControl>
