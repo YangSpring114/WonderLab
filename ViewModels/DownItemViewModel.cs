@@ -158,7 +158,8 @@ namespace WonderLab.ViewModels
                 ForgeInstaller forgeInstaller = new(new(App.Data.FooterPath), (ForgeInstallEntity)mlimvd.Build, App.Data.JavaPath,customId:$"{mlimvd.Data.McVersion}-{mlimvd.Data.LoaderName}{mlimvd.Data.Version}");
                 var res = await forgeInstaller.InstallAsync(x =>
                 {
-                    TaskProgress = x.Item1 * 100;
+                    //TaskProgress = x.Item1 * 100;
+                    ProgressBar.Value = (x.Item1 * 100);
                     Dispatcher.UIThread.Post(() =>
                     {
                         LittleTaskProgress = x.Item2;
