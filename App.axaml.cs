@@ -7,14 +7,18 @@ using Avalonia.Skia;
 using Avalonia.Themes.Fluent;
 using FluentAvalonia.Styling;
 using Natsurainko.FluentCore.Class.Model.Launch;
+using Newtonsoft.Json;
 using ReactiveUI;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
+using WonderLab.Modules.Const;
 using WonderLab.Modules.Controls;
 using WonderLab.Modules.Models;
 
@@ -25,7 +29,7 @@ namespace WonderLab
         public App()
         {
             ServicePointManager.DefaultConnectionLimit = 512;
-            
+            InitializeModData();
             //Debug.WriteLine(Convert.ToDouble(double.NaN));
         }
 
@@ -34,7 +38,28 @@ namespace WonderLab
         /// </summary>
         public static GameCore CurrentGameCore { get; set; } = new();
         public static DataModels Data { get; set; } = new DataModels();
-        public override void Initialize() => AvaloniaXamlLoader.Load(this);
+        public async void InitializeModData()
+        {
+            var al = AvaloniaLocator.Current.GetService<IAssetLoader>();
+            await Task.Run(() =>
+            {
+                using var s = al.Open(new Uri("resm:WonderLab.Resources.ModData.json"));
+                StreamReader stream = new(s);
+                var model = JsonConvert.DeserializeObject<List<ModLangDataModel>>(stream.ReadToEnd());
+                model.ForEach(x => InfoConst.ModLangDatas.Add(x.CurseForgeId, x));
+
+                InfoConst.ModLangDatas.Values.ToList().ForEach(x =>
+                {
+                    if (x.Chinese.Contains("*"))
+                        x.Chinese = x.Chinese.Replace("*",
+                            " (" + string.Join(" ", x.CurseForgeId.Split("-").Select(w => w.Substring(0, 1).ToUpper() + w.Substring(1, w.Length - 1))) + ")");
+                });
+            });
+        }
+        public override void Initialize()
+        {
+            AvaloniaXamlLoader.Load(this);
+        }
         public override void OnFrameworkInitializationCompleted()
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
@@ -44,7 +69,6 @@ namespace WonderLab
 
             base.OnFrameworkInitializationCompleted();
         }
-
         public override void RegisterServices()
         {            
             //AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(new CustomFontManagerImpl());

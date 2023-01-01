@@ -131,7 +131,7 @@
                                                     </Border>
                                                     <ProgressBar HorizontalAlignment="Left" Margin="28,10" Classes="Circle" IsIndeterminate="{Binding Load}" Height="30" Width="30"/>
                                                     <Panel Margin="75,0,0,0" Grid.Column="1">
-                                                        <TextBlock TextTrimming="CharacterEllipsis" Margin="0,10,10,0" FontSize="15" FontFamily="Din" Text="{Binding ChineseName,Mode=OneWay}" />
+                                                        <TextBlock TextTrimming="CharacterEllipsis" Margin="0,10,10,0" FontSize="15" FontFamily="Din" Text="{Binding ChineseName}" />
                                                         <TextBlock Margin="0,29,10,0" TextTrimming="CharacterEllipsis" FontSize="12" Opacity="0.65" FontFamily="Din Pro" Text="{Binding Current,Mode=OneWay,Converter={StaticResource CurseForgeModpackTagConverter}}" />
                                                         <TextBlock VerticalAlignment="Bottom" Margin="0,0,10,10" TextTrimming="CharacterEllipsis" FontSize="12" Opacity="0.65" FontFamily="Din Pro" Text="{Binding Description,Mode=OneWay}" />
                                                     </Panel>

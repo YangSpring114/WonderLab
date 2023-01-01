@@ -39,21 +39,7 @@ namespace WonderLab.Modules.Styles
 
         async void IApplicationSplashScreen.RunTasks()
         {
-            var al = AvaloniaLocator.Current.GetService<IAssetLoader>();
-            await Task.Run(() =>
-            {
-                using var s = al.Open(new Uri("resm:WonderLab.Resources.ModData.json"));
-                StreamReader stream = new(s);
-                var model = JsonConvert.DeserializeObject<List<ModLangDataModel>>(stream.ReadToEnd());
-                model.ForEach(x => InfoConst.ModLangDatas.Add(x.CurseForgeId, x));
 
-                InfoConst.ModLangDatas.Values.ToList().ForEach(x =>
-                {
-                    if (x.Chinese.Contains("*"))
-                        x.Chinese = x.Chinese.Replace("*",
-                            " (" + string.Join(" ", x.CurseForgeId.Split("-").Select(w => w.Substring(0, 1) .ToUpper() + w.Substring(1, w.Length - 1))) + ")");                                                                                                                                                                                                                                                               
-                });
-            });
         }
     }
 }
