@@ -37,13 +37,13 @@
 				</Button.Content>
 			</Button>
 			
-			<ui:ComboBox PlaceholderText="选择游戏核心"
+			<ComboBox PlaceholderText="选择游戏核心"
 					  SelectedItem="{Binding SelectedGameCore}"
 					  Items="{Binding GameCores}" 
-					  HorizontalContentAlignment="Left"
+					  VerticalContentAlignment="Center"
 					  Name="version" HorizontalAlignment="Stretch"
 					  VerticalAlignment="Stretch">
-				<ui:ComboBox.ItemTemplate>
+				<ComboBox.ItemTemplate> 
 					<DataTemplate DataType="{x:Type super:TransformationModel}">
 						<Grid HorizontalAlignment="Left">
 							<Panel> 
@@ -59,8 +59,8 @@
 							</Panel>
 						</Grid>
 					</DataTemplate>
-				</ui:ComboBox.ItemTemplate>
-			</ui:ComboBox>			
+				</ComboBox.ItemTemplate>
+			</ComboBox>			
 		</Grid>
 	</Grid>
 </UserControl>
