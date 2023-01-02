@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,9 +9,9 @@ namespace WonderLab.Modules.Const
 {
     public class InfoConst
     {
-        public const string CForgeToken = "$2a$10$/R2wMCh2My1cWvaQN96qmOuXLeu.L9R29cy6RwaXnoC3jyBbvLYNe";
+        public const string CForgeToken = "";
 
-        public const string ClientId = "9fd44410-8ed7-4eb3-a160-9f1cc62c824c";
+        public const string ClientId = "";
 
         public static Dictionary<string, KeyValuePair<string, string>[]> OpenJdkDownloadSources => new()
         {
