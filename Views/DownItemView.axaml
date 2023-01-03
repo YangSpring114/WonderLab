@@ -16,7 +16,7 @@
 					</Grid.ColumnDefinitions>
 					<StackPanel Spacing="4" Grid.Column="2">
 						<TextBlock Text="{Binding LittleTaskProgress}" FontSize="12" Opacity="0.65" />
-						<ProgressBar IsIndeterminate="{Binding IsLoadOk}" Value="{Binding TaskProgress}" Name="ProgressBar"/>
+						<ProgressBar Maximum="1" IsIndeterminate="{Binding IsLoadOk}" Value="{Binding TaskProgress}" Name="ProgressBar"/>
 						<!--Value="{Binding TaskProgress,Mode=OneWay}"-->
 					</StackPanel>
 					<TextBlock Text="下载进度："/>

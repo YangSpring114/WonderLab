@@ -1,6 +1,7 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Threading;
 using FluentAvalonia.UI.Controls;
+using JetBrains.Annotations;
 using MinecraftLaunch.Modules.Enum;
 using MinecraftLaunch.Modules.Installer;
 using MinecraftLaunch.Modules.Models.Install;
@@ -125,22 +126,36 @@ namespace WonderLab.ViewModels
         //Vanllia
         private async void VanlliaInstall(string Id)
         {
+            int count = 0;
+            int xlcount = 0;
             MainView.ViewModel.AllTaskCount++;
             Dispatcher.UIThread.Post(() => IsLoadOk = true);//先静等一下再开始下载，不然这sb进度条要炸
             await Task.Delay(4000);
             Dispatcher.UIThread.Post(() => IsLoadOk = false);
+            Dispatcher.UIThread.Post(() => TaskProgress = 10);
             await Task.Run(async() =>
             {
                 GameCoreInstaller installer = new(new(App.Data.FooterPath), Id);
-                var returninfo = await installer.InstallAsync(e =>
+                var returninfo = await installer.InstallAsync(async e =>
                 {
-                    Dispatcher.UIThread.Post(() => TaskProgress = e.Item1 * 100);
-                    //TaskProgress = e.Item1 * 100;
-                    Dispatcher.UIThread.Post(() =>
+                    if (count == 8)//尝试限流，一秒只更新十次
                     {
-                        LittleTaskProgress = e.Item2;
-                        MainTaskProgress = e.Item2;
-                    });
+                        xlcount++;
+                        count = 0;
+                        Dispatcher.UIThread.Post(() =>
+                        {
+                            LittleTaskProgress = e.Item2;
+                            MainTaskProgress = e.Item2;
+                        });
+                        Debug.WriteLine($"已限流 {xlcount} 次");
+                        await Task.Run(() => Thread.Sleep(1000));
+                    }
+                    else
+                    {
+                        count++;
+                        Dispatcher.UIThread.Post(() => TaskProgress = e.Item1);
+                        //TaskProgress = e.Item1 * 100;
+                    }
                 });
                 if (returninfo.Success)
                 {
@@ -165,7 +180,7 @@ namespace WonderLab.ViewModels
                 var res = await forgeInstaller.InstallAsync(x =>
                 {
                     //TaskProgress = x.Item1 * 100;
-                    Dispatcher.UIThread.Post(() => TaskProgress = x.Item1 * 100);
+                    Dispatcher.UIThread.Post(() => TaskProgress = x.Item1);
                     Dispatcher.UIThread.Post(() =>
                     {
                         LittleTaskProgress = x.Item2;
@@ -177,7 +192,7 @@ namespace WonderLab.ViewModels
                 {
                     LittleTaskProgress = "安装完成";
                     MainTaskProgress = "安装完成";
-                    Dispatcher.UIThread.Post(() => TaskProgress = 100);
+                    Dispatcher.UIThread.Post(() => TaskProgress = 1);
                     JsonToolkit.CreaftEnableIndependencyCoreInfoJson(App.Data.FooterPath,new GameCoreLocator(App.Data.FooterPath).GetGameCore(res.GameCore.Id),DownGameView.ViewModel.IsEnableIndependencyCore);
                 }
                 else if (res.Exception is not null)
@@ -198,7 +213,7 @@ namespace WonderLab.ViewModels
                 OptiFineInstaller oi = new(new(App.Data.FooterPath), (OptiFineInstallEntity)mlimvd.Build, App.Data.JavaPath,customId:$"{mlimvd.Data.McVersion}-{mlimvd.Data.LoaderName}_{mlimvd.Data.Version}");
                 var res = await oi.InstallAsync(async x =>
                 {
-                    Dispatcher.UIThread.Post(() => TaskProgress = x.Item1 * 100);
+                    Dispatcher.UIThread.Post(() => TaskProgress = x.Item1);
                     await Dispatcher.UIThread.InvokeAsync(() =>
                     {
                         LittleTaskProgress = x.Item2;
@@ -208,7 +223,7 @@ namespace WonderLab.ViewModels
 
                 if (res.Success)
                 {
-                    Dispatcher.UIThread.Post(() => TaskProgress = 100);
+                    Dispatcher.UIThread.Post(() => TaskProgress = 1);
                     LittleTaskProgress = "已完成";
                     MainTaskProgress = "安装成功";
                     JsonToolkit.CreaftEnableIndependencyCoreInfoJson(App.Data.FooterPath, new GameCoreLocator(App.Data.FooterPath).GetGameCore(res.GameCore.Id), DownGameView.ViewModel.IsEnableIndependencyCore);
@@ -229,7 +244,7 @@ namespace WonderLab.ViewModels
                 ForgeInstaller forgeInstaller = new(new(App.Data.FooterPath), (ForgeInstallEntity)fm.Build, App.Data.JavaPath, customId: $"{fm.Data.McVersion}-{fm.Data.LoaderName}{fm.Data.Version}-{om.Data.LoaderName}_{om.Data.Version}");
                 var res = await forgeInstaller.InstallAsync(async x =>
                 {
-                    Dispatcher.UIThread.Post(() => TaskProgress = x.Item1 * 100);
+                    Dispatcher.UIThread.Post(() => TaskProgress = x.Item1);
                     await Dispatcher.UIThread.InvokeAsync(() =>
                     {
                         LittleTaskProgress = x.Item2;
@@ -242,7 +257,7 @@ namespace WonderLab.ViewModels
                     OptiFineInstaller oi = new(new(App.Data.FooterPath), (OptiFineInstallEntity)om.Build, App.Data.JavaPath, customId: $"{fm.Data.McVersion}-{fm.Data.LoaderName}{fm.Data.Version}-{om.Data.LoaderName}_{om.Data.Version}");
                     var res1 = await oi.InstallAsync(async x =>
                     {
-                        Dispatcher.UIThread.Post(() => TaskProgress = 100);
+                        Dispatcher.UIThread.Post(() => TaskProgress = 1);
                         await Dispatcher.UIThread.InvokeAsync(() =>
                         {
                             LittleTaskProgress = x.Item2;
@@ -271,7 +286,7 @@ namespace WonderLab.ViewModels
                 FabricInstaller fi = new(new(App.Data.FooterPath), (FabricInstallBuild)mlimvd.Build,$"{mlimvd.Data.McVersion}-{mlimvd.Data.LoaderName}_{mlimvd.Data.Version}");
                 var res = await fi.InstallAsync(async x =>
                 {
-                    Dispatcher.UIThread.Post(() => TaskProgress = x.Item1 * 100);
+                    Dispatcher.UIThread.Post(() => TaskProgress = x.Item1);
                     await Dispatcher.UIThread.InvokeAsync(() =>
                     {
                         LittleTaskProgress = x.Item2;
@@ -293,15 +308,15 @@ namespace WonderLab.ViewModels
             {
                 if (App.CurrentGameCore is not null)
                 {
+                    TaskTitle = $"模组 {http.FileName} 安装任务";
                     Dispatcher.UIThread.Post(() => IsLoadOk = true);//先静等一下再开始下载，不然这sb进度条要炸
                     await Task.Delay(2000);
                     Dispatcher.UIThread.Post(() => IsLoadOk = false);
                     FileLink = http.Url;
-                    TaskTitle = $"模组 {http.FileName} 安装任务";
                     IsFileLinkVisible = true;
                     var res = await HttpWrapper.HttpDownloadAsync(http, (p, s) =>
                     {
-                        Dispatcher.UIThread.Post(() => TaskProgress = p * 100);
+                        Dispatcher.UIThread.Post(() => TaskProgress = p);
                         Dispatcher.UIThread.Post(() =>
                         {
                             LittleTaskProgress = s;
@@ -313,7 +328,7 @@ namespace WonderLab.ViewModels
                     {
                         LittleTaskProgress = "安装完成";
                         MainTaskProgress = "已完成";
-                        Dispatcher.UIThread.Post(() => TaskProgress = 100);
+                        Dispatcher.UIThread.Post(() => TaskProgress = 1);
                         IsFileOpenVisible = true;
                         FilePath = res.FileInfo.Directory.FullName;
                     }
@@ -373,7 +388,7 @@ namespace WonderLab.ViewModels
                 {
                     LittleTaskProgress = x.Item2;
                     MainTaskProgress = x.Item2;
-                    Dispatcher.UIThread.Post(() => TaskProgress = x.Item1 * 100);
+                    Dispatcher.UIThread.Post(() => TaskProgress = x.Item1);
 
                     if (x.Item2.Contains("开始解压 Jdk"))
                         Dispatcher.UIThread.Post(() => IsLoadOk = true);
@@ -385,7 +400,7 @@ namespace WonderLab.ViewModels
                 LittleTaskProgress = "安装完成";
                 MainTaskProgress = "已完成";
                 Dispatcher.UIThread.Post(() => IsLoadOk = false);
-                Dispatcher.UIThread.Post(() => TaskProgress = 100);
+                Dispatcher.UIThread.Post(() => TaskProgress = 1);
                 IsFileOpenVisible = true;
                 FilePath = JavaInstaller.StorageFolder;
                 MainView.ViewModel.AllTaskCount--;
