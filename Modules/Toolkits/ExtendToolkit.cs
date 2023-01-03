@@ -2,8 +2,10 @@
 using MinecraftLaunch.Modules.Models.Launch;
 using Natsurainko.FluentCore.Class.Model.Launch;
 using Natsurainko.FluentCore.Module.Launcher;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,8 +39,20 @@ namespace WonderLab.Modules.Toolkits
             return type;
         }
 
-        public static string ToType(this GameCore core) =>
-            core.HasModLoader ? $"{core.Type.ToVersionType()} 继承自 {core.Source}" : $"{core.Type.ToVersionType()} {core.Source}";
+        public static string ToType(this GameCore core)
+        {
+            string type = string.Empty;
+            if (core.Type is "release")
+                type = "正式版";
+            else if (core.Type is "snapshot")
+                type = "快照版";
+            else if (core.Type.Contains("old_alpha"))
+                type = "远古版";
+            Debug.WriteLine("Type:"+type);
+            var res = core.HasModLoader ? $"{type} 继承自 {core.Source}" : $"{type} {core.Source}";
+            Debug.WriteLine(res);
+            return res;
+        }
 
         public static Natsurainko.FluentCore.Class.Model.Launch.GameCore ToNatsurainkoGameCore(this GameCore core) =>
             new GameCoreLocator(App.Data.FooterPath).GetGameCore(core.Id);
@@ -59,6 +73,17 @@ namespace WonderLab.Modules.Toolkits
                     return i;
 
             return null;
+        }
+        public static string GetVersionType(string raw)
+        {
+            string type = string.Empty;
+            if (raw is "release")
+                type = "正式版";
+            else if (raw is "snapshot")
+                type = "快照版";
+            else if (raw.Contains("old_alpha"))
+                type = "远古版";
+            return type;
         }
     }
 }

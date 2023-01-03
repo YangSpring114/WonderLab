@@ -36,13 +36,20 @@ namespace WonderLab.ViewModels
                 GameCores.Clear();
                 List<GameCore> lmlist = new();
                 var game = new GameCoreToolkit(App.Data.FooterPath).GetGameCores();
-                foreach (var item in game)
+                foreach (var i in game)
                 {
-                    item.Type = item.ToType();
-                    lmlist.Add(item);
+                    string type = string.Empty;
+                    if (i.Type is "release" || i.Type.Contains("正式版"))
+                        type = "正式版";
+                    else if (i.Type is "snapshot" || i.Type.Contains("快照版"))
+                        type = "快照版";
+                    else if (i.Type.Contains("old_alpha") || i.Type.Contains("远古版"))
+                        type = "远古版";
+                    var res = i.HasModLoader ? $"{type} 继承自 {i.Source}" : $"{type} {i.Source}";
+                    i.Type = res;
+                    lmlist.Add(i);
                 }
                 GameCores = lmlist;
-                Debug.WriteLine(App.Data.SelectedGameCore);
                 SelectedGameCore = GameCores.GetGameCoreInIndex(App.Data.SelectedGameCore);
             };
             worker.RunWorkerAsync();
