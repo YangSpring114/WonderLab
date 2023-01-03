@@ -138,7 +138,7 @@ namespace WonderLab.ViewModels
                 GameCoreInstaller installer = new(new(App.Data.FooterPath), Id);
                 var returninfo = await installer.InstallAsync(async e =>
                 {
-                    if (count == 8)//尝试限流，一秒只更新十次
+                    if (count == 10)//尝试限流，一秒只更新十次
                     {
                         xlcount++;
                         count = 0;
@@ -165,6 +165,8 @@ namespace WonderLab.ViewModels
                 }
             }); 
             MainView.ViewModel.AllTaskCount--;
+            LittleTaskProgress = "已完成";
+            MainTaskProgress = "安装成功";
         }
         //Forge
         private async void ForgeInstall(ModLoaderInformationViewData mlimvd)
