@@ -6,6 +6,7 @@ using Avalonia.Platform;
 using Avalonia.Skia;
 using Avalonia.Themes.Fluent;
 using FluentAvalonia.Styling;
+using MinecraftLaunch.Modules.Toolkits;
 using Natsurainko.FluentCore.Class.Model.Launch;
 using Newtonsoft.Json;
 using ReactiveUI;
@@ -30,7 +31,6 @@ namespace WonderLab
     {
         public App()
         {
-            JsonToolkit.JsonAllWrite();
             ServicePointManager.DefaultConnectionLimit = 512;
             InitializeModData();
             CheckAsync();
@@ -45,8 +45,10 @@ namespace WonderLab
         /// <summary>
         /// 预启动数据检查
         /// </summary>
-        public void CheckAsync()
+        public async void CheckAsync()
         {
+            JsonToolkit.JsonAllWrite();
+            await Task.Delay(900);
             BackgroundWorker worker = new();
             worker.DoWork += (_, _) =>
             {
@@ -67,6 +69,17 @@ namespace WonderLab
                         if (!Directory.Exists(x))
                             Data.GameFooterList.Remove(x);
                     });
+
+                    //GameCore
+                    if (!string.IsNullOrEmpty(Data.FooterPath) && !string.IsNullOrEmpty(Data.SelectedGameCore))
+                    {
+                        foreach (var i in GameCoreToolkit.GetGameCores(Data.FooterPath))
+                        {
+                            if (Data.SelectedGameCore.Equals(i.Id))
+                                break;
+                        }
+                    }
+                    else Data.SelectedGameCore = string.Empty;
                 }
             };
             worker.RunWorkerAsync();

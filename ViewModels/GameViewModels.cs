@@ -67,12 +67,7 @@ namespace WonderLab.ViewModels
                     if (_gameCore is not null && value is not null)
                     {
                         App.CurrentGameCore = new GameCoreLocator(App.Data.FooterPath).GetGameCore(value.Id);
-                        App.Data.SelectedGameCore = new()
-                        {
-                            HasModLoader = value.HasModLoader,
-                            Type = value.Type,
-                            Id = value.Id,
-                        };
+                        App.Data.SelectedGameCore = value.Id;
                     }
                     else App.Data.SelectedGameCore = null;
                 }

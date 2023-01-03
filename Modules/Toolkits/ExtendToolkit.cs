@@ -37,7 +37,19 @@ namespace WonderLab.Modules.Toolkits
             return type;
         }
 
+        public static string ToType(this GameCore core) =>
+            core.HasModLoader ? $"{core.Type.ToVersionType()} 继承自 {core.Source}" : $"{core.Type.ToVersionType()} {core.Source}";
+
         public static Natsurainko.FluentCore.Class.Model.Launch.GameCore ToNatsurainkoGameCore(this GameCore core) =>
             new GameCoreLocator(App.Data.FooterPath).GetGameCore(core.Id);
+
+        public static GameCore GetGameCoreInIndex(this List<GameCore> cores ,string id)
+        {
+            foreach (var i in cores)
+                if (i.Id == id)
+                    return i;
+
+            return null;
+        }
     }
 }

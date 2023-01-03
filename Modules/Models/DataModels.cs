@@ -18,7 +18,7 @@ namespace WonderLab.Modules.Models
         public int SelectedAPI { get; set; } = 0;
         public int MaxThreadCount { get; set; } = 0;
         public string SelectedGameFooter { get; set; } = string.Empty;
-        public GameCore? SelectedGameCore { get; set; } = null;
+        public string? SelectedGameCore { get; set; } = null;
         public UserDataModels? SelectedUser { get; set; } = null;
         public string FooterPath { get; set; } = @".minecarft";
         public string NativesFolderPath { get; set; } = string.Empty;

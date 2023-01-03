@@ -5,6 +5,7 @@ using MinecraftLaunch.Modules.Toolkits;
 using Natsurainko.FluentCore.Module.Launcher;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -29,6 +30,12 @@ namespace WonderLab.ViewModels
 
         public async void GameSearchAsync()
         {
+            BackgroundWorker worker = new();
+            worker.DoWork += (_, _) =>
+            {
+
+            };
+            worker.RunWorkerAsync();
             await Task.Run(() =>
             {
                 GameCores.Clear();
@@ -36,20 +43,12 @@ namespace WonderLab.ViewModels
                 var game = new GameCoreToolkit(App.Data.FooterPath).GetGameCores();
                 foreach (var item in game)
                 {
-                    string type = "";
-
-                    if (item.Type is "release")
-                        type = "正式版";
-                    else if (item.Type is "snapshot")
-                        type = "快照版";
-                    else if (item.Type is "old_alpha")
-                        type = "远古版";
-
-                    item.Type = item.HasModLoader is true ? $"{type} 继承自 {item.Source}" : $"{type} {item.Source}";
-
+                    item.Type = item.ToType();
                     lmlist.Add(item);
                 }
                 GameCores = lmlist;
+                Debug.WriteLine(App.Data.SelectedGameCore);
+                SelectedGameCore = GameCores.GetGameCoreInIndex(App.Data.SelectedGameCore);
                 //foreach (var i in GameCores)
                 //{
                 //    if (i.Id == "1.12.2")
@@ -203,7 +202,7 @@ namespace WonderLab.ViewModels
             set
             {
                 if (RaiseAndSetIfChanged(ref _SelectedGameCore, value))
-                    App.Data.SelectedGameCore = (SelectedGameCore is not null ? GameCoreToolkit.GetGameCore(App.Data.FooterPath, SelectedGameCore.Id) : null);
+                    App.Data.SelectedGameCore = (SelectedGameCore is not null ? GameCoreToolkit.GetGameCore(App.Data.FooterPath, SelectedGameCore.Id).Id : null);
             }
         }
     }
@@ -213,6 +212,6 @@ namespace WonderLab.ViewModels
         bool _Enabled = true;
         UserDataModels _UserInfo = App.Data.SelectedUser;
         List<GameCore> _GameCores = new();
-        GameCore _SelectedGameCore = App.Data.SelectedGameCore;
+        GameCore _SelectedGameCore = GameCoreToolkit.GetGameCore(App.Data.FooterPath, App.Data.SelectedGameCore);
     }
 }
