@@ -58,7 +58,7 @@
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.18" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.18" />
     <PackageReference Include="FluentAvaloniaUI" Version="1.4.5" />
-    <PackageReference Include="MinecraftOAuth" Version="1.6.0" />
+    <PackageReference Include="MinecraftOAuth" Version="1.7.0" />
     <PackageReference Include="Natsurainko.FluentCore" Version="2.0.2" />
     <PackageReference Include="Natsurainko.FluentCore.Extension.Windows" Version="2.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
@@ -79,7 +79,7 @@
     <UpToDateCheckInput Remove="Views\PropertyView.axaml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MinecraftLaunch\MinecraftLaunch\MinecraftLaunch.csproj" />
+    <ProjectReference Include="..\..\MinecraftLaunch\MinecraftLaunch.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="ControlX">

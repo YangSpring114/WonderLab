@@ -12,6 +12,7 @@ using ReactiveUI;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -21,6 +22,7 @@ using System.Threading.Tasks;
 using WonderLab.Modules.Const;
 using WonderLab.Modules.Controls;
 using WonderLab.Modules.Models;
+using WonderLab.Modules.Toolkits;
 
 namespace WonderLab
 {
@@ -28,6 +30,7 @@ namespace WonderLab
     {
         public App()
         {
+            JsonToolkit.JsonAllWrite();
             ServicePointManager.DefaultConnectionLimit = 512;
             InitializeModData();
             //Debug.WriteLine(Convert.ToDouble(double.NaN));
@@ -38,6 +41,22 @@ namespace WonderLab
         /// </summary>
         public static GameCore CurrentGameCore { get; set; } = new();
         public static DataModels Data { get; set; } = new DataModels();
+        /// <summary>
+        /// 预启动数据检查
+        /// </summary>
+        public void CheckAsync()
+        {
+            BackgroundWorker worker = new();
+            worker.DoWork += (_, _) =>
+            {
+                if (Data is not null)
+                {
+                    //Java
+                    Data.JavaList = Data.JavaList.Distinct().ToList();
+                }
+            };
+            worker.RunWorkerAsync();
+        }
         public async void InitializeModData()
         {
             var al = AvaloniaLocator.Current.GetService<IAssetLoader>();

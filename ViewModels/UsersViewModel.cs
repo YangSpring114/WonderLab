@@ -134,7 +134,7 @@ namespace WonderLab.ViewModels
             if (SelectedAuthenticator is "第三方验证")
             {
                 YggdrasilAuthenticator yggdrasilAuthenticator = new(UrlTextBoxText, TextBoxText, PasswordBoxText);
-                var res = yggdrasilAuthenticator.AuthAsync(x => Debug.WriteLine(x));
+                var res = await yggdrasilAuthenticator.AuthAsync(x => Debug.WriteLine(x));
                 res.ToList().ForEach(x =>
                 {// /api/yggdrasil
                     string p = new FileInfo(PathConst.MainDirectory).FullName +@"\" + "authlib-injector.jar";

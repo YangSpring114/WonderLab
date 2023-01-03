@@ -210,7 +210,7 @@ namespace WonderLab.ViewModels
                 //}
                 var res = await Task.Run(() =>
                 {
-                    return JavaToolkit.GetJavas();
+                    return JavaToolkit.GetJavas().Distinct();
                 });
 
                 foreach (var j in res)

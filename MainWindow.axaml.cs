@@ -250,17 +250,13 @@ namespace WonderLab
         {
             await ContentDialogView.ShowAsync();
         }
-    }
 
-    partial class MainWindow
-    {
-        public MainWindow()
+        public void InitializeComponent()
         {
             InitializeComponent(true);
             BarHost.Attach(this);
             win = this;
             MainWindowViewModel.TitleBar = BarHost;
-            JsonToolkit.JsonAllWrite();
             InformationListBox = InformationList;
             ContentDialogView = VersionDialog;
             AcrylicColorChange();
@@ -272,10 +268,17 @@ namespace WonderLab
             //this.Activated += MainWindow_Activated;
             //Deactivated += MainWindow_Deactivated;
             Closed += MainWindow_Closed;
+            FluentTheme theme = new(new Uri("avares://WonderLab"));
+            theme.Mode = FluentThemeMode.Light;
             //var faTheme = AvaloniaLocator.Current.GetService<FluentTheme>();
             //faTheme.Mode = FluentThemeMode.Light;
         }
+    }
 
+
+    partial class MainWindow
+    {
+        public MainWindow() => InitializeComponent();
 
         //CancelButtonClick
         public MainWindowViewModel ViewModel { get; protected set; }
