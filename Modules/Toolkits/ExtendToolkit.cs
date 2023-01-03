@@ -51,5 +51,14 @@ namespace WonderLab.Modules.Toolkits
 
             return null;
         }
+
+        public static UserModels GetUserInIndex(this List<UserModels> users, string id)
+        {
+            foreach (var i in users)
+                if (i.Name == id)
+                    return i;
+
+            return null;
+        }
     }
 }

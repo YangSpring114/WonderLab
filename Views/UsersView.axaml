@@ -147,6 +147,12 @@
 											CornerRadius="8"
 											Height="60"
 											Background="{TemplateBinding Background}">
+										<Border.ContextMenu>
+											<ContextMenu>
+												<MenuItem Header="刷新"/>
+												<MenuItem Header="删除" Icon="Delete"/>
+											</ContextMenu>
+										</Border.ContextMenu>
 									</Border>
 
 									<Border Name="OpBorder"

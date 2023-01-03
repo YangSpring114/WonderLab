@@ -28,15 +28,10 @@ namespace WonderLab.ViewModels
 
         public void NavigationToUser() => _ = MainView.mv.FrameView.Navigate(typeof(UsersView));
 
-        public async void GameSearchAsync()
+        public void GameSearchAsync()
         {
             BackgroundWorker worker = new();
             worker.DoWork += (_, _) =>
-            {
-
-            };
-            worker.RunWorkerAsync();
-            await Task.Run(() =>
             {
                 GameCores.Clear();
                 List<GameCore> lmlist = new();
@@ -49,15 +44,8 @@ namespace WonderLab.ViewModels
                 GameCores = lmlist;
                 Debug.WriteLine(App.Data.SelectedGameCore);
                 SelectedGameCore = GameCores.GetGameCoreInIndex(App.Data.SelectedGameCore);
-                //foreach (var i in GameCores)
-                //{
-                //    if (i.Id == "1.12.2")
-                //    {
-                //        SelectedGameCore = i;
-                //        break;
-                //    }
-                //}
-            });            
+            };
+            worker.RunWorkerAsync();
         }
 
         public void RefreshUserAsync()

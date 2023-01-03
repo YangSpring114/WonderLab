@@ -189,6 +189,7 @@ namespace WonderLab.ViewModels
         public void GetSaveUserInfo()
         {
             Users = new(App.Data.UserList.Select(x => new UserModels(x)));
+            CurrentUser = Users.GetUserInIndex(App.Data.SelectedUser.UserName);
         }
 
         public async void CopyCodeAsync()

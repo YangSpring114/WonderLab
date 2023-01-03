@@ -25,11 +25,7 @@ namespace WonderLab.Views
         }
         public override void OnNavigatedTo()
         {
-            if (App.Data.SelectedUser is not null)
-            {
-                ViewModel.CurrentUser = null;
-                ViewModel.CurrentUser = App.Data.SelectedUser.ToUserModel();
-            }
+            ViewModel.CurrentUser = ViewModel.Users.GetUserInIndex(App.Data.SelectedUser.UserName);
         }
 
         public static async void ShowLoginDialog()

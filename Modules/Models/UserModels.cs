@@ -66,6 +66,7 @@ namespace WonderLab.Modules.Models
             get => _SkinBitmapIcon;
             set => RaiseAndSetIfChanged(ref _SkinBitmapIcon, value);
         }
+
         public Bitmap _SkinBitmapIcon = null;
 
         public string _AuthState = "";

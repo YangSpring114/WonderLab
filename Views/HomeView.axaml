@@ -52,7 +52,7 @@
 										<ImageBrush Source="{Binding HasModLoader,Mode=OneWay,Converter={StaticResource BitmapConverter}}"/>
 									</Border.Background>
 								</Border>
-								<Grid HorizontalAlignment="Left" VerticalAlignment="Center" Margin="39,0,0,0" Height="35">
+								<Grid HorizontalAlignment="Left" VerticalAlignment="Center" Margin="42,0,0,0" Height="35">
 									<TextBlock TextTrimming="CharacterEllipsis" FontSize="16" FontWeight="Bold" FontFamily="DIN Pro" Text="{Binding Id,Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 									<TextBlock Height="20" Margin="0,0,0,-5" TextTrimming="CharacterEllipsis" MaxWidth="140" FontFamily="DIN Pro" FontSize="13" Opacity="0.65" Text="{Binding Type,Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
 								</Grid>

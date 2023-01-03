@@ -176,12 +176,9 @@ namespace WonderLab.ViewModels
                     lmlist.Add(tm);
                 }
 
-                if (lmlist.Count <= 0)
-                    IsCoresHas = true;
-                else
-                    IsCoresHas = false;
-
                 GameCores = lmlist;
+                UpdateTips();
+                CurrentGameCore = GameCores.GetGameCoreInIndex(App.Data.SelectedGameCore);
             });
         }
 
