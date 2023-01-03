@@ -1,10 +1,13 @@
 ﻿using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Media.Animation;
+using MinecraftLaunch.Modules.Models.Launch;
 using MinecraftLaunch.Modules.Toolkits;
 using Natsurainko.FluentCore.Module.Launcher;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using WonderLab.Modules.Base;
 using WonderLab.Modules.Controls;
@@ -17,8 +20,10 @@ namespace WonderLab.ViewModels
     //MetMod
     public partial class HomeViewModel : ViewModelBase
     {
-        public HomeViewModel() =>
+        public HomeViewModel()
+        {
             GameSearchAsync();
+        }
 
         public void NavigationToUser() => _ = MainView.mv.FrameView.Navigate(typeof(UsersView));
 
@@ -27,8 +32,8 @@ namespace WonderLab.ViewModels
             await Task.Run(() =>
             {
                 GameCores.Clear();
-                List<TransformationModel> lmlist = new();
-                var game = new GameCoreLocator(App.Data.FooterPath).GetGameCores();
+                List<GameCore> lmlist = new();
+                var game = new GameCoreToolkit(App.Data.FooterPath).GetGameCores();
                 foreach (var item in game)
                 {
                     string type = "";
@@ -40,17 +45,19 @@ namespace WonderLab.ViewModels
                     else if (item.Type is "old_alpha")
                         type = "远古版";
 
-                    TransformationModel tm = new()
-                    {
-                        HasModLoader = item.HasModLoader,
-                        Id = item.Id,
-                        Type = item.HasModLoader is true ? $"{type} 继承自 {item.Source}" : $"{type} {item.Source}",
-                    };
+                    item.Type = item.HasModLoader is true ? $"{type} 继承自 {item.Source}" : $"{type} {item.Source}";
 
-                    lmlist.Add(tm);
+                    lmlist.Add(item);
                 }
                 GameCores = lmlist;
-                GameCoreToolkit gt = new(App.Data.FooterPath);
+                //foreach (var i in GameCores)
+                //{
+                //    if (i.Id == "1.12.2")
+                //    {
+                //        SelectedGameCore = i;
+                //        break;
+                //    }
+                //}
             });            
         }
 
@@ -172,12 +179,12 @@ namespace WonderLab.ViewModels
             get => _UserInfo;
             set => RaiseAndSetIfChanged(ref _UserInfo, value);
         }
-        public List<TransformationModel> GameCores
+        public List<GameCore> GameCores
         {
             get => _GameCores;
             set => RaiseAndSetIfChanged(ref _GameCores, value);
         }
-        public List<TransformationModel> DemoGameCores => new()
+        public List<GameCore> DemoGameCores => new()
         {
             new()
             {
@@ -190,13 +197,13 @@ namespace WonderLab.ViewModels
                 Type = "22"
             },
         };
-        public TransformationModel SelectedGameCore
+        public GameCore SelectedGameCore
         {
             get => _SelectedGameCore;
             set
             {
                 if (RaiseAndSetIfChanged(ref _SelectedGameCore, value))
-                    App.CurrentGameCore = (SelectedGameCore is not null ? new GameCoreLocator(App.Data.FooterPath).GetGameCore(SelectedGameCore.Id) : null);
+                    App.Data.SelectedGameCore = (SelectedGameCore is not null ? GameCoreToolkit.GetGameCore(App.Data.FooterPath, SelectedGameCore.Id) : null);
             }
         }
     }
@@ -205,7 +212,7 @@ namespace WonderLab.ViewModels
     {
         bool _Enabled = true;
         UserDataModels _UserInfo = App.Data.SelectedUser;
-        List<TransformationModel> _GameCores = new();
-        TransformationModel _SelectedGameCore = App.Data.SelectedGameCore;
+        List<GameCore> _GameCores = new();
+        GameCore _SelectedGameCore = App.Data.SelectedGameCore;
     }
 }

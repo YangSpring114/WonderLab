@@ -44,7 +44,7 @@
 					  Name="version" HorizontalAlignment="Stretch"
 					  VerticalAlignment="Stretch">
 				<ComboBox.ItemTemplate> 
-					<DataTemplate DataType="{x:Type super:TransformationModel}">
+					<DataTemplate>
 						<Grid HorizontalAlignment="Left">
 							<Panel> 
 								<Border HorizontalAlignment="Left" VerticalAlignment="Center" CornerRadius="4" Height="35" Width="35" Margin="0,0,10,0">

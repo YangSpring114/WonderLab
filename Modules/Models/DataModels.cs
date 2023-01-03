@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Natsurainko.FluentCore.Class.Model.Launch;
+using MinecraftLaunch.Modules.Models.Launch;
 using Newtonsoft.Json;
 
 namespace WonderLab.Modules.Models
@@ -18,7 +18,7 @@ namespace WonderLab.Modules.Models
         public int SelectedAPI { get; set; } = 0;
         public int MaxThreadCount { get; set; } = 0;
         public string SelectedGameFooter { get; set; } = string.Empty;
-        public TransformationModel? SelectedGameCore { get; set; } = null;
+        public GameCore? SelectedGameCore { get; set; } = null;
         public UserDataModels? SelectedUser { get; set; } = null;
         public string FooterPath { get; set; } = @".minecarft";
         public string NativesFolderPath { get; set; } = string.Empty;

@@ -2,6 +2,7 @@
 using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Media.Animation;
 using Microsoft.VisualBasic;
+using MinecraftLaunch.Modules.Models.Launch;
 using Natsurainko.FluentCore.Module.Launcher;
 using Newtonsoft.Json.Linq;
 using System;
@@ -19,7 +20,7 @@ namespace WonderLab.ViewModels
 {
     public class GameItemViewModel : ViewModelBase
     {
-        public GameItemViewModel(TransformationModel model,GameDataModels gdm)
+        public GameItemViewModel(GameCore model,GameDataModels gdm)
         {
             _InfoHeader = model.Id;
             _InfoMessage = model.Type;

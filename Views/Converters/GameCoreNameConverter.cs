@@ -1,4 +1,5 @@
 ﻿using Avalonia.Data.Converters;
+using MinecraftLaunch.Modules.Models.Launch;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -18,7 +19,7 @@ namespace WonderLab.Views.Converters
 
             try
             {
-                var gamecoreid = ((TransformationModel)value).Id;
+                var gamecoreid = ((GameCore)value).Id;
                 return gamecoreid;
             }
             catch { }

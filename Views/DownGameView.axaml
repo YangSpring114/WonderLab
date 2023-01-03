@@ -31,7 +31,7 @@
 							<ListBox SelectedItem="{Binding SelectedGameCore}"
 									 Items="{Binding GameCores}" Height="250">
 								<ListBox.ItemTemplate>
-									<DataTemplate DataType="{x:Type wonder:TransformationModel}">
+									<DataTemplate>
 										<StackPanel>
 											<!--<Image Source=""/>-->
 											<StackPanel Orientation="Vertical">

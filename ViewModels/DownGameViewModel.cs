@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 using MinecraftLaunch.Modules.Installer;
 using MinecraftLaunch.Modules.Models.Download;
 using MinecraftLaunch.Modules.Models.Install;
+using MinecraftLaunch.Modules.Models.Launch;
 using Natsurainko.FluentCore.Class.Model.Install;
 using Natsurainko.FluentCore.Class.Model.Install.Vanilla;
 using Natsurainko.FluentCore.Module.Installer;
@@ -56,11 +57,11 @@ namespace WonderLab.ViewModels
         public bool IsForgeListLoadOk { get => _IsForgeListLoadOk; set => RaiseAndSetIfChanged(ref _IsForgeListLoadOk, value); }
         public bool IsFabricListLoadOk { get => _IsFabricListLoadOk; set => RaiseAndSetIfChanged(ref _IsFabricListLoadOk, value); }
         public bool IsOptiFineListLoadOk { get => _IsOptiFineListLoadOk; set => RaiseAndSetIfChanged(ref _IsOptiFineListLoadOk, value); }
-        public List<TransformationModel> GameCores { get => _GameCores; set => RaiseAndSetIfChanged(ref _GameCores, value); }
+        public List<GameCore> GameCores { get => _GameCores; set => RaiseAndSetIfChanged(ref _GameCores, value); }
         public List<ModLoaderInformationViewData> Forges { get => _Forges; set => RaiseAndSetIfChanged(ref _Forges, value); }
         public List<ModLoaderInformationViewData> Fabrics { get => _Fabrics; set => RaiseAndSetIfChanged(ref _Fabrics, value); }
         public List<ModLoaderInformationViewData> OptiFines { get => _OptiFines; set => RaiseAndSetIfChanged(ref _OptiFines, value); }
-        public TransformationModel SelectedGameCore 
+        public GameCore SelectedGameCore 
         {
             get => _SelectedGameCore;
             set 
@@ -195,7 +196,7 @@ namespace WonderLab.ViewModels
                 {
                     foreach (var i in v1.Cores)
                     {
-                        TransformationModel tm = new();
+                        GameCore tm = new();
                         if (i.Type is "release")
                         {
                             tm.Type = $"正式版 {i.Id}";
@@ -479,12 +480,12 @@ namespace WonderLab.ViewModels
         public string _DownloadCore = DefaultDownCore;
         public string _DownloadCoreType = DefaultInstall;
         public GameCoresEntity CoreManifest;
-        public TransformationModel _SelectedGameCore  = null;
-        public List<TransformationModel>? _GameCores = new();
+        public GameCore _SelectedGameCore  = null;
+        public List<GameCore>? _GameCores = new();
         public List<ModLoaderInformationViewData> ModLoaders = new();
-        public List<TransformationModel> Release = new();
-        public List<TransformationModel> OldData = new();
-        public List<TransformationModel> Snapshot = new();
+        public List<GameCore> Release = new();
+        public List<GameCore> OldData = new();
+        public List<GameCore> Snapshot = new();
         public List<ModLoaderInformationViewData> _Forges;
         public List<ModLoaderInformationViewData> _Fabrics;
         public List<ModLoaderInformationViewData> _OptiFines;
