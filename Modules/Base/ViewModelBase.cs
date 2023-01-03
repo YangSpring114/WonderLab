@@ -32,7 +32,9 @@ namespace WonderLab.Modules.Base
             if (!EqualityComparer<T>.Default.Equals(field, value))
             {
                 field = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+                BackgroundWorker worker = new();
+                worker.DoWork += (_, _) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+                worker.RunWorkerAsync();
                 //Debug.WriteLine($"Value：{value}");
                 return true;
             }

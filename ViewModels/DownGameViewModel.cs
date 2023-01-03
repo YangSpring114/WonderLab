@@ -534,8 +534,7 @@ namespace WonderLab.ViewModels
 
     public static class T
     {
-        public static TResult CreateViewData<TData, TResult>(this TData data)
-                      where TResult : ViewDataBase<TData>
+        public static TResult CreateViewData<TData, TResult>(this TData data) where TResult : ViewDataBase<TData>                      
                       => Activator.CreateInstance(typeof(TResult), data) as TResult;
     }
 

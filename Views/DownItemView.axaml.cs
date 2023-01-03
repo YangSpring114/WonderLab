@@ -55,28 +55,24 @@ namespace WonderLab.Views
         private void InitializeComponent(string Id, DownType Type)
         {
             InitializeComponent(true);
-            DownItemViewModel.ProgressBar = ProgressBar;
             DataContext = new DownItemViewModel(Id, Type);
         }
 
         private void InitializeComponent(List<ModLoaderInformationViewData> Id)
         {
             InitializeComponent(true);
-            DownItemViewModel.ProgressBar = ProgressBar;
             DataContext = new DownItemViewModel(Id);
         }
 
         private void InitializeComponent(HttpDownloadRequest Id)
         {
             InitializeComponent(true);
-            DownItemViewModel.ProgressBar = ProgressBar;
             DataContext = new DownItemViewModel(Id);
         }
 
         private void InitializeComponent(ModLoaderInformationViewData Id)
         {
             InitializeComponent(true);
-            DownItemViewModel.ProgressBar = ProgressBar;
             DataContext = new DownItemViewModel(Id);
         }
 

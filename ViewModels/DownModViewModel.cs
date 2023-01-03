@@ -36,10 +36,9 @@ namespace WonderLab.ViewModels
         }
 
         public async void GetHotModListAsync()
-        {//分片加载
+        {
             CurseForgeToolkit curseForgeModpackFinder = new(InfoConst.CForgeToken);
             var mods = await curseForgeModpackFinder.GetFeaturedModpacksAsync();
-            //ModList = new(mods.Select(x => new CurseForgeModel(x)));
             await Dispatcher.UIThread.InvokeAsync(() => ModList = mods.Select(x => new CurseForgeModel(x)).ToList());
             await Dispatcher.UIThread.InvokeAsync(() =>
             {

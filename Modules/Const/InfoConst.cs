@@ -9,9 +9,9 @@ namespace WonderLab.Modules.Const
 {
     public class InfoConst
     {
-        public const string CForgeToken = "";
+        public const string CForgeToken = "$2a$10$Awb53b9gSOIJJkdV3Zrgp.CyFP.dI13QKbWn/4UZI4G4ff18WneB6";
 
-        public const string ClientId = "";
+        public const string ClientId = "9fd44410-8ed7-4eb3-a160-9f1cc62c824c";
 
         public static Dictionary<string, KeyValuePair<string, string>[]> OpenJdkDownloadSources => new()
         {

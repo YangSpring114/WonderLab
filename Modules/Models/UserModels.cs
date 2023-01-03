@@ -2,6 +2,7 @@
 using Avalonia.Media.Imaging;
 using FluentAvalonia.UI.Controls;
 using MinecaftOAuth;
+using MinecaftOAuth.Authenticator;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

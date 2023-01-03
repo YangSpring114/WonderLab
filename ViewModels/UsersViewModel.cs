@@ -1,5 +1,6 @@
 ﻿using FluentAvalonia.UI.Controls;
 using MinecaftOAuth;
+using MinecaftOAuth.Authenticator;
 using Natsurainko.FluentCore.Class.Model.Auth.Yggdrasil;
 using System;
 using System.Collections.Generic;

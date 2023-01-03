@@ -33,6 +33,7 @@ namespace WonderLab
             JsonToolkit.JsonAllWrite();
             ServicePointManager.DefaultConnectionLimit = 512;
             InitializeModData();
+            CheckAsync();
             //Debug.WriteLine(Convert.ToDouble(double.NaN));
         }
 
@@ -53,6 +54,19 @@ namespace WonderLab
                 {
                     //Java
                     Data.JavaList = Data.JavaList.Distinct().ToList();
+                    Data.JavaList.ForEach(x => 
+                    {
+                        if (!File.Exists(x))
+                            Data.JavaList.Remove(x);
+                    });
+
+                    //Game Footer
+                    Data.GameFooterList = Data.GameFooterList.Distinct().ToList();
+                    Data.GameFooterList.ForEach(x =>
+                    {
+                        if (!Directory.Exists(x))
+                            Data.GameFooterList.Remove(x);
+                    });
                 }
             };
             worker.RunWorkerAsync();
