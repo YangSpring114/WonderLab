@@ -6,6 +6,7 @@ using Avalonia.OpenGL;
 using Avalonia.Threading;
 using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Media.Animation;
+using MinecraftLaunch.Modules.Analyzers;
 using MinecraftLaunch.Modules.Toolkits;
 using Natsurainko.FluentCore.Class.Model.Auth;
 using Natsurainko.FluentCore.Class.Model.Launch;
@@ -35,6 +36,8 @@ namespace WonderLab.Views
     public partial class LaunchItemView : Page, ITask
     {
         Process GameProcess = null;
+
+        ConsoleWindow Window = new();
 
         string Path = "";
 
@@ -68,10 +71,13 @@ namespace WonderLab.Views
 
         private void Gamelog_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            Debug.WriteLine(ConsoleView.logModels.Count);
-            MainView.mv.FrameView.Navigate(typeof(ConsoleView),null, new DrillInNavigationTransitionInfo());
-            ConsoleView.console.loglist.Items = null; 
-            ConsoleView.console.loglist.Items = ConsoleView.logModels;
+            Dispatcher.UIThread.Post(() => Window = new(LaunchResponse));
+            Window.Show();
+            Window = null;
+            //Debug.WriteLine(ConsoleView.logModels.Count);
+            //MainView.mv.FrameView.Navigate(typeof(ConsoleView),null, new DrillInNavigationTransitionInfo());
+            //ConsoleView.console.loglist.Items = null; 
+            //ConsoleView.console.loglist.Items = ConsoleView.logModels;
         }
 
         private void Closegame_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e) =>
@@ -86,6 +92,7 @@ namespace WonderLab.Views
                     GameProcess.Kill();
                     main.Description = "游戏进程已退出";
                     gameout.IsVisible = true;
+                    IsKill = true;
                     MainWindow.ShowInfoBarAsync("成功", "游戏进程成功被关闭！", FluentAvalonia.UI.Controls.InfoBarSeverity.Success);
                     Close.IsVisible = false;
                 }
@@ -240,6 +247,7 @@ namespace WonderLab.Views
                 bool IsCanel = false;
                 var launcher = new MinecraftLauncher(settings, locator);
                 using var response = launcher.LaunchMinecraft(version, x => Debug.WriteLine(x.Message));
+                LaunchResponse = response;
                 response.MinecraftProcessOutput += Response_MinecraftProcessOutput;
                 response.MinecraftExited += Response_MinecraftExited;
                 if (response.State == LaunchState.Succeess) // 判断启动状态是否成功
@@ -286,51 +294,75 @@ namespace WonderLab.Views
         {
             TaskBase.InvokeAsync(() =>
             {
-                main.Description = $"游戏进程已退出";
-                Close.IsVisible = false;
-                gameout.IsVisible = true;
-                exitcode.Text = $"退出码：{e.ExitCode}";
+                if (!e.Crashed || IsKill)
+                {
+                    main.Description = $"游戏进程已退出";
+                    Close.IsVisible = false;
+                    gameout.IsVisible = true;
+                    exitcode.Text = $"退出码：{e.ExitCode}";
+                }
+                else
+                {
+                    main.Description = $"游戏进程已退出";
+                    Close.IsVisible = false;
+                    gameout.IsVisible = true;
+                    exitcode.Text = $"退出码：{e.ExitCode}";
+                    GameCrashAnalyzer analyzer = new(Logs);
+                    IsKill = false;
+                    var res = analyzer.AnalyseAsync().Keys.ToList();
+                    Debug.WriteLine($"[Launch] 导致游戏崩溃的可能的异常有 {res.Count} 个");
+                    Debug.WriteLine($"[Launch] {string.Join("\n", res)}");
+                }
             });
         }
 
         private void Response_MinecraftProcessOutput(object? sender, Natsurainko.FluentCore.Interface.IProcessOutput e)
         {
-            IBrush color = default;
-            //日志等级判断
-            var level = GameLogToolkit.GameLogParSing(e.Raw);
-            if(level.LogType is LogType.Error)
-                color = Brushes.Orange;
-            else if(level.LogType is LogType.Warning)
-                color = Brushes.Yellow;
-            else if(level.LogType is LogType.Info)
-                color = Brushes.Green;
-            else if(level.LogType is LogType.Fatal)
-                color = Brushes.Red;
-            else if(level.LogType is LogType.Unknown)
-                color = Brushes.Green;
+            //Window.ViewModel.Logs.Add(new() { Source = e.Raw });
+            Logs.Add(e.Raw);
+            Debug.WriteLine($"[Game Log] {e.Raw}");
+            //IBrush color = default;
+            ////日志等级判断
+            //var level = GameLogToolkit.GameLogParSing(e.Raw);
+            //if(level.LogType is LogType.Error)
+            //    color = Brushes.Orange;
+            //else if(level.LogType is LogType.Warning)
+            //    color = Brushes.Yellow;
+            //else if(level.LogType is LogType.Info)
+            //    color = Brushes.Green;
+            //else if(level.LogType is LogType.Fatal)
+            //    color = Brushes.Red;
+            //else if(level.LogType is LogType.Unknown)
+            //    color = Brushes.Green;
 
-            if (ConsoleView.console is null)
-            {
-                ConsoleView.logModels.Add(new()
-                {
-                    Log = e.Raw,
-                    LogLevel = color
-                });
-            }
-            else
-            {
-                ConsoleView.console.AddLog(new()
-                {
-                    Log = e.Raw,
-                    LogLevel = color,
-                });
-            }
+            //if (ConsoleView.console is null)
+            //{
+            //    ConsoleView.logModels.Add(new()
+            //    {
+            //        Log = e.Raw,
+            //        LogLevel = color
+            //    });
+            //}
+            //else
+            //{
+            //    ConsoleView.console.AddLog(new()
+            //    {
+            //        Log = e.Raw,
+            //        LogLevel = color,
+            //    });
+            //}
         }
 
         public void Button_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             TaskView.Remove(this);
         }
+
+        public bool IsKill { get; set; } = false;
+
+        LaunchResponse LaunchResponse = null;
+
+        public List<string> Logs = new();
 
         public string IsYgg
         {
