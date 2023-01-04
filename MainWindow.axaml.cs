@@ -272,6 +272,8 @@ namespace WonderLab
             theme.Mode = FluentThemeMode.Light;
             //var faTheme = AvaloniaLocator.Current.GetService<FluentTheme>();
             //faTheme.Mode = FluentThemeMode.Light;
+            ConsoleWindow window = new();
+            window.Show();
         }
     }
 

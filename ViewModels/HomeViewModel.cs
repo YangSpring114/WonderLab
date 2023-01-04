@@ -63,8 +63,9 @@ namespace WonderLab.ViewModels
         public void LaunchAsync()
         {
             string version = "";
-            Enabled = false;
-
+            //Enabled = false;
+            ConsoleWindow window = new();
+            window.Show();return;
             #region 检查游戏核心
 
             try

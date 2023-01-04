@@ -1,0 +1,77 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" Height="450" Width="800"
+        x:Class="WonderLab.Views.ConsoleWindow"
+        Title="游戏实时日志输出窗口 - 1.19.2">
+	<Grid>
+		<!--Top-->
+		<TextBlock Margin="13 10 0 0" Text="信息"/>
+		<TextBlock Margin="55 10 0 0" Text="警告"/>
+		<TextBlock Margin="100 10 0 0" Text="错误"/>
+		<TextBlock Margin="141 10 0 0" Text="致命"/>
+		<TextBlock Margin="182 10 0 0" Text="调试"/>
+		<Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10 30 0 0" MaxWidth="35" CornerRadius="8" Width="{Binding AWidth}" Height="4" Background="Green">
+			<Border.Transitions>
+				<Transitions>
+					<DoubleTransition Easing="CubicEaseOut" Property="Width" Duration="0:0:0.2"/>
+				</Transitions>
+			</Border.Transitions>
+		</Border>
+
+		<Border Margin="53 30 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="{Binding AWidth}" CornerRadius="8" Background="Yellow" Height="4">
+			<Border.Transitions>
+				<Transitions>
+					<DoubleTransition Easing="CubicEaseOut" Property="Width" Duration="0:0:0.2"/>
+				</Transitions>
+			</Border.Transitions>
+		</Border>
+
+		<Border Margin="96 30 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="{Binding AWidth}" CornerRadius="8" Background="Orange" Height="4">
+			<Border.Transitions>
+				<Transitions>
+					<DoubleTransition Easing="CubicEaseOut" Property="Width" Duration="0:0:0.2"/>
+				</Transitions>
+			</Border.Transitions>
+		</Border>
+
+		<Border Margin="138 30 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="{Binding AWidth}" CornerRadius="8" Background="Red" Height="4">
+			<Border.Transitions>
+				<Transitions>
+					<DoubleTransition Easing="CubicEaseOut" Property="Width" Duration="0:0:0.2"/>
+				</Transitions>
+			</Border.Transitions>
+		</Border>
+
+		<Border Margin="180.5 30 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="{Binding AWidth}" CornerRadius="8" Background="Gray" Height="4">
+			<Border.Transitions>
+				<Transitions>
+					<DoubleTransition Easing="CubicEaseOut" Property="Width" Duration="0:0:0.2"/>
+				</Transitions>
+			</Border.Transitions>
+		</Border>
+		
+		
+		<!--Center-->
+		<ListBox Margin="10 40 0 50">
+			<ListBox.Styles>
+				<Style Selector="ListBoxItem">
+					<Setter Property="Background" Value="Transparent"/>
+					<Setter Property="Template">
+						<ControlTemplate>
+							<Grid>
+								
+							</Grid>
+						</ControlTemplate>
+					</Setter>
+				</Style>
+			</ListBox.Styles>
+			<ListBoxItem/>
+		</ListBox>
+		
+		
+		<!--Botton-->
+		<Button Command="{Binding ShowLogTypeBar}" Content="结束游戏" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 10" Classes="accent"/>
+	</Grid>
+</Window>

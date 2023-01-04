@@ -196,21 +196,9 @@ namespace WonderLab.ViewModels
         {
             Thread thread = new Thread(async () =>
             {
-                //var v = await Task.Run(() =>
-                //{
-                //    return JavaHelper.SearchJavaRuntime();
-                //});
-
-                //foreach (var i in v)
-                //{
-                //    var str = i.EndsWith("e");
-
-                //    if (str is true)
-                //        App.Data.JavaList.Add(i);
-                //}
                 var res = await Task.Run(() =>
                 {
-                    return JavaToolkit.GetJavas().Distinct();
+                    return JavaToolkit.GetJavas().Distinct();//数组去重，防止出现多个相同的java
                 });
 
                 foreach (var j in res)
