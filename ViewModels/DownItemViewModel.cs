@@ -132,7 +132,7 @@ namespace WonderLab.ViewModels
             Dispatcher.UIThread.Post(() => IsLoadOk = true);//先静等一下再开始下载，不然这sb进度条要炸
             await Task.Delay(4000);
             Dispatcher.UIThread.Post(() => IsLoadOk = false);
-            Dispatcher.UIThread.Post(() => TaskProgress = 10);
+            Dispatcher.UIThread.Post(() => TaskProgress = 0.1f);
             await Task.Run(async() =>
             {
                 GameCoreInstaller installer = new(new(App.Data.FooterPath), Id);
@@ -153,8 +153,12 @@ namespace WonderLab.ViewModels
                     else
                     {
                         count++;
+                        Dispatcher.UIThread.Post(() =>
+                        {
+                            LittleTaskProgress = e.Item2;
+                            MainTaskProgress = e.Item2;
+                        });
                         Dispatcher.UIThread.Post(() => TaskProgress = e.Item1);
-                        //TaskProgress = e.Item1 * 100;
                     }
                 });
                 if (returninfo.Success)
@@ -171,6 +175,8 @@ namespace WonderLab.ViewModels
         //Forge
         private async void ForgeInstall(ModLoaderInformationViewData mlimvd)
         {
+            int count = 0;
+            int xlcount = 0;
             MainView.ViewModel.AllTaskCount++;
             TaskTitle = $"游戏核心 {mlimvd.Data.McVersion}-{mlimvd.Data.LoaderName}{mlimvd.Data.Version} 安装任务";
             Dispatcher.UIThread.Post(() => IsLoadOk = true);//先静等一下再开始下载，不然这sb进度条要炸
@@ -179,15 +185,30 @@ namespace WonderLab.ViewModels
             await Task.Run(async() =>
             {
                 ForgeInstaller forgeInstaller = new(new(App.Data.FooterPath), (ForgeInstallEntity)mlimvd.Build, App.Data.JavaPath,customId:$"{mlimvd.Data.McVersion}-{mlimvd.Data.LoaderName}{mlimvd.Data.Version}");
-                var res = await forgeInstaller.InstallAsync(x =>
+                var res = await forgeInstaller.InstallAsync(async x =>
                 {
-                    //TaskProgress = x.Item1 * 100;
-                    Dispatcher.UIThread.Post(() => TaskProgress = x.Item1);
-                    Dispatcher.UIThread.Post(() =>
+                    if (count is 10)
                     {
-                        LittleTaskProgress = x.Item2;
-                        MainTaskProgress = x.Item2;
-                    });
+                        xlcount++;
+                        count = 0;
+                        Dispatcher.UIThread.Post(() =>
+                        {
+                            LittleTaskProgress = x.Item2;
+                            MainTaskProgress = x.Item2;
+                        });
+                        Debug.WriteLine($"已限流 {xlcount} 次");
+                        await Task.Run(() => Thread.Sleep(1000));
+                    }
+                    else
+                    {
+                        count++;
+                        Dispatcher.UIThread.Post(() =>
+                        {
+                            LittleTaskProgress = x.Item2;
+                            MainTaskProgress = x.Item2;
+                        });
+                        Dispatcher.UIThread.Post(() => TaskProgress = x.Item1);
+                    }
                 });
 
                 if (res.Success)
