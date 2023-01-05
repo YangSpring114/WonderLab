@@ -57,6 +57,10 @@
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.18" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.18" />
+    <PackageReference Include="Costura.Fody" Version="5.8.0-alpha0098">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="FluentAvaloniaUI" Version="1.4.5" />
     <PackageReference Include="Natsurainko.FluentCore" Version="2.0.2" />
     <PackageReference Include="Natsurainko.FluentCore.Extension.Windows" Version="2.0.2" />
@@ -76,6 +80,9 @@
   </ItemGroup>
   <ItemGroup>
     <UpToDateCheckInput Remove="Views\PropertyView.axaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="半圆.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\MinecaftOAuth\MinecaftOAuth.csproj" />
@@ -112,6 +119,7 @@
 		<NSHighResolutionCapable>true</NSHighResolutionCapable>
 		<CFBundleShortVersionString>1.0.0</CFBundleShortVersionString>
 		<SignAssembly>True</SignAssembly>
+		<ApplicationIcon>半圆.ico</ApplicationIcon>
 	</PropertyGroup>
 	
 	<ProjectExtensions><VisualStudio><UserProperties resources_4moddata_1json__JsonSchema="https://appsemble.app/api.json" /></VisualStudio></ProjectExtensions>
