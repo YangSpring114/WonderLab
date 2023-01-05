@@ -85,7 +85,8 @@
 			<c:BoolConverter x:Key="BoolConverter"/>
 			<c:LoaderListConverter x:Key="LoaderListConverter"/>
 			<c:LoaderEnabledConverter x:Key="LoaderEnabledConverter"/>
-
+			<c:HeightConverter x:Key="HeightConverter"/>
+			<c:LogBrushConverter x:Key="LogBrushConverter"/>
 
 			<!--Double-->
 			<x:Double x:Key="InfoBarTitleFontSize">14</x:Double>

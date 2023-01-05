@@ -2,7 +2,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		MinWidth="350" MinHeight="380" Topmost="True"
+		WindowStartupLocation="CenterOwner"
+		MinWidth="350" MinHeight="380" Topmost="{Binding ElementName=IsTopmost,Path=IsChecked}"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" Height="450" Width="800"
         x:Class="WonderLab.Views.ConsoleWindow"
         Title="游戏实时日志输出窗口 - 1.19.2">
@@ -12,7 +13,8 @@
 		<TextBlock Margin="55 10 0 0" Text="警告"/>
 		<TextBlock Margin="100 10 0 0" Text="错误"/>
 		<TextBlock Margin="141 10 0 0" Text="致命"/>
-		<TextBlock Margin="182 10 0 0" Text="调试"/>
+		<TextBlock Margin="182 10 0 0" Text="调试"/>		
+		<CheckBox x:Name="IsTopmost" HorizontalAlignment="Right" Margin="10 6 -15 0" VerticalAlignment="Top" Content="窗口置顶"/>
 		<Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10 30 0 0" MaxWidth="35" CornerRadius="8" Width="{Binding AWidth}" Height="4" Background="Green">
 			<Border.Transitions>
 				<Transitions>
@@ -53,31 +55,58 @@
 			</Border.Transitions>
 		</Border>
 		
-		
 		<!--Center-->
-		<ListBox Items="{Binding Logs}" Margin="10 45 0 50" Padding="0">
-			<ListBox.Styles> 
-				<Style Selector="ListBoxItem">
-					<Setter Property="Background" Value="Transparent"/>
-					<Setter Property="MinHeight" Value="20"/>
-					<Setter Property="Padding" Value="0"/>					
-					<Setter Property="Template">
-						<ControlTemplate>
-							<Grid VerticalAlignment="Center">
-								<!--<Border Opacity="0.25" Background="Red"/>-->
-								<Grid HorizontalAlignment="Left">
-									<Border Height="20" Background="Green" HorizontalAlignment="Stretch" Width="4"/>
+		<ScrollViewer x:Name="ss" Margin="10 45 0 50">
+			<ListBox x:Name="LogList" Padding="0"
+					 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+					 ScrollViewer.VerticalScrollBarVisibility="Disabled">
+				<ListBox.ItemsPanel>
+					<ItemsPanelTemplate>
+						<StackPanel Spacing="0"/>
+					</ItemsPanelTemplate>
+				</ListBox.ItemsPanel>
+				<ListBox.Styles>
+					<Style Selector="ListBoxItem">
+						<Setter Property="Background" Value="Beige"/>
+						<Setter Property="MinHeight" Value="20"/>
+						<Setter Property="Height" Value="NaN"/>
+						<Setter Property="Padding" Value="0"/>
+						<Setter Property="Template">
+							<ControlTemplate>
+								<Grid Name="Layout" VerticalAlignment="Center">
+									<Grid.Transitions>
+										<Transitions>
+											<BrushTransition Easing="CubicEaseOut" Duration="0:0:0.6" Property="Background"/>
+										</Transitions>
+									</Grid.Transitions>
+									<!--<Border Opacity="0.25" Background="Red"/>-->
+									<Grid HorizontalAlignment="Left">
+										<Border Height="{Binding ElementName=Log,Path=Height,Converter={StaticResource HeightConverter}}" Background="{Binding LogLevel,Converter={StaticResource LogBrushConverter}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="4"/>
+									</Grid>
+									<TextBlock Text="{Binding Log}" TextAlignment="Left" HorizontalAlignment="Left" Name="Log" TextWrapping="Wrap" Margin="10 0 0 0" VerticalAlignment="Stretch" FontFamily="Din Pro"/>
 								</Grid>
-								<TextBlock Text="{Binding Raw}" HorizontalAlignment="Left" Name="Log" TextWrapping="WrapWithOverflow" Margin="10 0 0 0" TextAlignment="Center" VerticalAlignment="Center"/>
-							</Grid>
-						</ControlTemplate>
-				    </Setter>
-				</Style>
-			</ListBox.Styles>
-		</ListBox>
-		
+							</ControlTemplate>
+						</Setter>
+					</Style>
+
+					<Style Selector="ListBoxItem:pointerover /template/ Grid#Layout">
+						<Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+					</Style>
+				</ListBox.Styles>
+				<!--<ListBoxItem Background="Red"/>
+			<ListBoxItem Background="Red"/>
+			<ListBoxItem Background="Orange"/>
+			<ListBoxItem Background="Orange"/>
+			<ListBoxItem Background="Red"/>
+			<ListBoxItem Background="Gray"/>
+			<ListBoxItem Background="Red"/>
+			<ListBoxItem Background="Yellow"/>
+			<ListBoxItem Background="Red"/>
+			<ListBoxItem Background="Gray"/>-->
+			</ListBox>
+		</ScrollViewer>			
 		
 		<!--Botton-->
-		<Button Command="{Binding ShowLogTypeBar}" Content="结束游戏" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 10" Classes="accent"/>
+		<Button x:Name="CloseButton" Command="{Binding KillGame}" Content="结束游戏" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 10" Classes="accent"/>
 	</Grid>
 </Window>

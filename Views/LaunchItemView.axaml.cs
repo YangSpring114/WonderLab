@@ -37,7 +37,7 @@ namespace WonderLab.Views
     {
         Process GameProcess = null;
 
-        ConsoleWindow Window = new();
+        ConsoleWindow Window = null;
 
         string Path = "";
 
@@ -71,13 +71,9 @@ namespace WonderLab.Views
 
         private void Gamelog_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            Dispatcher.UIThread.Post(() => Window = new(LaunchResponse));
-            Window.Show();
             Window = null;
-            //Debug.WriteLine(ConsoleView.logModels.Count);
-            //MainView.mv.FrameView.Navigate(typeof(ConsoleView),null, new DrillInNavigationTransitionInfo());
-            //ConsoleView.console.loglist.Items = null; 
-            //ConsoleView.console.loglist.Items = ConsoleView.logModels;
+            Window = new(LaunchResponse, GameId);
+            Window.Show();
         }
 
         private void Closegame_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e) =>
@@ -245,6 +241,7 @@ namespace WonderLab.Views
 
                 #region 启动
                 bool IsCanel = false;
+                GameId = version;
                 var launcher = new MinecraftLauncher(settings, locator);
                 using var response = launcher.LaunchMinecraft(version, x => Debug.WriteLine(x.Message));
                 LaunchResponse = response;
@@ -294,7 +291,7 @@ namespace WonderLab.Views
         {
             TaskBase.InvokeAsync(() =>
             {
-                if (!e.Crashed || IsKill)
+                if (!e.Crashed || IsKill || (Window is not null && Window.IsKill))
                 {
                     main.Description = $"游戏进程已退出";
                     Close.IsVisible = false;
@@ -359,6 +356,8 @@ namespace WonderLab.Views
         }
 
         public bool IsKill { get; set; } = false;
+
+        string GameId = string.Empty;
 
         LaunchResponse LaunchResponse = null;
 

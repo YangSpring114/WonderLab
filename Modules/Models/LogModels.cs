@@ -1,4 +1,5 @@
 ﻿using Avalonia.Media;
+using MinecraftLaunch.Modules.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace WonderLab.Modules.Models
     public class LogModels
     {
         public string Log { get; set; }
-        public IBrush LogLevel { get; set; }
+        public MinecraftLaunch.Modules.Enum.GameLogType LogLevel { get; set; }
     }
 }

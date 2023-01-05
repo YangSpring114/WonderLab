@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WonderLab.Modules.Base;
+using WonderLab.Modules.Models;
 
 namespace WonderLab.ViewModels
 {
@@ -19,7 +20,7 @@ namespace WonderLab.ViewModels
             set => RaiseAndSetIfChanged(ref _T, value);
         }
 
-        public List<IProcessOutput> Logs
+        public List<LogModels> Logs
         {
             get => _Logs;
             set => RaiseAndSetIfChanged(ref _Logs, value);
@@ -30,23 +31,25 @@ namespace WonderLab.ViewModels
     {
         public ConsoleWindowViewModel(LaunchResponse process)
         {
+            ShowLogTypeBar();
             Process = process;
-            Process.MinecraftProcessOutput += Process_MinecraftProcessOutput;
-        }
-        List<IProcessOutput> Outputs = new();
-        private void Process_MinecraftProcessOutput(object? sender, Natsurainko.FluentCore.Interface.IProcessOutput e)
-        {
-            Outputs.Add(e);
-            Logs = null;
-            Logs = Outputs;
-            Debug.WriteLine(Logs[0].Raw);
         }
 
         public async void ShowLogTypeBar()
         {
-            AWidth = 0;
-            await Task.Delay(600);
-            AWidth = 35;
+            //await Task.Delay(1000);
+            await Task.Run(async() =>
+            {
+                AWidth = 0;
+                await Task.Delay(600);
+                AWidth = 35;
+            });
+        }
+
+        public void KillGame()
+        {
+            if (!Process.Process.HasExited)
+                Process.Process.Kill();
         }
     }
 
@@ -56,6 +59,6 @@ namespace WonderLab.ViewModels
         public ConsoleWindowViewModel() => ShowLogTypeBar();
         public double _T = 0;
         public Dictionary<string, string> _Test = new();
-        public List<IProcessOutput> _Logs = new();
+        public List<LogModels> _Logs = new();
     }
 }
