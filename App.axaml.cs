@@ -31,7 +31,7 @@ namespace WonderLab
     {
         public App()
         {
-            ServicePointManager.DefaultConnectionLimit = 512;
+            //ServicePointManager.DefaultConnectionLimit = 512;
             InitializeModData();
             CheckAsync();
             //Debug.WriteLine(Convert.ToDouble(double.NaN));

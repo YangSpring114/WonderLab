@@ -29,7 +29,7 @@ namespace WonderLab.ViewModels
 
     partial class ConsoleWindowViewModel
     {
-        public ConsoleWindowViewModel(LaunchResponse process)
+        public ConsoleWindowViewModel(JavaClientLaunchResponse process)
         {
             ShowLogTypeBar();
             Process = process;
@@ -55,7 +55,7 @@ namespace WonderLab.ViewModels
 
     partial class ConsoleWindowViewModel
     {
-        public LaunchResponse Process = null;
+        public JavaClientLaunchResponse Process = null;
         public ConsoleWindowViewModel() => ShowLogTypeBar();
         public double _T = 0;
         public Dictionary<string, string> _Test = new();

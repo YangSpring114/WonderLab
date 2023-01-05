@@ -6,13 +6,13 @@ using Avalonia.OpenGL;
 using Avalonia.Threading;
 using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Media.Animation;
+using MinecraftLaunch.Events;
+using MinecraftLaunch.Launch;
 using MinecraftLaunch.Modules.Analyzers;
+using MinecraftLaunch.Modules.Interface;
+using MinecraftLaunch.Modules.Models.Auth;
+using MinecraftLaunch.Modules.Models.Launch;
 using MinecraftLaunch.Modules.Toolkits;
-using Natsurainko.FluentCore.Class.Model.Auth;
-using Natsurainko.FluentCore.Class.Model.Launch;
-using Natsurainko.FluentCore.Module.Downloader;
-using Natsurainko.FluentCore.Module.Launcher;
-using Natsurainko.FluentCore.Wrapper;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -146,24 +146,23 @@ namespace WonderLab.Views
 
         public void LaunchAsync(string version, UserDataModels userData)
         {
-            LaunchSetting settings = null;
+            LaunchConfig settings = null;
 
             BackgroundWorker backgroundWorker = new BackgroundWorker();
 
             backgroundWorker.DoWork += async (_, _) =>
             {
-                settings = new LaunchSetting(); // 初始化启动配置
+                settings = new LaunchConfig(); // 初始化启动配置
                 #region 综合设置
-                var locator = new GameCoreLocator(Path is "" ? App.Data.FooterPath : Path);
-                var res = JsonToolkit.GetEnableIndependencyCoreData(App.Data.FooterPath,locator.GetGameCore(version));
-                settings.EnableIndependencyCore = App.Data.Isolate;
-                settings.JvmSetting = new(App.Data.JavaPath)
+                var locator = new GameCoreToolkit(Path is "" ? App.Data.FooterPath : Path);
+                var res = JsonToolkit.GetEnableIndependencyCoreData(App.Data.FooterPath,locator.GetGameCore(version).ToNatsurainkoGameCore());
+                settings.JvmConfig = new(App.Data.JavaPath)
                 {
                     MaxMemory = App.Data.Max,
                     AdvancedArguments = new List<string>() { App.Data.Jvm, IsYgg },
                 };
 
-                settings.GameWindowSetting = new()
+                settings.GameWindowConfig = new()
                 {
                     IsFullscreen = App.Data.IsFull,
                 };
@@ -179,15 +178,15 @@ namespace WonderLab.Views
 
                 if (res is not null && res.IsEnableIndependencyCore)
                 {
-                    settings.EnableIndependencyCore = res.Isolate;
+                    //settings.EnableIndependencyCore = res.Isolate;
 
-                    settings.JvmSetting = new(App.Data.JavaPath)
+                    settings.JvmConfig = new(App.Data.JavaPath)
                     {
                         MaxMemory = App.Data.Max,
                         AdvancedArguments = new List<string>() { res.Jvm, IsYgg },
                     };
 
-                    settings.GameWindowSetting = new()
+                    settings.GameWindowConfig = new()
                     {
                         IsFullscreen = res.IsFullWindows,
                         Height = res.WindowHeight,
@@ -228,8 +227,8 @@ namespace WonderLab.Views
                         await HttpToolkit.HttpDownloadAsync("https://bmclapi2.bangbang93.com/mirrors/authlib-injector/artifact/45/authlib-injector-1.1.45.jar",
                             PathConst.MainDirectory, "authlib-injector.jar");
                     }
-                    settings.JvmSetting.AdvancedArguments = new List<string>() { userData.AIJvm };
-                    settings.JvmSetting.AdvancedArguments.ToList().ForEach(x => MainWindow.ShowInfoBarAsync(x));
+                    settings.JvmConfig.AdvancedArguments = new List<string>() { userData.AIJvm };
+                    settings.JvmConfig.AdvancedArguments.ToList().ForEach(x => MainWindow.ShowInfoBarAsync(x));
                     settings.Account = new YggdrasilAccount()
                     {
                         Name = userData.UserName,
@@ -242,16 +241,16 @@ namespace WonderLab.Views
                 #region 启动
                 bool IsCanel = false;
                 GameId = version;
-                var launcher = new MinecraftLauncher(settings, locator);
-                using var response = launcher.LaunchMinecraft(version, x => Debug.WriteLine(x.Message));
+                var launcher = new JavaClientLauncher(settings, locator);
+                using var response = await launcher.LaunchTaskAsync(version, x => Debug.WriteLine(x.Item2));
                 LaunchResponse = response;
-                response.MinecraftProcessOutput += Response_MinecraftProcessOutput;
-                response.MinecraftExited += Response_MinecraftExited;
-                if (response.State == LaunchState.Succeess) // 判断启动状态是否成功
+                response.ProcessOutput += Response_MinecraftProcessOutput;
+                response.Exited += Response_MinecraftExited;
+                if (response.State is MinecraftLaunch.Modules.Enum.LaunchState.Succeess) // 判断启动状态是否成功
                 {
                     #region 记录时间
-                    var core = new GameCoreLocator(App.Data.FooterPath).GetGameCore(version);
-                    JsonToolkit.ChangeEnableIndependencyCoreInfoJsonTime(App.Data.FooterPath, core, JsonToolkit.GetEnableIndependencyCoreData(App.Data.FooterPath, core));
+                    var core = new GameCoreToolkit(App.Data.FooterPath).GetGameCore(version);
+                    JsonToolkit.ChangeEnableIndependencyCoreInfoJsonTime(App.Data.FooterPath, core.ToNatsurainkoGameCore(), JsonToolkit.GetEnableIndependencyCoreData(App.Data.FooterPath, core.ToNatsurainkoGameCore()));
                     #endregion
                     await Dispatcher.UIThread.InvokeAsync(() => main.Description = "等待游戏窗口出现", DispatcherPriority.Background);
                     await Task.Run(response.Process.WaitForInputIdle);
@@ -287,7 +286,7 @@ namespace WonderLab.Views
             backgroundWorker.RunWorkerAsync();
         }
 
-        private void Response_MinecraftExited(object? sender, Natsurainko.FluentCore.Event.MinecraftExitedArgs e)
+        private void Response_MinecraftExited(object? sender, ExitedArgs e)
         {
             TaskBase.InvokeAsync(() =>
             {
@@ -313,7 +312,7 @@ namespace WonderLab.Views
             });
         }
 
-        private void Response_MinecraftProcessOutput(object? sender, Natsurainko.FluentCore.Interface.IProcessOutput e)
+        private void Response_MinecraftProcessOutput(object? sender, IProcessOutput e)
         {
             //Window.ViewModel.Logs.Add(new() { Source = e.Raw });
             Logs.Add(e.Raw);
@@ -359,7 +358,7 @@ namespace WonderLab.Views
 
         string GameId = string.Empty;
 
-        LaunchResponse LaunchResponse = null;
+        JavaClientLaunchResponse LaunchResponse = null;
 
         public List<string> Logs = new();
 

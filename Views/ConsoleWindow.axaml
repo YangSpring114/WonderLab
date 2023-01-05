@@ -82,7 +82,7 @@
 									<Grid HorizontalAlignment="Left">
 										<Border Height="{Binding ElementName=Log,Path=Height,Converter={StaticResource HeightConverter}}" Background="{Binding LogLevel,Converter={StaticResource LogBrushConverter}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="4"/>
 									</Grid>
-									<StackPanel Orientation="Horizontal" Margin="10 0 0 0" VerticalAlignment="Stretch" HorizontalAlignment="Left">
+									<WrapPanel Orientation="Horizontal" Margin="10 0 0 0" VerticalAlignment="Stretch" HorizontalAlignment="Left">
 										<TextBlock Text="[" IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"
 		                                           TextAlignment="Left"
 		                                           Name="Log" TextWrapping="Wrap"
@@ -114,9 +114,9 @@
 		                                           FontFamily="Din Pro"/>
 
 										<TextBlock Text="{Binding Log}"
-		                                           TextAlignment="Left" TextWrapping="Wrap"
+		                                           TextAlignment="Left" TextWrapping="WrapWithOverflow"
 		                                           FontFamily="Din Pro"/>
-									</StackPanel>
+									</WrapPanel>
 								</Grid>
 							</ControlTemplate>
 						</Setter>
@@ -126,7 +126,7 @@
 						<Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
 					</Style>
 				</ListBox.Styles>
-		    <ListBoxItem Background="Red"/>
+		    <!--<ListBoxItem Background="Red"/>
 			<ListBoxItem Background="Red"/> 
 			<ListBoxItem Background="Orange"/>
 			<ListBoxItem Background="Orange"/>
@@ -135,14 +135,14 @@
 			<ListBoxItem Background="Red"/>
 			<ListBoxItem Background="Yellow"/>
 			<ListBoxItem Background="Red"/>
-			<ListBoxItem Background="Gray"/>
+			<ListBoxItem Background="Gray"/>-->
 			</ListBox>
 		</ScrollViewer>			
 		
 		<!--Botton-->
 		<Border Height="50" VerticalAlignment="Bottom" Background="{DynamicResource ControlFillColorDefaultBrush}"/>
 		<CheckBox x:Name="IsTopmost" HorizontalAlignment="Left" Margin="10 0 -15 10" VerticalAlignment="Bottom" Content="窗口置顶"/>
-		<!--<CheckBox x:Name="IsAuto" HorizontalAlignment="Left" Margin="10 0 -15 10" VerticalAlignment="Bottom" Content="窗口置顶"/>-->
+		<CheckBox x:Name="IsAuto" HorizontalAlignment="Left" Margin="110 0 -15 10" VerticalAlignment="Bottom" Content="拖动锁定"/>
 		<Button x:Name="CloseButton" Command="{Binding KillGame}" Content="结束游戏" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 10" Classes="accent"/>
 	</Grid>
 </Window>
