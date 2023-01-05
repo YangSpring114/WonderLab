@@ -309,6 +309,9 @@ namespace WonderLab.ViewModels
             IsFabricListLoadOk = true;
             IsForgeListLoadOk = true;
             IsOptiFineListLoadOk = true;
+            CurrentForgeDescription = "加载中...";
+            CurrentFabricDescription = "加载中...";
+            CurrentOpitfineDescription = "加载中...";
             #endregion
 
             #region Forge Load
@@ -327,6 +330,7 @@ namespace WonderLab.ViewModels
             Debug.WriteLine(Forges.Count);
             if (Forges.Count <= 0)
                 CurrentForgeDescription = "没有可用版本";
+            else CurrentForgeDescription = "未选择任何版本";
             IsForgeListLoadOk = false;
             #endregion
 
@@ -345,6 +349,7 @@ namespace WonderLab.ViewModels
             }).ToList();
             if (Fabrics.Count <= 0)
                 CurrentFabricDescription = "没有可用版本";
+            else CurrentFabricDescription = "未选择任何版本";
             IsFabricListLoadOk = false;
             #endregion
 
@@ -362,6 +367,8 @@ namespace WonderLab.ViewModels
             }).ToList();
             if (OptiFines.Count <= 0)
                 CurrentOpitfineDescription = "没有可用版本";
+            else
+                CurrentOpitfineDescription = "未选择任何版本";
             IsOptiFineListLoadOk = false;
             #endregion
         }
