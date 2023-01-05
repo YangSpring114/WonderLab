@@ -1,4 +1,5 @@
-﻿using FluentAvalonia.UI.Controls;
+﻿using Avalonia.Controls.Notifications;
+using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Media.Animation;
 using MinecraftLaunch.Modules.Models.Launch;
 using MinecraftLaunch.Modules.Toolkits;

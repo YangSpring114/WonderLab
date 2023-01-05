@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Notifications;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
 using Avalonia.Themes.Fluent;
@@ -271,7 +272,7 @@ namespace WonderLab
             FluentTheme theme = new(new Uri("avares://WonderLab"));
             theme.Mode = FluentThemeMode.Light;
             //var faTheme = AvaloniaLocator.Current.GetService<FluentTheme>();
-            //faTheme.Mode = FluentThemeMode.Light;
+            //faTheme.Mode = FluentThemeMode.Light;            
         }
     }
 

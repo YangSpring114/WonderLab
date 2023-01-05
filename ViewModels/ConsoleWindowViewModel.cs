@@ -41,7 +41,7 @@ namespace WonderLab.ViewModels
             await Task.Run(async() =>
             {
                 AWidth = 0;
-                await Task.Delay(600);
+                await Task.Delay(400);
                 AWidth = 35;
             });
         }

@@ -10,6 +10,9 @@ namespace WonderLab.Modules.Models
 {
     public class LogModels
     {
+        public string LogType => LogLevel.ToString();
+        public string Time { get; set; }
+        public string Source { get; set; }
         public string Log { get; set; }
         public MinecraftLaunch.Modules.Enum.GameLogType LogLevel { get; set; }
     }

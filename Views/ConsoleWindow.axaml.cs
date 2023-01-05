@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Controls.Notifications;
 using Avalonia.Threading;
 using MinecraftLaunch.Modules.Analyzers;
 using Natsurainko.FluentCore.Class.Model.Launch;
@@ -30,9 +31,16 @@ namespace WonderLab.Views
             //ViewModel = new(lr);            
             CloseButton.Click += CloseButton_Click;
             ViewModel = new ConsoleWindowViewModel(lr);
+            ss.ScrollChanged += Ss_ScrollChanged;
             lr.MinecraftProcessOutput += Lr_MinecraftProcessOutput;
             DataContext = ViewModel;
             LogList.DataContext = ViewModel;
+        }
+
+        private void Ss_ScrollChanged(object? sender, ScrollChangedEventArgs e)
+        {
+            ss.ScrollToEnd();
+            //
         }
 
         private async void CloseButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -44,27 +52,32 @@ namespace WonderLab.Views
         }
 
         List<LogModels> logs = new();
-        private void Lr_MinecraftProcessOutput(object? sender, Natsurainko.FluentCore.Interface.IProcessOutput e)
+        private async void Lr_MinecraftProcessOutput(object? sender, Natsurainko.FluentCore.Interface.IProcessOutput e)
         {
-            try
+            await Task.Run(() =>
             {
-                var logres = GameLogAnalyzer.AnalyseAsync(e.Raw);
-                Dispatcher.UIThread.Post(() =>
-                {
-                    var res = new LogModels()
+                try
+                {                    
+                    var logres = GameLogAnalyzer.AnalyseAsync(e.Raw);
+                    Dispatcher.UIThread.Post(() =>
                     {
-                        Log = e.Raw,
-                        LogLevel = logres.LogType
-                    };
-                    logs.Add(res);
-                    var log = logs;
-                    Debug.WriteLine($"[Console Log] {e.Raw}");
-                    LogList.Items = null;
-                    LogList.Items = logs;
-                    ss.ScrollToEnd();
-                });
-            }
-            catch { }
+                        var res = new LogModels()
+                        {
+                            Log = logres.Log,
+                            LogLevel = logres.LogType,
+                            Source = logres.Source,
+                            Time = logres.Time,
+                        };
+                        logs.Add(res);
+                        var log = logs;
+                        LogList.Items = null;
+                        LogList.Items = logs;
+                        
+                        ss.ScrollToEnd();
+                    });
+                }
+                catch { }
+            });
         }
     }
 }

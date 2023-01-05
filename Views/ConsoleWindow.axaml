@@ -14,7 +14,6 @@
 		<TextBlock Margin="100 10 0 0" Text="错误"/>
 		<TextBlock Margin="141 10 0 0" Text="致命"/>
 		<TextBlock Margin="182 10 0 0" Text="调试"/>		
-		<CheckBox x:Name="IsTopmost" HorizontalAlignment="Right" Margin="10 6 -15 0" VerticalAlignment="Top" Content="窗口置顶"/>
 		<Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10 30 0 0" MaxWidth="35" CornerRadius="8" Width="{Binding AWidth}" Height="4" Background="Green">
 			<Border.Transitions>
 				<Transitions>
@@ -83,7 +82,41 @@
 									<Grid HorizontalAlignment="Left">
 										<Border Height="{Binding ElementName=Log,Path=Height,Converter={StaticResource HeightConverter}}" Background="{Binding LogLevel,Converter={StaticResource LogBrushConverter}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="4"/>
 									</Grid>
-									<TextBlock Text="{Binding Log}" TextAlignment="Left" HorizontalAlignment="Left" Name="Log" TextWrapping="Wrap" Margin="10 0 0 0" VerticalAlignment="Stretch" FontFamily="Din Pro"/>
+									<StackPanel Orientation="Horizontal" Margin="10 0 0 0" VerticalAlignment="Stretch" HorizontalAlignment="Left">
+										<TextBlock Text="[" IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"
+		                                           TextAlignment="Left"
+		                                           Name="Log" TextWrapping="Wrap"
+		                                           FontFamily="Din Pro"/>
+
+										<TextBlock Text="{Binding Time}" Foreground="{DynamicResource SystemAccentColorLight1}"
+												   TextWrapping="Wrap" TextAlignment="Left" IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"
+												   FontFamily="Din Pro"/>
+
+										<TextBlock Text="] " IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"
+		                                           TextAlignment="Left" TextWrapping="Wrap"
+		                                           FontFamily="Din Pro"/>
+
+										<TextBlock Text="[" IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"
+		                                           TextAlignment="Left"
+		                                           TextWrapping="Wrap"
+		                                           FontFamily="Din Pro"/>
+
+										<TextBlock Text="{Binding Source}" Foreground="{DynamicResource SystemAccentColorDark1}"
+		                                           TextWrapping="Wrap" TextAlignment="Left" IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"
+		                                           FontFamily="Din Pro"/>
+
+										<TextBlock Text="/" TextWrapping="Wrap" TextAlignment="Left" FontFamily="Din Pro" IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"/>
+
+										<TextBlock Text="{Binding LogType}" IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}" Foreground="{DynamicResource SystemAccentColorLight3}" TextWrapping="Wrap" TextAlignment="Left" FontFamily="Din Pro"/>
+
+										<TextBlock Text="] " IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"
+		                                           TextAlignment="Left" TextWrapping="Wrap"
+		                                           FontFamily="Din Pro"/>
+
+										<TextBlock Text="{Binding Log}"
+		                                           TextAlignment="Left" TextWrapping="Wrap"
+		                                           FontFamily="Din Pro"/>
+									</StackPanel>
 								</Grid>
 							</ControlTemplate>
 						</Setter>
@@ -93,8 +126,8 @@
 						<Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
 					</Style>
 				</ListBox.Styles>
-				<!--<ListBoxItem Background="Red"/>
-			<ListBoxItem Background="Red"/>
+		    <ListBoxItem Background="Red"/>
+			<ListBoxItem Background="Red"/> 
 			<ListBoxItem Background="Orange"/>
 			<ListBoxItem Background="Orange"/>
 			<ListBoxItem Background="Red"/>
@@ -102,11 +135,14 @@
 			<ListBoxItem Background="Red"/>
 			<ListBoxItem Background="Yellow"/>
 			<ListBoxItem Background="Red"/>
-			<ListBoxItem Background="Gray"/>-->
+			<ListBoxItem Background="Gray"/>
 			</ListBox>
 		</ScrollViewer>			
 		
 		<!--Botton-->
+		<Border Height="50" VerticalAlignment="Bottom" Background="{DynamicResource ControlFillColorDefaultBrush}"/>
+		<CheckBox x:Name="IsTopmost" HorizontalAlignment="Left" Margin="10 0 -15 10" VerticalAlignment="Bottom" Content="窗口置顶"/>
+		<!--<CheckBox x:Name="IsAuto" HorizontalAlignment="Left" Margin="10 0 -15 10" VerticalAlignment="Bottom" Content="窗口置顶"/>-->
 		<Button x:Name="CloseButton" Command="{Binding KillGame}" Content="结束游戏" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 10" Classes="accent"/>
 	</Grid>
 </Window>
