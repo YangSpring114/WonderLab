@@ -236,6 +236,7 @@ namespace WonderLab.ViewModels
                 OptiFineInstaller oi = new(new(App.Data.FooterPath), (OptiFineInstallEntity)mlimvd.Build, App.Data.JavaPath,customId:$"{mlimvd.Data.McVersion}-{mlimvd.Data.LoaderName}_{mlimvd.Data.Version}");
                 var res = await oi.InstallAsync(async x =>
                 {
+                    Thread.Sleep(1);
                     Dispatcher.UIThread.Post(() => TaskProgress = x.Item1);
                     await Dispatcher.UIThread.InvokeAsync(() =>
                     {
