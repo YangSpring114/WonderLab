@@ -126,51 +126,44 @@ namespace WonderLab.ViewModels
         //Vanllia
         private async void VanlliaInstall(string Id)
         {
-            int count = 0;
-            int xlcount = 0;
             MainView.ViewModel.AllTaskCount++;
             Dispatcher.UIThread.Post(() => IsLoadOk = true);//先静等一下再开始下载，不然这sb进度条要炸
             await Task.Delay(4000);
             Dispatcher.UIThread.Post(() => IsLoadOk = false);
-            Dispatcher.UIThread.Post(() => TaskProgress = 0.1f);
-            await Task.Run(async() =>
+
+
+            using Process process = new Process()
             {
-                GameCoreInstaller installer = new(new(App.Data.FooterPath), Id);
-                var returninfo = await installer.InstallAsync(async e =>
+                StartInfo = new ProcessStartInfo("C:\\Users\\w\\Desktop\\WonderLab.Desktop.exe")
                 {
-                    if (count == 10)//尝试限流，一秒只更新十次
-                    {
-                        xlcount++;
-                        count = 0;
-                        Dispatcher.UIThread.Post(() =>
-                        {
-                            LittleTaskProgress = e.Item2;
-                            MainTaskProgress = e.Item2;
-                        });
-                        Debug.WriteLine($"已限流 {xlcount} 次");
-                        await Task.Run(() => Thread.Sleep(1000));
-                    }
-                    else
-                    {
-                        count++;
-                        Dispatcher.UIThread.Post(() =>
-                        {
-                            LittleTaskProgress = e.Item2;
-                            MainTaskProgress = e.Item2;
-                        });
-                        Dispatcher.UIThread.Post(() => TaskProgress = e.Item1);
-                    }
-                });
-                if (returninfo.Success)
+                    Arguments = "GameCoreDownloader --core 1.16.5 --folder C:\\Users\\w\\Desktop\\temp\\.minecraft",
+                    CreateNoWindow = true,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                },
+                EnableRaisingEvents = true
+            };
+            process.OutputDataReceived += (_, e) =>
+            {
+                if (!string.IsNullOrEmpty(e.Data))
                 {
-                    await Task.Delay(1000);
-                    LittleTaskProgress = "已完成";
-                    MainTaskProgress = "安装成功";
+                    var datas = e.Data.Split('|');
+                    LittleTaskProgress = datas.First();
+                    MainTaskProgress = datas.First();
+                    TaskProgress = float.Parse(datas.Last());
                 }
-            }); 
-            MainView.ViewModel.AllTaskCount--;
-            LittleTaskProgress = "已完成";
-            MainTaskProgress = "安装成功";
+            };
+            process.Exited += (_, _) =>
+            {
+                MainView.ViewModel.AllTaskCount--;
+                LittleTaskProgress = "已完成";
+                MainTaskProgress = "安装成功";
+            };
+            process.Start();
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+            await process.WaitForExitAsync();
         }
         //Forge
         private async void ForgeInstall(ModLoaderInformationViewData mlimvd)
@@ -429,6 +422,34 @@ namespace WonderLab.ViewModels
                 FilePath = JavaInstaller.StorageFolder;
                 MainView.ViewModel.AllTaskCount--;
             }
+        }
+        //Base
+        private Process GetDownloadProcess(string core, string folder, int maxthread, string modLoader = null, string coreId = null, string java = null)
+        {
+            StringBuilder builder = new("GameCoreDownloader");
+            builder.Append($" --core {core}");
+            builder.Append($" --folder {folder}");
+            builder.Append($" --maxThread {maxthread}");
+            if (modLoader is not null)
+            {
+                builder.Append($" --modLoader {modLoader}");
+                builder.Append($" --coreId {coreId}");
+                builder.Append($" --javapath {java}");
+            }
+
+            Process process = new Process()
+            {
+                StartInfo = new ProcessStartInfo("C:\\Users\\w\\Desktop\\WonderLab.Desktop.exe")
+                {
+                    Arguments = builder.ToString(),
+                    CreateNoWindow = true,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                },
+                EnableRaisingEvents = true
+            };
+            return process;
         }
     }
 
