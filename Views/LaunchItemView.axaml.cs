@@ -147,7 +147,7 @@ namespace WonderLab.Views
         public void LaunchAsync(string version, UserDataModels userData)
         {
             LaunchConfig settings = null;
-
+            bool IsEnableIndependencyCore = false;
             BackgroundWorker backgroundWorker = new BackgroundWorker();
 
             backgroundWorker.DoWork += async (_, _) =>
@@ -172,14 +172,14 @@ namespace WonderLab.Views
                 else
                     settings.WorkingFolder = new(Path is "" ? App.Data.FooterPath : Path);
                 Debug.WriteLine(settings.WorkingFolder);
+                IsEnableIndependencyCore = App.Data.Isolate;
                 //如果不是windows就可以手动设置Natives目录
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) || RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
                     settings.NativesFolder = new(Path is "" ? App.Data.FooterPath : Path);
-
                 if (res is not null && res.IsEnableIndependencyCore)
                 {
                     //settings.EnableIndependencyCore = res.Isolate;
-
+                    IsEnableIndependencyCore = res.Isolate;
                     settings.JvmConfig = new(App.Data.JavaPath)
                     {
                         MaxMemory = App.Data.Max,
@@ -192,11 +192,11 @@ namespace WonderLab.Views
                         Height = res.WindowHeight,
                         Width = res.WindowWidth
                     };
-
-                    if (res.Isolate is true)
-                        settings.WorkingFolder = new(PathConst.GetVersionFolder(Path is "" ? App.Data.FooterPath : Path, version));
-                    else
-                        settings.WorkingFolder = new(Path is "" ? App.Data.FooterPath : Path);
+                    Trace.WriteLine("[Launch] 已启用独立游戏核心设置");
+                    //if (res.Isolate is true)
+                    //    settings.WorkingFolder = new(PathConst.GetVersionFolder(Path is "" ? App.Data.FooterPath : Path, version));
+                    //else
+                    //    settings.WorkingFolder = new(Path is "" ? App.Data.FooterPath : Path);
                 }
                 #endregion
 
@@ -241,7 +241,7 @@ namespace WonderLab.Views
                 #region 启动
                 bool IsCanel = false;
                 GameId = version;
-                var launcher = new JavaClientLauncher(settings, locator);
+                var launcher = new JavaClientLauncher(settings, locator, IsEnableIndependencyCore);
                 using var response = await launcher.LaunchTaskAsync(version, x => Debug.WriteLine(x.Item2));
                 LaunchResponse = response;
                 response.ProcessOutput += Response_MinecraftProcessOutput;
