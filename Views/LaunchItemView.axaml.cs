@@ -317,36 +317,6 @@ namespace WonderLab.Views
             //Window.ViewModel.Logs.Add(new() { Source = e.Raw });
             Logs.Add(e.Raw);
             Debug.WriteLine($"[Game Log] {e.Raw}");
-            //IBrush color = default;
-            ////日志等级判断
-            //var level = GameLogToolkit.GameLogParSing(e.Raw);
-            //if(level.LogType is LogType.Error)
-            //    color = Brushes.Orange;
-            //else if(level.LogType is LogType.Warning)
-            //    color = Brushes.Yellow;
-            //else if(level.LogType is LogType.Info)
-            //    color = Brushes.Green;
-            //else if(level.LogType is LogType.Fatal)
-            //    color = Brushes.Red;
-            //else if(level.LogType is LogType.Unknown)
-            //    color = Brushes.Green;
-
-            //if (ConsoleView.console is null)
-            //{
-            //    ConsoleView.logModels.Add(new()
-            //    {
-            //        Log = e.Raw,
-            //        LogLevel = color
-            //    });
-            //}
-            //else
-            //{
-            //    ConsoleView.console.AddLog(new()
-            //    {
-            //        Log = e.Raw,
-            //        LogLevel = color,
-            //    });
-            //}
         }
 
         public void Button_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
