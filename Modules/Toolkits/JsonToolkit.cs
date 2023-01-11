@@ -79,7 +79,28 @@ namespace WonderLab.Modules.Toolkits
 
         public static GameDataModels CreaftEnableIndependencyCoreInfoJson(string root, GameCore core,bool IsEnableIndependencycore = true)
         {
-            var v = PathConst.GetVersionFolder(root, core.Id) + $"\\info.json";
+
+            var folder = PathConst.GetVersionFolder(root, core.Id);
+            if (Directory.Exists(folder))
+                Directory.CreateDirectory(folder);
+
+            var v = folder + $"\\info.json";
+            var data = new GameDataModels()
+            {
+                IsEnableIndependencyCore = IsEnableIndependencycore
+            };
+            File.WriteAllText(v, data.ToJson());
+            return data;
+        }
+
+        public static GameDataModels CreaftEnableIndependencyCoreInfoJson(string root, string core, bool IsEnableIndependencycore = true)
+        {
+
+            var folder = PathConst.GetVersionFolder(root, core);
+            if (Directory.Exists(folder))
+                Directory.CreateDirectory(folder);
+
+            var v = folder + $"\\info.json";
             var data = new GameDataModels()
             {
                 IsEnableIndependencyCore = IsEnableIndependencycore
