@@ -152,6 +152,7 @@ namespace WonderLab.ViewModels
                     LittleTaskProgress = datas.First();
                     MainTaskProgress = datas.First();
                     TaskProgress = float.Parse(datas.Last());
+                    Thread.Sleep(1);
                 }
             };
             process.Exited += (_, _) =>
@@ -203,6 +204,7 @@ namespace WonderLab.ViewModels
                         LittleTaskProgress = datas.First();
                         MainTaskProgress = datas.First();
                         TaskProgress = float.Parse(datas.Last());
+                        Thread.Sleep(1);
                     }
                 }
             };
@@ -228,29 +230,55 @@ namespace WonderLab.ViewModels
             Dispatcher.UIThread.Post(() => IsLoadOk = true);//先静等一下再开始下载，不然这sb进度条要炸
             await Task.Delay(4000);
             Dispatcher.UIThread.Post(() => IsLoadOk = false);
-            await Task.Run(async () =>
-            {
-                OptiFineInstaller oi = new(new(App.Data.FooterPath), (OptiFineInstallEntity)mlimvd.Build, App.Data.JavaPath,customId:$"{mlimvd.Data.McVersion}-{mlimvd.Data.LoaderName}_{mlimvd.Data.Version}");
-                var res = await oi.InstallAsync(async x =>
-                {
-                    Thread.Sleep(1);
-                    Dispatcher.UIThread.Post(() => TaskProgress = x.Item1);
-                    await Dispatcher.UIThread.InvokeAsync(() =>
-                    {
-                        LittleTaskProgress = x.Item2;
-                        MainTaskProgress = x.Item2;
-                    });
-                });
 
-                if (res.Success)
+
+            var args = GetDownloadProcessArguments(mlimvd.Data.McVersion, App.Data.FooterPath,
+                App.Data.MaxThreadCount, $"{mlimvd.Data.LoaderName}{mlimvd.Data.Version}",
+                $"{mlimvd.Data.McVersion}-{mlimvd.Data.LoaderName}_{mlimvd.Data.Version}",App.Data.JavaPath);
+
+            using Process process = new Process()
+            {
+                StartInfo = new ProcessStartInfo("C:\\Users\\w\\Desktop\\WonderLab.Desktop.exe")
                 {
-                    Dispatcher.UIThread.Post(() => TaskProgress = 1);
-                    LittleTaskProgress = "已完成";
-                    MainTaskProgress = "安装成功";
-                    JsonToolkit.CreaftEnableIndependencyCoreInfoJson(App.Data.FooterPath, new GameCoreLocator(App.Data.FooterPath).GetGameCore(res.GameCore.Id), DownGameView.ViewModel.IsEnableIndependencyCore);
-                    MainView.ViewModel.AllTaskCount--;
+                    Arguments = args,
+                    CreateNoWindow = true,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                },
+                EnableRaisingEvents = true
+            };
+
+            process.OutputDataReceived += (_, e) =>
+            {
+                if (!string.IsNullOrEmpty(e.Data))
+                {
+                    var datas = e.Data.Split('|');
+                    if (datas.Length is 2)
+                    {
+                        LittleTaskProgress = datas.First();
+                        MainTaskProgress = datas.First();
+                        TaskProgress = float.Parse(datas.Last());
+                        Thread.Sleep(1);
+                    }
                 }
-            });
+            };
+
+            process.Exited += (_, _) =>
+            {
+                MainView.ViewModel.AllTaskCount--;
+                LittleTaskProgress = "已完成";
+                MainTaskProgress = "安装成功";
+                JsonToolkit.CreaftEnableIndependencyCoreInfoJson(App.Data.FooterPath, 
+                    new GameCoreLocator(App.Data.FooterPath)
+                    .GetGameCore($"{mlimvd.Data.McVersion}-{mlimvd.Data.LoaderName}_{mlimvd.Data.Version}"), 
+                    DownGameView.ViewModel.IsEnableIndependencyCore);
+                MainView.ViewModel.AllTaskCount--;
+            };
+            process.Start();
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+            await process.WaitForExitAsync();
         }
         //Forge + OptiFine
         private async void ForgeOptiFineInstall(ModLoaderInformationViewData fm, ModLoaderInformationViewData om)
