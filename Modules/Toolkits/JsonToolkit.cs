@@ -164,5 +164,6 @@ namespace WonderLab.Modules.Toolkits
             Debug.WriteLine(stringBuilder);
             return stringBuilder.ToString();
         }
-    } 
+    }
 }
+//C:\Users\w\Desktop\temp\.minecraft\versions\1.7.10 - OptiFine_HD_U_E7
