@@ -269,16 +269,15 @@ namespace WonderLab.ViewModels
                 MainView.ViewModel.AllTaskCount--;
                 LittleTaskProgress = "已完成";
                 MainTaskProgress = "安装成功";
-                JsonToolkit.CreaftEnableIndependencyCoreInfoJson(App.Data.FooterPath, 
-                    new GameCoreLocator(App.Data.FooterPath)
-                    .GetGameCore($"{mlimvd.Data.McVersion}-{mlimvd.Data.LoaderName}_{mlimvd.Data.Version}"), 
-                    DownGameView.ViewModel.IsEnableIndependencyCore);
                 MainView.ViewModel.AllTaskCount--;
             };
             process.Start();
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
             await process.WaitForExitAsync();
+            JsonToolkit.CreaftEnableIndependencyCoreInfoJson(App.Data.FooterPath,
+                        $"{mlimvd.Data.McVersion}-{mlimvd.Data.LoaderName}_{mlimvd.Data.Version}",
+                        DownGameView.ViewModel.IsEnableIndependencyCore);
         }
         //Forge + OptiFine
         private async void ForgeOptiFineInstall(ModLoaderInformationViewData fm, ModLoaderInformationViewData om)
