@@ -39,7 +39,8 @@
     <EmbeddedResource Include="Resources\HarmonyOS.ttf" />
     <EmbeddedResource Include="Resources\Icon.ico" />
     <EmbeddedResource Include="Resources\ModData.json" />
-    <EmbeddedResource Include="Resources\normal.png" />
+	<EmbeddedResource Include="Resources\normal.png" />
+    <EmbeddedResource Include="Resources\sdf.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />

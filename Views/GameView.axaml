@@ -27,7 +27,7 @@
 					</ui:Button.Content>
 				</ui:Button>
 				<Rectangle VerticalAlignment="Center" Height="28" Margin="10,0,10,0" Fill="White" Opacity="0.25" Width="1"/>
-				<TextBox Name="eee" MinWidth="150" MaxWidth="200"/>
+				<AutoCompleteBox Text="{Binding GameCoresFilter}" MinWidth="150" MaxWidth="200"/>
 				<Rectangle VerticalAlignment="Center" Height="28" Margin="10,0,10,0" Fill="White" Opacity="0.25" Width="1"/>
 				<ComboBox SelectedIndex="{Binding SelectCoreSortOption}" Items="{Binding CoreSortOption}" VerticalAlignment="Center" MinWidth="120"/>
 				<Rectangle VerticalAlignment="Center" Height="28" Margin="10,0,10,0" Fill="White" Opacity="0.25" Width="1"/>

@@ -123,6 +123,16 @@ namespace WonderLab.ViewModels
                 }
             }
         }
+
+        public string GameCoresFilter
+        {
+            get => _GameCoresFilter;
+            set
+            {
+                if (RaiseAndSetIfChanged(ref _GameCoresFilter, value))
+                    SearchGameCores();
+            }
+        }
     }
     
     partial class GameViewModels
@@ -265,6 +275,24 @@ namespace WonderLab.ViewModels
                 TaskView.task.AddItem(view);
         }
 
+        public async void SearchGameCores()
+        {
+            if (!string.IsNullOrEmpty(GameCoresFilter))
+            {
+                GameSearchAsync();
+                await Task.Delay(100);
+                GameCores = GameCores.Where(x =>
+                {
+                    if (x.Id.Contains(GameCoresFilter))
+                        return true;
+
+                    return false;
+                }).ToList();
+
+                UpdateTips();
+            }
+        }
+
         private void UpdateGameCores()
         {
             if (!string.IsNullOrEmpty(SelectedFooler))
@@ -344,6 +372,7 @@ namespace WonderLab.ViewModels
         public int _SelectCoreVisibilityOption = 0;
         public string _SelectedIndex = App.Data.FooterPath;
         public string _NewGameCoreName = string.Empty;
+        public string _GameCoresFilter = string.Empty;
         public List<string> _FodlerList = App.Data.GameFooterList;
     }
 }

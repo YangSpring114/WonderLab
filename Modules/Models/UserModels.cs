@@ -125,7 +125,7 @@ namespace WonderLab.Modules.Models
                 }
                 else
                 {
-                    Icon = (BitmapToolkit.GetAssetsImage("resm:WonderLab.Resources.normal.png") as Bitmap);
+                    Icon = (BitmapToolkit.GetAssetsImage("resm:WonderLab.Resources.sdf.png") as Bitmap);
                 }
             }, default);
         }

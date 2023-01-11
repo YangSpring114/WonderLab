@@ -568,4 +568,3 @@ namespace WonderLab.ViewModels
         public bool _IsLoadOk = true;
     }
 }
-//MainView.ViewModel.AllTaskCount++;
