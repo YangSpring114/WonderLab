@@ -175,7 +175,7 @@ namespace WonderLab.ViewModels
             MainView.ViewModel.AllTaskCount++;
             TaskTitle = $"游戏核心 {mlimvd.Data.McVersion}-{mlimvd.Data.LoaderName}{mlimvd.Data.Version} 安装任务";
             Dispatcher.UIThread.Post(() => IsLoadOk = true);//先静等一下再开始下载，不然这sb进度条要炸
-            await Task.Delay(4000);
+            await Task.Delay(3000);
             Dispatcher.UIThread.Post(() => IsLoadOk = false);
 
 
@@ -223,9 +223,6 @@ namespace WonderLab.ViewModels
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
             await process.WaitForExitAsync();
-
-
-            MainView.ViewModel.AllTaskCount--;
         }
         //OptiFine
         private async void OptiFineInstall(ModLoaderInformationViewData mlimvd)
@@ -233,7 +230,7 @@ namespace WonderLab.ViewModels
             MainView.ViewModel.AllTaskCount++;
             TaskTitle = $"游戏核心 {mlimvd.Data.McVersion}-{mlimvd.Data.LoaderName}_{mlimvd.Data.Version} 安装任务";
             Dispatcher.UIThread.Post(() => IsLoadOk = true);//先静等一下再开始下载，不然这sb进度条要炸
-            await Task.Delay(4000);
+            await Task.Delay(3000);
             Dispatcher.UIThread.Post(() => IsLoadOk = false);
 
 
@@ -290,41 +287,54 @@ namespace WonderLab.ViewModels
             MainView.ViewModel.AllTaskCount++;
             TaskTitle = $"游戏核心 {fm.Data.McVersion}-{fm.Data.LoaderName}{fm.Data.Version}-{om.Data.LoaderName}_{om.Data.Version} 安装任务";
             Dispatcher.UIThread.Post(() => IsLoadOk = true);//先静等一下再开始下载，不然这sb进度条要炸
-            await Task.Delay(4000);
+            await Task.Delay(3000);
             Dispatcher.UIThread.Post(() => IsLoadOk = false);
-            await Task.Run(async () =>
+
+
+            var Arguments = GetDownloadProcessArguments(fm.Data.McVersion,
+                 App.Data.FooterPath, App.Data.MaxThreadCount,
+                 $"{fm.Data.LoaderName}{fm.Data.Version}<>{om.Data.LoaderName}{om.Data.Version}",
+                 $"{fm.Data.McVersion}-{fm.Data.LoaderName}{fm.Data.Version}-{om.Data.LoaderName}_{om.Data.Version}", App.Data.JavaPath);
+
+            using Process process = new Process()
             {
-                ForgeInstaller forgeInstaller = new(new(App.Data.FooterPath), (ForgeInstallEntity)fm.Build, App.Data.JavaPath, customId: $"{fm.Data.McVersion}-{fm.Data.LoaderName}{fm.Data.Version}-{om.Data.LoaderName}_{om.Data.Version}");
-                var res = await forgeInstaller.InstallAsync(async x =>
+                StartInfo = new ProcessStartInfo("D:\\Workspace\\ICode\\C#\\WonderLabX\\WonderLab.Desktop\\bin\\Debug\\net6.0\\WonderLab.Desktop.exe")
                 {
-                    Dispatcher.UIThread.Post(() => TaskProgress = x.Item1);
-                    await Dispatcher.UIThread.InvokeAsync(() =>
-                    {
-                        LittleTaskProgress = x.Item2;
-                        MainTaskProgress = x.Item2;
-                    });
-                });
-
-                if (res.Success)
+                    Arguments = Arguments,
+                    CreateNoWindow = true,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                },
+                EnableRaisingEvents = true
+            };
+            process.OutputDataReceived += (_, e) =>
+            {
+                if (!string.IsNullOrEmpty(e.Data))
                 {
-                    OptiFineInstaller oi = new(new(App.Data.FooterPath), (OptiFineInstallEntity)om.Build, App.Data.JavaPath, customId: $"{fm.Data.McVersion}-{fm.Data.LoaderName}{fm.Data.Version}-{om.Data.LoaderName}_{om.Data.Version}");
-                    var res1 = await oi.InstallAsync(async x =>
+                    var datas = e.Data.Split('|');
+                    if (datas.Length is 2)
                     {
-                        Dispatcher.UIThread.Post(() => TaskProgress = 1);
-                        await Dispatcher.UIThread.InvokeAsync(() =>
-                        {
-                            LittleTaskProgress = x.Item2;
-                            MainTaskProgress = x.Item2;
-                        });
-                    });
-
-                    if (res.Success)
-                    {
-                        JsonToolkit.CreaftEnableIndependencyCoreInfoJson(App.Data.FooterPath, new GameCoreLocator(App.Data.FooterPath).GetGameCore(res1.GameCore.Id), DownGameView.ViewModel.IsEnableIndependencyCore);
+                        LittleTaskProgress = datas.First();
+                        MainTaskProgress = datas.First();
+                        TaskProgress = float.Parse(datas.Last());
+                        Thread.Sleep(1);
                     }
                 }
-            });
-            MainView.ViewModel.AllTaskCount--;
+            };
+            process.Exited += (_, _) =>
+            {
+                LittleTaskProgress = "已完成";
+                MainTaskProgress = "安装成功";
+                JsonToolkit.CreaftEnableIndependencyCoreInfoJson(App.Data.FooterPath,
+                $"{fm.Data.McVersion}-{fm.Data.LoaderName}{fm.Data.Version}-{om.Data.LoaderName}_{om.Data.Version}",
+                DownGameView.ViewModel.IsEnableIndependencyCore);
+                MainView.ViewModel.AllTaskCount--;
+            };
+            process.Start();
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+            await process.WaitForExitAsync();
         }
         //Fabric
         private async void FabricInstall(ModLoaderInformationViewData mlimvd)
@@ -332,7 +342,7 @@ namespace WonderLab.ViewModels
             MainView.ViewModel.AllTaskCount++;
             TaskTitle = $"游戏核心 {mlimvd.Data.McVersion}-{mlimvd.Data.LoaderName}_{mlimvd.Data.Version} 安装任务";
             Dispatcher.UIThread.Post(() => IsLoadOk = true);//先静等一下再开始下载，不然这sb进度条要炸
-            await Task.Delay(4000);
+            await Task.Delay(3000);
             Dispatcher.UIThread.Post(() => IsLoadOk = false);
 
 
