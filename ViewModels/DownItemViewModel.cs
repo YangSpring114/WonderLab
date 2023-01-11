@@ -134,7 +134,7 @@ namespace WonderLab.ViewModels
             var Arguments = GetDownloadProcessArguments(Id, App.Data.FooterPath,App.Data.MaxThreadCount);
             using Process process = new Process()
             {
-                StartInfo = new ProcessStartInfo("C:\\Users\\w\\Desktop\\WonderLab.Desktop.exe")
+                StartInfo = new ProcessStartInfo("D:\\Workspace\\ICode\\C#\\WonderLabX\\WonderLab.Desktop\\bin\\Debug\\net6.0\\WonderLab.Desktop.exe")
                 {
                     Arguments = Arguments,
                     CreateNoWindow = true,
@@ -184,7 +184,7 @@ namespace WonderLab.ViewModels
 
             using Process process = new Process()
             {
-                StartInfo = new ProcessStartInfo("C:\\Users\\w\\Desktop\\WonderLab.Desktop.exe")
+                StartInfo = new ProcessStartInfo("D:\\Workspace\\ICode\\C#\\WonderLabX\\WonderLab.Desktop\\bin\\Debug\\net6.0\\WonderLab.Desktop.exe")
                 {
                     Arguments = Arguments,
                     CreateNoWindow = true,
@@ -238,7 +238,7 @@ namespace WonderLab.ViewModels
 
             using Process process = new Process()
             {
-                StartInfo = new ProcessStartInfo("C:\\Users\\w\\Desktop\\WonderLab.Desktop.exe")
+                StartInfo = new ProcessStartInfo("D:\\Workspace\\ICode\\C#\\WonderLabX\\WonderLab.Desktop\\bin\\Debug\\net6.0\\WonderLab.Desktop.exe")
                 {
                     Arguments = args,
                     CreateNoWindow = true,
@@ -269,15 +269,16 @@ namespace WonderLab.ViewModels
                 MainView.ViewModel.AllTaskCount--;
                 LittleTaskProgress = "已完成";
                 MainTaskProgress = "安装成功";
+                LogToolkit.WriteLine($"{mlimvd.Data.McVersion}-{mlimvd.Data.LoaderName}_{mlimvd.Data.Version}");
+                JsonToolkit.CreaftEnableIndependencyCoreInfoJson(App.Data.FooterPath,
+                $"{mlimvd.Data.McVersion}-{mlimvd.Data.LoaderName}_{mlimvd.Data.Version}",
+                DownGameView.ViewModel.IsEnableIndependencyCore);
                 MainView.ViewModel.AllTaskCount--;
             };
             process.Start();
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
             await process.WaitForExitAsync();
-            JsonToolkit.CreaftEnableIndependencyCoreInfoJson(App.Data.FooterPath,
-                        $"{mlimvd.Data.McVersion}-{mlimvd.Data.LoaderName}_{mlimvd.Data.Version}",
-                        DownGameView.ViewModel.IsEnableIndependencyCore);
         }
         //Forge + OptiFine
         private async void ForgeOptiFineInstall(ModLoaderInformationViewData fm, ModLoaderInformationViewData om)

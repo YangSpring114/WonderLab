@@ -12,7 +12,7 @@ namespace WonderLab.Modules.Toolkits
 {
     public class LogToolkit
     {
-        public static void WriteLine<T>(T raw,LogTyoe tyoe)
+        public static void WriteLine<T>(T raw,LogTyoe tyoe = LogTyoe.Info)
         {
             Debug.WriteLine($"[{TimeToolkit.GetCurrentTimeSlot()}] [{tyoe}] {raw}");
         }
