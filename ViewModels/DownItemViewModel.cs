@@ -157,9 +157,11 @@ namespace WonderLab.ViewModels
             };
             process.Exited += (_, _) =>
             {
-                MainView.ViewModel.AllTaskCount--;
                 LittleTaskProgress = "已完成";
                 MainTaskProgress = "安装成功";
+                JsonToolkit.CreaftEnableIndependencyCoreInfoJson(App.Data.FooterPath, Id,
+                    DownGameView.ViewModel.IsEnableIndependencyCore);
+                MainView.ViewModel.AllTaskCount--;
             };
             process.Start();
             process.BeginOutputReadLine();
@@ -210,9 +212,12 @@ namespace WonderLab.ViewModels
             };
             process.Exited += (_, _) =>
             {
-                MainView.ViewModel.AllTaskCount--;
                 LittleTaskProgress = "已完成";
                 MainTaskProgress = "安装成功";
+                JsonToolkit.CreaftEnableIndependencyCoreInfoJson(App.Data.FooterPath,
+                $"{mlimvd.Data.McVersion}-{mlimvd.Data.LoaderName}{mlimvd.Data.Version}",
+                DownGameView.ViewModel.IsEnableIndependencyCore);
+                MainView.ViewModel.AllTaskCount--;
             };
             process.Start();
             process.BeginOutputReadLine();
@@ -266,7 +271,6 @@ namespace WonderLab.ViewModels
 
             process.Exited += (_, _) =>
             {
-                MainView.ViewModel.AllTaskCount--;
                 LittleTaskProgress = "已完成";
                 MainTaskProgress = "安装成功";
                 LogToolkit.WriteLine($"{mlimvd.Data.McVersion}-{mlimvd.Data.LoaderName}_{mlimvd.Data.Version}");
@@ -330,25 +334,54 @@ namespace WonderLab.ViewModels
             Dispatcher.UIThread.Post(() => IsLoadOk = true);//先静等一下再开始下载，不然这sb进度条要炸
             await Task.Delay(4000);
             Dispatcher.UIThread.Post(() => IsLoadOk = false);
-            await Task.Run(async () =>
-            {
-                FabricInstaller fi = new(new(App.Data.FooterPath), (FabricInstallBuild)mlimvd.Build,$"{mlimvd.Data.McVersion}-{mlimvd.Data.LoaderName}_{mlimvd.Data.Version}");
-                var res = await fi.InstallAsync(async x =>
-                {
-                    Dispatcher.UIThread.Post(() => TaskProgress = x.Item1);
-                    await Dispatcher.UIThread.InvokeAsync(() =>
-                    {
-                        LittleTaskProgress = x.Item2;
-                        MainTaskProgress = x.Item2;
-                    });
-                });
 
-                if (res.Success)
+
+            var args = GetDownloadProcessArguments(mlimvd.Data.McVersion, App.Data.FooterPath,
+            App.Data.MaxThreadCount, $"{mlimvd.Data.LoaderName}{mlimvd.Data.Version}",
+            $"{mlimvd.Data.McVersion}-{mlimvd.Data.LoaderName}_{mlimvd.Data.Version}");
+
+            using Process process = new Process()
+            {
+                StartInfo = new ProcessStartInfo("D:\\Workspace\\ICode\\C#\\WonderLabX\\WonderLab.Desktop\\bin\\Debug\\net6.0\\WonderLab.Desktop.exe")
                 {
-                    JsonToolkit.CreaftEnableIndependencyCoreInfoJson(App.Data.FooterPath, new GameCoreLocator(App.Data.FooterPath).GetGameCore(res.GameCore.Id), DownGameView.ViewModel.IsEnableIndependencyCore);
+                    Arguments = args,
+                    CreateNoWindow = true,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                },
+                EnableRaisingEvents = true
+            };
+
+            process.OutputDataReceived += (_, e) =>
+            {
+                if (!string.IsNullOrEmpty(e.Data))
+                {
+                    var datas = e.Data.Split('|');
+                    if (datas.Length is 2)
+                    {
+                        LittleTaskProgress = datas.First();
+                        MainTaskProgress = datas.First();
+                        TaskProgress = float.Parse(datas.Last());
+                        Thread.Sleep(1);
+                    }
                 }
-            });
-            MainView.ViewModel.AllTaskCount--;
+            };
+
+            process.Exited += (_, _) =>
+            {
+                LittleTaskProgress = "已完成";
+                MainTaskProgress = "安装成功";
+                LogToolkit.WriteLine($"{mlimvd.Data.McVersion}-{mlimvd.Data.LoaderName}_{mlimvd.Data.Version}");
+                JsonToolkit.CreaftEnableIndependencyCoreInfoJson(App.Data.FooterPath,
+                $"{mlimvd.Data.McVersion}-{mlimvd.Data.LoaderName}_{mlimvd.Data.Version}",
+                DownGameView.ViewModel.IsEnableIndependencyCore);
+                MainView.ViewModel.AllTaskCount--;
+            };
+            process.Start();
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+            await process.WaitForExitAsync();
         }
         //Mod
         private async void ModInstall(HttpDownloadRequest http)
@@ -391,7 +424,7 @@ namespace WonderLab.ViewModels
         {
             TaskTitle = $"Java 运行时 {Path.GetFileName(url)} 安装任务";
             Dispatcher.UIThread.Post(() => IsLoadOk = true);//先静等一下再开始下载，不然这sb进度条要炸
-            await Task.Delay(4000);
+            await Task.Delay(3000);
             Dispatcher.UIThread.Post(() => IsLoadOk = false);
             FileLink = url;
             IsFileLinkVisible = true;
@@ -400,36 +433,24 @@ namespace WonderLab.ViewModels
             if (url.IndexOf("download.java.net") is not -1)
             {
                 if (url.IndexOf("openjdk-8u42-b03") is not -1)
-                {
-                    javaInstaller = new(JdkDownloadSource.JdkJavaNet, OpenJdkType.OpenJdk8,folder);
-                }
+                    javaInstaller = new(JdkDownloadSource.JdkJavaNet, OpenJdkType.OpenJdk8, folder);
 
                 if (url.IndexOf("openjdk-11+28") is not -1)
-                {
                     javaInstaller = new(JdkDownloadSource.JdkJavaNet, OpenJdkType.OpenJdk11, folder);
-                }
 
                 if (url.IndexOf("openjdk-17+35") is not -1)
-                {
                     javaInstaller = new(JdkDownloadSource.JdkJavaNet, OpenJdkType.OpenJdk17, folder);
-                }
 
                 if (url.IndexOf("openjdk-18+36") is not -1)
-                {
                     javaInstaller = new(JdkDownloadSource.JdkJavaNet, OpenJdkType.OpenJdk18, folder);
-                }
             }
             else
             {
                 if (url.IndexOf("microsoft-jdk-17.0.4") is not -1)
-                {
                     javaInstaller = new(JdkDownloadSource.Microsoft, OpenJdkType.OpenJdk17, folder);
-                }
 
                 if (url.IndexOf("microsoft-jdk-11.0.16") is not -1)
-                {
                     javaInstaller = new(JdkDownloadSource.Microsoft, OpenJdkType.OpenJdk11, folder);
-                }
             }
             var res = await javaInstaller.InstallAsync(async x =>
             {
