@@ -26,6 +26,7 @@ namespace WonderLab.Views
         public override void OnNavigatedTo()
         {
             //ViewModel.CurrentUser = ViewModel.Users.GetUserInIndex(App.Data.SelectedUser.UserName);
+            MainWindow.win.TipShow();
         }
 
         public static async void ShowLoginDialog()

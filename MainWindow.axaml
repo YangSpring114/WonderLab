@@ -161,7 +161,27 @@
 			MiniButtonCommand="{Binding MiniWindowSize}"
 			MaxButtonCommand="{Binding MaxWindowSize}"
 			HorizontalAlignment="Right" 
-			VerticalAlignment="Top"/>	
+			VerticalAlignment="Top"/>
+		<!--<Button Content="Run Animation" x:Name="Run"/>-->
+		
+		<Grid HorizontalAlignment="Stretch" VerticalAlignment="Bottom"
+			  Height="200" >
+			<Border CornerRadius="8" Background="{DynamicResource ContentDialogBackground}" ClipToBounds="True"
+					HorizontalAlignment="Center" MaxWidth="450"
+					BorderBrush="{DynamicResource ButtonBorderBrush}" BorderThickness="1.5"
+					VerticalAlignment="Center" x:Name="TeachingTipHost" Margin="0 20 0 0">
+				<Grid RowDefinitions="*,Auto">
+					<Border Background="{DynamicResource ContentDialogTopOverlay}"
+							>
+						<Grid RowDefinitions="Auto,*">
+							<TextBlock Text="提示" FontWeight="Bold" Margin="10"/>
+							<TextBlock TextWrapping="WrapWithOverflow" Text="此页面现阶段极不稳定，如出现导致启动器崩溃的 Bug 均属正常现象，请向开发者提供您遇到的错误帮助改进 WonderLab！" Margin="10 30 10 10"/>
+							<Button Margin="10 0 10 10" HorizontalAlignment="Stretch" Content="已经了解" x:Name="d" Grid.Row="1"/>
+						</Grid>
+					</Border>
+				</Grid>
+			</Border>
+		</Grid>
 	</Panel>
 </Window>
- 
+<!--BoxShadow="0 8 32 0 #66000000"-->

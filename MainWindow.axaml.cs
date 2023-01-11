@@ -14,6 +14,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using WonderLab.Modules.Base;
+using WonderLab.Modules.Media;
 using WonderLab.Modules.Models;
 using WonderLab.Modules.Styles;
 using WonderLab.Modules.Toolkits;
@@ -252,9 +253,27 @@ namespace WonderLab
             await ContentDialogView.ShowAsync();
         }
 
+        private void D_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            TipClose();
+        }
+
+        public void TipShow()
+        {
+            TeachingTipAnimation animation = new();
+            animation.RunAsync(TeachingTipHost);
+        }
+
+        public void TipClose()
+        {
+            TeachingTipAnimation animation = new(true);
+            animation.RunAsync(TeachingTipHost);
+        }
+
         public void InitializeComponent()
         {
             InitializeComponent(true);
+            TipClose();
             BarHost.Attach(this);
             win = this;
             MainWindowViewModel.TitleBar = BarHost;
@@ -272,7 +291,8 @@ namespace WonderLab
             FluentTheme theme = new(new Uri("avares://WonderLab"));
             theme.Mode = FluentThemeMode.Light;
             //var faTheme = AvaloniaLocator.Current.GetService<FluentTheme>();
-            //faTheme.Mode = FluentThemeMode.Light;            
+            //faTheme.Mode = FluentThemeMode.Light;
+            d.Click += D_Click;
         }
     }
 
