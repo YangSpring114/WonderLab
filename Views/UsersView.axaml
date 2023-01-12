@@ -138,8 +138,7 @@
 						<Setter.Value>
 							<ControlTemplate TargetType="ListBoxItem">
 								<Grid>
-									<Border Background="{TemplateBinding Background}"
-										Height="{TemplateBinding Height}"
+									<Border Height="{TemplateBinding Height}"
 										BorderBrush="{TemplateBinding BorderBrush}"
 										BorderThickness="{TemplateBinding BorderThickness}"
 										CornerRadius="8">
@@ -169,31 +168,29 @@
 				                            Height="60"
 				                            IsVisible="{TemplateBinding IsVisible}"/>
 
-									<Grid IsHitTestVisible="False" HorizontalAlignment="Stretch">
-										<Grid Margin="0,0,-60,0">
-											<Grid.ColumnDefinitions>
-												<ColumnDefinition Width="Auto" />
-												<ColumnDefinition Width="1*" />
-												<ColumnDefinition Width="Auto" />
-											</Grid.ColumnDefinitions>
-										</Grid>
-										<Border VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="100" CornerRadius="4 4 0 0">
-											<Border.Background>
-												<ImageBrush TileMode="FlipXY" Stretch="UniformToFill" Source="{Binding Icon,Mode=OneWay}"/>
-											</Border.Background>
-										</Border>
-										<Panel Margin="10 93 0 0" Grid.Column="1">
-											<TextBlock Margin="0,15,10,0" TextTrimming="CharacterEllipsis" FontSize="18" FontFamily="Din" Text="{Binding Name,Mode=OneWay}" FontWeight="Bold"/>
-											<TextBlock Margin="0,38,10,0" TextTrimming="CharacterEllipsis" FontSize="13" Opacity="0.65" FontFamily="Din Pro" Text="{Binding Type,Mode=OneWay}" />
-											<TextBlock Margin="0,56,10,0" TextTrimming="CharacterEllipsis" FontSize="12" Opacity="0.65" FontFamily="Din Pro"/>
-											<!--Text="{Binding AuthState,Mode=OneWay}"-->
-										</Panel>
-									</Grid>
+									<Border PointerEnter="BorderImagePointerEnter"
+	                                     	VerticalAlignment="Top" ClipToBounds="True"
+	                                     	PointerLeave="BorderImagePointerLeave"
+	                                     	HorizontalAlignment="Stretch" Height="100"
+	                                     	CornerRadius="8 8 0 0">
+										<Border.Background>
+											<ImageBrush Stretch="UniformToFill" Source="{Binding Icon,Mode=OneWay}"/>
+										</Border.Background>
+									</Border>
+									
+									<Border CornerRadius="0 0 8 8" VerticalAlignment="Bottom" Height="60" HorizontalAlignment="Stretch" Background="{DynamicResource ContentDialogBackground}"/>
+									
+									<Panel Margin="10 93 0 0" Grid.Column="1">
+										<TextBlock Margin="0,15,10,0" TextTrimming="CharacterEllipsis" FontSize="18" FontFamily="Din" Text="{Binding Name,Mode=OneWay}" FontWeight="Bold"/>
+										<TextBlock Margin="0,38,10,0" TextTrimming="CharacterEllipsis" FontSize="13" Opacity="0.65" FontFamily="Din Pro" Text="{Binding Type,Mode=OneWay}" />
+										<TextBlock Margin="0,56,10,0" TextTrimming="CharacterEllipsis" FontSize="12" Opacity="0.65" FontFamily="Din Pro"/>
+										<!--Text="{Binding AuthState,Mode=OneWay}"-->
+									</Panel>
 									<Button HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 30 15 0" Width="40" Height="40" Classes="accent" CornerRadius="114514">
 										<ui:SymbolIcon FontSize="18" Symbol="Sync"/>
 									</Button>
 
-									<Button HorizontalAlignment="Right" VerticalAlignment="Bottom">
+									<Button Click="DeleteButtonClick" HorizontalAlignment="Right" VerticalAlignment="Bottom">
 										<Button.Styles>
 											<Style Selector="Button">
 												<Setter Property="Margin" Value="0 0 5 5"/>
