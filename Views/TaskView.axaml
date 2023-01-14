@@ -8,8 +8,8 @@
 			<StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top" Name="infopanel"></StackPanel>
 		</ScrollViewer>
 		<StackPanel Name="nullText" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False">
-			<TextBlock TextAlignment="Center" Opacity="0.85" FontWeight="Bold" FontSize="25" Text="还没有任何下载任务呢"/>
-			<TextBlock FontSize="18" Text="转到下载里面给我找点事吧" Opacity="0.65" TextAlignment="Center"/>
+			<TextBlock TextAlignment="Center" Opacity="0.65" FontWeight="Bold" FontSize="26" Text="没有新任务"/>
+			<!--<TextBlock FontSize="18" Text="转到下载里面给我找点事吧" Opacity="0.65" TextAlignment="Center"/>-->
 		</StackPanel>
 	</Panel>
 </UserControl>

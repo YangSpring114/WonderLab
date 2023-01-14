@@ -53,7 +53,7 @@ namespace WonderLab.Views
         private void DeleteButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             var user = (UserModels)(sender as Button).DataContext!;
-
+            
             for (int i = 0; i < App.Data.UserList.Count; i++)
             {
                 if (ViewModel.Users[i].Name == App.Data.UserList[i].UserName && ViewModel.Users[i].Uuid == App.Data.UserList[i].UserUuid)
@@ -68,6 +68,20 @@ namespace WonderLab.Views
                 App.Data.SelectedUser = null;
 
             MainWindow.ShowInfoBarAsync("成功:",$"账户 {user.Name} 已成功被移除！", InfoBarSeverity.Success);
+        }
+
+        private async void UserSettingOpenPointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
+        {
+            ZoomOutAnimation animation = new(true);
+            animation.RunAsync((Border)sender);
+            await Task.Delay(100);
+            animation.IsReversed = false;
+            animation.RunAsync((Border)sender);
+        }
+
+        private void UserSettingOpenAction(object? sender, Avalonia.Input.PointerPressedEventArgs e)
+        {
+            ((Border)sender).Height = 230;
         }
 
         private void BorderImagePointerEnter(object? sender, Avalonia.Input.PointerEventArgs e)

@@ -28,6 +28,7 @@
 					</ExperimentalAcrylicBorder.Material>
 				</ExperimentalAcrylicBorder>
 			</Panel>
+			
 			<Panel Name="MainPanel"/>
 			<!--x:Name="InformationList"-->
 			<ListBox

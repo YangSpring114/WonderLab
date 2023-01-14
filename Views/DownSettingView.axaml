@@ -20,8 +20,13 @@
 								<ComboBox SelectedIndex="{Binding SelectDownloadAPI}" Items="{Binding DownloadAPI}" FontFamily="Din Pro" Name="sourcelist" HorizontalAlignment="Right"/>
 							</Grid>
 							<Grid Margin="0,25,0,0">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="1*" />
+									<ColumnDefinition Width="0.01*" MaxWidth="10"/>
+									<ColumnDefinition Width="1*"/>
+								</Grid.ColumnDefinitions>
 								<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="最大线程数："/>
-								<Slider Value="{Binding Max}" Minimum="1" Maximum="512" HorizontalAlignment="Right" MinWidth="150" Margin="100,0,0,0"/>
+								<Slider Value="{Binding Max}" Grid.Column="2" Minimum="1" Maximum="512" HorizontalAlignment="Stretch"/>
 							</Grid>
 							<ui:InfoBar Title="小贴士：" Message="最大线程数能提升下载速度，但会显著影响启动器性能" Margin="0 20 0 0" IsOpen="True" IsClosable="False"/>
 						</StackPanel>

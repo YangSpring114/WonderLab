@@ -13,7 +13,6 @@
 	<Panel>
 		<ui:NavigationView
 			PaneDisplayMode="Auto"
-			CornerRadius="1100"
 			IsBackEnabled="True"
 			Name="RootNavigationView"
 			IsSettingsVisible="False"

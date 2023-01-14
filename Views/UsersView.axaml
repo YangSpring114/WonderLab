@@ -129,9 +129,9 @@
 					<Setter Property="HorizontalContentAlignment" Value="Stretch" />
 					<Setter Property="BorderBrush" Value="Transparent" />
 					<Setter Property="BorderThickness" Value="0" />
-					<Setter Property="Width" Value="215"/>
+					<Setter Property="Width" Value="200"/>
 					<Setter Property="CornerRadius" Value="8"/>
-					<Setter Property="Height" Value="160"/>
+					<Setter Property="Height" Value="270"/>
 					<Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}"/>
 					<Setter Property="Margin" Value="6,6" />
 					<Setter Property="Template">
@@ -171,23 +171,38 @@
 
 									<Border PointerEnter="BorderImagePointerEnter"
 	                                     	VerticalAlignment="Top" ClipToBounds="True"
-	                                     	PointerLeave="BorderImagePointerLeave"
-	                                     	HorizontalAlignment="Stretch" Height="100"
-	                                     	CornerRadius="8 8 0 0">
+										    PointerPressed="UserSettingOpenPointerPressed"
+	                                     	PointerLeave="BorderImagePointerLeave" IsVisible="True"
+	                                     	HorizontalAlignment="Stretch" Height="200"
+											Width="200"
+	                                     	CornerRadius="6 6 0 0">
 										<Border.Background>
 											<ImageBrush Stretch="UniformToFill" Source="{Binding Icon,Mode=OneWay}"/>
 										</Border.Background>
 									</Border>
 									
-									<Border CornerRadius="0 0 8 8" VerticalAlignment="Bottom" Height="60" HorizontalAlignment="Stretch" Background="{DynamicResource ContentDialogBackground}"/>
-									
-									<Panel Margin="10 93 0 0" Grid.Column="1">
-										<TextBlock Margin="0,15,10,0" TextTrimming="CharacterEllipsis" FontSize="18" FontFamily="Din" Text="{Binding Name,Mode=OneWay}" FontWeight="Bold"/>
-										<TextBlock Margin="0,38,10,0" TextTrimming="CharacterEllipsis" FontSize="13" Opacity="0.65" FontFamily="Din Pro" Text="{Binding Type,Mode=OneWay}" />
-										<TextBlock Margin="0,56,10,0" TextTrimming="CharacterEllipsis" FontSize="12" Opacity="0.65" FontFamily="Din Pro"/>
-										<!--Text="{Binding AuthState,Mode=OneWay}"-->
-									</Panel>
-									<Button HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 30 15 0" Width="40" Height="40" Classes="accent" CornerRadius="114514">
+									<!--{DynamicResource ContentDialogBackground} PointerPressed="UserSettingOpenAction"-->
+									<Border Name="UserInfoBorder"
+										    CornerRadius="0 0 6 6"
+											VerticalAlignment="Bottom"
+											Height="70" HorizontalAlignment="Stretch"
+											Background="{DynamicResource ContentDialogBackground}">
+										<Border.Transitions>
+											<Transitions>
+												<DoubleTransition Property="Height" Duration="0:0:0.45" Easing="ExponentialEaseOut"/>
+											</Transitions>
+										</Border.Transitions>
+										<Panel>
+											<Panel Margin="10 0 10 0" VerticalAlignment="Top" x:Name="UserInfo">
+												<TextBlock Margin="0,15,10,0" Name="UserName" TextTrimming="CharacterEllipsis" FontSize="20" FontFamily="Din" Text="{Binding Name,Mode=OneWay}" FontWeight="Bold"/>
+												<TextBlock Margin="0,38,10,0" TextTrimming="CharacterEllipsis" FontSize="14" Opacity="0.65" FontFamily="Din Pro" Text="{Binding Type,Mode=OneWay}" />
+												<TextBlock Margin="0,56,10,0" TextTrimming="CharacterEllipsis" FontSize="12" Opacity="0.65" FontFamily="Din Pro"/>
+												<!--Text="{Binding AuthState,Mode=OneWay}"-->
+											</Panel>
+										</Panel>									
+									</Border>
+
+									<Button HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 120 15 0" Width="40" Height="40" Classes="accent" CornerRadius="114514">
 										<ui:SymbolIcon FontSize="18" Symbol="Sync"/>
 									</Button>
 
@@ -209,10 +224,10 @@
 					</Setter>
 				</Style>
 
-				<Style Selector="ListBoxItem /template/ Border#BackBorder:pointerover">
-					<Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
-				</Style>
-
+				<!--<Style Selector="ListBoxItem:pressed /template/ TextBlock#UserName">
+					<Setter Property="Text" Value="NB" />
+				</Style>-->
+				
 				<Style Selector="ListBoxItem:selected /template/ Border#BackBorder">
 					<Setter Property="Background" Value="{DynamicResource SystemAccentColorDark1}" />
 				</Style>

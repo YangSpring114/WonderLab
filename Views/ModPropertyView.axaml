@@ -12,7 +12,7 @@
 			<ui:InfoBar IsClosable="False" IsOpen="{Binding Isolate}"
 						Margin="0 -2.5 0 7.5" Title="警告："
 						Message="未开启版本隔离，此处显示的可能是多个游戏核心共用的模组" Severity="Warning"/>
-			<ListBox
+			<ListBox VerticalAlignment="Stretch"
 	            x:Name="CoresList"
 	            Grid.Row="1"
 	            Margin="0,-2.5,0,7.5"
