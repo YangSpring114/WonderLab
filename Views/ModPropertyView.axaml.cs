@@ -30,9 +30,17 @@ namespace WonderLab.Views
                 var res = JsonToolkit.GetEnableIndependencyCoreData(App.Data.FooterPath, ModPropertyViewModel.SelectedGameCore.ToNatsurainkoGameCore());
                 bool isolate = App.Data.Isolate;
                 if (res != null && res.IsEnableIndependencyCore)
+                {
                     isolate = res.Isolate;
+                }
+                //(res is not null && !res.Isolate) || !App.Data.Isolate
+                if (!isolate)
+                {
+                    ViewModel.Isolate = true;
+                }
+                else ViewModel.Isolate = false;
 
-                ViewModel.Toolkit = new(ModPropertyViewModel.SelectedGameCore, false,isolate,App.Data.FooterPath);
+                ViewModel.Toolkit = new(ModPropertyViewModel.SelectedGameCore, false, isolate, App.Data.FooterPath);
                 ModDataModel.SetToolkit(ViewModel.Toolkit);
                 ViewModel.LoadModList();
             });

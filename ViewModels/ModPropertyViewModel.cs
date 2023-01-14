@@ -29,6 +29,12 @@ namespace WonderLab.ViewModels
             get => _HasMod;
             set => RaiseAndSetIfChanged(ref _HasMod, value);
         }
+
+        public bool Isolate
+        {
+            get => _Isolate;
+            set => RaiseAndSetIfChanged(ref _Isolate, value);
+        }
     }
 
     partial class ModPropertyViewModel
@@ -58,7 +64,17 @@ namespace WonderLab.ViewModels
             var res = JsonToolkit.GetEnableIndependencyCoreData(App.Data.FooterPath, SelectedGameCore.ToNatsurainkoGameCore());
             bool isolate = App.Data.Isolate;
             if (res != null && res.IsEnableIndependencyCore)
+            {
                 isolate = res.Isolate;
+                if (res.Isolate)
+                {
+                    Isolate = false;
+                }
+            }
+            else
+            {
+                Isolate = App.Data.Isolate ? false : true;
+            }
 
             Toolkit = new(SelectedGameCore, false, isolate, App.Data.FooterPath);
             ModDataModel.SetToolkit(Toolkit);
@@ -71,6 +87,7 @@ namespace WonderLab.ViewModels
         public static GameCore SelectedGameCore { get; set; }
         public List<ModDataModel> _ModPacks;
         public bool _HasMod = true;
+        public bool _Isolate = false;
         public ModPackToolkit Toolkit;
     }
 }
