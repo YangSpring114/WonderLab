@@ -378,7 +378,7 @@ namespace WonderLab.ViewModels
                 CurrentOpitfineDescription = "没有可用版本";
             else if(SelectFabric is null || string.IsNullOrEmpty(SelectFabric.Data.Version))
                 CurrentOpitfineDescription = "未选择任何版本";
-            else CurrentForgeDescription = "此加载器与 Fabric 不兼容";
+            else CurrentOpitfineDescription = "此加载器与 Fabric 不兼容";
 
             IsOptiFineListLoadOk = false;
             #endregion

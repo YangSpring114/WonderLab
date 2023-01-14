@@ -139,6 +139,7 @@
 							<ControlTemplate TargetType="ListBoxItem">
 								<Grid>
 									<Border Height="{TemplateBinding Height}"
+											Background="{DynamicResource ContentDialogBackground}"
 										BorderBrush="{TemplateBinding BorderBrush}"
 										BorderThickness="{TemplateBinding BorderThickness}"
 										CornerRadius="8">
