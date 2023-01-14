@@ -327,10 +327,12 @@ namespace WonderLab.ViewModels
                 data.Build = x;
                 return data;
             }).ToList();
-            Debug.WriteLine(Forges.Count);
+
             if (Forges.Count <= 0)
                 CurrentForgeDescription = "没有可用版本";
-            else CurrentForgeDescription = "未选择任何版本";
+            else if (SelectFabric is null || string.IsNullOrEmpty(SelectFabric.Data.Version)) CurrentForgeDescription = "未选择任何版本";
+            else CurrentForgeDescription = "此加载器与 Fabric 不兼容";
+
             IsForgeListLoadOk = false;
             #endregion
 
@@ -347,9 +349,15 @@ namespace WonderLab.ViewModels
                 data.Build = x;
                 return data;
             }).ToList();
+
             if (Fabrics.Count <= 0)
                 CurrentFabricDescription = "没有可用版本";
-            else CurrentFabricDescription = "未选择任何版本";
+            else if ((SelectForge is null && SelectOptiFine is null))
+                CurrentFabricDescription = "未选择任何版本";
+            else if (SelectOptiFine is null && SelectForge is not null) CurrentFabricDescription = "此加载器与 Forge 不兼容";
+            else if (SelectForge is null && SelectOptiFine is not null) CurrentFabricDescription = "此加载器与 Optifine 不兼容";
+            else if (SelectForge is not null && SelectOptiFine is not null) CurrentFabricDescription = "此加载器与 Forge 和 Opitfine 不兼容";
+
             IsFabricListLoadOk = false;
             #endregion
 
@@ -365,10 +373,13 @@ namespace WonderLab.ViewModels
                 data.Build = x;
                 return data;
             }).ToList();
+
             if (OptiFines.Count <= 0)
                 CurrentOpitfineDescription = "没有可用版本";
-            else
+            else if(SelectFabric is null || string.IsNullOrEmpty(SelectFabric.Data.Version))
                 CurrentOpitfineDescription = "未选择任何版本";
+            else CurrentForgeDescription = "此加载器与 Fabric 不兼容";
+
             IsOptiFineListLoadOk = false;
             #endregion
         }
