@@ -45,7 +45,7 @@
 			</ui:NavigationView.FooterMenuItems>
 			<ui:NavigationView.Content>
 				<!--<ui:Frame Margin="0,-100,0,0" Name="FrameView"/>-->
-				<cx:FrameX Margin="0,-100,0,0" Name="FrameView"/>
+				<cx:FrameX Margin="0,-50,0,0" Name="FrameView"/>
 			</ui:NavigationView.Content>
 		</ui:NavigationView>
 		<Grid

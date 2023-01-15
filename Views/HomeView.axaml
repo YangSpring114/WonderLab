@@ -28,14 +28,42 @@
 				<ColumnDefinition Width="1*" MaxWidth="250" />
 			</Grid.ColumnDefinitions>
 
-			<Button Grid.Column="2" Command="{Binding LaunchAsync}" IsEnabled="{Binding Enabled}" Classes="accent" Name="launchbutton" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
-				<Button.Content>
-					<Grid>
-						<TextBlock Foreground="White" FontFamily="HarmonyOS Sans" Margin="0,0,0,15" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" TextTrimming="CharacterEllipsis" Text="启动游戏"/>
-						<TextBlock MaxWidth="150" TextTrimming="CharacterEllipsis" Foreground="White" FontFamily="DIN Pro" Name="versioninfo" Margin="0,25,0,0" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding SelectedGameCore,Mode=OneWay,Converter={StaticResource GameCoreNameConverter}}"/>
-					</Grid>
-				</Button.Content>
-			</Button>
+			<Grid Grid.Column="2">
+				<Button Command="{Binding LaunchAsync}" IsEnabled="{Binding Enabled}" Classes="accent" Name="launchbutton" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" PointerEnter="Launchbutton_PointerEnter" PointerLeave="Launchbutton_PointerLeave">
+					<Button.Content>
+						<Grid>
+							<TextBlock Foreground="White" FontFamily="HarmonyOS Sans" Margin="0,0,0,15" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" TextTrimming="CharacterEllipsis" Text="启动游戏"/>
+							<TextBlock MaxWidth="150" TextTrimming="CharacterEllipsis" Foreground="White" FontFamily="DIN Pro" Name="versioninfo" Margin="0,25,0,0" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding SelectedGameCore,Mode=OneWay,Converter={StaticResource GameCoreNameConverter}}"/>
+						</Grid>
+					</Button.Content>
+				</Button>
+				<Button HorizontalAlignment="Right" Width="0" VerticalAlignment="Stretch" x:Name="SettingButton">
+					<Button.Styles>
+						<Style Selector="Button">
+							<Setter Property="BorderBrush" Value="{DynamicResource AccentButtonBorderBrush}" />
+							<Setter Property="Background" Value="{DynamicResource AccentButtonBackground}" />
+							<Setter Property="TextBlock.Foreground" Value="{DynamicResource AccentButtonForeground}" />
+							<Setter Property="Template">
+								<ControlTemplate>
+									<Border Background="{TemplateBinding Background}" CornerRadius="{DynamicResource ControlCornerRadius}">
+										<StackPanel Orientation="Horizontal">
+											<Rectangle VerticalAlignment="Stretch" Margin="0 3 0 3" Fill="White" Opacity="0.25" Width="1"/>
+											<ui:SymbolIcon Margin="4 0 0 0" Symbol="Setting" FontSize="15" HorizontalAlignment="Center"
+														   Foreground="{DynamicResource AccentButtonForeground}"
+														   VerticalAlignment="Center"/>
+										</StackPanel>
+									</Border>
+								</ControlTemplate>
+							</Setter>
+						</Style>
+					</Button.Styles>
+					<Button.Transitions>
+						<Transitions>
+							<DoubleTransition Duration="0:0:0.25" Property="Width" Easing="ExponentialEaseOut"/>
+						</Transitions>
+					</Button.Transitions>
+				</Button>
+			</Grid>
 			
 			<ComboBox PlaceholderText="选择游戏核心"
 					  SelectedItem="{Binding SelectedGameCore}"

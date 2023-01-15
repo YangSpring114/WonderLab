@@ -89,7 +89,7 @@
 											<ui:SymbolIcon FontSize="16" Symbol="Setting"/>
 											<Button.Flyout>
 												<ui:MenuFlyout Placement="BottomEdgeAlignedRight">
-													<ui:MenuFlyoutItem Click="ButtonClick" FontSize="12" Text="启动该核心">
+													<ui:MenuFlyoutItem Click="ButtonClick1" FontSize="12" Text="启动该核心">
 														<ui:MenuFlyoutItem.Icon>
 															<ui:SymbolIcon Foreground="#8AE28A" Symbol="Play"/>
 														</ui:MenuFlyoutItem.Icon>

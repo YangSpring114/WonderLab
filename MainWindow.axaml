@@ -9,9 +9,9 @@
         mc:Ignorable="d"
 		Width="1000" Height="600"		
         x:Class="WonderLab.MainWindow"
+		Background="Transparent"
 		TransparencyLevelHint="AcrylicBlur"
 		ExtendClientAreaToDecorationsHint="True"
-		Background="Transparent"		
 		MinWidth="500"		
 		MinHeight="300"
 		Icon="resm:WonderLab.Resources.Icon.ico"
@@ -28,7 +28,8 @@
 					</ExperimentalAcrylicBorder.Material>
 				</ExperimentalAcrylicBorder>
 			</Panel>
-			
+			<!--C:\Users\w\Desktop\总整包\素材库\图片素材\杂项\20.png-->
+			<!--<Image Opacity="0.22" Stretch="UniformToFill" Source="C:\Users\w\Documents\Tencent Files\3424968114\FileRecv\xcmy.jpg"/>-->
 			<Panel Name="MainPanel"/>
 			<!--x:Name="InformationList"-->
 			<ListBox

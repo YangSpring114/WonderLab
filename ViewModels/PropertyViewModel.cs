@@ -40,7 +40,7 @@ namespace WonderLab.ViewModels
         public PropertyViewModel()
         {
             ViewModel = this;
-            if (GameView.gv.fodlercombo.SelectedItem is not null)
+            if (GameView.gv is not null && GameView.gv.fodlercombo.SelectedItem is not null)
             {
                 Instance = GameView.gv.fodlercombo.SelectedItem.ToString();
                 _LibraryCount = "";

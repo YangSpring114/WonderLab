@@ -1,6 +1,5 @@
 ﻿using Avalonia.Controls;
 using MinecraftLaunch.Modules.Toolkits;
-using Natsurainko.FluentCore.Extension.Windows.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;

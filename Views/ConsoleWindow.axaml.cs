@@ -5,7 +5,6 @@ using MinecraftLaunch.Modules.Analyzers;
 using MinecraftLaunch.Modules.Interface;
 using MinecraftLaunch.Modules.Models.Launch;
 using Natsurainko.FluentCore.Class.Model.Launch;
-using Natsurainko.FluentCore.Extension.Windows.Class.Model.Launch;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;

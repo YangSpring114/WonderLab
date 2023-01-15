@@ -3,7 +3,6 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
 using Microsoft.VisualBasic;
-using Natsurainko.FluentCore.Extension.Windows.Service;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

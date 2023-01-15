@@ -26,11 +26,11 @@
 				</ui:NavigationViewItem>
 				<ui:NavigationViewItem Tag="DownSettingView" Icon="Download" Content="下载设置"/>
 
-				<ui:NavigationViewItem Tag="ColorSettingView" Content="个性化">
+				<!--<ui:NavigationViewItem Tag="ColorSettingView" Content="个性化">
 					<ui:NavigationViewItem.Icon>
 						<ui:IconSourceElement IconSource="{StaticResource ColorIcon}" />
 					</ui:NavigationViewItem.Icon>
-				</ui:NavigationViewItem>
+				</ui:NavigationViewItem>-->
 			</ui:NavigationView.MenuItems>
 			<ui:NavigationView.FooterMenuItems>
 				<ui:NavigationViewItem Tag="OtherView" Icon="Folder" Content="关于">
