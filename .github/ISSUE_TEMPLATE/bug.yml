@@ -10,11 +10,20 @@ body:
         感谢你使用 WonderLab 问题反馈系统！
 
         在反馈前, 请确认你已经做了下面这些事情
-        - 查看 [Releases](https://github.com/Blessing-Studio/WonderLab/releases) 中最新版是否已修复你所遇到的问题
-        - 搜索了已有的 [issues](https://github.com/Blessing-Studio/WonderLab/issues) 列表中是否有相似问题
         
         如果此问题反馈不符合模板，将会被管理员无条件关闭。
-
+    
+    - id: checklist
+  type: checkboxes
+  attributes:
+    label: '❗ 反馈前检查表'
+    description: 在反馈前, 请确认你已经做了下面这些事情
+    options:
+    - label: 搜索了已有的 [issues](https://github.com/Blessing-Studio/WonderLab/issues) 列表中是否有相似问题
+      required: true
+    - label: 查看 [Releases](https://github.com/Blessing-Studio/WonderLab/releases) 中最新版是否已修复你所遇到的问题
+      required: true
+    
   - type: textarea
     id: issue-description
     attributes:
