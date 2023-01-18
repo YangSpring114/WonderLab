@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WonderLabX", "WonderLabX.csproj", "{809738F1-4C94-4BD3-8347-048383DB7E31}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{809738F1-4C94-4BD3-8347-048383DB7E31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{809738F1-4C94-4BD3-8347-048383DB7E31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{809738F1-4C94-4BD3-8347-048383DB7E31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{809738F1-4C94-4BD3-8347-048383DB7E31}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9E0F2112-E219-46F6-8AE4-C10EE0E384C2}
+	EndGlobalSection
+EndGlobal
