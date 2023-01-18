@@ -22,7 +22,6 @@ namespace WonderLab.Views
 
         public override void OnNavigatedTo()
         {
-            //刷新界面数据
             var app = App.Data;
             var core = new GameCoreLocator(app.FooterPath).GetGameCore(GameCore.Id);
             PropertyViewModel.GamePath = app.FooterPath;
@@ -33,8 +32,8 @@ namespace WonderLab.Views
             PropertyViewModel.LibraryCount = PropertyViewModel.GetLibraryCount(core);
             PropertyViewModel.TotalSize = PropertyViewModel.GetTotalSize(core);
             PropertyViewModel.ModLoaders = PropertyViewModel.GetModLoader(core)
-                .Any() ? string.Join('，', PropertyViewModel.GetModLoader(core)
-                .Select(x => $"{x.LoaderType}：{x.Version}")) : null;
+                .Any() ? string.Join('拢卢', PropertyViewModel.GetModLoader(core)
+                .Select(x => $"{x.LoaderType},{x.Version}")) : null;
             
         }
     }
