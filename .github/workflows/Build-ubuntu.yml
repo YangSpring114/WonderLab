@@ -36,4 +36,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Results
-        path: WonderLab\bin\debug\net6.0
+        path: WonderLab\bin\release\net6.0
