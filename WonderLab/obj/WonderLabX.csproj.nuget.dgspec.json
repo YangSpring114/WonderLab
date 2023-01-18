@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\WonderLabX.csproj": {}
+    "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\WonderLab\\WonderLabX.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ddggd\\Desktop\\tmp\\ControlX\\ControlX.csproj": {
+    "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\ControlX\\ControlX.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ddggd\\Desktop\\tmp\\ControlX\\ControlX.csproj",
+        "projectUniqueName": "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\ControlX\\ControlX.csproj",
         "projectName": "ControlX",
-        "projectPath": "C:\\Users\\Ddggd\\Desktop\\tmp\\ControlX\\ControlX.csproj",
+        "projectPath": "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\ControlX\\ControlX.csproj",
         "packagesPath": "C:\\Users\\Ddggd\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ddggd\\Desktop\\tmp\\ControlX\\obj\\",
+        "outputPath": "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\ControlX\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -84,14 +84,14 @@
         }
       }
     },
-    "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\WonderLabX.csproj": {
+    "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\WonderLab\\WonderLabX.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\WonderLabX.csproj",
+        "projectUniqueName": "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\WonderLab\\WonderLabX.csproj",
         "projectName": "WonderLab",
-        "projectPath": "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\WonderLabX.csproj",
+        "projectPath": "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\WonderLab\\WonderLabX.csproj",
         "packagesPath": "C:\\Users\\Ddggd\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\obj\\",
+        "outputPath": "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\WonderLab\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -112,8 +112,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Ddggd\\Desktop\\tmp\\ControlX\\ControlX.csproj": {
-                "projectPath": "C:\\Users\\Ddggd\\Desktop\\tmp\\ControlX\\ControlX.csproj"
+              "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\ControlX\\ControlX.csproj": {
+                "projectPath": "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\ControlX\\ControlX.csproj"
               }
             }
           }

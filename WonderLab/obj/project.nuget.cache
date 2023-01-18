@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CkVCRsS86mmyQL/+GSFlmV3nYqZj3+WZQu/iDM/xvNsfsXQawBGh8Gx6wj6d+4OpL1nk4KqEVgyaQjPYhWXuqQ==",
+  "dgSpecHash": "Cn1ZgIAxYrHDZIFlIAsM7sTYhTBeOAw6g0Hx92MVh7EdX6TUzr9pSbfUT8TSl4TeqpfdFysxyGxBIGIE9uYXVQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\WonderLabX.csproj",
+  "projectFilePath": "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\WonderLab\\WonderLabX.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ddggd\\.nuget\\packages\\avalonia\\0.10.18\\avalonia.0.10.18.nupkg.sha512",
     "C:\\Users\\Ddggd\\.nuget\\packages\\avalonia.angle.windows.natives\\2.1.0.2020091801\\avalonia.angle.windows.natives.2.1.0.2020091801.nupkg.sha512",
