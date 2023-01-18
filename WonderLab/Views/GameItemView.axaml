@@ -1,0 +1,45 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+             x:Class="WonderLab.Views.GameItemView" Margin="20,0,20,10">
+	<Panel>
+		<Border>
+			<Border.Styles>
+				<Style Selector="Border">
+					<Setter Property="CornerRadius" Value="8"/>
+					<Setter Property="Height" Value="60"/>
+					<Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}"/>
+					<Setter Property="BorderThickness" Value="0"/>
+					<Setter Property="BorderBrush" Value="Azure"/>
+				</Style>
+				<Style Selector="Border:pointerover">
+					<Setter Property="BorderThickness" Value="0.8"/>
+				</Style>
+			</Border.Styles>
+
+			<Border.Transitions>
+				<Transitions>
+					<ThicknessTransition Property="BorderThickness" Duration="0:0:0.1"/>
+				</Transitions>
+			</Border.Transitions>
+		</Border>
+		<Panel>
+			<StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="10">
+				<TextBlock Text="{Binding InfoHeader}" FontSize="16" FontWeight="Bold" FontFamily="Din"/>
+				<TextBlock FontSize="12.5" Text="{Binding InfoMessage}" Opacity="0.65"/>
+			</StackPanel>
+			<StackPanel Opacity="{Binding ButtonGroupTransition}" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+				<Button Command="{Binding LaunchAsync}" Name="LaunchButton" Height="{Binding ButtonHeight}" Width="70" FontFamily="Din" Content="启动"/>
+				<Button Command="{Binding PropertyNavigation}" Height="{Binding ButtonHeight}" Margin="10,0,0,0">
+					<Button.Content>
+						<ui:SymbolIcon FontSize="18" Symbol="Settings"/>
+					</Button.Content>
+				</Button>
+			</StackPanel>
+		</Panel>
+		
+	</Panel>
+</UserControl>

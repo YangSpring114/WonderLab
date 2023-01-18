@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <RestoreSuccess Condition=" '$(RestoreSuccess)' == '' ">True</RestoreSuccess>
+    <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
+    <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
+    <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\Ddggd\.nuget\packages\;C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages</NuGetPackageFolders>
+    <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
+    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">6.2.1</NuGetToolVersion>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <SourceRoot Include="C:\Users\Ddggd\.nuget\packages\" />
+    <SourceRoot Include="C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages\" />
+  </ItemGroup>
+  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)xamlnamereferencegenerator\1.5.1\buildTransitive\XamlNameReferenceGenerator.props" Condition="Exists('$(NuGetPackageRoot)xamlnamereferencegenerator\1.5.1\buildTransitive\XamlNameReferenceGenerator.props')" />
+    <Import Project="$(NuGetPackageRoot)skiasharp.nativeassets.webassembly\2.88.1-preview.108\buildTransitive\netstandard1.0\SkiaSharp.NativeAssets.WebAssembly.props" Condition="Exists('$(NuGetPackageRoot)skiasharp.nativeassets.webassembly\2.88.1-preview.108\buildTransitive\netstandard1.0\SkiaSharp.NativeAssets.WebAssembly.props')" />
+    <Import Project="$(NuGetPackageRoot)microcom.codegenerator.msbuild\0.10.4\buildTransitive\MicroCom.CodeGenerator.MSBuild.props" Condition="Exists('$(NuGetPackageRoot)microcom.codegenerator.msbuild\0.10.4\buildTransitive\MicroCom.CodeGenerator.MSBuild.props')" />
+    <Import Project="$(NuGetPackageRoot)harfbuzzsharp.nativeassets.webassembly\2.8.2.1-preview.108\buildTransitive\netstandard1.0\HarfBuzzSharp.NativeAssets.WebAssembly.props" Condition="Exists('$(NuGetPackageRoot)harfbuzzsharp.nativeassets.webassembly\2.8.2.1-preview.108\buildTransitive\netstandard1.0\HarfBuzzSharp.NativeAssets.WebAssembly.props')" />
+    <Import Project="$(NuGetPackageRoot)avalonia\0.10.18\buildTransitive\Avalonia.props" Condition="Exists('$(NuGetPackageRoot)avalonia\0.10.18\buildTransitive\Avalonia.props')" />
+    <Import Project="$(NuGetPackageRoot)costura.fody\5.8.0-alpha0098\build\Costura.Fody.props" Condition="Exists('$(NuGetPackageRoot)costura.fody\5.8.0-alpha0098\build\Costura.Fody.props')" />
+  </ImportGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgPackaging_Targets Condition=" '$(PkgPackaging_Targets)' == '' ">C:\Users\Ddggd\.nuget\packages\packaging.targets\0.1.220</PkgPackaging_Targets>
+    <PkgMicrosoft_CodeAnalysis_Analyzers Condition=" '$(PkgMicrosoft_CodeAnalysis_Analyzers)' == '' ">C:\Users\Ddggd\.nuget\packages\microsoft.codeanalysis.analyzers\2.9.6</PkgMicrosoft_CodeAnalysis_Analyzers>
+    <PkgMicroCom_CodeGenerator_MSBuild Condition=" '$(PkgMicroCom_CodeGenerator_MSBuild)' == '' ">C:\Users\Ddggd\.nuget\packages\microcom.codegenerator.msbuild\0.10.4</PkgMicroCom_CodeGenerator_MSBuild>
+    <PkgAvalonia Condition=" '$(PkgAvalonia)' == '' ">C:\Users\Ddggd\.nuget\packages\avalonia\0.10.18</PkgAvalonia>
+  </PropertyGroup>
+</Project>

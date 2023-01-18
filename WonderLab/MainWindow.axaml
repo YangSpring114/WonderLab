@@ -1,0 +1,189 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	    xmlns:ui="using:FluentAvalonia.UI.Controls"
+		xmlns:views="using:WonderLab.Views"    
+		xmlns:models="using:WonderLab.Modules.Models"
+		xmlns:wmc="using:WonderLab.Modules.Controls"
+        mc:Ignorable="d"
+		Width="1000" Height="600"		
+        x:Class="WonderLab.MainWindow"
+		Background="Transparent"
+		TransparencyLevelHint="AcrylicBlur"
+		ExtendClientAreaToDecorationsHint="True"
+		MinWidth="500"		
+		MinHeight="300"
+		Icon="resm:WonderLab.Resources.Icon.ico"
+        Title="WonderLab">
+	<Window.Resources>
+		<ui:PathIconSource Data="M926.45937303 97.54062697v828.2973677H97.54062697V97.54062697h828.91874606m4.97102697-77.6722963h-838.8608c-39.7682157 0-72.07989097 32.31167525-72.07989097 72.07989096v839.48217837c0 39.7682157 32.31167525 72.07989097 72.07989097 72.07989097h839.48217837c39.7682157 0 72.07989097-32.31167525 72.07989096-72.07989097v-838.8608c0-40.38959408-32.31167525-72.70126933-72.70126933-72.70126933 0.62137837 0 0 0 0 0z" x:Key="MaxWindowsButtonIcon"/>
+	</Window.Resources>
+	<Panel>
+		<Panel>
+			<Panel>
+				<ExperimentalAcrylicBorder Name="AcrylicBorder" IsHitTestVisible="False">
+					<ExperimentalAcrylicBorder.Material>
+						<ExperimentalAcrylicMaterial />
+					</ExperimentalAcrylicBorder.Material>
+				</ExperimentalAcrylicBorder>
+			</Panel>
+			<!--C:\Users\w\Desktop\总整包\素材库\图片素材\杂项\20.png-->
+			<!--<Image Opacity="0.22" Stretch="UniformToFill" Source="C:\Users\w\Documents\Tencent Files\3424968114\FileRecv\xcmy.jpg"/>-->
+			<Panel Name="MainPanel"/>
+			<!--x:Name="InformationList"-->
+			<ListBox
+				x:Name="InformationList"
+	            VerticalAlignment="Bottom"
+				Background="Transparent">
+				<ListBox.Styles>
+					<Style Selector="ListBoxItem">
+						<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+						<Setter Property="BorderBrush" Value="Transparent" />
+						<Setter Property="BorderThickness" Value="0" />
+						<Setter Property="Background" Value="Transparent" />
+						<Setter Property="Margin" Value="0,0" />
+						<Setter Property="Template">
+							<Setter.Value>
+								<ControlTemplate TargetType="ListBoxItem">
+									<Grid>
+										<Border
+											Height="{TemplateBinding Height}"
+											Background="{TemplateBinding Background}"
+											BorderBrush="{TemplateBinding BorderBrush}"
+											BorderThickness="{TemplateBinding BorderThickness}"
+											CornerRadius="5">
+											<ContentPresenter
+												Height="{TemplateBinding Height}"
+												HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+												VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+										</Border>
+
+										<ui:InfoBar
+		                                 Title="{Binding Title}"
+		                                 Margin="15,0,15,15"
+		                                 VerticalAlignment="Bottom"
+										 Name="Info"
+										 FontFamily="Arial, Times New Roman, Comic Sans MS"
+		                                 IsOpen="True"
+		                                 IsClosable="True"
+										 CloseButtonClick="InfoBar_CloseButtonClick"
+										 Background="{DynamicResource SystemControlAcrylicElementBrush}"
+		                                 ActionButton="{Binding Button, Mode=OneWay}"
+		                                 Message="{Binding Description}"
+		                                 Severity="{Binding Severity}">
+											<ui:InfoBar.Transitions>
+												<Transitions>
+													<DoubleTransition Property="Opacity" Duration="0:0:0.35" Easing="CircularEaseOut"/>
+												</Transitions>
+											</ui:InfoBar.Transitions>
+										</ui:InfoBar>
+									</Grid>
+								</ControlTemplate>
+							</Setter.Value>
+						</Setter>
+					</Style>
+				</ListBox.Styles>
+				<ListBox.ItemTemplate>
+					<DataTemplate x:DataType="models:InfoBarModel">
+						<ui:InfoBar
+								Title="{Binding Title}"
+								Margin="15,0,15,15"
+								VerticalAlignment="Bottom"
+								IsOpen="True"
+								IsClosable="True"
+								FontFamily="Arial, Times New Roman, Comic Sans MS"
+								ActionButton="{Binding Button, Mode=OneWay}"
+								Message="{Binding Description}"
+								Background="{DynamicResource SystemControlAcrylicElementBrush}"
+								Severity="{Binding Severity}"/>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+
+			<ui:ContentDialog Classes="WinUiPro" Name="dialog" CloseButtonText="了解" Title="{Binding Title}">
+				<ui:ContentDialog.Content>
+					<TextBlock Name="message" TextAlignment="Left" TextWrapping="WrapWithOverflow" Text="{Binding Message}"/>
+				</ui:ContentDialog.Content>
+			</ui:ContentDialog>
+
+			<ui:ContentDialog Classes="WinUiPro" Name="VersionDialog">
+				<ui:ContentDialog.Content>
+					<Grid Width="450">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="1*" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<TextBlock
+							Grid.Row="0"
+							HorizontalAlignment="Left"
+							VerticalAlignment="Center"
+							FontSize="18"
+							FontWeight="Bold"
+							Text="版本管理提示" />
+
+						<StackPanel
+							  Grid.Row="1"
+							  Margin="0,10"
+							  HorizontalAlignment="Stretch">
+							<TextBlock Text="您尚未开启版本隔离，这会导致多个 MC 版本共用模组而出现游戏崩溃的情况，推荐在启动设置>版本隔离选项打开,或在此界面启用特定游戏设置。" TextWrapping="WrapWithOverflow"/>
+						</StackPanel>
+						<StackPanel
+							Grid.Row="2"
+							HorizontalAlignment="Right"
+							VerticalAlignment="Center"
+							Orientation="Horizontal">
+							<Button Name="StartVersionOlateButton"
+	                                Width="110" Click="StartVersionOlateClick"
+	                                Foreground="White"
+	                                Classes="accent">
+								<TextBlock Text="开启版本隔离" />
+							</Button>
+							<Button Name="OkButton" Margin="15 0 0 0"
+	                                Width="75" Click="CancelButtonClick"
+	                                Foreground="White"
+	                                Classes="accent">
+								<TextBlock Text="确定" />
+							</Button>
+							<Button Click="CancelButtonClick"
+								Width="75"
+								Margin="15,0,0,0"
+								Foreground="White">
+								<TextBlock Text="取消" />
+							</Button>
+						</StackPanel>
+					</Grid>
+				</ui:ContentDialog.Content>
+			</ui:ContentDialog>
+		</Panel>
+		<wmc:TitleBar 
+			x:Name="BarHost"
+			CloseButtonCommand="{Binding Colse}"
+			MiniButtonCommand="{Binding MiniWindowSize}"
+			MaxButtonCommand="{Binding MaxWindowSize}"
+			HorizontalAlignment="Right" 
+			VerticalAlignment="Top"/>
+		<!--<Button Content="Run Animation" x:Name="Run"/>-->
+		
+		<Grid HorizontalAlignment="Stretch" VerticalAlignment="Bottom"
+			  Height="200" >
+			<Border CornerRadius="8" Background="{DynamicResource ContentDialogBackground}" ClipToBounds="True"
+					HorizontalAlignment="Center" MaxWidth="450"
+					BorderBrush="{DynamicResource ButtonBorderBrush}" BorderThickness="1.5"
+					VerticalAlignment="Center" x:Name="TeachingTipHost" Margin="0 20 0 0">
+				<Grid RowDefinitions="*,Auto">
+					<Border Background="{DynamicResource ContentDialogTopOverlay}"
+							>
+						<Grid RowDefinitions="Auto,*">
+							<TextBlock Text="提示" FontWeight="Bold" Margin="10"/>
+							<TextBlock TextWrapping="WrapWithOverflow" Text="此页面现阶段极不稳定，如出现导致启动器崩溃的 Bug 均属正常现象，请向开发者提供您遇到的错误帮助改进 WonderLab！" Margin="10 30 10 10"/>
+							<Button Margin="10 0 10 10" HorizontalAlignment="Stretch" Content="已经了解" x:Name="d" Grid.Row="1"/>
+						</Grid>
+					</Border>
+				</Grid>
+			</Border>
+		</Grid>
+	</Panel>
+</Window>
+<!--BoxShadow="0 8 32 0 #66000000"-->

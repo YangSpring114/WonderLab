@@ -1,0 +1,131 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+	  <RuntimeIdentifiers>osx-x64</RuntimeIdentifiers>
+    <Nullable>enable</Nullable>
+    <!--Avalonia doesen't support TrimMode=link currently,but we are working on that https://github.com/AvaloniaUI/Avalonia/issues/6892 -->
+    <TrimMode>copyused</TrimMode>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <RootNamespace>WonderLab</RootNamespace>
+    <AssemblyName>WonderLab</AssemblyName>
+    <SignAssembly>True</SignAssembly>
+  </PropertyGroup>
+	<PropertyGroup>
+		<UseAppHost>true</UseAppHost>
+	</PropertyGroup>
+  <ItemGroup>
+    <None Remove=".gitignore" />
+    <None Remove="Resources\bb2155.ttf" />
+    <None Remove="Resources\butler.ttf" />
+    <None Remove="Resources\DINPro-Bold.otf" />
+    <None Remove="Resources\fabric.png" />
+    <None Remove="Resources\forge.png" />
+    <None Remove="Resources\HarmonyOS.ttf" />
+    <None Remove="Resources\HarmonyOS_Sans_Black.ttf" />
+    <None Remove="Resources\HarmonyOS_Sans_Bold.ttf" />
+    <None Remove="Resources\HarmonyOS_Sans_Light.ttf" />
+    <None Remove="Resources\ModData.json" />
+    <None Remove="Resources\normal.png" />
+    <None Remove="Resources\sdf.png" />
+    <None Remove="Resources\WonderLab.Desktop.exe" />
+    <None Remove="半圆.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\bb2155.ttf" />
+    <EmbeddedResource Include="Resources\butler.ttf" />
+    <EmbeddedResource Include="Resources\DINPro-Bold.otf" />
+    <EmbeddedResource Include="Resources\fabric.png" />
+    <EmbeddedResource Include="Resources\forge.png" />
+    <EmbeddedResource Include="Resources\HarmonyOS.ttf" />
+    <EmbeddedResource Include="Resources\Icon.ico" />
+    <EmbeddedResource Include="Resources\ModData.json" />
+	<EmbeddedResource Include="Resources\normal.png" />
+    <EmbeddedResource Include="Resources\sdf.png" />
+    <EmbeddedResource Include="Resources\WonderLab.Desktop.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+  <ItemGroup>
+    <!--This helps with theme dll-s trimming.
+	If you will publish your application in self-contained mode with p:PublishTrimmed=true and it will use Fluent theme Default theme will be trimmed from the output and vice versa.
+	https://github.com/AvaloniaUI/Avalonia/issues/5593 -->
+    <TrimmableAssembly Include="Avalonia.Themes.Fluent" />
+    <TrimmableAssembly Include="Avalonia.Themes.Default" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.10.18" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.18" />
+    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.18" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.18" />
+    <PackageReference Include="Costura.Fody" Version="5.8.0-alpha0098">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="FluentAvaloniaUI" Version="1.4.5" />
+    <PackageReference Include="MinecraftOAuth" Version="1.8.0-preview" />
+    <PackageReference Include="Natsurainko.FluentCore" Version="2.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="ReactiveUI" Version="18.4.1" />
+    <PackageReference Include="XamlNameReferenceGenerator" Version="1.5.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Views\DownGameView.axaml.cs">
+      <DependentUpon>DownGameView.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\PropertyView.axaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="半圆.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Inter-Bold.ttf" />
+    <Resource Include="Resources\sdf.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+	<ItemGroup>
+		<Content Include="wonderlab.png" CopyToPublishDirectory="PreserveNewest">
+			<LinuxPath>/usr/share/icons/wonderlab.png</LinuxPath>
+		</Content>
+		<Content Include="wonderlab.desktop" CopyToPublishDirectory="PreserveNewest">
+			<LinuxPath>/usr/share/applications/wonderlab.desktop</LinuxPath>
+		</Content>
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\ControlX\ControlX.csproj" />
+	</ItemGroup>	
+	
+	<PropertyGroup>
+		<CFBundleName>AppName</CFBundleName>
+		<!-- Also defines .app file name -->
+		<CFBundleDisplayName>WonderLab</CFBundleDisplayName>
+		<CFBundleIdentifier>com.wonderlabx.macos</CFBundleIdentifier>
+		<CFBundleVersion>1.0.0</CFBundleVersion>
+		<CFBundlePackageType>APPL</CFBundlePackageType>
+		<CFBundleSignature>????</CFBundleSignature>
+		<CFBundleExecutable>AppName</CFBundleExecutable>
+		<CFBundleIconFile>AppName.icns</CFBundleIconFile>
+		<!-- Will be copied from output directory -->
+		<NSPrincipalClass>NSApplication</NSPrincipalClass>
+		<NSHighResolutionCapable>true</NSHighResolutionCapable>
+		<CFBundleShortVersionString>1.0.0</CFBundleShortVersionString>
+		<SignAssembly>True</SignAssembly>
+		<ApplicationIcon>半圆.ico</ApplicationIcon>
+	</PropertyGroup>
+	
+	<ProjectExtensions><VisualStudio><UserProperties resources_4moddata_1json__JsonSchema="https://appsemble.app/api.json" /></VisualStudio></ProjectExtensions>
+</Project>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)skiasharp.nativeassets.webassembly\2.88.1-preview.108\buildTransitive\netstandard1.0\SkiaSharp.NativeAssets.WebAssembly.targets" Condition="Exists('$(NuGetPackageRoot)skiasharp.nativeassets.webassembly\2.88.1-preview.108\buildTransitive\netstandard1.0\SkiaSharp.NativeAssets.WebAssembly.targets')" />
+    <Import Project="$(NuGetPackageRoot)packaging.targets\0.1.220\build\Packaging.Targets.targets" Condition="Exists('$(NuGetPackageRoot)packaging.targets\0.1.220\build\Packaging.Targets.targets')" />
+    <Import Project="$(NuGetPackageRoot)microcom.codegenerator.msbuild\0.10.4\buildTransitive\MicroCom.CodeGenerator.MSBuild.targets" Condition="Exists('$(NuGetPackageRoot)microcom.codegenerator.msbuild\0.10.4\buildTransitive\MicroCom.CodeGenerator.MSBuild.targets')" />
+    <Import Project="$(NuGetPackageRoot)harfbuzzsharp.nativeassets.webassembly\2.8.2.1-preview.108\buildTransitive\netstandard1.0\HarfBuzzSharp.NativeAssets.WebAssembly.targets" Condition="Exists('$(NuGetPackageRoot)harfbuzzsharp.nativeassets.webassembly\2.8.2.1-preview.108\buildTransitive\netstandard1.0\HarfBuzzSharp.NativeAssets.WebAssembly.targets')" />
+    <Import Project="$(NuGetPackageRoot)fody\6.6.0\build\Fody.targets" Condition="Exists('$(NuGetPackageRoot)fody\6.6.0\build\Fody.targets')" />
+    <Import Project="$(NuGetPackageRoot)avalonia\0.10.18\buildTransitive\Avalonia.targets" Condition="Exists('$(NuGetPackageRoot)avalonia\0.10.18\buildTransitive\Avalonia.targets')" />
+    <Import Project="$(NuGetPackageRoot)costura.fody\5.8.0-alpha0098\build\Costura.Fody.targets" Condition="Exists('$(NuGetPackageRoot)costura.fody\5.8.0-alpha0098\build\Costura.Fody.targets')" />
+  </ImportGroup>
+</Project>

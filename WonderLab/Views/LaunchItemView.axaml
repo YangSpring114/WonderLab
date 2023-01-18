@@ -1,0 +1,69 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:cx="using:ControlX"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+             x:Class="WonderLab.Views.LaunchItemView" Margin="10,0,10,10" >
+	<cx:OptionsDisplayItem Expands="True" Description="检查游戏资源中" Header="游戏启动任务" x:Name="main">
+		<cx:OptionsDisplayItem.Content>
+			<StackPanel Orientation="Vertical">
+				<Grid Margin="0">
+					<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="游戏日志输出："/>
+					<Grid HorizontalAlignment="Right" Width="550">
+						<Button Name="gamelog" Content="转至控制台" HorizontalAlignment="Right" IsTabStop="False"/>
+					</Grid>
+				</Grid>
+				<Grid Margin="0,25,0,0">
+					<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="游戏已运行时间："/>
+					<Grid HorizontalAlignment="Right" Width="550">
+						<TextBlock Text="00:00:00" Name="time" TextAlignment="Right" HorizontalAlignment="Right"/>
+					</Grid>
+				</Grid>
+				<Grid Name="Close" Margin="0,30,0,0">
+					<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="强制结束游戏："/>
+                    <Button Content="强制结束" Name="closegame" HorizontalAlignment="Right"/>
+				</Grid>
+				<Grid Name="gameout" IsVisible="False" Margin="0,30,0,0">
+					<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="游戏崩溃："/>
+					<TextBlock Name="exitcode" HorizontalAlignment="Right"/>
+				</Grid>
+			</StackPanel>
+		</cx:OptionsDisplayItem.Content>
+		<cx:OptionsDisplayItem.ActionButton>
+			<Button Click="Button_Click">
+				<Button.Styles>
+					<Style Selector="Button">
+						<Setter Property="Height" Value="30"/>
+						<Setter Property="Width" Value="30"/>
+						<Setter Property="Background" Value="Transparent"/>
+						<Setter Property="Template">
+							<Setter.Value>
+								<ControlTemplate>
+									<Border x:Name="LayMain"
+											CornerRadius="4"
+											Background="{TemplateBinding Background}"
+										    HorizontalAlignment="Stretch"
+	                                        VerticalAlignment="Stretch">
+										<Border.Transitions>
+											<Transitions>
+												<BrushTransition  Property="Background" Duration="0:0:0.08"/>
+											</Transitions>
+										</Border.Transitions>
+										<ui:SymbolIcon Symbol="Dismiss" />
+									</Border>
+								</ControlTemplate>
+							</Setter.Value>
+						</Setter>
+					</Style>
+					<Style Selector="Button:pointerover">
+						<Setter Property="Background" Value="#10FFFFFF"/>
+					</Style>
+					<Style Selector="Button:pressed">
+						<Setter Property="Background" Value="#00FFFFFF"/>
+					</Style>
+				</Button.Styles>
+			</Button>
+		</cx:OptionsDisplayItem.ActionButton>
+	</cx:OptionsDisplayItem>
+</UserControl>

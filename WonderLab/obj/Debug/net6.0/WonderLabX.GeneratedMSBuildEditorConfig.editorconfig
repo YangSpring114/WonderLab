@@ -1,0 +1,134 @@
+is_global = true
+build_property.AvaloniaNameGeneratorBehavior = InitializeComponent
+build_property.AvaloniaNameGeneratorDefaultFieldModifier = internal
+build_property.AvaloniaNameGeneratorFilterByPath = *
+build_property.AvaloniaNameGeneratorFilterByNamespace = *
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = WonderLab
+build_property.ProjectDir = C:\Users\Ddggd\Desktop\tmp\WonderLab\
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/App.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/MainWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Modules/Controls/Styles/CaptionButtonsStyle.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Modules/Controls/Styles/ContentDialog.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Modules/Controls/Styles/FrameXStyle.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Modules/Controls/Styles/ListBoxStyle.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Modules/Controls/Styles/OptionsDisplayItemStyles.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Modules/Controls/Styles/ScrollViewerStyle.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Modules/Controls/Styles/TextBoxStyle.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Modules/Controls/Styles/TitleBarStyle.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Modules/Controls/Styles/ToolTipStyle.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Modules/Controls/Styles/UserCardStyle.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Modules/Controls/Styles/UserListBoxItemStyle.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/BlessingView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/ColorSettingView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/ConsoleView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/ConsoleWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/DebugWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/DownCustomView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/DownGameView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/DownItemView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/DownModView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/DownSettingView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/DownView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/GameItemView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/GameSettingView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/GameView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/HomeView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/IndependencyCoreSettingView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/LaunchItemView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/MainPropertyView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/MainView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/ModPropertyView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/NewItemView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/NewsView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/OtherView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/PropertyView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/SettingView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/TaskView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/Views/UsersView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

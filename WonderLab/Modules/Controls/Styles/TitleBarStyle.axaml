@@ -1,0 +1,98 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:ws="using:WonderLab.Modules.Controls">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+			<ws:TitleBar/>
+        </Border>
+    </Design.PreviewWith>
+
+	<Style Selector="Button.Transparent">
+		<Setter Property="CornerRadius" Value="0"/>
+		<Setter Property="Width" Value="45"/>
+		<Setter Property="BorderThickness" Value="0"/>
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="BorderBrush" Value="Transparent"/>
+	</Style>
+
+	<Style Selector="Button.Transparent:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="{DynamicResource SystemAccentColor}"/>
+	</Style>
+
+	<Style Selector="Button.CloseButton">
+		<Setter Property="CornerRadius" Value="0"/>
+		<Setter Property="BorderThickness" Value="0"/>
+		<Setter Property="Width" Value="45"/>
+		<Setter Property="Height" Value="30"/>
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="BorderBrush" Value="Transparent"/>
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Panel>
+					<!-- Separate border from ContentPresenter to account for RenderTransform
+                         scaling for Elevation Brushes -->
+					<ContentPresenter Name="PART_ContentPresenter"
+								  Height="{TemplateBinding Height}"
+									  MinHeight="{TemplateBinding Height}"
+                                  Background="{TemplateBinding Background}"
+                                  Content="{TemplateBinding Content}"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  CornerRadius="{TemplateBinding CornerRadius}"
+                                  Padding="{TemplateBinding Padding}"
+                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+					<Border Name="BorderElement"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            RenderTransform="scaleY(-1)"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            IsHitTestVisible="False"/>                        
+				</Panel>
+			</ControlTemplate>
+		</Setter>
+	</Style>
+
+	<Style Selector="Button.CloseButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="Red"/>
+	</Style>
+	
+    <!-- Add Styles Here -->
+	<Style Selector="ws|TitleBar">
+		<Setter Property="Template">
+			<ControlTemplate>
+				<StackPanel Orientation="Horizontal">
+					<Button x:Name="Mini" Height="30" Command="{TemplateBinding MiniButtonCommand}" Classes="Transparent">
+						<Viewbox Width="11" Margin="2">
+							<Path Stretch="UniformToFill"
+								  Fill="{TemplateBinding Foreground}"
+								  Data="M2048 1229v-205h-2048v205h2048z" />
+						</Viewbox>
+					</Button>
+					<Button Height="30" x:Name="Max" Classes="Transparent">
+						<Viewbox Width="11" Margin="2">
+							<Viewbox.RenderTransform>
+								<RotateTransform Angle="-90" />
+							</Viewbox.RenderTransform>
+							<Path Name="RestoreButtonPath"
+								  Stretch="UniformToFill"
+								  Fill="{TemplateBinding Foreground}"
+								  Data="M2048 2048v-2048h-2048v2048h2048zM1843 1843h-1638v-1638h1638v1638z"/>
+						</Viewbox>
+					</Button>
+					<Button Height="30" x:Name="Close" Classes="CloseButton">
+						<Viewbox Width="11" Margin="2">
+							<Path Stretch="UniformToFill"
+								  Fill="{TemplateBinding Foreground}"
+								  Data="M1169 1024l879 -879l-145 -145l-879 879l-879 -879l-145 145l879 879l-879 879l145 145l879 -879l879 879l145 -145z" />
+						</Viewbox>
+					</Button>
+				</StackPanel>
+			</ControlTemplate>
+		</Setter>
+	</Style>
+
+	<Style Selector="ws|TitleBar:maximized /template/ Path#RestoreButtonPath">
+		<Setter Property="Data" Value="M2048 410h-410v-410h-1638v1638h410v410h1638v-1638zM1434 1434h-1229v-1229h1229v1229zM1843 1843h-1229v-205h1024v-1024h205v1229z"/>
+	</Style>
+</Styles>

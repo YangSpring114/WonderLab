@@ -1,0 +1,94 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"			 
+     	     xmlns:ui="using:FluentAvalonia.UI.Controls"
+			 Background="Transparent"
+			 xmlns:super="using:WonderLab.Modules.Models"
+			 x:Class="WonderLab.Views.HomeView">
+	<Grid>
+		<Button Command="{Binding NavigationToUser}" Name="userbutton" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,100,30,0">
+			<Button.Content >
+				<StackPanel>
+					<TextBlock Name="uName" FontSize="14" TextAlignment="Right" FontWeight="Bold" Text="{Binding UserInfo,Mode=OneWay,Converter={StaticResource UserNameConverter}}"/>
+					<TextBlock Name="uType" Opacity="0.65" FontSize="13" TextAlignment="Right" FontWeight="Normal" Text="{Binding UserInfo,Mode=OneWay,Converter={StaticResource UserTypeConverter}}"/>
+				</StackPanel>
+			</Button.Content>
+		</Button>
+		
+		<Grid
+	         Grid.Row="2"
+	         Height="60"
+	         Margin="30,40"
+	         VerticalAlignment="Bottom"> 
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="1*" MaxWidth="250" />
+				<ColumnDefinition Width="0.10*" />
+				<ColumnDefinition Width="1*" MaxWidth="250" />
+			</Grid.ColumnDefinitions>
+
+			<Grid Grid.Column="2">
+				<Button Command="{Binding LaunchAsync}" IsEnabled="{Binding Enabled}" Classes="accent" Name="launchbutton" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" PointerEnter="Launchbutton_PointerEnter" PointerLeave="Launchbutton_PointerLeave">
+					<Button.Content>
+						<Grid>
+							<TextBlock Foreground="White" FontFamily="HarmonyOS Sans" Margin="0,0,0,15" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" TextTrimming="CharacterEllipsis" Text="启动游戏"/>
+							<TextBlock MaxWidth="150" TextTrimming="CharacterEllipsis" Foreground="White" FontFamily="DIN Pro" Name="versioninfo" Margin="0,25,0,0" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding SelectedGameCore,Mode=OneWay,Converter={StaticResource GameCoreNameConverter}}"/>
+						</Grid>
+					</Button.Content>
+				</Button>
+				<Button HorizontalAlignment="Right" Width="0" VerticalAlignment="Stretch" x:Name="SettingButton">
+					<Button.Styles>
+						<Style Selector="Button">
+							<Setter Property="BorderBrush" Value="{DynamicResource AccentButtonBorderBrush}" />
+							<Setter Property="Background" Value="{DynamicResource AccentButtonBackground}" />
+							<Setter Property="TextBlock.Foreground" Value="{DynamicResource AccentButtonForeground}" />
+							<Setter Property="Template">
+								<ControlTemplate>
+									<Border Background="{TemplateBinding Background}" CornerRadius="{DynamicResource ControlCornerRadius}">
+										<StackPanel Orientation="Horizontal">
+											<Rectangle VerticalAlignment="Stretch" Margin="0 3 0 3" Fill="White" Opacity="0.25" Width="1"/>
+											<ui:SymbolIcon Margin="4 0 0 0" Symbol="Setting" FontSize="15" HorizontalAlignment="Center"
+														   Foreground="{DynamicResource AccentButtonForeground}"
+														   VerticalAlignment="Center"/>
+										</StackPanel>
+									</Border>
+								</ControlTemplate>
+							</Setter>
+						</Style>
+					</Button.Styles>
+					<Button.Transitions>
+						<Transitions>
+							<DoubleTransition Duration="0:0:0.25" Property="Width" Easing="ExponentialEaseOut"/>
+						</Transitions>
+					</Button.Transitions>
+				</Button>
+			</Grid>
+			
+			<ComboBox PlaceholderText="选择游戏核心"
+					  SelectedItem="{Binding SelectedGameCore}"
+					  Items="{Binding GameCores}" 
+					  VerticalContentAlignment="Center"
+					  Name="version" HorizontalAlignment="Stretch"
+					  VerticalAlignment="Stretch">
+				<ComboBox.ItemTemplate> 
+					<DataTemplate>
+						<Grid HorizontalAlignment="Left">
+							<Panel> 
+								<Border HorizontalAlignment="Left" VerticalAlignment="Center" CornerRadius="4" Height="35" Width="35" Margin="0,0,10,0">
+									<Border.Background>
+										<ImageBrush Source="{Binding HasModLoader,Mode=OneWay,Converter={StaticResource BitmapConverter}}"/>
+									</Border.Background>
+								</Border>
+								<Grid HorizontalAlignment="Left" VerticalAlignment="Center" Margin="42,0,0,0" Height="35">
+									<TextBlock TextTrimming="CharacterEllipsis" FontSize="16" FontWeight="Bold" FontFamily="DIN Pro" Text="{Binding Id,Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+									<TextBlock Height="20" Margin="0,0,0,-5" TextTrimming="CharacterEllipsis" MaxWidth="140" FontFamily="DIN Pro" FontSize="13" Opacity="0.65" Text="{Binding Type,Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+								</Grid>
+							</Panel>
+						</Grid>
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
+			</ComboBox>			
+		</Grid>
+	</Grid>
+</UserControl>

@@ -1,0 +1,65 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:ui="using:FluentAvalonia.UI.Controls"
+		xmlns:c="using:WonderLab.Modules.Cards">
+    <Design.PreviewWith>
+        <Border Height="1000" Width="1000">
+            <!-- Add Controls for Previewer Here -->
+			<WrapPanel Orientation="Horizontal">
+				<c:UserCard Classes="CardPro" FontFamily="Din Pro" HeardImageUri="https://crafatar.com/avatars/95883f77eef84bc6b7274f9c754a5a2c" Description="微软账户" Header="Starcloudsea"/>
+				<c:UserCard Classes="CardPro" FontFamily="Din Pro" HeardImage="resm:WonderLab.Resources.fabric.png" Description="外置账户" Header="WuXi_Xiao"/>
+				<c:UserCard Classes="CardPro" FontFamily="Din Pro" HeardImage="resm:WonderLab.Resources.normal.png" Description="离线账户" Header="Mr_49"/>
+			</WrapPanel>
+		</Border>
+    </Design.PreviewWith>
+
+    <!-- Add Styles Here -->
+	<Style Selector="c|UserCard.CardPro">
+		<Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="Width" Value="150"/>
+		<Setter Property="Margin" Value="5"/>
+		<Setter Property="FontFamily" Value="Din Pro"/>
+		<Setter Property="Padding" Value="{StaticResource ButtonPadding}" />
+		<Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
+		<Setter Property="Template">
+			<ControlTemplate>
+				<StackPanel>
+					<Border Name="LayoutRoot"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Padding="12"
+				        Height="{TemplateBinding Height}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+						<StackPanel>
+							<Image Margin="0,0,0,10" Source="{TemplateBinding HeardImage}" Stretch="UniformToFill"/>
+							
+							<TextBlock Text="{TemplateBinding Header}"
+									   Classes="BaseTextBlockStyle"
+									   FontSize="16"
+									   FontFamily="{TemplateBinding FontFamily}"
+									   TextTrimming="WordEllipsis"/>
+
+							<TextBlock Text="{TemplateBinding Description}"
+		                               Classes="CaptionTextBlockStyle"
+		                               Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+		                               VerticalAlignment="Top"
+		                               TextWrapping="Wrap"
+		                               Grid.Column="1"
+		                               Grid.Row="1" />
+						</StackPanel>
+					</Border>
+				</StackPanel>
+
+			</ControlTemplate>
+		</Setter>
+	</Style>
+	<Style Selector="c|UserCard /template/ Border#LayoutRoot:pointerover">
+		<Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+	</Style>
+	<Style Selector="c|UserCard:pressed /template/ Border#LayoutRoot:pointerover">
+		<Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+	</Style>
+</Styles>

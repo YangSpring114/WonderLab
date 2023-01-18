@@ -1,0 +1,11 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:sty="using:FluentAvalonia.Styling"          
+             x:Class="ControlX.App">
+    <Application.Styles>
+        <FluentTheme Mode="Dark"/>
+		<sty:FluentAvaloniaTheme RequestedTheme="Dark"/>
+		<StyleInclude Source="/OptionsDisplayItemStyles.axaml"/>
+		<StyleInclude Source="/Expander.axaml"/>
+	</Application.Styles>
+</Application>

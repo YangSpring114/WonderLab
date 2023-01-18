@@ -1,0 +1,76 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:wlc="using:WonderLab.Modules.Cards"
+			 xmlns:card="using:ControlX"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+             x:Class="WonderLab.Views.OtherView">
+	<ScrollViewer>
+		<StackPanel>
+			<card:OptionsDisplayItem Navigates="True" Margin="10,20,10,0" Header="WonderLab" Description="{Binding Version}">
+				<!--<card:OptionsDisplayItem.Icon>
+					<ui:SymbolIcon Symbol="AlignLeftFilled"/>
+				</card:OptionsDisplayItem.Icon>-->
+				<card:OptionsDisplayItem.ActionButton>
+					<Button Command="{Binding Check}" Content="{Binding ButtonContent}"/>
+				</card:OptionsDisplayItem.ActionButton>
+			</card:OptionsDisplayItem>
+
+			<card:OptionsDisplayItem Navigates="True" Margin="10,15,10,0" Header="BlessingLife Studio" Description="本启动器的开发团队">
+				<!--<card:OptionsDisplayItem.Icon>
+					<ui:SymbolIcon Symbol="People"/>
+				</card:OptionsDisplayItem.Icon>-->
+			</card:OptionsDisplayItem>
+
+			<card:OptionsDisplayItem Expands="True" Margin="10,15,10,0" Header="特别鸣谢" Description="感谢所有为本启动器开发提供帮助的大佬">
+				<!--<card:OptionsDisplayItem.Icon>
+					<ui:SymbolIcon Symbol="ImportFilled"/>
+				</card:OptionsDisplayItem.Icon>-->
+				<card:OptionsDisplayItem.Content>
+					<StackPanel HorizontalAlignment="Center">
+						<DockPanel>
+							<TextBlock VerticalAlignment="Center" DockPanel.Dock="Left" FontWeight="Bold" Text="llr下一你了亲并"/>
+                            <ui:HyperlinkButton Margin="10,10" DockPanel.Dock="Right" Content="https://github.com/laolarou726" NavigateUri="https://github.com/laolarou726"/>
+						</DockPanel>
+						<DockPanel>
+							<TextBlock VerticalAlignment="Center" DockPanel.Dock="Left" FontWeight="Bold" Text="Natsurainko"/>
+							<ui:HyperlinkButton Margin="10,10" DockPanel.Dock="Right" Content="https://github.com/natsurainko" NavigateUri="https://github.com/natsurainko"/>
+						</DockPanel>
+						<DockPanel>
+							<TextBlock VerticalAlignment="Center" DockPanel.Dock="Left" FontWeight="Bold" Text="Yu_Xuan"/>
+							<ui:HyperlinkButton Margin="10,10" DockPanel.Dock="Right" Content="https://github.com/YUXUAN888" NavigateUri="https://github.com/YUXUAN888"/>
+						</DockPanel>
+					</StackPanel>
+				</card:OptionsDisplayItem.Content>
+			</card:OptionsDisplayItem>
+
+			<card:OptionsDisplayItem IsExpanded="True" Expands="True" Margin="10,15,10,0" Header="开源项目使用声明" Description="本启动器所使用的开源项目">
+				<!--<card:OptionsDisplayItem.Icon>
+					<ui:SymbolIcon Symbol="Page"/>
+				</card:OptionsDisplayItem.Icon>-->
+				<card:OptionsDisplayItem.Content>
+					<StackPanel HorizontalAlignment="Center">
+						<DockPanel>
+							<TextBlock VerticalAlignment="Center" DockPanel.Dock="Left" FontWeight="Bold" Text="Avalonia"/>
+							<ui:HyperlinkButton Margin="10,10" DockPanel.Dock="Right" Content="https://github.com/AvaloniaUI/Avalonia" NavigateUri="https://github.com/AvaloniaUI/Avalonia"/>
+						</DockPanel>
+						<DockPanel>
+							<TextBlock VerticalAlignment="Center" DockPanel.Dock="Left" FontWeight="Bold" Text="FluentAvaloniaUI"/>
+							<ui:HyperlinkButton Margin="10,10" DockPanel.Dock="Right" Content="https://github.com/amwx/FluentAvalonia" NavigateUri="https://github.com/amwx/FluentAvalonia"/>
+						</DockPanel>
+						<DockPanel>
+							<TextBlock VerticalAlignment="Center" DockPanel.Dock="Left" FontWeight="Bold" Text="Natsurainko.FluentCore"/>
+							<ui:HyperlinkButton Margin="10,10" DockPanel.Dock="Right" Content="https://github.com/Xcube-Studio/Natsurainko.FluentCore" NavigateUri="https://github.com/Xcube-Studio/Natsurainko.FluentCore"/>
+						</DockPanel>
+						<DockPanel>
+							<TextBlock VerticalAlignment="Center" DockPanel.Dock="Left" FontWeight="Bold" Text="Newtonsoft.Json"/>
+							<ui:HyperlinkButton Margin="10,10" DockPanel.Dock="Right" Content="https://www.newtonsoft.com/json" NavigateUri="https://www.newtonsoft.com/json"/>
+						</DockPanel>
+					</StackPanel>
+				</card:OptionsDisplayItem.Content>
+			</card:OptionsDisplayItem>
+		</StackPanel>
+	</ScrollViewer>
+</UserControl>

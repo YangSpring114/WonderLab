@@ -1,0 +1,148 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		WindowStartupLocation="CenterOwner"
+		MinWidth="350" MinHeight="380" Topmost="{Binding ElementName=IsTopmost,Path=IsChecked}"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" Height="450" Width="800"
+        x:Class="WonderLab.Views.ConsoleWindow"
+        Title="游戏实时日志输出窗口 - 1.19.2">
+	<Grid>
+		<!--Top-->
+		<TextBlock Margin="13 10 0 0" Text="信息"/>
+		<TextBlock Margin="55 10 0 0" Text="警告"/>
+		<TextBlock Margin="100 10 0 0" Text="错误"/>
+		<TextBlock Margin="141 10 0 0" Text="致命"/>
+		<TextBlock Margin="182 10 0 0" Text="调试"/>		
+		<Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10 30 0 0" MaxWidth="35" CornerRadius="8" Width="{Binding AWidth}" Height="4" Background="Green">
+			<Border.Transitions>
+				<Transitions>
+					<DoubleTransition Easing="CubicEaseOut" Property="Width" Duration="0:0:0.2"/>
+				</Transitions>
+			</Border.Transitions>
+		</Border>
+
+		<Border Margin="53 30 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="{Binding AWidth}" CornerRadius="8" Background="Yellow" Height="4">
+			<Border.Transitions>
+				<Transitions>
+					<DoubleTransition Easing="CubicEaseOut" Property="Width" Duration="0:0:0.2"/>
+				</Transitions>
+			</Border.Transitions>
+		</Border>
+
+		<Border Margin="96 30 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="{Binding AWidth}" CornerRadius="8" Background="Orange" Height="4">
+			<Border.Transitions>
+				<Transitions>
+					<DoubleTransition Easing="CubicEaseOut" Property="Width" Duration="0:0:0.2"/>
+				</Transitions>
+			</Border.Transitions>
+		</Border>
+
+		<Border Margin="138 30 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="{Binding AWidth}" CornerRadius="8" Background="Red" Height="4">
+			<Border.Transitions>
+				<Transitions>
+					<DoubleTransition Easing="CubicEaseOut" Property="Width" Duration="0:0:0.2"/>
+				</Transitions>
+			</Border.Transitions>
+		</Border>
+
+		<Border Margin="180.5 30 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="{Binding AWidth}" CornerRadius="8" Background="Gray" Height="4">
+			<Border.Transitions>
+				<Transitions>
+					<DoubleTransition Easing="CubicEaseOut" Property="Width" Duration="0:0:0.2"/>
+				</Transitions>
+			</Border.Transitions>
+		</Border>
+		
+		<!--Center-->
+		<ScrollViewer x:Name="ss" Margin="10 45 0 50">
+			<ListBox x:Name="LogList" Padding="0"
+					 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+					 ScrollViewer.VerticalScrollBarVisibility="Disabled">
+				<ListBox.ItemsPanel>
+					<ItemsPanelTemplate>
+						<StackPanel Spacing="0"/>
+					</ItemsPanelTemplate>
+				</ListBox.ItemsPanel>
+				<ListBox.Styles>
+					<Style Selector="ListBoxItem">
+						<Setter Property="Background" Value="Beige"/>
+						<Setter Property="MinHeight" Value="20"/>
+						<Setter Property="Height" Value="NaN"/>
+						<Setter Property="Padding" Value="0"/>
+						<Setter Property="Template">
+							<ControlTemplate>
+								<Grid Name="Layout" VerticalAlignment="Center">
+									<Grid.Transitions>
+										<Transitions>
+											<BrushTransition Easing="CubicEaseOut" Duration="0:0:0.6" Property="Background"/>
+										</Transitions>
+									</Grid.Transitions>
+									<!--<Border Opacity="0.25" Background="Red"/>-->
+									<Grid HorizontalAlignment="Left">
+										<Border Height="{Binding ElementName=Log,Path=Height,Converter={StaticResource HeightConverter}}" Background="{Binding LogLevel,Converter={StaticResource LogBrushConverter}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="4"/>
+									</Grid>
+									<WrapPanel Orientation="Horizontal" Margin="10 0 0 0" VerticalAlignment="Stretch" HorizontalAlignment="Left">
+										<TextBlock Text="[" IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"
+		                                           TextAlignment="Left"
+		                                           Name="Log" TextWrapping="Wrap"
+		                                           FontFamily="Din Pro"/>
+
+										<TextBlock Text="{Binding Time}" Foreground="{DynamicResource SystemAccentColorLight1}"
+												   TextWrapping="Wrap" TextAlignment="Left" IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"
+												   FontFamily="Din Pro"/>
+
+										<TextBlock Text="] " IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"
+		                                           TextAlignment="Left" TextWrapping="Wrap"
+		                                           FontFamily="Din Pro"/>
+
+										<TextBlock Text="[" IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"
+		                                           TextAlignment="Left"
+		                                           TextWrapping="Wrap"
+		                                           FontFamily="Din Pro"/>
+
+										<TextBlock Text="{Binding Source}" Foreground="{DynamicResource SystemAccentColorDark1}"
+		                                           TextWrapping="Wrap" TextAlignment="Left" IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"
+		                                           FontFamily="Din Pro"/>
+
+										<TextBlock Text="/" TextWrapping="Wrap" TextAlignment="Left" FontFamily="Din Pro" IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"/>
+
+										<TextBlock Text="{Binding LogType}" IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}" Foreground="{DynamicResource SystemAccentColorLight3}" TextWrapping="Wrap" TextAlignment="Left" FontFamily="Din Pro"/>
+
+										<TextBlock Text="] " IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"
+		                                           TextAlignment="Left" TextWrapping="Wrap"
+		                                           FontFamily="Din Pro"/>
+
+										<TextBlock Text="{Binding Log}"
+		                                           TextAlignment="Left" TextWrapping="WrapWithOverflow"
+		                                           FontFamily="Din Pro"/>
+									</WrapPanel>
+								</Grid>
+							</ControlTemplate>
+						</Setter>
+					</Style>
+
+					<Style Selector="ListBoxItem:pointerover /template/ Grid#Layout">
+						<Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+					</Style>
+				</ListBox.Styles>
+		    <!--<ListBoxItem Background="Red"/>
+			<ListBoxItem Background="Red"/> 
+			<ListBoxItem Background="Orange"/>
+			<ListBoxItem Background="Orange"/>
+			<ListBoxItem Background="Red"/>
+			<ListBoxItem Background="Gray"/>
+			<ListBoxItem Background="Red"/>
+			<ListBoxItem Background="Yellow"/>
+			<ListBoxItem Background="Red"/>
+			<ListBoxItem Background="Gray"/>-->
+			</ListBox>
+		</ScrollViewer>			
+		
+		<!--Botton-->
+		<Border Height="50" VerticalAlignment="Bottom" Background="{DynamicResource ControlFillColorDefaultBrush}"/>
+		<CheckBox x:Name="IsTopmost" HorizontalAlignment="Left" Margin="10 0 -15 10" VerticalAlignment="Bottom" Content="窗口置顶"/>
+		<CheckBox x:Name="IsAuto" HorizontalAlignment="Left" Margin="110 0 -15 10" VerticalAlignment="Bottom" Content="拖动锁定"/>
+		<Button x:Name="CloseButton" Command="{Binding KillGame}" Content="结束游戏" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 10" Classes="accent"/>
+	</Grid>
+</Window>
