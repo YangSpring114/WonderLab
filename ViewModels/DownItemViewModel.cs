@@ -108,7 +108,7 @@ namespace WonderLab.ViewModels
         {
             JavaInstall(http);
         }
-
+        
         public void OpenFile()
         {
             try
