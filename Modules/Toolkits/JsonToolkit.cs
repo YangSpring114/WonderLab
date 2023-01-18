@@ -32,8 +32,8 @@ namespace WonderLab.Modules.Toolkits
                 if (!Directory.Exists(PathConst.MainDirectory))
                     Directory.CreateDirectory(PathConst.MainDirectory);
 
-                if (!Directory.Exists(PathConst.SkinHeadDirectory))
-                    Directory.CreateDirectory(PathConst.SkinHeadDirectory);
+                if (!Directory.Exists(PathConst.TempDirectory))
+                    Directory.CreateDirectory(PathConst.TempDirectory);
 
                 File.WriteAllText(PathConst.SettingJsonPtah, Newtonsoft.Json.JsonConvert.SerializeObject(new DataModels()));
                 return true;

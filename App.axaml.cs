@@ -6,6 +6,7 @@ using Avalonia.Platform;
 using Avalonia.Skia;
 using Avalonia.Themes.Fluent;
 using FluentAvalonia.Styling;
+using Flurl;
 using MinecraftLaunch.Modules.Toolkits;
 using Natsurainko.FluentCore.Class.Model.Launch;
 using Newtonsoft.Json;
@@ -19,6 +20,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Threading.Tasks;
 using WonderLab.Modules.Const;
 using WonderLab.Modules.Controls;
@@ -50,8 +52,23 @@ namespace WonderLab
             JsonToolkit.JsonAllWrite();
             await Task.Delay(900);
             BackgroundWorker worker = new();
-            worker.DoWork += (_, _) =>
+            worker.DoWork += async (_, _) =>
             {
+                if (!File.Exists(PathConst.DownloaderPath))
+                {
+                    //resm:WonderLab.Resources.WonderLab.Desktop.exe
+                    var al = AvaloniaLocator.Current.GetService<IAssetLoader>();
+                    using var s = al.Open(new Uri("resm:WonderLab.Resources.WonderLab.Desktop.exe"));
+                    using FileStream fileStream = File.Create(PathConst.DownloaderPath);
+                    byte[] bytes = new byte[HttpToolkit.BufferSize];
+                    for (int num = await s.ReadAsync(bytes, 0, HttpToolkit.BufferSize); num > 0; num = await s.ReadAsync(bytes, 0, HttpToolkit.BufferSize))
+                    {
+                        await fileStream.WriteAsync(bytes, 0, num);
+                    }
+
+                    fileStream.Flush();
+                }
+
                 if (Data is not null)
                 {
                     //Java

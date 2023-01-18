@@ -1,7 +1,9 @@
 ﻿using Avalonia.Controls;
+using FluentAvalonia.UI.Controls;
 using MinecraftLaunch.Modules.Toolkits;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -193,35 +195,39 @@ namespace WonderLab.ViewModels
         }
         public void FindJavas()
         {
-            Thread thread = new Thread(async () =>
+            BackgroundWorker worker = new();
+            worker.DoWork += (_, _) =>
             {
-                var res = await Task.Run(() =>
+                try
                 {
-                    return JavaToolkit.GetJavas().Distinct();//数组去重，防止出现多个相同的java
-                });
+                    var res = JavaToolkit.GetJavas().Distinct();//数组去重，防止出现多个相同的java
+                    foreach (var j in res)
+                    {
+                        App.Data.JavaList.Add(j.JavaPath);
+                    }
 
-                foreach (var j in res)
-                {
-                    App.Data.JavaList.Add(j.JavaPath);
+                    Javas = null;
+                    Javas = App.Data.JavaList;
+                    if (Javas.Count > 0)
+                    {
+                        JavaRemoveVisible = true;
+                        CurrentJava = Javas[0];
+                        MainWindow.ShowInfoBarAsync("成功", "已将搜索到的Java加入至列表", FluentAvalonia.UI.Controls.InfoBarSeverity.Success);
+                    }
                 }
+                catch (Exception ex)
+                {
+                    MainWindow.ShowInfoBarAsync("错误：", $"WonderLab在找 Java 时发生了意想不到的错误：\n{ex}", InfoBarSeverity.Error);
+                }
+            };
 
-                Javas = null;
-                Javas = App.Data.JavaList;
-                if (Javas.Count>0)
-                {
-                    JavaRemoveVisible = true;
-                    CurrentJava = Javas[0];
-                }
-            });
-            thread.IsBackground = true;
-            thread.Start();
+            worker.RunWorkerAsync();
         }
         public void FindJavasAction()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 FindJavas();
-                MainWindow.ShowInfoBarAsync("成功", "已将搜索到的Java加入至列表", FluentAvalonia.UI.Controls.InfoBarSeverity.Success);
             }
             else
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace WonderLab.Modules.Models
         public string SelectedGameFooter { get; set; } = string.Empty;
         public string? SelectedGameCore { get; set; } = null;
         public UserDataModels? SelectedUser { get; set; } = null;
-        public string FooterPath { get; set; } = @".minecarft";
+        public string FooterPath { get; set; } = $"{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".minecraft")}";
         public string NativesFolderPath { get; set; } = string.Empty;
         public string JavaPath { get; set; } = string.Empty;
         public string Jvm { get; set; } = string.Empty;

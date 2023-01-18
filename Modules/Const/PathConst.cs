@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -12,13 +13,15 @@ namespace WonderLab.Modules.Const
     /// </summary>
     public class PathConst
     {
-        public const string SettingJsonPtah = $"{MainDirectory}\\MainSetting.json";
+        public static string DownloaderPath = $"{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "WonderLab","Temp")}\\WonderLab.Desktop.exe";
 
-        public const string OtherJsonPtah = $"{MainDirectory}\\Other.json";
+        public static string SettingJsonPtah = $"{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "WonderLab")}\\MainSetting.json";
 
-        public const string MainDirectory = @"WonderLab";
+        public static string OtherJsonPtah = $"{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "WonderLab")}\\Other.json";
 
-        public const string SkinHeadDirectory = $"{MainDirectory}\\Temp";
+        public static string MainDirectory = $"{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),"WonderLab")}";
+
+        public static string TempDirectory = $"{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "WonderLab")}\\Temp";
 
         public static readonly string X = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) == true ? "\\" : "/";
 

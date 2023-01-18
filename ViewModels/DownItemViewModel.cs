@@ -20,6 +20,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WonderLab.Modules.Base;
+using WonderLab.Modules.Const;
 using WonderLab.Modules.Enum;
 using WonderLab.Modules.Toolkits;
 using WonderLab.Views;
@@ -134,7 +135,7 @@ namespace WonderLab.ViewModels
             var Arguments = GetDownloadProcessArguments(Id, App.Data.FooterPath,App.Data.MaxThreadCount);
             using Process process = new Process()
             {
-                StartInfo = new ProcessStartInfo("D:\\Workspace\\ICode\\C#\\WonderLabX\\WonderLab.Desktop\\bin\\Debug\\net6.0\\WonderLab.Desktop.exe")
+                StartInfo = new ProcessStartInfo(PathConst.DownloaderPath)
                 {
                     Arguments = Arguments,
                     CreateNoWindow = true,
@@ -186,7 +187,7 @@ namespace WonderLab.ViewModels
 
             using Process process = new Process()
             {
-                StartInfo = new ProcessStartInfo("D:\\Workspace\\ICode\\C#\\WonderLabX\\WonderLab.Desktop\\bin\\Debug\\net6.0\\WonderLab.Desktop.exe")
+                StartInfo = new ProcessStartInfo(PathConst.DownloaderPath)
                 {
                     Arguments = Arguments,
                     CreateNoWindow = true,
@@ -240,7 +241,7 @@ namespace WonderLab.ViewModels
 
             using Process process = new Process()
             {
-                StartInfo = new ProcessStartInfo("D:\\Workspace\\ICode\\C#\\WonderLabX\\WonderLab.Desktop\\bin\\Debug\\net6.0\\WonderLab.Desktop.exe")
+                StartInfo = new ProcessStartInfo(PathConst.DownloaderPath)
                 {
                     Arguments = args,
                     CreateNoWindow = true,
@@ -298,7 +299,7 @@ namespace WonderLab.ViewModels
 
             using Process process = new Process()
             {
-                StartInfo = new ProcessStartInfo("D:\\Workspace\\ICode\\C#\\WonderLabX\\WonderLab.Desktop\\bin\\Debug\\net6.0\\WonderLab.Desktop.exe")
+                StartInfo = new ProcessStartInfo(PathConst.DownloaderPath)
                 {
                     Arguments = Arguments,
                     CreateNoWindow = true,
@@ -352,7 +353,7 @@ namespace WonderLab.ViewModels
 
             using Process process = new Process()
             {
-                StartInfo = new ProcessStartInfo("D:\\Workspace\\ICode\\C#\\WonderLabX\\WonderLab.Desktop\\bin\\Debug\\net6.0\\WonderLab.Desktop.exe")
+                StartInfo = new ProcessStartInfo(PathConst.DownloaderPath)
                 {
                     Arguments = args,
                     CreateNoWindow = true,

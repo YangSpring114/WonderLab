@@ -28,6 +28,7 @@
     <None Remove="Resources\ModData.json" />
     <None Remove="Resources\normal.png" />
     <None Remove="Resources\sdf.png" />
+    <None Remove="Resources\WonderLab.Desktop.exe" />
     <None Remove="半圆.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -41,6 +42,7 @@
     <EmbeddedResource Include="Resources\ModData.json" />
 	<EmbeddedResource Include="Resources\normal.png" />
     <EmbeddedResource Include="Resources\sdf.png" />
+    <EmbeddedResource Include="Resources\WonderLab.Desktop.exe" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
@@ -100,6 +102,14 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+	<ItemGroup>
+		<Content Include="wonderlab.png" CopyToPublishDirectory="PreserveNewest">
+			<LinuxPath>/usr/share/icons/wonderlab.png</LinuxPath>
+		</Content>
+		<Content Include="wonderlab.desktop" CopyToPublishDirectory="PreserveNewest">
+			<LinuxPath>/usr/share/applications/wonderlab.desktop</LinuxPath>
+		</Content>
+	</ItemGroup>	
 	
 	<PropertyGroup>
 		<CFBundleName>AppName</CFBundleName>
