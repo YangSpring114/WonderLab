@@ -34,7 +34,6 @@ namespace WonderLab.Modules.Toolkits
                 },
             };
 
-            return default;
         }
     }
 }

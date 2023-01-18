@@ -2262,6 +2262,19 @@
         "runtime": {
           "bin/placeholder/ControlX.dll": {}
         }
+      },
+      "PluginLoader/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "compile": {
+          "bin/placeholder/PluginLoader.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PluginLoader.dll": {}
+        }
       }
     },
     "net6.0/osx-x64": {
@@ -4641,6 +4654,19 @@
         },
         "runtime": {
           "bin/placeholder/ControlX.dll": {}
+        }
+      },
+      "PluginLoader/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "compile": {
+          "bin/placeholder/PluginLoader.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PluginLoader.dll": {}
         }
       }
     }
@@ -10525,6 +10551,11 @@
       "type": "project",
       "path": "../ControlX/ControlX.csproj",
       "msbuildProject": "../ControlX/ControlX.csproj"
+    },
+    "PluginLoader/1.0.0": {
+      "type": "project",
+      "path": "../PluginLoader/PluginLoader.csproj",
+      "msbuildProject": "../PluginLoader/PluginLoader.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -10540,6 +10571,7 @@
       "Natsurainko.FluentCore >= 2.0.2",
       "Newtonsoft.Json >= 13.0.2",
       "Packaging.Targets >= 0.1.220-*",
+      "PluginLoader >= 1.0.0",
       "ReactiveUI >= 18.4.1",
       "XamlNameReferenceGenerator >= 1.5.1"
     ]
@@ -10578,6 +10610,9 @@
           "projectReferences": {
             "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\ControlX\\ControlX.csproj": {
               "projectPath": "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\ControlX\\ControlX.csproj"
+            },
+            "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\PluginLoader\\PluginLoader.csproj": {
+              "projectPath": "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\PluginLoader\\PluginLoader.csproj"
             }
           }
         }

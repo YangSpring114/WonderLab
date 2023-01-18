@@ -26,7 +26,7 @@ C:\Users\Ddggd\.nuget\packages\avalonia\0.10.18\lib\netcoreapp2.0\Avalonia.Theme
 C:\Users\Ddggd\.nuget\packages\avalonia\0.10.18\lib\netcoreapp2.0\Avalonia.Visuals.dll
 C:\Users\Ddggd\.nuget\packages\avalonia.win32\0.10.18\lib\netstandard2.0\Avalonia.Win32.dll
 C:\Users\Ddggd\.nuget\packages\avalonia.x11\0.10.18\lib\netstandard2.0\Avalonia.X11.dll
-C:\Users\Ddggd\Desktop\tmp\ControlX\obj\Debug\net6.0\ref\ControlX.dll
+C:\Users\Ddggd\Desktop\tmp\WonderLab\ControlX\obj\Debug\net6.0\ref\ControlX.dll
 C:\Users\Ddggd\.nuget\packages\dynamicdata\7.12.8\lib\net6.0\DynamicData.dll
 C:\Users\Ddggd\.nuget\packages\fluentavaloniaui\1.4.5\lib\net6.0\FluentAvalonia.dll
 C:\Users\Ddggd\.nuget\packages\flurl\3.0.7\lib\netstandard2.0\Flurl.dll
@@ -50,6 +50,7 @@ C:\Users\Ddggd\.nuget\packages\natsurainko.fluentcore\2.0.2\lib\net6.0\Natsurain
 C:\Users\Ddggd\.nuget\packages\natsurainko.toolkits\1.0.2\lib\netstandard2.0\Natsurainko.Toolkits.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\6.0.6\ref\net6.0\netstandard.dll
 C:\Users\Ddggd\.nuget\packages\newtonsoft.json\13.0.2\lib\net6.0\Newtonsoft.Json.dll
+C:\Users\Ddggd\Desktop\tmp\WonderLab\PluginLoader\obj\Debug\net6.0\ref\PluginLoader.dll
 C:\Users\Ddggd\.nuget\packages\reactiveui\18.4.1\lib\net6.0\ReactiveUI.dll
 C:\Users\Ddggd\.nuget\packages\skiasharp\2.88.1-preview.108\lib\net6.0\SkiaSharp.dll
 C:\Users\Ddggd\.nuget\packages\splat\14.5.1\lib\net6.0\Splat.dll

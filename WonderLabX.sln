@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WonderLabX", "WonderLab\Won
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControlX", "ControlX\ControlX.csproj", "{1CA15489-2AEE-4671-87D8-312B09E634B3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PluginLoader", "PluginLoader\PluginLoader.csproj", "{3D2E6D2D-8D65-4205-B225-8CC01AD7E546}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1CA15489-2AEE-4671-87D8-312B09E634B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CA15489-2AEE-4671-87D8-312B09E634B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CA15489-2AEE-4671-87D8-312B09E634B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D2E6D2D-8D65-4205-B225-8CC01AD7E546}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D2E6D2D-8D65-4205-B225-8CC01AD7E546}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D2E6D2D-8D65-4205-B225-8CC01AD7E546}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D2E6D2D-8D65-4205-B225-8CC01AD7E546}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

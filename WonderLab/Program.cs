@@ -17,6 +17,7 @@ namespace WonderLab
         [STAThread]
         public static void Main(string[] args)
         {
+            PluginLoader.PluginLoader.LoadAllFromPlugin();
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             BuildAvaloniaApp()
             .StartWithClassicDesktopLifetime(args);

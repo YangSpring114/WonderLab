@@ -19,6 +19,7 @@
           "Natsurainko.FluentCore": "2.0.2",
           "Newtonsoft.Json": "13.0.2",
           "Packaging.Targets": "0.1.220",
+          "PluginLoader": "1.0.0",
           "ReactiveUI": "18.4.1",
           "XamlNameReferenceGenerator": "1.5.1"
         },
@@ -1563,6 +1564,14 @@
         "runtime": {
           "ControlX.dll": {}
         }
+      },
+      "PluginLoader/1.0.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.2"
+        },
+        "runtime": {
+          "PluginLoader.dll": {}
+        }
       }
     }
   },
@@ -2511,6 +2520,11 @@
       "hashPath": "xamlnamereferencegenerator.1.5.1.nupkg.sha512"
     },
     "ControlX/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PluginLoader/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

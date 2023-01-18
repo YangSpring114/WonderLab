@@ -182,7 +182,7 @@ namespace WonderLab.ViewModels
             }
             catch (Exception ex)
             {
-                MainWindow.win.ShowDialog("", "");
+                MainWindow.ShowInfoBarAsync("错误：", $"发生了意想不到的错误：\n{ex}", InfoBarSeverity.Error);
             }
         }
         public void AddGameAction()
@@ -200,7 +200,7 @@ namespace WonderLab.ViewModels
             {
                 try
                 {
-                    var res = JavaToolkit.GetJavas().Distinct();//数组去重，防止出现多个相同的java
+                    var res = WonderLab.ByDdggdd135.utils.JavaToolkit.GetJavas().Distinct();//数组去重，防止出现多个相同的java
                     foreach (var j in res)
                     {
                         App.Data.JavaList.Add(j.JavaPath);
@@ -227,6 +227,7 @@ namespace WonderLab.ViewModels
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
+                MainWindow.ShowInfoBarAsync("提示", "正在搜索Java", FluentAvalonia.UI.Controls.InfoBarSeverity.Informational);
                 FindJavas();
             }
             else
