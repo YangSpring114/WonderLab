@@ -58,11 +58,11 @@
             },
             "FluentAvaloniaUI": {
               "target": "Package",
-              "version": "[1.4.4, )"
+              "version": "[1.4.5, )"
             },
             "XamlNameReferenceGenerator": {
               "target": "Package",
-              "version": "[1.3.4, )"
+              "version": "[1.5.1, )"
             }
           },
           "imports": [
@@ -194,7 +194,7 @@
           "dependencies": {
             "Newtonsoft.Json": {
               "target": "Package",
-              "version": "[13.0.1, )"
+              "version": "[13.0.2, )"
             }
           },
           "imports": [
@@ -288,6 +288,10 @@
               "target": "Package",
               "version": "[5.8.0-alpha0098, )"
             },
+            "Downloader": {
+              "target": "Package",
+              "version": "[3.0.2, )"
+            },
             "FluentAvaloniaUI": {
               "target": "Package",
               "version": "[1.4.5, )"
@@ -298,7 +302,7 @@
             },
             "Natsurainko.FluentCore": {
               "target": "Package",
-              "version": "[2.0.2, )"
+              "version": "[2.0.3, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",

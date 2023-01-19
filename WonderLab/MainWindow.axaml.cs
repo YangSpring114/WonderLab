@@ -127,28 +127,27 @@ namespace WonderLab
         }
 
         private void MainWindow_Closed(object? sender, System.EventArgs e) => JsonToolkit.JsonWrite();
-        public static string getVersion()
+        public static string GetVersion()
         {
             return "1.0.0.0";
         }
-        public void AutoUpdata()
+        public static void AutoUpdata()
         {
             try{
                 string releaseUrl = GithubLib.GithubLib.GetRepoLatestReleaseUrl("Blessing-Studio", "WonderLab");
                 Release? release = GithubLib.GithubLib.GetRepoLatestRelease(releaseUrl);
                 if (release != null)
                 {
-                    if (release.name != getVersion())
+                    if (release.name != GetVersion())
                     {
-                        MainWindow.ShowInfoBarAsync("自动更新", "发现新版本" + release.name + "  当前版本" + getVersion() + "  ", InfoBarSeverity.Informational);
+                        MainWindow.ShowInfoBarAsync("自动更新", "发现新版本" + release.name + "  当前版本" + GetVersion() + "  ", InfoBarSeverity.Informational);
                     }
                 }
             }
             finally
             {
 
-            }
-            ;
+            };
         }
         protected override void OnOpened(EventArgs e)
         {

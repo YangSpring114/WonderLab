@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "kblq+nPjrpwpr6iAL9GBkKXDNZ9utc3EWlbFgJ+zM4umav1C1JW5rOmuQmgducC2E9iyFKJeLaTs9yHHCjYrgg==",
+  "dgSpecHash": "nkkf6iSlbPh/gV6FNSsb1OvpArRsJvkt2Luo/OeRu7PFmFN9imsuzOnsSsrGYRwifAaygK3F9zmqgz2scRtKrA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\WonderLab\\WonderLabX.csproj",
   "expectedPackageFiles": [
@@ -17,6 +17,7 @@
     "C:\\Users\\Ddggd\\.nuget\\packages\\avalonia.win32\\0.10.18\\avalonia.win32.0.10.18.nupkg.sha512",
     "C:\\Users\\Ddggd\\.nuget\\packages\\avalonia.x11\\0.10.18\\avalonia.x11.0.10.18.nupkg.sha512",
     "C:\\Users\\Ddggd\\.nuget\\packages\\costura.fody\\5.8.0-alpha0098\\costura.fody.5.8.0-alpha0098.nupkg.sha512",
+    "C:\\Users\\Ddggd\\.nuget\\packages\\downloader\\3.0.2\\downloader.3.0.2.nupkg.sha512",
     "C:\\Users\\Ddggd\\.nuget\\packages\\dynamicdata\\7.12.8\\dynamicdata.7.12.8.nupkg.sha512",
     "C:\\Users\\Ddggd\\.nuget\\packages\\fluentavaloniaui\\1.4.5\\fluentavaloniaui.1.4.5.nupkg.sha512",
     "C:\\Users\\Ddggd\\.nuget\\packages\\flurl\\3.0.7\\flurl.3.0.7.nupkg.sha512",
@@ -43,8 +44,8 @@
     "C:\\Users\\Ddggd\\.nuget\\packages\\microsoft.win32.systemevents\\4.5.0\\microsoft.win32.systemevents.4.5.0.nupkg.sha512",
     "C:\\Users\\Ddggd\\.nuget\\packages\\minecraftlaunch\\1.7.0-preview2\\minecraftlaunch.1.7.0-preview2.nupkg.sha512",
     "C:\\Users\\Ddggd\\.nuget\\packages\\minecraftoauth\\1.8.0-preview\\minecraftoauth.1.8.0-preview.nupkg.sha512",
-    "C:\\Users\\Ddggd\\.nuget\\packages\\natsurainko.fluentcore\\2.0.2\\natsurainko.fluentcore.2.0.2.nupkg.sha512",
-    "C:\\Users\\Ddggd\\.nuget\\packages\\natsurainko.toolkits\\1.0.2\\natsurainko.toolkits.1.0.2.nupkg.sha512",
+    "C:\\Users\\Ddggd\\.nuget\\packages\\natsurainko.fluentcore\\2.0.3\\natsurainko.fluentcore.2.0.3.nupkg.sha512",
+    "C:\\Users\\Ddggd\\.nuget\\packages\\natsurainko.toolkits\\1.0.3\\natsurainko.toolkits.1.0.3.nupkg.sha512",
     "C:\\Users\\Ddggd\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
     "C:\\Users\\Ddggd\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512",
     "C:\\Users\\Ddggd\\.nuget\\packages\\packaging.targets\\0.1.220\\packaging.targets.0.1.220.nupkg.sha512",

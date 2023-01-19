@@ -14,6 +14,7 @@
           "Avalonia.ReactiveUI": "0.10.18",
           "ControlX": "1.0.0",
           "Costura.Fody": "5.8.0-alpha0098",
+          "Downloader": "3.0.2",
           "FluentAvaloniaUI": "1.4.5",
           "GithubLib": "1.0.0",
           "MinecraftOAuth": "1.8.0-preview",
@@ -279,6 +280,14 @@
           "lib/netstandard1.0/Costura.dll": {
             "assemblyVersion": "5.8.0.0",
             "fileVersion": "5.8.0.0"
+          }
+        }
+      },
+      "Downloader/3.0.2": {
+        "runtime": {
+          "lib/net6.0/Downloader.dll": {
+            "assemblyVersion": "3.0.2.0",
+            "fileVersion": "3.0.2.0"
           }
         }
       },
@@ -1689,6 +1698,13 @@
       "sha512": "sha512-/waTTBqcZioV+2Fn2fWBO/EfyGhYN4xpBB828hfzdjkq8WJE3iiwm30cFAKJWYrwhCSD3piHasDGfBMGg6Gvqw==",
       "path": "costura.fody/5.8.0-alpha0098",
       "hashPath": "costura.fody.5.8.0-alpha0098.nupkg.sha512"
+    },
+    "Downloader/3.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-aOfM+qEmlPPH3Th45CiNeoj/q37jT+Fblq8fDn0OkMLPL3sxmWUPixtEv71qRnZ77i0fimFECmonRQ4YO2mGoQ==",
+      "path": "downloader/3.0.2",
+      "hashPath": "downloader.3.0.2.nupkg.sha512"
     },
     "DynamicData/7.12.8": {
       "type": "package",
