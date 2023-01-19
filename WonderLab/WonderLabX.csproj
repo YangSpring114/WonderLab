@@ -107,6 +107,7 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\ControlX\ControlX.csproj" />
+	  <ProjectReference Include="..\GithubLib\GithubLib.csproj" />
 	  <ProjectReference Include="..\PluginLoader\PluginLoader.csproj" />
 	</ItemGroup>	
 	

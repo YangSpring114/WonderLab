@@ -388,6 +388,15 @@
           }
         }
       },
+      "HttpSender/0.5.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/HttpSender.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/HttpSender.dll": {}
+        }
+      },
       "JetBrains.Annotations/10.3.0": {
         "type": "package",
         "dependencies": {
@@ -2263,6 +2272,20 @@
           "bin/placeholder/ControlX.dll": {}
         }
       },
+      "GithubLib/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "HttpSender": "0.5.0",
+          "Newtonsoft.Json": "13.0.2"
+        },
+        "compile": {
+          "bin/placeholder/GithubLib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/GithubLib.dll": {}
+        }
+      },
       "PluginLoader/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -2610,6 +2633,15 @@
         },
         "runtime": {
           "lib/net5.0/_._": {}
+        }
+      },
+      "HttpSender/0.5.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/HttpSender.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/HttpSender.dll": {}
         }
       },
       "JetBrains.Annotations/10.3.0": {
@@ -4656,6 +4688,20 @@
           "bin/placeholder/ControlX.dll": {}
         }
       },
+      "GithubLib/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "HttpSender": "0.5.0",
+          "Newtonsoft.Json": "13.0.2"
+        },
+        "compile": {
+          "bin/placeholder/GithubLib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/GithubLib.dll": {}
+        }
+      },
       "PluginLoader/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -5255,6 +5301,19 @@
         "runtimes/win-arm64/native/libHarfBuzzSharp.dll",
         "runtimes/win-x64/native/libHarfBuzzSharp.dll",
         "runtimes/win-x86/native/libHarfBuzzSharp.dll"
+      ]
+    },
+    "HttpSender/0.5.0": {
+      "sha512": "GUq3hpoEWBGCCCsyDOkAxOsWX/JynJNwZmFiA7CdbeCtRmepX9GC1Jnt2k7E6Q4lnOGU3p3s3xWIRSyNNmtK2g==",
+      "type": "package",
+      "path": "httpsender/0.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "httpsender.0.5.0.nupkg.sha512",
+        "httpsender.nuspec",
+        "lib/net45/HttpSender.dll",
+        "lib/netstandard2.0/HttpSender.dll"
       ]
     },
     "JetBrains.Annotations/10.3.0": {
@@ -10552,6 +10611,11 @@
       "path": "../ControlX/ControlX.csproj",
       "msbuildProject": "../ControlX/ControlX.csproj"
     },
+    "GithubLib/1.0.0": {
+      "type": "project",
+      "path": "../GithubLib/GithubLib.csproj",
+      "msbuildProject": "../GithubLib/GithubLib.csproj"
+    },
     "PluginLoader/1.0.0": {
       "type": "project",
       "path": "../PluginLoader/PluginLoader.csproj",
@@ -10567,6 +10631,7 @@
       "ControlX >= 1.0.0",
       "Costura.Fody >= 5.8.0-alpha0098",
       "FluentAvaloniaUI >= 1.4.5",
+      "GithubLib >= 1.0.0",
       "MinecraftOAuth >= 1.8.0-preview",
       "Natsurainko.FluentCore >= 2.0.2",
       "Newtonsoft.Json >= 13.0.2",
@@ -10610,6 +10675,9 @@
           "projectReferences": {
             "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\ControlX\\ControlX.csproj": {
               "projectPath": "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\ControlX\\ControlX.csproj"
+            },
+            "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\GithubLib\\GithubLib.csproj": {
+              "projectPath": "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\GithubLib\\GithubLib.csproj"
             },
             "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\PluginLoader\\PluginLoader.csproj": {
               "projectPath": "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\PluginLoader\\PluginLoader.csproj"

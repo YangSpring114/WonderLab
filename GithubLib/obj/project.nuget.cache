@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "2eHTsWI+KVaYMilFCJYS+89Z1GFXA2Z1dIlBouywShgqVqbznmuHhgGO0DdbScsSsutbjDCpwIoqRzaotTw7EQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\GithubLib\\GithubLib.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Ddggd\\.nuget\\packages\\httpsender\\0.5.0\\httpsender.0.5.0.nupkg.sha512",
+    "C:\\Users\\Ddggd\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,10 +1,8 @@
 using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Logging;
 using Avalonia.ReactiveUI;
+using GithubLib;
 using System;
-using System.Diagnostics;
 using System.Text;
 
 namespace WonderLab
@@ -17,6 +15,20 @@ namespace WonderLab
         [STAThread]
         public static void Main(string[] args)
         {
+            string releaseUrl = GithubLib.GithubLib.GetRepoLatestReleaseUrl("Blessing-Studio", "WonderLab");
+            Release? release = null;
+            try
+            {
+                 release = GithubLib.GithubLib.GetRepoLatestRelease(releaseUrl);
+            }
+            catch (Exception _)
+            {
+
+            }
+            if(release != null)
+            {
+
+            }
             PluginLoader.PluginLoader.LoadAllFromPlugin();
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             BuildAvaloniaApp()

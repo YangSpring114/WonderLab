@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Gxe3LOMQcgzwRNx+qWYx2DkYn1r8fMcgPVwVImCqw2wUwoj7j/4jtWcuOuwCZ2bKl5V3gAa3kFCNYaxbcE3Xug==",
+  "dgSpecHash": "kblq+nPjrpwpr6iAL9GBkKXDNZ9utc3EWlbFgJ+zM4umav1C1JW5rOmuQmgducC2E9iyFKJeLaTs9yHHCjYrgg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\WonderLab\\WonderLabX.csproj",
   "expectedPackageFiles": [
@@ -27,6 +27,7 @@
     "C:\\Users\\Ddggd\\.nuget\\packages\\harfbuzzsharp.nativeassets.macos\\2.8.2.1-preview.108\\harfbuzzsharp.nativeassets.macos.2.8.2.1-preview.108.nupkg.sha512",
     "C:\\Users\\Ddggd\\.nuget\\packages\\harfbuzzsharp.nativeassets.webassembly\\2.8.2.1-preview.108\\harfbuzzsharp.nativeassets.webassembly.2.8.2.1-preview.108.nupkg.sha512",
     "C:\\Users\\Ddggd\\.nuget\\packages\\harfbuzzsharp.nativeassets.win32\\2.8.2.1-preview.108\\harfbuzzsharp.nativeassets.win32.2.8.2.1-preview.108.nupkg.sha512",
+    "C:\\Users\\Ddggd\\.nuget\\packages\\httpsender\\0.5.0\\httpsender.0.5.0.nupkg.sha512",
     "C:\\Users\\Ddggd\\.nuget\\packages\\jetbrains.annotations\\10.3.0\\jetbrains.annotations.10.3.0.nupkg.sha512",
     "C:\\Users\\Ddggd\\.nuget\\packages\\microcom.codegenerator.msbuild\\0.10.4\\microcom.codegenerator.msbuild.0.10.4.nupkg.sha512",
     "C:\\Users\\Ddggd\\.nuget\\packages\\microcom.runtime\\0.10.4\\microcom.runtime.0.10.4.nupkg.sha512",

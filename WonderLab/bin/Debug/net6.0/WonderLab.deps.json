@@ -15,6 +15,7 @@
           "ControlX": "1.0.0",
           "Costura.Fody": "5.8.0-alpha0098",
           "FluentAvaloniaUI": "1.4.5",
+          "GithubLib": "1.0.0",
           "MinecraftOAuth": "1.8.0-preview",
           "Natsurainko.FluentCore": "2.0.2",
           "Newtonsoft.Json": "13.0.2",
@@ -392,6 +393,14 @@
             "rid": "win-x86",
             "assetType": "native",
             "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "HttpSender/0.5.0": {
+        "runtime": {
+          "lib/netstandard2.0/HttpSender.dll": {
+            "assemblyVersion": "0.4.0.0",
+            "fileVersion": "0.4.0.0"
           }
         }
       },
@@ -1565,6 +1574,15 @@
           "ControlX.dll": {}
         }
       },
+      "GithubLib/1.0.0": {
+        "dependencies": {
+          "HttpSender": "0.5.0",
+          "Newtonsoft.Json": "13.0.2"
+        },
+        "runtime": {
+          "GithubLib.dll": {}
+        }
+      },
       "PluginLoader/1.0.0": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.2"
@@ -1741,6 +1759,13 @@
       "sha512": "sha512-0ws24k21iRH2GRiOLEcG6ESl+VROOwaeHnC0vqKQChGmreGTJ//JBQJqIu189oY30G0NVdypDe1UwFA/scjBAw==",
       "path": "harfbuzzsharp.nativeassets.win32/2.8.2.1-preview.108",
       "hashPath": "harfbuzzsharp.nativeassets.win32.2.8.2.1-preview.108.nupkg.sha512"
+    },
+    "HttpSender/0.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-GUq3hpoEWBGCCCsyDOkAxOsWX/JynJNwZmFiA7CdbeCtRmepX9GC1Jnt2k7E6Q4lnOGU3p3s3xWIRSyNNmtK2g==",
+      "path": "httpsender/0.5.0",
+      "hashPath": "httpsender.0.5.0.nupkg.sha512"
     },
     "JetBrains.Annotations/10.3.0": {
       "type": "package",
@@ -2520,6 +2545,11 @@
       "hashPath": "xamlnamereferencegenerator.1.5.1.nupkg.sha512"
     },
     "ControlX/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "GithubLib/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
