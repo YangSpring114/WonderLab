@@ -1,0 +1,320 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Avalonia.Markup</name>
+    </assembly>
+    <members>
+        <member name="T:Avalonia.Data.Binding">
+            <summary>
+            A XAML binding.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Data.Binding.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Avalonia.Data.Binding"/> class.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Data.Binding.#ctor(System.String,Avalonia.Data.BindingMode)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Avalonia.Data.Binding"/> class.
+            </summary>
+            <param name="path">The binding path.</param>
+            <param name="mode">The binding mode.</param>
+        </member>
+        <member name="P:Avalonia.Data.Binding.ElementName">
+            <summary>
+            Gets or sets the name of the element to use as the binding source.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Data.Binding.RelativeSource">
+            <summary>
+            Gets or sets the relative source for the binding.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Data.Binding.Source">
+            <summary>
+            Gets or sets the source for the binding.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Data.Binding.Path">
+            <summary>
+            Gets or sets the binding path.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Data.Binding.TypeResolver">
+            <summary>
+            Gets or sets a function used to resolve types from names in the binding path.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Data.BindingBase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Avalonia.Data.Binding"/> class.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Data.BindingBase.#ctor(Avalonia.Data.BindingMode)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Avalonia.Data.Binding"/> class.
+            </summary>
+            <param name="mode">The binding mode.</param>
+        </member>
+        <member name="P:Avalonia.Data.BindingBase.Converter">
+            <summary>
+            Gets or sets the <see cref="T:Avalonia.Data.Converters.IValueConverter"/> to use.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Data.BindingBase.ConverterParameter">
+            <summary>
+            Gets or sets a parameter to pass to <see cref="P:Avalonia.Data.BindingBase.Converter"/>.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Data.BindingBase.FallbackValue">
+            <summary>
+            Gets or sets the value to use when the binding is unable to produce a value.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Data.BindingBase.TargetNullValue">
+            <summary>
+            Gets or sets the value to use when the binding result is null.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Data.BindingBase.Mode">
+            <summary>
+            Gets or sets the binding mode.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Data.BindingBase.Priority">
+            <summary>
+            Gets or sets the binding priority.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Data.BindingBase.StringFormat">
+            <summary>
+            Gets or sets the string format.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Data.BindingBase.Initiate(Avalonia.IAvaloniaObject,Avalonia.AvaloniaProperty,System.Object,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Data.MultiBinding">
+            <summary>
+            A XAML binding that calculates an aggregate value from multiple child <see cref="P:Avalonia.Data.MultiBinding.Bindings"/>.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Data.MultiBinding.Bindings">
+            <summary>
+            Gets the collection of child bindings.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Data.MultiBinding.Converter">
+            <summary>
+            Gets or sets the <see cref="T:Avalonia.Data.Converters.IMultiValueConverter"/> to use.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Data.MultiBinding.ConverterParameter">
+            <summary>
+            Gets or sets a parameter to pass to <see cref="P:Avalonia.Data.MultiBinding.Converter"/>.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Data.MultiBinding.FallbackValue">
+            <summary>
+            Gets or sets the value to use when the binding is unable to produce a value.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Data.MultiBinding.TargetNullValue">
+            <summary>
+            Gets or sets the value to use when the binding result is null.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Data.MultiBinding.Mode">
+            <summary>
+            Gets or sets the binding mode.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Data.MultiBinding.Priority">
+            <summary>
+            Gets or sets the binding priority.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Data.MultiBinding.RelativeSource">
+            <summary>
+            Gets or sets the relative source for the binding.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Data.MultiBinding.StringFormat">
+            <summary>
+            Gets or sets the string format.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Data.MultiBinding.Initiate(Avalonia.IAvaloniaObject,Avalonia.AvaloniaProperty,System.Object,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Data.RelativeSourceMode">
+            <summary>
+            Defines the mode of a <see cref="T:Avalonia.Data.RelativeSource"/> object.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Data.RelativeSourceMode.DataContext">
+            <summary>
+            The binding will be to the control's data context.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Data.RelativeSourceMode.TemplatedParent">
+            <summary>
+            The binding will be to the control's templated parent.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Data.RelativeSourceMode.Self">
+            <summary>
+            The binding will be to the control itself.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Data.RelativeSourceMode.FindAncestor">
+            <summary>
+            The binding will be to an ancestor of the control in the visual tree.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Data.TreeType">
+            <summary>
+            The type of tree via which to track a control.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Data.TreeType.Visual">
+            <summary>
+            The visual tree.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Data.TreeType.Logical">
+            <summary>
+            The logical tree.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Data.RelativeSource">
+            <summary>
+            Describes the the location of a binding source, relative to the binding target.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Data.RelativeSource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Avalonia.Data.RelativeSource"/> class.
+            </summary>
+            <remarks>
+            This constructor initializes <see cref="P:Avalonia.Data.RelativeSource.Mode"/> to <see cref="F:Avalonia.Data.RelativeSourceMode.FindAncestor"/>.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Data.RelativeSource.#ctor(Avalonia.Data.RelativeSourceMode)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Avalonia.Data.RelativeSource"/> class.
+            </summary>
+            <param name="mode">The relative source mode.</param>
+        </member>
+        <member name="P:Avalonia.Data.RelativeSource.AncestorLevel">
+            <summary>
+            Gets the level of ancestor to look for when in <see cref="F:Avalonia.Data.RelativeSourceMode.FindAncestor"/>  mode.
+            </summary>
+            <remarks>
+            Use the default value of 1 to look for the first ancestor of the specified type.
+            </remarks>
+        </member>
+        <member name="P:Avalonia.Data.RelativeSource.AncestorType">
+            <summary>
+            Gets the type of ancestor to look for when in <see cref="F:Avalonia.Data.RelativeSourceMode.FindAncestor"/>  mode.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Data.RelativeSource.Mode">
+            <summary>
+            Gets or sets a value that describes the type of relative source lookup.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Data.TemplateBinding">
+            <summary>
+            A XAML binding to a property on a control's templated parent.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Data.TemplateBinding.Initiate(Avalonia.IAvaloniaObject,Avalonia.AvaloniaProperty,System.Object,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Avalonia.Data.TemplateBinding.Converter">
+            <summary>
+            Gets or sets the <see cref="T:Avalonia.Data.Converters.IValueConverter"/> to use.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Data.TemplateBinding.ConverterParameter">
+            <summary>
+            Gets or sets a parameter to pass to <see cref="P:Avalonia.Data.TemplateBinding.Converter"/>.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Data.TemplateBinding.Mode">
+            <summary>
+            Gets or sets the binding mode.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Data.TemplateBinding.Property">
+            <summary>
+            Gets or sets the name of the source property on the templated parent.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Data.TemplateBinding.Description">
+            <inheritdoc/>
+        </member>
+        <member name="M:Avalonia.Data.TemplateBinding.Avalonia#Styling#ISetterValue#Initialize(Avalonia.Styling.ISetter)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Markup.Data.DelayedBinding">
+            <summary>
+            Provides delayed bindings for controls.
+            </summary>
+            <remarks>
+            The XAML engine applies its bindings in a delayed manner where bindings are only applied
+            when a control has finished initializing. This is done because applying bindings as soon
+            as controls are created means that long-form bindings (i.e. bindings that don't use the
+            `{Binding}` markup extension but instead use `&lt;Binding&gt;`) don't work, as the binding
+            is applied to the property before the properties on the `Binding` object are set. Looking 
+            at WPF it uses a similar mechanism for bindings that come from XAML.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Markup.Data.DelayedBinding.Add(Avalonia.IStyledElement,Avalonia.AvaloniaProperty,Avalonia.Data.IBinding)">
+            <summary>
+            Adds a delayed binding to a control.
+            </summary>
+            <param name="target">The control.</param>
+            <param name="property">The property on the control to bind to.</param>
+            <param name="binding">The binding.</param>
+        </member>
+        <member name="M:Avalonia.Markup.Data.DelayedBinding.Add(Avalonia.IStyledElement,System.Reflection.PropertyInfo,System.Func{Avalonia.IStyledElement,System.Object})">
+            <summary>
+            Adds a delayed value to a control.
+            </summary>
+            <param name="target">The control.</param>
+            <param name="property">The property on the control to bind to.</param>
+            <param name="value">A function which returns the value.</param>
+        </member>
+        <member name="M:Avalonia.Markup.Data.DelayedBinding.ApplyBindings(Avalonia.IStyledElement)">
+            <summary>
+            Applies any delayed bindings to a control.
+            </summary>
+            <param name="control">The control.</param>
+        </member>
+        <member name="T:Avalonia.Markup.Parsers.SelectorParser">
+            <summary>
+            Parses a <see cref="T:Avalonia.Styling.Selector"/> from text.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Markup.Parsers.SelectorParser.#ctor(System.Func{System.String,System.String,System.Type})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Avalonia.Markup.Parsers.SelectorParser"/> class.
+            </summary>
+            <param name="typeResolver">
+            The type resolver to use. The type resolver is a function which accepts two strings:
+            a type name and a XML namespace prefix and a type name, and should return the resolved
+            type or throw an exception.
+            </param>
+        </member>
+        <member name="M:Avalonia.Markup.Parsers.SelectorParser.Parse(System.String)">
+            <summary>
+            Parses a <see cref="T:Avalonia.Styling.Selector"/> from a string.
+            </summary>
+            <param name="s">The string.</param>
+            <returns>The parsed selector.</returns>
+        </member>
+    </members>
+</doc>

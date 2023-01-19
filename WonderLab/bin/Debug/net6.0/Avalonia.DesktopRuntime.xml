@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Avalonia.DesktopRuntime</name>
+    </assembly>
+    <members>
+        <member name="T:Avalonia.AppBuilder">
+            <summary>
+            Initializes platform-specific services for an <see cref="T:Avalonia.Application"/>.
+            </summary>
+        </member>
+        <member name="M:Avalonia.AppBuilder.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Avalonia.AppBuilder"/> class.
+            </summary>
+        </member>
+        <member name="M:Avalonia.AppBuilder.UseSubsystemsFromStartupDirectory">
+            <summary>
+            Instructs the <see cref="T:Avalonia.AppBuilder"/> to use the best settings for the platform.
+            </summary>
+            <returns>An <see cref="T:Avalonia.AppBuilder"/> instance.</returns>
+        </member>
+        <member name="T:Avalonia.Shared.PlatformSupport.AssetLoader">
+            <summary>
+            Loads assets compiled into the application binary.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Shared.PlatformSupport.AssetLoader.#ctor(System.Reflection.Assembly)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Avalonia.Shared.PlatformSupport.AssetLoader"/> class.
+            </summary>
+            <param name="assembly">
+            The default assembly from which to load resm: assets for which no assembly is specified.
+            </param>
+        </member>
+        <member name="M:Avalonia.Shared.PlatformSupport.AssetLoader.SetDefaultAssembly(System.Reflection.Assembly)">
+            <summary>
+            Sets the default assembly from which to load assets for which no assembly is specified.
+            </summary>
+            <param name="assembly">The default assembly.</param>
+        </member>
+        <member name="M:Avalonia.Shared.PlatformSupport.AssetLoader.Exists(System.Uri,System.Uri)">
+            <summary>
+            Checks if an asset with the specified URI exists.
+            </summary>
+            <param name="uri">The URI.</param>
+            <param name="baseUri">
+            A base URI to use if <paramref name="uri"/> is relative.
+            </param>
+            <returns>True if the asset could be found; otherwise false.</returns>
+        </member>
+        <member name="M:Avalonia.Shared.PlatformSupport.AssetLoader.Open(System.Uri,System.Uri)">
+            <summary>
+            Opens the asset with the requested URI.
+            </summary>
+            <param name="uri">The URI.</param>
+            <param name="baseUri">
+            A base URI to use if <paramref name="uri"/> is relative.
+            </param>
+            <returns>A stream containing the asset contents.</returns>
+            <exception cref="T:System.IO.FileNotFoundException">
+            The asset could not be found.
+            </exception>
+        </member>
+        <member name="M:Avalonia.Shared.PlatformSupport.AssetLoader.OpenAndGetAssembly(System.Uri,System.Uri)">
+            <summary>
+            Opens the asset with the requested URI and returns the asset stream and the
+            assembly containing the asset.
+            </summary>
+            <param name="uri">The URI.</param>
+            <param name="baseUri">
+            A base URI to use if <paramref name="uri"/> is relative.
+            </param>
+            <returns>
+            The stream containing the resource contents together with the assembly.
+            </returns>
+            <exception cref="T:System.IO.FileNotFoundException">
+            The asset could not be found.
+            </exception>
+        </member>
+        <member name="M:Avalonia.Shared.PlatformSupport.AssetLoader.GetAssets(System.Uri,System.Uri)">
+            <summary>
+            Gets all assets of a folder and subfolders that match specified uri.
+            </summary>
+            <param name="uri">The URI.</param>
+            <param name="baseUri">Base URI that is used if <paramref name="uri"/> is relative.</param>
+            <returns>All matching assets as a tuple of the absolute path to the asset and the assembly containing the asset</returns>
+        </member>
+    </members>
+</doc>

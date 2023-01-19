@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Avalonia.Themes.Default</name>
+    </assembly>
+    <members>
+        <member name="T:Avalonia.Themes.Default.DefaultTheme">
+            <summary>
+            The default Avalonia theme.
+            </summary>
+        </member>
+    </members>
+</doc>

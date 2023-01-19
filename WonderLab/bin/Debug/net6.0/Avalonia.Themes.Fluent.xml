@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Avalonia.Themes.Fluent</name>
+    </assembly>
+    <members>
+        <member name="T:Avalonia.Themes.Fluent.Controls.FluentControls">
+            <summary>
+            The default Avalonia theme.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Themes.Fluent.FluentTheme">
+            <summary>
+            Includes the fluent theme in an application.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Themes.Fluent.FluentTheme.#ctor(System.Uri)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Avalonia.Themes.Fluent.FluentTheme"/> class.
+            </summary>
+            <param name="baseUri">The base URL for the XAML context.</param>
+        </member>
+        <member name="M:Avalonia.Themes.Fluent.FluentTheme.#ctor(System.IServiceProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Avalonia.Themes.Fluent.FluentTheme"/> class.
+            </summary>
+            <param name="serviceProvider">The XAML service provider.</param>
+        </member>
+        <member name="P:Avalonia.Themes.Fluent.FluentTheme.Mode">
+            <summary>
+            Gets or sets the mode of the fluent theme (light, dark).
+            </summary>
+        </member>
+        <member name="P:Avalonia.Themes.Fluent.FluentTheme.DensityStyle">
+            <summary>
+            Gets or sets the density style of the fluent theme (normal, compact).
+            </summary>
+        </member>
+        <member name="P:Avalonia.Themes.Fluent.FluentTheme.Loaded">
+            <summary>
+            Gets the loaded style.
+            </summary>
+        </member>
+    </members>
+</doc>

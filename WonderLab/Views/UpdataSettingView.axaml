@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:card="using:ControlX"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+             x:Class="WonderLab.Views.UpdataSettingView">
+	<Panel>
+		<ScrollViewer>
+			<StackPanel Margin="20,20,20,0">
+				<card:OptionsDisplayItem
+					IsExpanded="True" Name="updataSetting"
+					Expands="True" Header="自动更新设置"
+					Description="启动器自动更新的配置">
+					<card:OptionsDisplayItem.Content>
+						<StackPanel>
+							<Grid>
+								<TextBlock Name="test" VerticalAlignment="Center" Text="当前下载源：github"/>
+							</Grid>
+						</StackPanel>
+					</card:OptionsDisplayItem.Content>
+				</card:OptionsDisplayItem>
+			</StackPanel>
+		</ScrollViewer>
+	</Panel>
+</UserControl>

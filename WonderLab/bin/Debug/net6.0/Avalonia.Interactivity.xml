@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Avalonia.Interactivity</name>
+    </assembly>
+    <members>
+        <member name="T:Avalonia.Interactivity.EventRoute">
+            <summary>
+            Holds the route for a routed event and supports raising an event on that route.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Interactivity.EventRoute.#ctor(Avalonia.Interactivity.RoutedEvent)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Avalonia.Interactivity.RoutedEvent"/> class.
+            </summary>
+            <param name="e">The routed event to be raised.</param>
+        </member>
+        <member name="P:Avalonia.Interactivity.EventRoute.HasHandlers">
+            <summary>
+            Gets a value indicating whether the route has any handlers.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Interactivity.EventRoute.Add(Avalonia.Interactivity.IInteractive,System.Delegate,Avalonia.Interactivity.RoutingStrategies,System.Boolean,System.Action{System.Delegate,System.Object,Avalonia.Interactivity.RoutedEventArgs})">
+            <summary>
+            Adds a handler to the route.
+            </summary>
+            <param name="target">The target on which the event should be raised.</param>
+            <param name="handler">The handler for the event.</param>
+            <param name="routes">The routing strategies to listen to.</param>
+            <param name="handledEventsToo">
+            If true the handler will be raised even when the routed event is marked as handled.
+            </param>
+            <param name="adapter">
+            An optional adapter which if supplied, will be called with <paramref name="handler"/>
+            and the parameters for the event. This adapter can be used to avoid calling
+            `DynamicInvoke` on the handler.
+            </param>
+        </member>
+        <member name="M:Avalonia.Interactivity.EventRoute.AddClassHandler(Avalonia.Interactivity.IInteractive)">
+            <summary>
+            Adds a class handler to the route.
+            </summary>
+            <param name="target">The target on which the event should be raised.</param>
+        </member>
+        <member name="M:Avalonia.Interactivity.EventRoute.RaiseEvent(Avalonia.Interactivity.IInteractive,Avalonia.Interactivity.RoutedEventArgs)">
+            <summary>
+            Raises an event along the route.
+            </summary>
+            <param name="source">The event source.</param>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="M:Avalonia.Interactivity.EventRoute.Dispose">
+            <summary>
+            Disposes of the event route.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Interactivity.IInteractive">
+            <summary>
+            Interface for objects that raise routed events.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Interactivity.IInteractive.InteractiveParent">
+            <summary>
+            Gets the interactive parent of the object for bubbling and tunneling events.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Interactivity.IInteractive.AddHandler(Avalonia.Interactivity.RoutedEvent,System.Delegate,Avalonia.Interactivity.RoutingStrategies,System.Boolean)">
+            <summary>
+            Adds a handler for the specified routed event.
+            </summary>
+            <param name="routedEvent">The routed event.</param>
+            <param name="handler">The handler.</param>
+            <param name="routes">The routing strategies to listen to.</param>
+            <param name="handledEventsToo">Whether handled events should also be listened for.</param>
+            <returns>A disposable that terminates the event subscription.</returns>
+        </member>
+        <member name="M:Avalonia.Interactivity.IInteractive.AddHandler``1(Avalonia.Interactivity.RoutedEvent{``0},System.EventHandler{``0},Avalonia.Interactivity.RoutingStrategies,System.Boolean)">
+            <summary>
+            Adds a handler for the specified routed event.
+            </summary>
+            <typeparam name="TEventArgs">The type of the event's args.</typeparam>
+            <param name="routedEvent">The routed event.</param>
+            <param name="handler">The handler.</param>
+            <param name="routes">The routing strategies to listen to.</param>
+            <param name="handledEventsToo">Whether handled events should also be listened for.</param>
+            <returns>A disposable that terminates the event subscription.</returns>
+        </member>
+        <member name="M:Avalonia.Interactivity.IInteractive.RemoveHandler(Avalonia.Interactivity.RoutedEvent,System.Delegate)">
+            <summary>
+            Removes a handler for the specified routed event.
+            </summary>
+            <param name="routedEvent">The routed event.</param>
+            <param name="handler">The handler.</param>
+        </member>
+        <member name="M:Avalonia.Interactivity.IInteractive.RemoveHandler``1(Avalonia.Interactivity.RoutedEvent{``0},System.EventHandler{``0})">
+            <summary>
+            Removes a handler for the specified routed event.
+            </summary>
+            <typeparam name="TEventArgs">The type of the event's args.</typeparam>
+            <param name="routedEvent">The routed event.</param>
+            <param name="handler">The handler.</param>
+        </member>
+        <member name="M:Avalonia.Interactivity.IInteractive.AddToEventRoute(Avalonia.Interactivity.RoutedEvent,Avalonia.Interactivity.EventRoute)">
+            <summary>
+            Adds the object's handlers for a routed event to an event route.
+            </summary>
+            <param name="routedEvent">The event.</param>
+            <param name="route">The event route.</param>
+        </member>
+        <member name="M:Avalonia.Interactivity.IInteractive.RaiseEvent(Avalonia.Interactivity.RoutedEventArgs)">
+            <summary>
+            Raises a routed event.
+            </summary>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="T:Avalonia.Interactivity.Interactive">
+            <summary>
+            Base class for objects that raise routed events.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Interactivity.Interactive.Avalonia#Interactivity#IInteractive#InteractiveParent">
+            <summary>
+            Gets the interactive parent of the object for bubbling and tunneling events.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Interactivity.Interactive.AddHandler(Avalonia.Interactivity.RoutedEvent,System.Delegate,Avalonia.Interactivity.RoutingStrategies,System.Boolean)">
+            <summary>
+            Adds a handler for the specified routed event.
+            </summary>
+            <param name="routedEvent">The routed event.</param>
+            <param name="handler">The handler.</param>
+            <param name="routes">The routing strategies to listen to.</param>
+            <param name="handledEventsToo">Whether handled events should also be listened for.</param>
+        </member>
+        <member name="M:Avalonia.Interactivity.Interactive.AddHandler``1(Avalonia.Interactivity.RoutedEvent{``0},System.EventHandler{``0},Avalonia.Interactivity.RoutingStrategies,System.Boolean)">
+            <summary>
+            Adds a handler for the specified routed event.
+            </summary>
+            <typeparam name="TEventArgs">The type of the event's args.</typeparam>
+            <param name="routedEvent">The routed event.</param>
+            <param name="handler">The handler.</param>
+            <param name="routes">The routing strategies to listen to.</param>
+            <param name="handledEventsToo">Whether handled events should also be listened for.</param>
+        </member>
+        <member name="M:Avalonia.Interactivity.Interactive.RemoveHandler(Avalonia.Interactivity.RoutedEvent,System.Delegate)">
+            <summary>
+            Removes a handler for the specified routed event.
+            </summary>
+            <param name="routedEvent">The routed event.</param>
+            <param name="handler">The handler.</param>
+        </member>
+        <member name="M:Avalonia.Interactivity.Interactive.RemoveHandler``1(Avalonia.Interactivity.RoutedEvent{``0},System.EventHandler{``0})">
+            <summary>
+            Removes a handler for the specified routed event.
+            </summary>
+            <typeparam name="TEventArgs">The type of the event's args.</typeparam>
+            <param name="routedEvent">The routed event.</param>
+            <param name="handler">The handler.</param>
+        </member>
+        <member name="M:Avalonia.Interactivity.Interactive.RaiseEvent(Avalonia.Interactivity.RoutedEventArgs)">
+            <summary>
+            Raises a routed event.
+            </summary>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="M:Avalonia.Interactivity.Interactive.BuildEventRoute(Avalonia.Interactivity.RoutedEvent)">
+            <summary>
+            Builds an event route for a routed event.
+            </summary>
+            <param name="e">The routed event.</param>
+            <returns>An <see cref="T:Avalonia.Interactivity.EventRoute"/> describing the route.</returns>
+            <remarks>
+            Usually, calling <see cref="M:Avalonia.Interactivity.Interactive.RaiseEvent(Avalonia.Interactivity.RoutedEventArgs)"/> is sufficient to raise a routed
+            event, however there are situations in which the construction of the event args is expensive
+            and should be avoided if there are no handlers for an event. In these cases you can call
+            this method to build the event route and check the <see cref="P:Avalonia.Interactivity.EventRoute.HasHandlers"/>
+            property to see if there are any handlers registered on the route. If there are, call
+            <see cref="M:Avalonia.Interactivity.EventRoute.RaiseEvent(Avalonia.Interactivity.IInteractive,Avalonia.Interactivity.RoutedEventArgs)"/> to raise the event.
+            </remarks>
+        </member>
+        <member name="T:Avalonia.Interactivity.InteractiveExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:Avalonia.Interactivity.IInteractive"/> interface.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Interactivity.InteractiveExtensions.AddDisposableHandler``1(Avalonia.Interactivity.IInteractive,Avalonia.Interactivity.RoutedEvent{``0},System.EventHandler{``0},Avalonia.Interactivity.RoutingStrategies,System.Boolean)">
+            <summary>
+            Adds a handler for the specified routed event and returns a disposable that can terminate the event subscription.
+            </summary>
+            <typeparam name="TEventArgs">The type of the event's args.</typeparam>
+            <param name="o">Target for adding given event handler.</param>
+            <param name="routedEvent">The routed event.</param>
+            <param name="handler">The handler.</param>
+            <param name="routes">The routing strategies to listen to.</param>
+            <param name="handledEventsToo">Whether handled events should also be listened for.</param>
+            <returns>A disposable that terminates the event subscription.</returns>
+        </member>
+        <member name="M:Avalonia.Interactivity.InteractiveExtensions.GetObservable``1(Avalonia.Interactivity.IInteractive,Avalonia.Interactivity.RoutedEvent{``0},Avalonia.Interactivity.RoutingStrategies,System.Boolean)">
+            <summary>
+            Gets an observable for a <see cref="T:Avalonia.Interactivity.RoutedEvent`1"/>.
+            </summary>
+            <param name="o">The object to listen for events on.</param>
+            <param name="routedEvent">The routed event.</param>
+            <param name="routes">The routing strategies to listen to.</param>
+            <param name="handledEventsToo">Whether handled events should also be listened for.</param>
+            <returns>
+            An observable which fires each time the event is raised.
+            </returns>
+        </member>
+        <member name="T:Avalonia.Interactivity.RoutedEventRegistry">
+            <summary>
+            Tracks registered <see cref="T:Avalonia.Interactivity.RoutedEvent"/>s.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Interactivity.RoutedEventRegistry.Instance">
+            <summary>
+            Gets the <see cref="T:Avalonia.Interactivity.RoutedEventRegistry"/> instance.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Interactivity.RoutedEventRegistry.Register(System.Type,Avalonia.Interactivity.RoutedEvent)">
+            <summary>
+            Registers a <see cref="T:Avalonia.Interactivity.RoutedEvent"/> on a type.
+            </summary>
+            <param name="type">The type.</param>
+            <param name="event">The event.</param>
+            <remarks>
+            You won't usually want to call this method directly, instead use the
+            <see cref="M:Avalonia.Interactivity.RoutedEvent.Register``2(System.String,Avalonia.Interactivity.RoutingStrategies)"/>
+            method.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Interactivity.RoutedEventRegistry.GetAllRegistered">
+            <summary>
+            Returns all routed events, that are currently registered in the event registry.
+            </summary>
+            <returns>All routed events, that are currently registered in the event registry.</returns>
+        </member>
+        <member name="M:Avalonia.Interactivity.RoutedEventRegistry.GetRegistered(System.Type)">
+            <summary>
+            Returns all routed events registered with the provided type.
+            If the type is not found or does not provide any routed events, an empty list is returned.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>All routed events registered with the provided type.</returns>
+        </member>
+        <member name="M:Avalonia.Interactivity.RoutedEventRegistry.GetRegistered``1">
+            <summary>
+            Returns all routed events registered with the provided type.         
+            If the type is not found or does not provide any routed events, an empty list is returned.
+            </summary>
+            <typeparam name="TOwner">The type.</typeparam>
+            <returns>All routed events registered with the provided type.</returns>
+        </member>
+    </members>
+</doc>

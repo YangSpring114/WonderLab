@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Avalonia.Markup.Xaml</name>
+    </assembly>
+    <members>
+        <member name="T:Avalonia.Markup.Xaml.AvaloniaXamlLoader">
+            <summary>
+            Loads XAML for a avalonia application.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Markup.Xaml.AvaloniaXamlLoader.Load(System.Object)">
+            <summary>
+            Loads the XAML into a Avalonia component.
+            </summary>
+            <param name="obj">The object to load the XAML into.</param>
+        </member>
+        <member name="M:Avalonia.Markup.Xaml.AvaloniaXamlLoader.Load(System.Uri,System.Uri)">
+            <summary>
+            Loads XAML from a URI.
+            </summary>
+            <param name="uri">The URI of the XAML file.</param>
+            <param name="baseUri">
+            A base URI to use if <paramref name="uri"/> is relative.
+            </param>
+            <returns>The loaded object.</returns>
+        </member>
+        <member name="T:Avalonia.Markup.Xaml.Converters.ColorToBrushConverter">
+            <summary>
+            Converts a <see cref="T:Avalonia.Media.Color"/> to an <see cref="T:Avalonia.Media.IBrush"/>.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Markup.Xaml.Converters.ColorToBrushConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a <see cref="T:Avalonia.Media.Color"/> to an <see cref="T:Avalonia.Media.IBrush"/> if the arguments are of the
+            correct type.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="targetType">The target type.</param>
+            <param name="parameter">Not used.</param>
+            <param name="culture">Not used.</param>
+            <returns>
+            If <paramref name="value"/> is a <see cref="T:Avalonia.Media.Color"/> and <paramref name="targetType"/>
+            is <see cref="T:Avalonia.Media.IBrush"/> then converts the color to a solid color brush.
+            </returns>
+        </member>
+        <member name="M:Avalonia.Markup.Xaml.Converters.ColorToBrushConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts an <see cref="T:Avalonia.Media.ISolidColorBrush"/> to a <see cref="T:Avalonia.Media.Color"/> if the arguments are of the
+            correct type.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="targetType">The target type.</param>
+            <param name="parameter">Not used.</param>
+            <param name="culture">Not used.</param>
+            <returns>
+            If <paramref name="value"/> is an <see cref="T:Avalonia.Media.ISolidColorBrush"/> and <paramref name="targetType"/>
+            is <see cref="T:Avalonia.Media.Color"/> then converts the solid color brush to a color.
+            </returns>
+        </member>
+        <member name="M:Avalonia.Markup.Xaml.Converters.ColorToBrushConverter.Convert(System.Object,System.Type)">
+            <summary>
+            Converts a <see cref="T:Avalonia.Media.Color"/> to an <see cref="T:Avalonia.Media.IBrush"/> if the arguments are of the
+            correct type.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="targetType">The target type.</param>
+            <returns>
+            If <paramref name="value"/> is a <see cref="T:Avalonia.Media.Color"/> and <paramref name="targetType"/>
+            is <see cref="T:Avalonia.Media.IBrush"/> then converts the color to a solid color brush.
+            </returns>
+        </member>
+        <member name="M:Avalonia.Markup.Xaml.Converters.ColorToBrushConverter.ConvertBack(System.Object,System.Type)">
+            <summary>
+            Converts an <see cref="T:Avalonia.Media.ISolidColorBrush"/> to a <see cref="T:Avalonia.Media.Color"/> if the arguments are of the
+            correct type.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="targetType">The target type.</param>
+            <returns>
+            If <paramref name="value"/> is an <see cref="T:Avalonia.Media.ISolidColorBrush"/> and <paramref name="targetType"/>
+            is <see cref="T:Avalonia.Media.Color"/> then converts the solid color brush to a color.
+            </returns>
+        </member>
+        <member name="T:Avalonia.Markup.Xaml.MarkupExtensions.ResourceInclude">
+            <summary>
+            Loads a resource dictionary from a specified URL.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Markup.Xaml.MarkupExtensions.ResourceInclude.Loaded">
+            <summary>
+            Gets the loaded resource dictionary.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Markup.Xaml.MarkupExtensions.ResourceInclude.Source">
+            <summary>
+            Gets or sets the source URL.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Markup.Xaml.Styling.StyleInclude">
+            <summary>
+            Includes a style from a URL.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Markup.Xaml.Styling.StyleInclude.#ctor(System.Uri)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Avalonia.Markup.Xaml.Styling.StyleInclude"/> class.
+            </summary>
+            <param name="baseUri">The base URL for the XAML context.</param>
+        </member>
+        <member name="M:Avalonia.Markup.Xaml.Styling.StyleInclude.#ctor(System.IServiceProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Avalonia.Markup.Xaml.Styling.StyleInclude"/> class.
+            </summary>
+            <param name="serviceProvider">The XAML service provider.</param>
+        </member>
+        <member name="P:Avalonia.Markup.Xaml.Styling.StyleInclude.Source">
+            <summary>
+            Gets or sets the source URL.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Markup.Xaml.Styling.StyleInclude.Loaded">
+            <summary>
+            Gets the loaded style.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Markup.Xaml.IRootObjectProvider.RootObject">
+            <summary>
+            The root object of the xaml file
+            </summary>
+        </member>
+        <member name="P:Avalonia.Markup.Xaml.IRootObjectProvider.IntermediateRootObject">
+            <summary>
+            The "current" root object, contains either the root of the xaml file
+            or the root object of the control/data template 
+            </summary>
+        </member>
+    </members>
+</doc>

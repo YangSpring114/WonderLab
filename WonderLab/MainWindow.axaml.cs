@@ -7,8 +7,10 @@ using Avalonia.Themes.Fluent;
 using FluentAvalonia.Styling;
 using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Media;
+using GithubLib;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -125,7 +127,29 @@ namespace WonderLab
         }
 
         private void MainWindow_Closed(object? sender, System.EventArgs e) => JsonToolkit.JsonWrite();
+        public static string getVersion()
+        {
+            return "1.0.0.0";
+        }
+        public void AutoUpdata()
+        {
+            try{
+                string releaseUrl = GithubLib.GithubLib.GetRepoLatestReleaseUrl("Blessing-Studio", "WonderLab");
+                Release? release = GithubLib.GithubLib.GetRepoLatestRelease(releaseUrl);
+                if (release != null)
+                {
+                    if (release.name != getVersion())
+                    {
+                        MainWindow.ShowInfoBarAsync("自动更新", "发现新版本" + release.name + "  当前版本" + getVersion() + "  ", InfoBarSeverity.Informational);
+                    }
+                }
+            }
+            finally
+            {
 
+            }
+            ;
+        }
         protected override void OnOpened(EventArgs e)
         {
             base.OnOpened(e);
@@ -192,6 +216,7 @@ namespace WonderLab
                     width = 400;
                 }
             }
+            AutoUpdata();
         }
 
         private void OnRequestedThemeChanged(FluentAvaloniaTheme sender, RequestedThemeChangedEventArgs args)

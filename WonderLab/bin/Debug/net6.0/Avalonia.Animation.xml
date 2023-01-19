@@ -1,0 +1,1144 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Avalonia.Animation</name>
+    </assembly>
+    <members>
+        <member name="T:Avalonia.Animation.Animatable">
+            <summary>
+            Base class for all animatable objects.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Animation.Animatable.ClockProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Animation.Animatable.Clock"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Animation.Animatable.TransitionsProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Animation.Animatable.Transitions"/> property.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Animation.Animatable.Clock">
+            <summary>
+            Gets or sets the clock which controls the animations on the control.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Animation.Animatable.Transitions">
+            <summary>
+            Gets or sets the property transitions for the control.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Animatable.EnableTransitions">
+            <summary>
+            Enables transitions for the control.
+            </summary>
+            <remarks>
+            This method should not be called from user code, it will be called automatically by the framework
+            when a control is added to the visual tree.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Animation.Animatable.DisableTransitions">
+            <summary>
+            Disables transitions for the control.
+            </summary>
+            <remarks>
+            This method should not be called from user code, it will be called automatically by the framework
+            when a control is added to the visual tree.
+            </remarks>
+        </member>
+        <member name="T:Avalonia.Animation.Animation">
+            <summary>
+            Tracks the progress of an animation.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Animation.Animation.DurationProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Animation.Animation.Duration"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Animation.Animation.IterationCountProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Animation.Animation.IterationCount"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Animation.Animation.PlaybackDirectionProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Animation.Animation.PlaybackDirection"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Animation.Animation.FillModeProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Animation.Animation.FillMode"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Animation.Animation.EasingProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Animation.Animation.Easing"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Animation.Animation.DelayProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Animation.Animation.Delay"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Animation.Animation.DelayBetweenIterationsProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Animation.Animation.DelayBetweenIterations"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Animation.Animation.SpeedRatioProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Animation.Animation.SpeedRatio"/> property.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Animation.Animation.Duration">
+            <summary>
+            Gets or sets the active time of this animation.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Animation.Animation.IterationCount">
+            <summary>
+            Gets or sets the repeat count for this animation.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Animation.Animation.PlaybackDirection">
+            <summary>
+            Gets or sets the playback direction for this animation.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Animation.Animation.FillMode">
+            <summary>
+            Gets or sets the value fill mode for this animation.
+            </summary> 
+        </member>
+        <member name="P:Avalonia.Animation.Animation.Easing">
+            <summary>
+            Gets or sets the easing function to be used for this animation.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Animation.Animation.Delay">
+            <summary> 
+            Gets or sets the initial delay time for this animation. 
+            </summary> 
+        </member>
+        <member name="P:Avalonia.Animation.Animation.DelayBetweenIterations">
+            <summary> 
+            Gets or sets the delay time in between iterations.
+            </summary> 
+        </member>
+        <member name="P:Avalonia.Animation.Animation.SpeedRatio">
+            <summary>
+            Gets or sets the speed multiple for this animation.
+            </summary> 
+        </member>
+        <member name="P:Avalonia.Animation.Animation.RepeatCount">
+            <summary>
+            Obsolete: Do not use this property, use <see cref="P:Avalonia.Animation.Animation.IterationCount"/> instead.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Avalonia.Animation.Animation.Children">
+            <summary>
+            Gets the children of the <see cref="T:Avalonia.Animation.Animation"/>.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Animation.GetAnimator(Avalonia.Animation.IAnimationSetter)">
+            <summary>
+            Gets the value of the Animator attached property for a setter.
+            </summary>
+            <param name="setter">The animation setter.</param>
+            <returns>The property animator type.</returns>
+        </member>
+        <member name="M:Avalonia.Animation.Animation.SetAnimator(Avalonia.Animation.IAnimationSetter,System.Type)">
+            <summary>
+            Sets the value of the Animator attached property for a setter.
+            </summary>
+            <param name="setter">The animation setter.</param>
+            <param name="value">The property animator value.</param>
+        </member>
+        <member name="M:Avalonia.Animation.Animation.RegisterAnimator``1(System.Func{Avalonia.AvaloniaProperty,System.Boolean})">
+            <summary>
+            Registers a <see cref="T:Avalonia.Animation.Animators.Animator`1"/> that can handle
+            a value type that matches the specified condition.
+            </summary>
+            <param name="condition">
+            The condition to which the <see cref="T:Avalonia.Animation.Animators.Animator`1"/>
+            is to be activated and used.
+            </param>
+            <typeparam name="TAnimator">
+            The type of the animator to instantiate.
+            </typeparam>
+        </member>
+        <member name="M:Avalonia.Animation.Animation.Apply(Avalonia.Animation.Animatable,Avalonia.Animation.IClock,System.IObservable{System.Boolean},System.Action)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Avalonia.Animation.Animation.RunAsync(Avalonia.Animation.Animatable,Avalonia.Animation.IClock)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Avalonia.Animation.Animation.RunAsync(Avalonia.Animation.Animatable,Avalonia.Animation.IClock,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.AnimationInstance`1">
+            <summary>
+            Handles interpolation and time-related functions 
+            for keyframe animations.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Animation.AnimatorDrivenTransition`2">
+            <summary>
+            <see cref="T:Avalonia.Animation.Transition`1"/> using an <see cref="T:Avalonia.Animation.Animators.Animator`1"/> to transition between values.
+            </summary>
+            <typeparam name="T">Type of the transitioned value.</typeparam>
+            <typeparam name="TAnimator">Type of the animator.</typeparam>
+        </member>
+        <member name="T:Avalonia.Animation.AnimatorKeyFrame">
+            <summary>
+            Defines a KeyFrame that is used for
+            <see cref="T:Avalonia.Animation.Animators.Animator`1"/> objects.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Animation.Animators.Animator`1">
+            <summary>
+            Base class for <see cref="T:Avalonia.Animation.Animators.Animator`1"/> objects
+            </summary>
+        </member>
+        <member name="F:Avalonia.Animation.Animators.Animator`1._convertedKeyframes">
+            <summary>
+            List of type-converted keyframes.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Animation.Animators.Animator`1.Property">
+            <summary>
+            Gets or sets the target property for the keyframe.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Animators.Animator`1.Apply(Avalonia.Animation.Animation,Avalonia.Animation.Animatable,Avalonia.Animation.IClock,System.IObservable{System.Boolean},System.Action)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Avalonia.Animation.Animators.Animator`1.Run(Avalonia.Animation.Animation,Avalonia.Animation.Animatable,Avalonia.Animation.IClock,System.Action)">
+            <summary>
+            Runs the KeyFrames Animation.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Animators.Animator`1.Interpolate(System.Double,`0,`0)">
+            <summary>
+            Interpolates in-between two key values given the desired progress time.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Animation.Animators.BoolAnimator">
+            <summary>
+            Animator that handles <see cref="T:System.Boolean"/> properties.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Animators.BoolAnimator.Interpolate(System.Double,System.Boolean,System.Boolean)">
+            <inheritdocs/>
+        </member>
+        <member name="T:Avalonia.Animation.Animators.ByteAnimator">
+            <summary>
+            Animator that handles <see cref="T:System.Byte"/> properties.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Animators.ByteAnimator.Interpolate(System.Double,System.Byte,System.Byte)">
+            <inheritdocs/>
+        </member>
+        <member name="T:Avalonia.Animation.Animators.DecimalAnimator">
+            <summary>
+            Animator that handles <see cref="T:System.Decimal"/> properties.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Animators.DecimalAnimator.Interpolate(System.Double,System.Decimal,System.Decimal)">
+            <inheritdocs/>
+        </member>
+        <member name="T:Avalonia.Animation.Animators.DoubleAnimator">
+            <summary>
+            Animator that handles <see cref="T:System.Double"/> properties.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Animators.DoubleAnimator.Interpolate(System.Double,System.Double,System.Double)">
+            <inheritdocs/>
+        </member>
+        <member name="T:Avalonia.Animation.Animators.FloatAnimator">
+            <summary>
+            Animator that handles <see cref="T:System.Single"/> properties.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Animators.FloatAnimator.Interpolate(System.Double,System.Single,System.Single)">
+            <inheritdocs/>
+        </member>
+        <member name="T:Avalonia.Animation.Animators.Int16Animator">
+            <summary>
+            Animator that handles <see cref="T:System.Int16"/> properties.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Animators.Int16Animator.Interpolate(System.Double,System.Int16,System.Int16)">
+            <inheritdocs/>
+        </member>
+        <member name="T:Avalonia.Animation.Animators.Int32Animator">
+            <summary>
+            Animator that handles <see cref="T:System.Int32"/> properties.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Animators.Int32Animator.Interpolate(System.Double,System.Int32,System.Int32)">
+            <inheritdocs/>
+        </member>
+        <member name="T:Avalonia.Animation.Animators.Int64Animator">
+            <summary>
+            Animator that handles <see cref="T:System.Int64"/> properties.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Animators.Int64Animator.Interpolate(System.Double,System.Int64,System.Int64)">
+            <inheritdocs/>
+        </member>
+        <member name="T:Avalonia.Animation.Animators.UInt16Animator">
+            <summary>
+            Animator that handles <see cref="T:System.UInt16"/> properties.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Animators.UInt16Animator.Interpolate(System.Double,System.UInt16,System.UInt16)">
+            <inheritdocs/>
+        </member>
+        <member name="T:Avalonia.Animation.Animators.UInt32Animator">
+            <summary>
+            Animator that handles <see cref="T:System.UInt32"/> properties.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Animators.UInt32Animator.Interpolate(System.Double,System.UInt32,System.UInt32)">
+            <inheritdocs/>
+        </member>
+        <member name="T:Avalonia.Animation.Animators.UInt64Animator">
+            <summary>
+            Animator that handles <see cref="T:System.UInt64"/> properties.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Animators.UInt64Animator.Interpolate(System.Double,System.UInt64,System.UInt64)">
+            <inheritdocs/>
+        </member>
+        <member name="T:Avalonia.Animation.AnimatorTransitionObservable`2">
+            <summary>
+            Transition observable based on an <see cref="T:Avalonia.Animation.Animators.Animator`1"/> producing a value.
+            </summary>
+            <typeparam name="T">Type of the transitioned value.</typeparam>
+            <typeparam name="TAnimator">Type of the animator.</typeparam>
+        </member>
+        <member name="T:Avalonia.Animation.Cue">
+            <summary>
+            Determines the time index for a <see cref="T:Avalonia.Animation.KeyFrame"/>. 
+            </summary>
+        </member>
+        <member name="P:Avalonia.Animation.Cue.CueValue">
+            <summary>
+            The normalized percent value, ranging from 0.0 to 1.0
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Cue.#ctor(System.Double)">
+            <summary>
+            Sets a new <see cref="T:Avalonia.Animation.Cue"/> object.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Avalonia.Animation.Cue.Parse(System.String,System.Globalization.CultureInfo)">
+            <summary>
+            Parses a string to a <see cref="T:Avalonia.Animation.Cue"/> object.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Cue.Equals(Avalonia.Animation.Cue)">
+            <summary>
+            Checks for equality between two <see cref="T:Avalonia.Animation.Cue"/>s.
+            </summary>
+            <param name="other">The second cue.</param>
+        </member>
+        <member name="M:Avalonia.Animation.Cue.Equals(System.Double)">
+            <summary>
+            Checks for equality between a <see cref="T:Avalonia.Animation.Cue"/>
+            and a <see cref="T:System.Double"/> value.
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Avalonia.Animation.DisposeAnimationInstanceSubject`1">
+            <summary>
+            Manages the lifetime of animation instances as determined by its selector state.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.BackEaseIn">
+            <summary>
+            Eases in a <see cref="T:System.Double"/> value 
+            using a overshooting cubic function.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.BackEaseIn.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.BackEaseInOut">
+            <summary>
+            Eases a <see cref="T:System.Double"/> value 
+            using a piecewise overshooting cubic function.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.BackEaseInOut.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.BackEaseOut">
+            <summary>
+            Eases out a <see cref="T:System.Double"/> value 
+            using a overshooting cubic function.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.BackEaseOut.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.BounceEaseIn">
+            <summary>
+            Eases in a <see cref="T:System.Double"/> value 
+            using a simulated bounce function.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.BounceEaseIn.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.BounceEaseInOut">
+            <summary>
+            Eases a <see cref="T:System.Double"/> value 
+            using a piecewise simulated bounce function.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.BounceEaseInOut.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.BounceEaseOut">
+            <summary>
+            Eases out a <see cref="T:System.Double"/> value 
+            using a simulated bounce function.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.BounceEaseOut.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.CircularEaseIn">
+            <summary>
+            Eases in a <see cref="T:System.Double"/> value 
+            using the shifted fourth quadrant of
+            the unit circle.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.CircularEaseIn.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.CircularEaseInOut">
+            <summary>
+            Eases a <see cref="T:System.Double"/> value 
+            using a piecewise unit circle function.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.CircularEaseInOut.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.CircularEaseOut">
+            <summary>
+            Eases out a <see cref="T:System.Double"/> value 
+            using the shifted second quadrant of
+            the unit circle.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.CircularEaseOut.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.CubicEaseIn">
+            <summary>
+            Eases in a <see cref="T:System.Double"/> value 
+            using a cubic equation.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.CubicEaseIn.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.CubicEaseInOut">
+            <summary>
+            Eases a <see cref="T:System.Double"/> value 
+            using a piece-wise cubic equation.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.CubicEaseInOut.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.CubicEaseOut">
+            <summary>
+            Eases out a <see cref="T:System.Double"/> value 
+            using a cubic equation.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.CubicEaseOut.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.Easing">
+            <summary>
+            Base class for all Easing classes.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.Easing.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.Easing.Parse(System.String)">
+            <summary>
+            Parses a Easing type string.
+            </summary>
+            <param name="e">The Easing type string.</param>
+            <returns>Returns the instance of the parsed type.</returns>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.ElasticEaseIn">
+            <summary>
+            Eases in a <see cref="T:System.Double"/> value 
+            using a damped sine function.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.ElasticEaseIn.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.ElasticEaseInOut">
+            <summary>
+            Eases a <see cref="T:System.Double"/> value 
+            using a piecewise damped sine function.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.ElasticEaseInOut.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.ElasticEaseOut">
+            <summary>
+            Eases out a <see cref="T:System.Double"/> value 
+            using a damped sine function.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.ElasticEaseOut.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.ExponentialEaseIn">
+            <summary>
+            Eases in a <see cref="T:System.Double"/> value 
+            using a exponential function.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.ExponentialEaseIn.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.ExponentialEaseInOut">
+            <summary>
+            Eases a <see cref="T:System.Double"/> value 
+            using a piecewise exponential function.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.ExponentialEaseInOut.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.ExponentialEaseOut">
+            <summary>
+            Eases out a <see cref="T:System.Double"/> value 
+            using a exponential function.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.ExponentialEaseOut.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.IEasing">
+            <summary>
+            Defines the interface for easing classes.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.IEasing.Ease(System.Double)">
+            <summary>
+            Returns the value of the transition for the specified progress.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.LinearEasing">
+            <summary>
+            Linearly eases a <see cref="T:System.Double"/> value.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.LinearEasing.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.QuadraticEaseIn">
+            <summary>
+            Eases in a <see cref="T:System.Double"/> value 
+            using a quadratic function.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.QuadraticEaseIn.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.QuadraticEaseInOut">
+            <summary>
+            Eases a <see cref="T:System.Double"/> value 
+            using a piece-wise quadratic function.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.QuadraticEaseInOut.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.QuadraticEaseOut">
+            <summary>
+            Eases out a <see cref="T:System.Double"/> value 
+            using a quadratic function.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.QuadraticEaseOut.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.QuarticEaseIn">
+            <summary>
+            Eases in a <see cref="T:System.Double"/> value 
+            using a quartic equation.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.QuarticEaseIn.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.QuarticEaseInOut">
+            <summary>
+            Eases a <see cref="T:System.Double"/> value 
+            using a piece-wise quartic equation.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.QuarticEaseInOut.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.QuarticEaseOut">
+            <summary>
+            Eases out a <see cref="T:System.Double"/> value 
+            using a quartic equation.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.QuarticEaseOut.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.QuinticEaseIn">
+            <summary>
+            Eases in a <see cref="T:System.Double"/> value 
+            using a quartic equation.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.QuinticEaseIn.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.QuinticEaseInOut">
+            <summary>
+            Eases a <see cref="T:System.Double"/> value 
+            using a piece-wise quartic equation.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.QuinticEaseInOut.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.QuinticEaseOut">
+            <summary>
+            Eases out a <see cref="T:System.Double"/> value 
+            using a quartic equation.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.QuinticEaseOut.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.SineEaseIn">
+            <summary>
+            Eases in a <see cref="T:System.Double"/> value 
+            using the quarter-wave of sine function.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.SineEaseIn.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.SineEaseInOut">
+            <summary>
+            Eases a <see cref="T:System.Double"/> value 
+            using a half sine wave function.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.SineEaseInOut.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.SineEaseOut">
+            <summary>
+            Eases out a <see cref="T:System.Double"/> value 
+            using the quarter-wave of sine function
+            with shifted phase.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.SineEaseOut.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.Easings.SplineEasing">
+            <summary>
+            Eases a <see cref="T:System.Double"/> value
+            using a user-defined cubic bezier curve.
+            Good for custom easing functions that doesn't quite
+            fit with the built-in ones. 
+            </summary>
+        </member>
+        <member name="P:Avalonia.Animation.Easings.SplineEasing.X1">
+            <summary>
+            X coordinate of the first control point
+            </summary>
+        </member>
+        <member name="P:Avalonia.Animation.Easings.SplineEasing.Y1">
+            <summary>
+            Y coordinate of the first control point
+            </summary>
+        </member>
+        <member name="P:Avalonia.Animation.Easings.SplineEasing.X2">
+            <summary>
+            X coordinate of the second control point
+            </summary> 
+        </member>
+        <member name="P:Avalonia.Animation.Easings.SplineEasing.Y2">
+            <summary>
+            Y coordinate of the second control point
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Easings.SplineEasing.Ease(System.Double)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Animation.IAnimation">
+            <summary>
+            Interface for Animation objects
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.IAnimation.Apply(Avalonia.Animation.Animatable,Avalonia.Animation.IClock,System.IObservable{System.Boolean},System.Action)">
+            <summary>
+            Apply the animation to the specified control and run it when <paramref name="match" /> produces <c>true</c>.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.IAnimation.RunAsync(Avalonia.Animation.Animatable,Avalonia.Animation.IClock,System.Threading.CancellationToken)">
+            <summary>
+            Run the animation on the specified control.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Animation.IAnimator">
+            <summary>
+            Interface for Animator objects
+            </summary>
+        </member>
+        <member name="P:Avalonia.Animation.IAnimator.Property">
+            <summary>
+            The target property.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.IAnimator.Apply(Avalonia.Animation.Animation,Avalonia.Animation.Animatable,Avalonia.Animation.IClock,System.IObservable{System.Boolean},System.Action)">
+            <summary>
+            Applies the current KeyFrame group to the specified control.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Animation.IterationType">
+            <summary>
+            Defines the valid modes for a <see cref="T:Avalonia.Animation.IterationCount"/>.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Animation.IterationCount">
+            <summary>
+            Determines the number of iterations of an animation.
+            Also defines its repeat behavior. 
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.IterationCount.#ctor(System.UInt64)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Avalonia.Animation.IterationCount"/> struct.
+            </summary>
+            <param name="value">The number of iterations of an animation.</param>
+        </member>
+        <member name="M:Avalonia.Animation.IterationCount.#ctor(System.UInt64,Avalonia.Animation.IterationType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Avalonia.Animation.IterationCount"/> struct.
+            </summary>
+            <param name="value">The size of the IterationCount.</param>
+            <param name="type">The unit of the IterationCount.</param>
+        </member>
+        <member name="P:Avalonia.Animation.IterationCount.Infinite">
+            <summary>
+            Gets an instance of <see cref="T:Avalonia.Animation.IterationCount"/> that indicates that an animation
+            should repeat forever.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Animation.IterationCount.RepeatType">
+            <summary>
+            Gets the unit of the <see cref="T:Avalonia.Animation.IterationCount"/>.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Animation.IterationCount.IsInfinite">
+            <summary>
+            Gets a value that indicates whether the <see cref="T:Avalonia.Animation.IterationCount"/> is set to Infinite.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Animation.IterationCount.Value">
+            <summary>
+            Gets the number of repeat iterations.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.IterationCount.op_Equality(Avalonia.Animation.IterationCount,Avalonia.Animation.IterationCount)">
+            <summary>
+            Compares two IterationCount structures for equality.
+            </summary>
+            <param name="a">The first IterationCount.</param>
+            <param name="b">The second IterationCount.</param>
+            <returns>True if the structures are equal, otherwise false.</returns>
+        </member>
+        <member name="M:Avalonia.Animation.IterationCount.op_Inequality(Avalonia.Animation.IterationCount,Avalonia.Animation.IterationCount)">
+            <summary>
+            Compares two IterationCount structures for inequality.
+            </summary>
+            <param name="rc1">The first IterationCount.</param>
+            <param name="rc2">The first IterationCount.</param>
+            <returns>True if the structures are unequal, otherwise false.</returns>
+        </member>
+        <member name="M:Avalonia.Animation.IterationCount.Equals(System.Object)">
+            <summary>
+            Determines whether the <see cref="T:Avalonia.Animation.IterationCount"/> is equal to the specified object.
+            </summary>
+            <param name="o">The object with which to test equality.</param>
+            <returns>True if the objects are equal, otherwise false.</returns>
+        </member>
+        <member name="M:Avalonia.Animation.IterationCount.Equals(Avalonia.Animation.IterationCount)">
+            <summary>
+            Compares two IterationCount structures for equality.
+            </summary>
+            <param name="IterationCount">The structure with which to test equality.</param>
+            <returns>True if the structures are equal, otherwise false.</returns>
+        </member>
+        <member name="M:Avalonia.Animation.IterationCount.GetHashCode">
+            <summary>
+            Gets a hash code for the IterationCount.
+            </summary>
+            <returns>The hash code.</returns>
+        </member>
+        <member name="M:Avalonia.Animation.IterationCount.ToString">
+            <summary>
+            Gets a string representation of the <see cref="T:Avalonia.Animation.IterationCount"/>.
+            </summary>
+            <returns>The string representation.</returns>
+        </member>
+        <member name="M:Avalonia.Animation.IterationCount.Parse(System.String)">
+            <summary>
+            Parses a string to return a <see cref="T:Avalonia.Animation.IterationCount"/>.
+            </summary>
+            <param name="s">The string.</param>
+            <returns>The <see cref="T:Avalonia.Animation.IterationCount"/>.</returns>
+        </member>
+        <member name="T:Avalonia.Animation.ITransition">
+            <summary>
+            Interface for Transition objects.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.ITransition.Apply(Avalonia.Animation.Animatable,Avalonia.Animation.IClock,System.Object,System.Object)">
+            <summary>
+            Applies the transition to the specified <see cref="T:Avalonia.Animation.Animatable"/>.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Animation.ITransition.Property">
+            <summary>
+            Gets the property to be animated.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Animation.KeyFrame">
+            <summary>
+            Stores data regarding a specific key
+            point and value in an animation.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Animation.KeyFrame.Setters">
+            <summary>
+            Gets the setters of <see cref="T:Avalonia.Animation.KeyFrame"/>.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Animation.KeyFrame.KeyTime">
+            <summary>
+            Gets or sets the key time of this <see cref="T:Avalonia.Animation.KeyFrame"/>.
+            </summary>
+            <value>The key time.</value>
+        </member>
+        <member name="P:Avalonia.Animation.KeyFrame.Cue">
+            <summary>
+            Gets or sets the cue of this <see cref="T:Avalonia.Animation.KeyFrame"/>.
+            </summary>
+            <value>The cue.</value>
+        </member>
+        <member name="P:Avalonia.Animation.KeyFrame.KeySpline">
+            <summary>
+            Gets or sets the KeySpline of this <see cref="T:Avalonia.Animation.KeyFrame"/>.
+            </summary>
+            <value>The key spline.</value>
+        </member>
+        <member name="T:Avalonia.Animation.KeyFrames">
+            <summary>
+            A collection of <see cref="T:Avalonia.Animation.KeyFrame"/>s.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.KeyFrames.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Avalonia.Animation.KeyFrames"/> class.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.KeyFrames.#ctor(System.Collections.Generic.IEnumerable{Avalonia.Animation.KeyFrame})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Avalonia.Animation.KeyFrames"/> class.
+            </summary>
+            <param name="items">The initial items in the collection.</param>
+        </member>
+        <member name="T:Avalonia.Animation.KeySpline">
+            <summary>
+            Determines how an animation is used based on a cubic bezier curve.
+            X1 and X2 must be between 0.0 and 1.0, inclusive.
+            See https://docs.microsoft.com/en-us/dotnet/api/system.windows.media.animation.keyspline
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.KeySpline.#ctor">
+            <summary>
+            Create a <see cref="T:Avalonia.Animation.KeySpline"/> with X1 = Y1 = 0 and X2 = Y2 = 1.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.KeySpline.#ctor(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Create a <see cref="T:Avalonia.Animation.KeySpline"/> with the given parameters
+            </summary>
+            <param name="x1">X coordinate for the first control point</param>
+            <param name="y1">Y coordinate for the first control point</param>
+            <param name="x2">X coordinate for the second control point</param>
+            <param name="y2">Y coordinate for the second control point</param>
+        </member>
+        <member name="M:Avalonia.Animation.KeySpline.Parse(System.String,System.Globalization.CultureInfo)">
+            <summary>
+            Parse a <see cref="T:Avalonia.Animation.KeySpline"/> from a string. The string
+            needs to contain 4 values in it for the 2 control points.
+            </summary>
+            <param name="value">string with 4 values in it</param>
+            <param name="culture">culture of the string</param>
+            <exception cref="T:System.FormatException">Thrown if the string does not have 4 values</exception>
+            <returns>A <see cref="T:Avalonia.Animation.KeySpline"/> with the appropriate values set</returns>
+        </member>
+        <member name="P:Avalonia.Animation.KeySpline.ControlPointX1">
+            <summary>
+            X coordinate of the first control point
+            </summary>
+        </member>
+        <member name="P:Avalonia.Animation.KeySpline.ControlPointY1">
+            <summary>
+            Y coordinate of the first control point
+            </summary>
+        </member>
+        <member name="P:Avalonia.Animation.KeySpline.ControlPointX2">
+            <summary>
+            X coordinate of the second control point
+            </summary>
+        </member>
+        <member name="P:Avalonia.Animation.KeySpline.ControlPointY2">
+            <summary>
+            Y coordinate of the second control point
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.KeySpline.GetSplineProgress(System.Double)">
+            <summary>
+            Calculates spline progress from a linear progress.
+            </summary>
+            <param name="linearProgress">the linear progress</param>
+            <returns>the spline progress</returns>
+        </member>
+        <member name="M:Avalonia.Animation.KeySpline.IsValid">
+            <summary>
+            Check to see whether the <see cref="T:Avalonia.Animation.KeySpline"/> is valid by looking
+            at its X values.
+            </summary>
+            <returns>true if the X values for this <see cref="T:Avalonia.Animation.KeySpline"/> fall in 
+            acceptable range; false otherwise.</returns>
+        </member>
+        <member name="M:Avalonia.Animation.KeySpline.IsValidXValue(System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Avalonia.Animation.KeySpline.Build">
+            <summary>
+            Compute cached coefficients.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.KeySpline.GetBezierValue(System.Double,System.Double,System.Double)">
+            <summary>
+            Get an X or Y value with the Bezier formula.
+            </summary>
+            <param name="b">the second Bezier coefficient</param>
+            <param name="c">the third Bezier coefficient</param>
+            <param name="t">the parameter value to evaluate at</param>
+            <returns>the value of the Bezier function at the given parameter</returns>
+        </member>
+        <member name="M:Avalonia.Animation.KeySpline.GetXAndDx(System.Double,System.Double@,System.Double@)">
+            <summary>
+            Get X and dX/dt at a given parameter
+            </summary>
+            <param name="t">the parameter value to evaluate at</param>
+            <param name="x">the value of x there</param>
+            <param name="dx">the value of dx/dt there</param>
+        </member>
+        <member name="M:Avalonia.Animation.KeySpline.SetParameterFromX(System.Double)">
+            <summary>
+            Compute the parameter value that corresponds to a given X value, using a modified
+            clamped Newton-Raphson algorithm to solve the equation X(t) - time = 0. We make 
+            use of some known properties of this particular function:
+            * We are only interested in solutions in the interval [0,1]
+            * X(t) is increasing, so we can assume that if X(t) > time t > solution.  We use
+              that to clamp down the search interval with every probe.
+            * The derivative of X and Y are between 0 and 3.
+            </summary>
+            <param name="time">the time, scaled to fit in [0,1]</param>
+        </member>
+        <member name="T:Avalonia.Animation.KeySplineTypeConverter">
+            <summary>
+            Converts string values to <see cref="T:Avalonia.Animation.KeySpline"/> values
+            </summary>
+        </member>
+        <member name="T:Avalonia.Animation.PlaybackDirection">
+            <summary>
+            Determines the playback direction of an animation.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Animation.PlaybackDirection.Normal">
+            <summary>
+            The animation is played normally.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Animation.PlaybackDirection.Reverse">
+            <summary>
+            The animation is played in reverse direction.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Animation.PlaybackDirection.Alternate">
+            <summary>
+            The animation is played forwards first, then backwards.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Animation.PlaybackDirection.AlternateReverse">
+            <summary>
+            The animation is played backwards first, then forwards.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Animation.PlayState">
+            <summary>
+            Determines the playback state of an animation.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Animation.PlayState.Run">
+            <summary>
+            The animation is running.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Animation.PlayState.Pause">
+            <summary>
+            The animation is paused.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Animation.PlayState.Stop">
+            <summary>
+            The animation is stopped.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Animation.Transition`1">
+            <summary>
+            Defines how a property should be animated using a transition.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Animation.Transition`1.Duration">
+            <summary>
+            Gets or sets the duration of the transition.
+            </summary> 
+        </member>
+        <member name="P:Avalonia.Animation.Transition`1.Delay">
+            <summary>
+            Gets or sets delay before starting the transition.
+            </summary> 
+        </member>
+        <member name="P:Avalonia.Animation.Transition`1.Easing">
+            <summary>
+            Gets the easing class to be used.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Animation.Transition`1.Property">
+            <inheritdocs/>
+        </member>
+        <member name="M:Avalonia.Animation.Transition`1.DoTransition(System.IObservable{System.Double},`0,`0)">
+            <summary>
+            Apply interpolation to the property.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Transition`1.Apply(Avalonia.Animation.Animatable,Avalonia.Animation.IClock,System.Object,System.Object)">
+            <inheritdocs/>
+        </member>
+        <member name="T:Avalonia.Animation.TransitionInstance">
+            <summary>
+            Handles the timing and lifetime of a <see cref="T:Avalonia.Animation.Transition`1"/>.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Animation.TransitionInstance.TransitionClock">
+            <summary>
+            TODO: This clock is still fairly expensive due to <see cref="T:Avalonia.Animation.ClockBase"/> implementation.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Animation.TransitionObservableBase`1">
+            <summary>
+            Provides base for observables implementing transitions.
+            </summary>
+            <typeparam name="T">Type of the transitioned value.</typeparam>
+        </member>
+        <member name="M:Avalonia.Animation.TransitionObservableBase`1.ProduceValue(System.Double)">
+            <summary>
+            Produces value at given progress time point.
+            </summary>
+            <param name="progress">Transition progress.</param>
+        </member>
+        <member name="T:Avalonia.Animation.Transitions">
+            <summary>
+            A collection of <see cref="T:Avalonia.Animation.ITransition"/> definitions.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Transitions.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Avalonia.Animation.Transitions"/> class.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Animation.DoubleTransition">
+            <summary>
+            Transition class that handles <see cref="T:Avalonia.AvaloniaProperty"/> with <see cref="T:System.Double"/> types.
+            </summary>  
+        </member>
+        <member name="T:Avalonia.Animation.FloatTransition">
+            <summary>
+            Transition class that handles <see cref="T:Avalonia.AvaloniaProperty"/> with <see cref="T:System.Single"/> types.
+            </summary>  
+        </member>
+        <member name="T:Avalonia.Animation.IntegerTransition">
+            <summary>
+            Transition class that handles <see cref="T:Avalonia.AvaloniaProperty"/> with <see cref="T:System.Int32"/> types.
+            </summary>  
+        </member>
+        <member name="T:Avalonia.Animation.Utils.BounceEaseUtils">
+            <summary>
+            Helper static class for BounceEase classes.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Animation.Utils.BounceEaseUtils.Bounce(System.Double)">
+            <summary>
+            Returns the consequent <see cref="T:System.Double"/> value of
+            a simulated bounce function.
+            </summary>
+            <param name="progress">The amount of progress from 0 to 1.</param>
+            <returns>The result of the easing function</returns>
+        </member>
+        <member name="T:Avalonia.Animation.Utils.EasingUtils">
+            <summary>
+            Helper static class for easing mathematical constants.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Animation.Utils.EasingUtils.HALFPI">
+            <summary>
+            Half of <see cref="F:System.Math.PI"/>
+            </summary>
+        </member>
+    </members>
+</doc>

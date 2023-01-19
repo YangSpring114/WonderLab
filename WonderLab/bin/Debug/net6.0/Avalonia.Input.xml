@@ -1,0 +1,2879 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Avalonia.Input</name>
+    </assembly>
+    <members>
+        <member name="T:System.Diagnostics.CodeAnalysis.AllowNullAttribute">
+            <summary>Specifies that null is allowed as an input even if the corresponding type disallows it.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.DisallowNullAttribute">
+            <summary>Specifies that null is disallowed as an input even if the corresponding type allows it.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MaybeNullAttribute">
+            <summary>Specifies that an output may be null even if the corresponding type disallows it.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.NotNullAttribute">
+            <summary>Specifies that an output will not be null even if the corresponding type allows it.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute">
+            <summary>Specifies that when a method returns <see cref="P:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.ReturnValue"/>, the parameter may be null even if the corresponding type disallows it.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.#ctor(System.Boolean)">
+            <summary>Initializes the attribute with the specified return value condition.</summary>
+            <param name="returnValue">
+            The return value condition. If the method returns this value, the associated parameter may be null.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.ReturnValue">
+            <summary>Gets the return value condition.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute">
+            <summary>Specifies that when a method returns <see cref="P:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.ReturnValue"/>, the parameter will not be null even if the corresponding type allows it.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.#ctor(System.Boolean)">
+            <summary>Initializes the attribute with the specified return value condition.</summary>
+            <param name="returnValue">
+            The return value condition. If the method returns this value, the associated parameter will not be null.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.ReturnValue">
+            <summary>Gets the return value condition.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute">
+            <summary>Specifies that the output will be non-null if the named parameter is non-null.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute.#ctor(System.String)">
+            <summary>Initializes the attribute with the associated parameter name.</summary>
+            <param name="parameterName">
+            The associated parameter name.  The output will be non-null if the argument to the parameter specified is non-null.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute.ParameterName">
+            <summary>Gets the associated parameter name.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.DoesNotReturnAttribute">
+            <summary>Applied to a method that will never return under any circumstance.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute">
+            <summary>Specifies that the method will not return if the associated Boolean parameter is passed the specified value.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute.#ctor(System.Boolean)">
+            <summary>Initializes the attribute with the specified parameter value.</summary>
+            <param name="parameterValue">
+            The condition parameter value. Code after the method will be considered unreachable by diagnostics if the argument to
+            the associated parameter matches this value.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute.ParameterValue">
+            <summary>Gets the condition parameter value.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MemberNotNullAttribute">
+            <summary>
+            Specifies that the method or property will ensure that the listed field and property members have
+            not-<see langword="null"/> values.
+            </summary>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.MemberNotNullAttribute.Members">
+            <summary>Gets field or property member names.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullAttribute.#ctor(System.String)">
+            <summary>Initializes the attribute with a field or property member.</summary>
+            <param name="member">The field or property member that is promised to be not-null.</param>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullAttribute.#ctor(System.String[])">
+            <summary>Initializes the attribute with the list of field and property members.</summary>
+            <param name="members">The list of field and property members that are promised to be not-null.</param>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute">
+            <summary>
+            Specifies that the method or property will ensure that the listed field and property members have
+            non-<see langword="null"/> values when returning with the specified return value condition.
+            </summary>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.ReturnValue">
+            <summary>Gets the return value condition.</summary>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.Members">
+            <summary>Gets field or property member names.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.#ctor(System.Boolean,System.String)">
+            <summary>Initializes the attribute with the specified return value condition and a field or property member.</summary>
+            <param name="returnValue">
+            The return value condition. If the method returns this value,
+            the associated parameter will not be <see langword="null"/>.
+            </param>
+            <param name="member">The field or property member that is promised to be not-<see langword="null"/>.</param>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.#ctor(System.Boolean,System.String[])">
+            <summary>Initializes the attribute with the specified return value condition and list of field and property members.
+            </summary>
+            <param name="returnValue">
+            The return value condition. If the method returns this value,
+            the associated parameter will not be <see langword="null"/>.
+            </param>
+            <param name="members">The list of field and property members that are promised to be not-null.</param>
+        </member>
+        <member name="T:Avalonia.Input.AccessKeyHandler">
+            <summary>
+            Handles access keys for a window.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.AccessKeyHandler.AccessKeyPressedEvent">
+            <summary>
+            Defines the AccessKeyPressed attached event.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.AccessKeyHandler._registered">
+            <summary>
+            The registered access keys.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.AccessKeyHandler._owner">
+            <summary>
+            The window to which the handler belongs.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.AccessKeyHandler._showingAccessKeys">
+            <summary>
+            Whether access keys are currently being shown;
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.AccessKeyHandler._ignoreAltUp">
+            <summary>
+            Whether to ignore the Alt KeyUp event.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.AccessKeyHandler._altIsDown">
+            <summary>
+            Whether the AltKey is down.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.AccessKeyHandler._restoreFocusElement">
+            <summary>
+            Element to restore following AltKey taking focus.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.AccessKeyHandler._mainMenu">
+            <summary>
+            The window's main menu.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.AccessKeyHandler.MainMenu">
+            <summary>
+            Gets or sets the window's main menu.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.AccessKeyHandler.SetOwner(Avalonia.Input.IInputRoot)">
+            <summary>
+            Sets the owner of the access key handler.
+            </summary>
+            <param name="owner">The owner.</param>
+            <remarks>
+            This method can only be called once, typically by the owner itself on creation.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Input.AccessKeyHandler.Register(System.Char,Avalonia.Input.IInputElement)">
+            <summary>
+            Registers an input element to be associated with an access key.
+            </summary>
+            <param name="accessKey">The access key.</param>
+            <param name="element">The input element.</param>
+        </member>
+        <member name="M:Avalonia.Input.AccessKeyHandler.Unregister(Avalonia.Input.IInputElement)">
+            <summary>
+            Unregisters the access keys associated with the input element.
+            </summary>
+            <param name="element">The input element.</param>
+        </member>
+        <member name="M:Avalonia.Input.AccessKeyHandler.OnPreviewKeyDown(System.Object,Avalonia.Input.KeyEventArgs)">
+            <summary>
+            Called when a key is pressed in the owner window.
+            </summary>
+            <param name="sender">The event sender.</param>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="M:Avalonia.Input.AccessKeyHandler.OnKeyDown(System.Object,Avalonia.Input.KeyEventArgs)">
+            <summary>
+            Called when a key is pressed in the owner window.
+            </summary>
+            <param name="sender">The event sender.</param>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="M:Avalonia.Input.AccessKeyHandler.OnPreviewKeyUp(System.Object,Avalonia.Input.KeyEventArgs)">
+            <summary>
+            Handles the Alt/F10 keys being released in the window.
+            </summary>
+            <param name="sender">The event sender.</param>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="M:Avalonia.Input.AccessKeyHandler.OnPreviewPointerPressed(System.Object,Avalonia.Input.PointerEventArgs)">
+            <summary>
+            Handles pointer presses in the window.
+            </summary>
+            <param name="sender">The event sender.</param>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="M:Avalonia.Input.AccessKeyHandler.CloseMenu">
+            <summary>
+            Closes the <see cref="P:Avalonia.Input.AccessKeyHandler.MainMenu"/> and performs other bookeeping.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.DataFormats.Text">
+            <summary>
+            Dataformat for plaintext
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.DataFormats.FileNames">
+            <summary>
+            Dataformat for one or more filenames
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.DragDrop.DragEnterEvent">
+            <summary>
+            Event which is raised, when a drag-and-drop operation enters the element.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.DragDrop.DragLeaveEvent">
+            <summary>
+            Event which is raised, when a drag-and-drop operation leaves the element.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.DragDrop.DragOverEvent">
+            <summary>
+            Event which is raised, when a drag-and-drop operation is updated while over the element.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.DragDrop.DropEvent">
+            <summary>
+            Event which is raised, when a drag-and-drop operation should complete over the element.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.DragDrop.GetAllowDrop(Avalonia.Interactivity.Interactive)">
+            <summary>
+            Gets a value indicating whether the given element can be used as the target of a drag-and-drop operation. 
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.DragDrop.SetAllowDrop(Avalonia.Interactivity.Interactive,System.Boolean)">
+            <summary>
+            Sets a value indicating whether the given interactive can be used as the target of a drag-and-drop operation. 
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.DragDrop.DoDragDrop(Avalonia.Input.PointerEventArgs,Avalonia.Input.IDataObject,Avalonia.Input.DragDropEffects)">
+            <summary>
+            Starts a dragging operation with the given <see cref="T:Avalonia.Input.IDataObject"/> and returns the applied drop effect from the target.
+            <seealso cref="T:Avalonia.Input.DataObject"/>
+            </summary>
+        </member>
+        <member name="T:Avalonia.Input.FocusManager">
+            <summary>
+            Manages focus for the application.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.FocusManager._focusScopes">
+            <summary>
+            The focus scopes in which the focus is currently defined.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.FocusManager.#cctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Avalonia.Input.FocusManager"/> class.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.FocusManager.Instance">
+            <summary>
+            Gets the instance of the <see cref="T:Avalonia.Input.IFocusManager"/>.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.FocusManager.Current">
+            <summary>
+            Gets the currently focused <see cref="T:Avalonia.Input.IInputElement"/>.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.FocusManager.Scope">
+            <summary>
+            Gets the current focus scope.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.FocusManager.Focus(Avalonia.Input.IInputElement,Avalonia.Input.NavigationMethod,Avalonia.Input.KeyModifiers)">
+            <summary>
+            Focuses a control.
+            </summary>
+            <param name="control">The control to focus.</param>
+            <param name="method">The method by which focus was changed.</param>
+            <param name="keyModifiers">Any key modifiers active at the time of focus.</param>
+        </member>
+        <member name="M:Avalonia.Input.FocusManager.SetFocusedElement(Avalonia.Input.IFocusScope,Avalonia.Input.IInputElement,Avalonia.Input.NavigationMethod,Avalonia.Input.KeyModifiers)">
+            <summary>
+            Sets the currently focused element in the specified scope.
+            </summary>
+            <param name="scope">The focus scope.</param>
+            <param name="element">The element to focus. May be null.</param>
+            <param name="method">The method by which focus was changed.</param>
+            <param name="keyModifiers">Any key modifiers active at the time of focus.</param>
+            <remarks>
+            If the specified scope is the current <see cref="P:Avalonia.Input.FocusManager.Scope"/> then the keyboard focus
+            will change.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Input.FocusManager.SetFocusScope(Avalonia.Input.IFocusScope)">
+            <summary>
+            Notifies the focus manager of a change in focus scope.
+            </summary>
+            <param name="scope">The new focus scope.</param>
+        </member>
+        <member name="M:Avalonia.Input.FocusManager.CanFocus(Avalonia.Input.IInputElement)">
+            <summary>
+            Checks if the specified element can be focused.
+            </summary>
+            <param name="e">The element.</param>
+            <returns>True if the element can be focused.</returns>
+        </member>
+        <member name="M:Avalonia.Input.FocusManager.GetFocusScopeAncestors(Avalonia.Input.IInputElement)">
+            <summary>
+            Gets the focus scope ancestors of the specified control, traversing popups.
+            </summary>
+            <param name="control">The control.</param>
+            <returns>The focus scopes.</returns>
+        </member>
+        <member name="M:Avalonia.Input.FocusManager.OnPreviewPointerPressed(System.Object,Avalonia.Interactivity.RoutedEventArgs)">
+            <summary>
+            Global handler for pointer pressed events.
+            </summary>
+            <param name="sender">The event sender.</param>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="F:Avalonia.Input.GestureRecognizers.ScrollGestureRecognizer.CanHorizontallyScrollProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Input.GestureRecognizers.ScrollGestureRecognizer.CanHorizontallyScroll"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.GestureRecognizers.ScrollGestureRecognizer.CanVerticallyScrollProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Input.GestureRecognizers.ScrollGestureRecognizer.CanVerticallyScroll"/> property.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.GestureRecognizers.ScrollGestureRecognizer.CanHorizontallyScroll">
+            <summary>
+            Gets or sets a value indicating whether the content can be scrolled horizontally.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.GestureRecognizers.ScrollGestureRecognizer.CanVerticallyScroll">
+            <summary>
+            Gets or sets a value indicating whether the content can be scrolled horizontally.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Input.GotFocusEventArgs">
+            <summary>
+            Holds arguments for a <see cref="F:Avalonia.Input.InputElement.GotFocusEvent"/>.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.GotFocusEventArgs.NavigationMethod">
+            <summary>
+            Gets or sets a value indicating how the change in focus occurred.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.GotFocusEventArgs.InputModifiers">
+            <summary>
+            Gets or sets any input modifiers active at the time of focus.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.GotFocusEventArgs.KeyModifiers">
+            <summary>
+            Gets or sets any key modifiers active at the time of focus.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Input.IAccessKeyHandler">
+            <summary>
+            Defines the interface for classes that handle access keys for a window.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.IAccessKeyHandler.MainMenu">
+            <summary>
+            Gets or sets the window's main menu.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.IAccessKeyHandler.SetOwner(Avalonia.Input.IInputRoot)">
+            <summary>
+            Sets the owner of the access key handler.
+            </summary>
+            <param name="owner">The owner.</param>
+            <remarks>
+            This method can only be called once, typically by the owner itself on creation.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Input.IAccessKeyHandler.Register(System.Char,Avalonia.Input.IInputElement)">
+            <summary>
+            Registers an input element to be associated with an access key.
+            </summary>
+            <param name="accessKey">The access key.</param>
+            <param name="element">The input element.</param>
+        </member>
+        <member name="M:Avalonia.Input.IAccessKeyHandler.Unregister(Avalonia.Input.IInputElement)">
+            <summary>
+            Unregisters the access keys associated with the input element.
+            </summary>
+            <param name="element">The input element.</param>
+        </member>
+        <member name="T:Avalonia.Input.ICommandSource">
+            <summary>
+             An interface for classes that know how to invoke a Command.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.ICommandSource.Command">
+            <summary>
+            The command that will be executed when the class is "invoked."
+            Classes that implement this interface should enable or disable based on the command's CanExecute return value.
+            The property may be implemented as read-write if desired.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.ICommandSource.CommandParameter">
+            <summary>
+            The parameter that will be passed to the command when executing the command.
+            The property may be implemented as read-write if desired.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.ICommandSource.CanExecuteChanged(System.Object,System.EventArgs)">
+            <summary>
+            Bor the behavior CanExecuteChanged
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="P:Avalonia.Input.ICommandSource.IsEffectivelyEnabled">
+            <summary>
+            Gets a value indicating whether this control and all its parents are enabled.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Input.ICustomKeyboardNavigation">
+            <summary>
+            Designates a control as handling its own keyboard navigation.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.ICustomKeyboardNavigation.GetNext(Avalonia.Input.IInputElement,Avalonia.Input.NavigationDirection)">
+            <summary>
+            Gets the next element in the specified navigation direction.
+            </summary>
+            <param name="element">The element being navigated from.</param>
+            <param name="direction">The navigation direction.</param>
+            <returns>
+            A tuple consisting of:
+            - A boolean indicating whether the request was handled. If false is returned then 
+              custom navigation will be ignored and default navigation will take place.
+            - If handled is true: the next element in the navigation direction, or null if default
+              navigation should continue outside the element.
+            </returns>
+        </member>
+        <member name="T:Avalonia.Input.IDataObject">
+            <summary>
+            Interface to access information about the data of a drag-and-drop operation.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.IDataObject.GetDataFormats">
+            <summary>
+            Lists all formats which are present in the DataObject.
+            <seealso cref="T:Avalonia.Input.DataFormats"/>
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.IDataObject.Contains(System.String)">
+            <summary>
+            Checks whether a given DataFormat is present in this object
+            <seealso cref="T:Avalonia.Input.DataFormats"/>
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.IDataObject.GetText">
+            <summary>
+            Returns the dragged text if the DataObject contains any text.
+            <seealso cref="F:Avalonia.Input.DataFormats.Text"/>
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.IDataObject.GetFileNames">
+            <summary>
+            Returns a list of filenames if the DataObject contains filenames.
+            <seealso cref="F:Avalonia.Input.DataFormats.FileNames"/>
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.IDataObject.Get(System.String)">
+            <summary>
+            Tries to get the data of the given DataFormat.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Input.IFocusManager">
+            <summary>
+            Manages focus for the application.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.IFocusManager.Current">
+            <summary>
+            Gets the currently focused <see cref="T:Avalonia.Input.IInputElement"/>.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.IFocusManager.Scope">
+            <summary>
+            Gets the current focus scope.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.IFocusManager.Focus(Avalonia.Input.IInputElement,Avalonia.Input.NavigationMethod,Avalonia.Input.KeyModifiers)">
+            <summary>
+            Focuses a control.
+            </summary>
+            <param name="control">The control to focus.</param>
+            <param name="method">The method by which focus was changed.</param>
+            <param name="keyModifiers">Any key modifiers active at the time of focus.</param>
+        </member>
+        <member name="M:Avalonia.Input.IFocusManager.SetFocusScope(Avalonia.Input.IFocusScope)">
+            <summary>
+            Notifies the focus manager of a change in focus scope.
+            </summary>
+            <param name="scope">The new focus scope.</param>
+            <remarks>
+            This should not be called by client code. It is called by an <see cref="T:Avalonia.Input.IFocusScope"/>
+            when it activates, e.g. when a Window is activated.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Input.IFocusManager.RemoveFocusScope(Avalonia.Input.IFocusScope)">
+            <summary>
+            Notifies the focus manager that a focus scope has been removed.
+            </summary>
+            <param name="scope">The focus scope to be removed.</param>
+            This should not be called by client code. It is called by an <see cref="T:Avalonia.Input.IFocusScope"/>
+            when it deactivates or closes, e.g. when a Window is closed.
+        </member>
+        <member name="M:Avalonia.Input.IInputDevice.ProcessRawEvent(Avalonia.Input.Raw.RawInputEventArgs)">
+            <summary>
+            Processes raw event. Is called after preprocessing by InputManager
+            </summary>
+            <param name="ev"></param>
+        </member>
+        <member name="T:Avalonia.Input.IInputElement">
+            <summary>
+            Defines input-related functionality for a control.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.IInputElement.GotFocus">
+            <summary>
+            Occurs when the control receives focus.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.IInputElement.LostFocus">
+            <summary>
+            Occurs when the control loses focus.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.IInputElement.KeyDown">
+            <summary>
+            Occurs when a key is pressed while the control has focus.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.IInputElement.KeyUp">
+            <summary>
+            Occurs when a key is released while the control has focus.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.IInputElement.TextInput">
+            <summary>
+            Occurs when a user typed some text while the control has focus.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.IInputElement.PointerEnter">
+            <summary>
+            Occurs when the pointer enters the control.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.IInputElement.PointerLeave">
+            <summary>
+            Occurs when the pointer leaves the control.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.IInputElement.PointerPressed">
+            <summary>
+            Occurs when the pointer is pressed over the control.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.IInputElement.PointerMoved">
+            <summary>
+            Occurs when the pointer moves over the control.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.IInputElement.PointerReleased">
+            <summary>
+            Occurs when the pointer is released over the control.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.IInputElement.PointerWheelChanged">
+            <summary>
+            Occurs when the mouse wheel is scrolled over the control.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.IInputElement.Focusable">
+            <summary>
+            Gets or sets a value indicating whether the control can receive keyboard focus.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.IInputElement.IsEnabled">
+            <summary>
+            Gets or sets a value indicating whether the control is enabled for user interaction.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.IInputElement.Cursor">
+            <summary>
+            Gets or sets the associated mouse cursor.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.IInputElement.IsEffectivelyEnabled">
+            <summary>
+            Gets a value indicating whether this control and all its parents are enabled.
+            </summary>
+            <remarks>
+            The <see cref="P:Avalonia.Input.IInputElement.IsEnabled"/> property is used to toggle the enabled state for individual
+            controls. The <see cref="P:Avalonia.Input.IInputElement.IsEffectivelyEnabled"/> property takes into account the
+            <see cref="P:Avalonia.Input.IInputElement.IsEnabled"/> value of this control and its parent controls.
+            </remarks>
+        </member>
+        <member name="P:Avalonia.Input.IInputElement.IsKeyboardFocusWithin">
+            <summary>
+            Gets a value indicating whether keyboard focus is anywhere within the element or its visual tree child elements.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.IInputElement.IsFocused">
+            <summary>
+            Gets a value indicating whether the control is focused.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.IInputElement.IsHitTestVisible">
+            <summary>
+            Gets a value indicating whether the control is considered for hit testing.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.IInputElement.IsPointerOver">
+            <summary>
+            Gets a value indicating whether the pointer is currently over the control.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.IInputElement.Focus">
+            <summary>
+            Focuses the control.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.IInputElement.KeyBindings">
+            <summary>
+            Gets the key bindings for the element.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Input.IInputManager">
+            <summary>
+            Receives input from the windowing subsystem and dispatches it to interested parties
+            for processing.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.IInputManager.PreProcess">
+            <summary>
+            Gets an observable that notifies on each input event received before
+            <see cref="P:Avalonia.Input.IInputManager.Process"/>.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.IInputManager.Process">
+            <summary>
+            Gets an observable that notifies on each input event received.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.IInputManager.PostProcess">
+            <summary>
+            Gets an observable that notifies on each input event received after
+            <see cref="P:Avalonia.Input.IInputManager.Process"/>.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.IInputManager.ProcessInput(Avalonia.Input.Raw.RawInputEventArgs)">
+            <summary>
+            Processes a raw input event.
+            </summary>
+            <param name="e">The raw input event.</param>
+        </member>
+        <member name="T:Avalonia.Input.IInputRoot">
+            <summary>
+            Defines the interface for top-level input elements.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.IInputRoot.AccessKeyHandler">
+            <summary>
+            Gets or sets the access key handler.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.IInputRoot.KeyboardNavigationHandler">
+            <summary>
+            Gets or sets the keyboard navigation handler.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.IInputRoot.PointerOverElement">
+            <summary>
+            Gets or sets the input element that the pointer is currently over.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.IInputRoot.ShowAccessKeys">
+            <summary>
+            Gets or sets a value indicating whether access keys are shown in the window.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.IInputRoot.MouseDevice">
+            <summary>
+            Gets associated mouse device
+            </summary>
+        </member>
+        <member name="T:Avalonia.Input.IKeyboardNavigationHandler">
+            <summary>
+            Defines the interface for classes that handle keyboard navigation for a window.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.IKeyboardNavigationHandler.SetOwner(Avalonia.Input.IInputRoot)">
+            <summary>
+            Sets the owner of the keyboard navigation handler.
+            </summary>
+            <param name="owner">The owner.</param>
+            <remarks>
+            This method can only be called once, typically by the owner itself on creation.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Input.IKeyboardNavigationHandler.Move(Avalonia.Input.IInputElement,Avalonia.Input.NavigationDirection,Avalonia.Input.KeyModifiers)">
+            <summary>
+            Moves the focus in the specified direction.
+            </summary>
+            <param name="element">The current element.</param>
+            <param name="direction">The direction to move.</param>
+            <param name="keyModifiers">Any key modifiers active at the time of focus.</param>
+        </member>
+        <member name="T:Avalonia.Input.IMainMenu">
+            <summary>
+            Defines the interface for a window's main menu.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.IMainMenu.IsOpen">
+            <summary>
+            Gets a value indicating whether the menu is open.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.IMainMenu.Close">
+            <summary>
+            Closes the menu.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.IMainMenu.Open">
+            <summary>
+            Opens the menu in response to the Alt/F10 key.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.IMainMenu.MenuClosed">
+            <summary>
+            Occurs when the main menu closes.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Input.IMouseDevice">
+            <summary>
+            Represents a mouse device.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.IMouseDevice.Position">
+            <summary>
+            Gets the mouse position, in screen coordinates.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Input.INavigableContainer">
+            <summary>
+            Defines a container in which the child controls can be navigated by keyboard.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.INavigableContainer.GetControl(Avalonia.Input.NavigationDirection,Avalonia.Input.IInputElement,System.Boolean)">
+            <summary>
+            Gets the next control in the specified direction.
+            </summary>
+            <param name="direction">The movement direction.</param>
+            <param name="from">The control from which movement begins.</param>
+            <param name="wrap">Whether to wrap around when the first or last item is reached.</param>
+            <returns>The control.</returns>
+        </member>
+        <member name="T:Avalonia.Input.InputElement">
+            <summary>
+            Implements input-related functionality for a control.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.FocusableProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Input.InputElement.Focusable"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.IsEnabledProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Input.InputElement.IsEnabled"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.IsEffectivelyEnabledProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Input.InputElement.IsEffectivelyEnabled"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.CursorProperty">
+            <summary>
+            Gets or sets associated mouse cursor.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.IsKeyboardFocusWithinProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Input.InputElement.IsKeyboardFocusWithin"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.IsFocusedProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Input.InputElement.IsFocused"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.IsHitTestVisibleProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Input.InputElement.IsHitTestVisible"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.IsPointerOverProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Input.InputElement.IsPointerOver"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.IsTabStopProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Input.InputElement.IsTabStop"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.GotFocusEvent">
+            <summary>
+            Defines the <see cref="E:Avalonia.Input.InputElement.GotFocus"/> event.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.LostFocusEvent">
+            <summary>
+            Defines the <see cref="E:Avalonia.Input.InputElement.LostFocus"/> event.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.KeyDownEvent">
+            <summary>
+            Defines the <see cref="E:Avalonia.Input.InputElement.KeyDown"/> event.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.KeyUpEvent">
+            <summary>
+            Defines the <see cref="E:Avalonia.Input.InputElement.KeyUp"/> event.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.TabIndexProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Input.InputElement.TabIndex"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.TextInputEvent">
+            <summary>
+            Defines the <see cref="E:Avalonia.Input.InputElement.TextInput"/> event.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.TextInputMethodClientRequestedEvent">
+            <summary>
+            Defines the <see cref="E:Avalonia.Input.InputElement.TextInputMethodClientRequested"/> event.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.TextInputOptionsQueryEvent">
+            <summary>
+            Defines the <see cref="E:Avalonia.Input.InputElement.TextInputOptionsQuery"/> event.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.PointerEnterEvent">
+            <summary>
+            Defines the <see cref="E:Avalonia.Input.InputElement.PointerEnter"/> event.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.PointerLeaveEvent">
+            <summary>
+            Defines the <see cref="E:Avalonia.Input.InputElement.PointerLeave"/> event.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.PointerMovedEvent">
+            <summary>
+            Defines the <see cref="E:Avalonia.Input.InputElement.PointerMoved"/> event.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.PointerPressedEvent">
+            <summary>
+            Defines the <see cref="E:Avalonia.Input.InputElement.PointerPressed"/> event.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.PointerReleasedEvent">
+            <summary>
+            Defines the <see cref="E:Avalonia.Input.InputElement.PointerReleased"/> event.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.PointerCaptureLostEvent">
+            <summary>
+            Defines the <see cref="E:Avalonia.Input.InputElement.PointerCaptureLost"/> routed event.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.PointerWheelChangedEvent">
+            <summary>
+            Defines the <see cref="E:Avalonia.Input.InputElement.PointerWheelChanged"/> event.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.TappedEvent">
+            <summary>
+            Defines the <see cref="E:Avalonia.Input.InputElement.Tapped"/> event.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.InputElement.DoubleTappedEvent">
+            <summary>
+            Defines the <see cref="E:Avalonia.Input.InputElement.DoubleTapped"/> event.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.InputElement.#cctor">
+            <summary>
+            Initializes static members of the <see cref="T:Avalonia.Input.InputElement"/> class.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.InputElement.GotFocus">
+            <summary>
+            Occurs when the control receives focus.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.InputElement.LostFocus">
+            <summary>
+            Occurs when the control loses focus.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.InputElement.KeyDown">
+            <summary>
+            Occurs when a key is pressed while the control has focus.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.InputElement.KeyUp">
+            <summary>
+            Occurs when a key is released while the control has focus.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.InputElement.TextInput">
+            <summary>
+            Occurs when a user typed some text while the control has focus.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.InputElement.TextInputMethodClientRequested">
+            <summary>
+            Occurs when an input element gains input focus and input method is looking for the corresponding client
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.InputElement.TextInputOptionsQuery">
+            <summary>
+            Occurs when an input element gains input focus and input method is asking for required content options
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.InputElement.PointerEnter">
+            <summary>
+            Occurs when the pointer enters the control.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.InputElement.PointerLeave">
+            <summary>
+            Occurs when the pointer leaves the control.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.InputElement.PointerMoved">
+            <summary>
+            Occurs when the pointer moves over the control.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.InputElement.PointerPressed">
+            <summary>
+            Occurs when the pointer is pressed over the control.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.InputElement.PointerReleased">
+            <summary>
+            Occurs when the pointer is released over the control.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.InputElement.PointerCaptureLost">
+            <summary>
+            Occurs when the control or its child control loses the pointer capture for any reason,
+            event will not be triggered for a parent control if capture was transferred to another child of that parent control
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.InputElement.PointerWheelChanged">
+            <summary>
+            Occurs when the mouse wheen is scrolled over the control.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.InputElement.Tapped">
+            <summary>
+            Occurs when a tap gesture occurs on the control.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.InputElement.DoubleTapped">
+            <summary>
+            Occurs when a double-tap gesture occurs on the control.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.InputElement.Focusable">
+            <summary>
+            Gets or sets a value indicating whether the control can receive focus.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.InputElement.IsEnabled">
+            <summary>
+            Gets or sets a value indicating whether the control is enabled for user interaction.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.InputElement.Cursor">
+            <summary>
+            Gets or sets associated mouse cursor.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.InputElement.IsKeyboardFocusWithin">
+            <summary>
+            Gets a value indicating whether keyboard focus is anywhere within the element or its visual tree child elements.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.InputElement.IsFocused">
+            <summary>
+            Gets a value indicating whether the control is focused.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.InputElement.IsHitTestVisible">
+            <summary>
+            Gets or sets a value indicating whether the control is considered for hit testing.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.InputElement.IsPointerOver">
+            <summary>
+            Gets a value indicating whether the pointer is currently over the control.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.InputElement.IsTabStop">
+            <summary>
+            Gets or sets a value that indicates whether the control is included in tab navigation.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.InputElement.IsEffectivelyEnabled">
+            <inheritdoc/>
+        </member>
+        <member name="P:Avalonia.Input.InputElement.TabIndex">
+            <summary>
+            Gets or sets a value that determines the order in which elements receive focus when the
+            user navigates through controls by pressing the Tab key.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.InputElement.IsEnabledCore">
+            <summary>
+            Allows a derived class to override the enabled state of the control.
+            </summary>
+            <remarks>
+            Derived controls may wish to disable the enabled state of the control without overwriting the
+            user-supplied <see cref="P:Avalonia.Input.InputElement.IsEnabled"/> setting. This can be done by overriding this property
+            to return the overridden enabled state. If the value returned from <see cref="P:Avalonia.Input.InputElement.IsEnabledCore"/>
+            should change, then the derived control should call <see cref="M:Avalonia.Input.InputElement.UpdateIsEffectivelyEnabled"/>.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Input.InputElement.Focus">
+            <summary>
+            Focuses the control.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.InputElement.OnDetachedFromVisualTreeCore(Avalonia.VisualTreeAttachmentEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Avalonia.Input.InputElement.OnAttachedToVisualTreeCore(Avalonia.VisualTreeAttachmentEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Avalonia.Input.InputElement.OnGotFocus(Avalonia.Input.GotFocusEventArgs)">
+            <summary>
+            Called before the <see cref="E:Avalonia.Input.InputElement.GotFocus"/> event occurs.
+            </summary>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="M:Avalonia.Input.InputElement.OnLostFocus(Avalonia.Interactivity.RoutedEventArgs)">
+            <summary>
+            Called before the <see cref="E:Avalonia.Input.InputElement.LostFocus"/> event occurs.
+            </summary>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="M:Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)">
+            <summary>
+            Called before the <see cref="E:Avalonia.Input.InputElement.KeyDown"/> event occurs.
+            </summary>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="M:Avalonia.Input.InputElement.OnKeyUp(Avalonia.Input.KeyEventArgs)">
+            <summary>
+            Called before the <see cref="E:Avalonia.Input.InputElement.KeyUp"/> event occurs.
+            </summary>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="M:Avalonia.Input.InputElement.OnTextInput(Avalonia.Input.TextInputEventArgs)">
+            <summary>
+            Called before the <see cref="E:Avalonia.Input.InputElement.TextInput"/> event occurs.
+            </summary>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="M:Avalonia.Input.InputElement.OnPointerEnter(Avalonia.Input.PointerEventArgs)">
+            <summary>
+            Called before the <see cref="E:Avalonia.Input.InputElement.PointerEnter"/> event occurs.
+            </summary>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="M:Avalonia.Input.InputElement.OnPointerLeave(Avalonia.Input.PointerEventArgs)">
+            <summary>
+            Called before the <see cref="E:Avalonia.Input.InputElement.PointerLeave"/> event occurs.
+            </summary>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="M:Avalonia.Input.InputElement.OnPointerMoved(Avalonia.Input.PointerEventArgs)">
+            <summary>
+            Called before the <see cref="E:Avalonia.Input.InputElement.PointerMoved"/> event occurs.
+            </summary>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="M:Avalonia.Input.InputElement.OnPointerPressed(Avalonia.Input.PointerPressedEventArgs)">
+            <summary>
+            Called before the <see cref="E:Avalonia.Input.InputElement.PointerPressed"/> event occurs.
+            </summary>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="M:Avalonia.Input.InputElement.OnPointerReleased(Avalonia.Input.PointerReleasedEventArgs)">
+            <summary>
+            Called before the <see cref="E:Avalonia.Input.InputElement.PointerReleased"/> event occurs.
+            </summary>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="M:Avalonia.Input.InputElement.OnPointerCaptureLost(Avalonia.Input.PointerCaptureLostEventArgs)">
+            <summary>
+            Called before the <see cref="E:Avalonia.Input.InputElement.PointerCaptureLost"/> event occurs.
+            </summary>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="M:Avalonia.Input.InputElement.OnPointerWheelChanged(Avalonia.Input.PointerWheelEventArgs)">
+            <summary>
+            Called before the <see cref="E:Avalonia.Input.InputElement.PointerWheelChanged"/> event occurs.
+            </summary>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="M:Avalonia.Input.InputElement.UpdateIsEffectivelyEnabled">
+            <summary>
+            Updates the <see cref="P:Avalonia.Input.InputElement.IsEffectivelyEnabled"/> property value according to the parent
+            control's enabled state and <see cref="P:Avalonia.Input.InputElement.IsEnabledCore"/>.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.InputElement.OnPointerEnterCore(Avalonia.Input.PointerEventArgs)">
+            <summary>
+            Called before the <see cref="E:Avalonia.Input.InputElement.PointerEnter"/> event occurs.
+            </summary>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="M:Avalonia.Input.InputElement.OnPointerLeaveCore(Avalonia.Input.PointerEventArgs)">
+            <summary>
+            Called before the <see cref="E:Avalonia.Input.InputElement.PointerLeave"/> event occurs.
+            </summary>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="M:Avalonia.Input.InputElement.UpdateIsEffectivelyEnabled(Avalonia.Input.InputElement)">
+            <summary>
+            Updates the <see cref="P:Avalonia.Input.InputElement.IsEffectivelyEnabled"/> property based on the parent's
+            <see cref="P:Avalonia.Input.InputElement.IsEffectivelyEnabled"/>.
+            </summary>
+            <param name="parent">The parent control.</param>
+        </member>
+        <member name="T:Avalonia.Input.InputExtensions">
+            <summary>
+            Defines extensions for the <see cref="T:Avalonia.Input.IInputElement"/> interface.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.InputExtensions.GetInputElementsAt(Avalonia.Input.IInputElement,Avalonia.Point)">
+            <summary>
+            Returns the active input elements at a point on an <see cref="T:Avalonia.Input.IInputElement"/>.
+            </summary>
+            <param name="element">The element to test.</param>
+            <param name="p">The point on <paramref name="element"/>.</param>
+            <returns>
+            The active input elements found at the point, ordered topmost first.
+            </returns>
+        </member>
+        <member name="M:Avalonia.Input.InputExtensions.InputHitTest(Avalonia.Input.IInputElement,Avalonia.Point)">
+            <summary>
+            Returns the topmost active input element at a point on an <see cref="T:Avalonia.Input.IInputElement"/>.
+            </summary>
+            <param name="element">The element to test.</param>
+            <param name="p">The point on <paramref name="element"/>.</param>
+            <returns>The topmost <see cref="T:Avalonia.Input.IInputElement"/> at the specified position.</returns>
+        </member>
+        <member name="M:Avalonia.Input.InputExtensions.InputHitTest(Avalonia.Input.IInputElement,Avalonia.Point,System.Func{Avalonia.VisualTree.IVisual,System.Boolean})">
+            <summary>
+            Returns the topmost active input element at a point on an <see cref="T:Avalonia.Input.IInputElement"/>.
+            </summary>
+            <param name="element">The element to test.</param>
+            <param name="p">The point on <paramref name="element"/>.</param>
+            <param name="filter">
+            A filter predicate. If the predicate returns false then the visual and all its
+            children will be excluded from the results.
+            </param>
+            <returns>The topmost <see cref="T:Avalonia.Input.IInputElement"/> at the specified position.</returns>
+        </member>
+        <member name="T:Avalonia.Input.InputManager">
+            <summary>
+            Receives input from the windowing subsystem and dispatches it to interested parties
+            for processing.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.InputManager.Instance">
+            <summary>
+            Gets the global instance of the input manager.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.InputManager.PreProcess">
+            <inheritdoc/>
+        </member>
+        <member name="P:Avalonia.Input.InputManager.Process">
+            <inheritdoc/>
+        </member>
+        <member name="P:Avalonia.Input.InputManager.PostProcess">
+            <inheritdoc/>
+        </member>
+        <member name="M:Avalonia.Input.InputManager.ProcessInput(Avalonia.Input.Raw.RawInputEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="F:Avalonia.Input.InputMethod.IsInputMethodEnabledProperty">
+            <summary>
+                A dependency property that enables alternative text inputs.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.InputMethod.SetIsInputMethodEnabled(Avalonia.Input.InputElement,System.Boolean)">
+            <summary>
+            Setter for IsInputMethodEnabled AvaloniaProperty
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.InputMethod.GetIsInputMethodEnabled(Avalonia.Input.InputElement)">
+            <summary>
+            Getter for IsInputMethodEnabled AvaloniaProperty
+            </summary>
+        </member>
+        <member name="T:Avalonia.Input.Key">
+            <summary>
+            Defines the keys available on a keyboard.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.None">
+            <summary>
+            No key pressed.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Cancel">
+            <summary>
+            The Cancel key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Back">
+            <summary>
+            The Back key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Tab">
+            <summary>
+            The Tab key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.LineFeed">
+            <summary>
+            The Linefeed key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Clear">
+            <summary>
+            The Clear key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Return">
+            <summary>
+            The Return key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Enter">
+            <summary>
+            The Enter key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Pause">
+            <summary>
+            The Pause key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.CapsLock">
+            <summary>
+            The Caps Lock key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Capital">
+            <summary>
+            The Caps Lock key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.HangulMode">
+            <summary>
+            The IME Hangul mode key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.KanaMode">
+            <summary>
+            The IME Kana mode key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.JunjaMode">
+            <summary>
+            The IME Junja mode key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.FinalMode">
+            <summary>
+            The IME Final mode key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.KanjiMode">
+            <summary>
+            The IME Kanji mode key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.HanjaMode">
+            <summary>
+            The IME Hanja mode key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Escape">
+            <summary>
+            The Escape key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.ImeConvert">
+            <summary>
+            The IME Convert key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.ImeNonConvert">
+            <summary>
+            The IME NonConvert key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.ImeAccept">
+            <summary>
+            The IME Accept key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.ImeModeChange">
+            <summary>
+            The IME Mode change key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Space">
+            <summary>
+            The space bar.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.PageUp">
+            <summary>
+            The Page Up key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Prior">
+            <summary>
+            The Page Up key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.PageDown">
+            <summary>
+            The Page Down key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Next">
+            <summary>
+            The Page Down key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.End">
+            <summary>
+            The End key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Home">
+            <summary>
+            The Home key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Left">
+            <summary>
+            The Left arrow key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Up">
+            <summary>
+            The Up arrow key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Right">
+            <summary>
+            The Right arrow key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Down">
+            <summary>
+            The Down arrow key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Select">
+            <summary>
+            The Select key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Print">
+            <summary>
+            The Print key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Execute">
+            <summary>
+            The Execute key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Snapshot">
+            <summary>
+            The Print Screen key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.PrintScreen">
+            <summary>
+            The Print Screen key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Insert">
+            <summary>
+            The Insert key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Delete">
+            <summary>
+            The Delete key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Help">
+            <summary>
+            The Help key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.D0">
+            <summary>
+            The 0 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.D1">
+            <summary>
+            The 1 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.D2">
+            <summary>
+            The 2 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.D3">
+            <summary>
+            The 3 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.D4">
+            <summary>
+            The 4 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.D5">
+            <summary>
+            The 5 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.D6">
+            <summary>
+            The 6 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.D7">
+            <summary>
+            The 7 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.D8">
+            <summary>
+            The 8 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.D9">
+            <summary>
+            The 9 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.A">
+            <summary>
+            The A key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.B">
+            <summary>
+            The B key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.C">
+            <summary>
+            The C key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.D">
+            <summary>
+            The D key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.E">
+            <summary>
+            The E key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.F">
+            <summary>
+            The F key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.G">
+            <summary>
+            The G key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.H">
+            <summary>
+            The H key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.I">
+            <summary>
+            The I key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.J">
+            <summary>
+            The J key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.K">
+            <summary>
+            The K key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.L">
+            <summary>
+            The L key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.M">
+            <summary>
+            The M key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.N">
+            <summary>
+            The N key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.O">
+            <summary>
+            The O key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.P">
+            <summary>
+            The P key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Q">
+            <summary>
+            The Q key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.R">
+            <summary>
+            The R key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.S">
+            <summary>
+            The S key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.T">
+            <summary>
+            The T key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.U">
+            <summary>
+            The U key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.V">
+            <summary>
+            The V key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.W">
+            <summary>
+            The W key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.X">
+            <summary>
+            The X key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Y">
+            <summary>
+            The Y key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Z">
+            <summary>
+            The Z key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.LWin">
+            <summary>
+            The left Windows key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.RWin">
+            <summary>
+            The right Windows key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Apps">
+            <summary>
+            The Application key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Sleep">
+            <summary>
+            The Sleep key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.NumPad0">
+            <summary>
+            The 0 key on the numeric keypad.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.NumPad1">
+            <summary>
+            The 1 key on the numeric keypad.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.NumPad2">
+            <summary>
+            The 2 key on the numeric keypad.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.NumPad3">
+            <summary>
+            The 3 key on the numeric keypad.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.NumPad4">
+            <summary>
+            The 4 key on the numeric keypad.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.NumPad5">
+            <summary>
+            The 5 key on the numeric keypad.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.NumPad6">
+            <summary>
+            The 6 key on the numeric keypad.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.NumPad7">
+            <summary>
+            The 7 key on the numeric keypad.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.NumPad8">
+            <summary>
+            The 8 key on the numeric keypad.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.NumPad9">
+            <summary>
+            The 9 key on the numeric keypad.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Multiply">
+            <summary>
+            The Multiply key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Add">
+            <summary>
+            The Add key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Separator">
+            <summary>
+            The Separator key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Subtract">
+            <summary>
+            The Subtract key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Decimal">
+            <summary>
+            The Decimal key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Divide">
+            <summary>
+            The Divide key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.F1">
+            <summary>
+            The F1 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.F2">
+            <summary>
+            The F2 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.F3">
+            <summary>
+            The F3 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.F4">
+            <summary>
+            The F4 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.F5">
+            <summary>
+            The F5 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.F6">
+            <summary>
+            The F6 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.F7">
+            <summary>
+            The F7 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.F8">
+            <summary>
+            The F8 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.F9">
+            <summary>
+            The F9 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.F10">
+            <summary>
+            The F10 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.F11">
+            <summary>
+            The F11 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.F12">
+            <summary>
+            The F12 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.F13">
+            <summary>
+            The F13 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.F14">
+            <summary>
+            The F14 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.F15">
+            <summary>
+            The F15 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.F16">
+            <summary>
+            The F16 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.F17">
+            <summary>
+            The F17 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.F18">
+            <summary>
+            The F18 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.F19">
+            <summary>
+            The F19 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.F20">
+            <summary>
+            The F20 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.F21">
+            <summary>
+            The F21 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.F22">
+            <summary>
+            The F22 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.F23">
+            <summary>
+            The F23 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.F24">
+            <summary>
+            The F24 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.NumLock">
+            <summary>
+            The Numlock key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Scroll">
+            <summary>
+            The Scroll key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.LeftShift">
+            <summary>
+            The left Shift key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.RightShift">
+            <summary>
+            The right Shift key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.LeftCtrl">
+            <summary>
+            The left Ctrl key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.RightCtrl">
+            <summary>
+            The right Ctrl key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.LeftAlt">
+            <summary>
+            The left Alt key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.RightAlt">
+            <summary>
+            The right Alt key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.BrowserBack">
+            <summary>
+            The browser Back key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.BrowserForward">
+            <summary>
+            The browser Forward key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.BrowserRefresh">
+            <summary>
+            The browser Refresh key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.BrowserStop">
+            <summary>
+            The browser Stop key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.BrowserSearch">
+            <summary>
+            The browser Search key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.BrowserFavorites">
+            <summary>
+            The browser Favorites key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.BrowserHome">
+            <summary>
+            The browser Home key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.VolumeMute">
+            <summary>
+            The Volume Mute key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.VolumeDown">
+            <summary>
+            The Volume Down key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.VolumeUp">
+            <summary>
+            The Volume Up key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.MediaNextTrack">
+            <summary>
+            The media Next Track key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.MediaPreviousTrack">
+            <summary>
+            The media Previous Track key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.MediaStop">
+            <summary>
+            The media Stop key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.MediaPlayPause">
+            <summary>
+            The media Play/Pause key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.LaunchMail">
+            <summary>
+            The Launch Mail key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.SelectMedia">
+            <summary>
+            The Select Media key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.LaunchApplication1">
+            <summary>
+            The Launch Application 1 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.LaunchApplication2">
+            <summary>
+            The Launch Application 2 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.OemSemicolon">
+            <summary>
+            The OEM Semicolon key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Oem1">
+            <summary>
+            The OEM 1 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.OemPlus">
+            <summary>
+            The OEM Plus key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.OemComma">
+            <summary>
+            The OEM Comma key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.OemMinus">
+            <summary>
+            The OEM Minus key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.OemPeriod">
+            <summary>
+            The OEM Period key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.OemQuestion">
+            <summary>
+            The OEM Question Mark key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Oem2">
+            <summary>
+            The OEM 2 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.OemTilde">
+            <summary>
+            The OEM Tilde key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Oem3">
+            <summary>
+            The OEM 3 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.AbntC1">
+            <summary>
+            The ABNT_C1 (Brazilian) key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.AbntC2">
+            <summary>
+            The ABNT_C2 (Brazilian) key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.OemOpenBrackets">
+            <summary>
+            The OEM Open Brackets key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Oem4">
+            <summary>
+            The OEM 4 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.OemPipe">
+            <summary>
+            The OEM Pipe key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Oem5">
+            <summary>
+            The OEM 5 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.OemCloseBrackets">
+            <summary>
+            The OEM Close Brackets key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Oem6">
+            <summary>
+            The OEM 6 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.OemQuotes">
+            <summary>
+            The OEM Quotes key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Oem7">
+            <summary>
+            The OEM 7 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Oem8">
+            <summary>
+            The OEM 8 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.OemBackslash">
+            <summary>
+            The OEM Backslash key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Oem102">
+            <summary>
+            The OEM 3 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.ImeProcessed">
+            <summary>
+            A special key masking the real key being processed by an IME.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.System">
+            <summary>
+            A special key masking the real key being processed as a system key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.OemAttn">
+            <summary>
+            The OEM ATTN key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.DbeAlphanumeric">
+            <summary>
+            The DBE_ALPHANUMERIC key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.OemFinish">
+            <summary>
+            The OEM Finish key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.DbeKatakana">
+            <summary>
+            The DBE_KATAKANA key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.DbeHiragana">
+            <summary>
+            The DBE_HIRAGANA key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.OemCopy">
+            <summary>
+            The OEM Copy key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.DbeSbcsChar">
+            <summary>
+            The DBE_SBCSCHAR key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.OemAuto">
+            <summary>
+            The OEM Auto key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.DbeDbcsChar">
+            <summary>
+            The DBE_DBCSCHAR key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.OemEnlw">
+            <summary>
+            The OEM ENLW key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.OemBackTab">
+            <summary>
+            The OEM BackTab key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.DbeRoman">
+            <summary>
+            The DBE_ROMAN key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.DbeNoRoman">
+            <summary>
+            The DBE_NOROMAN key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Attn">
+            <summary>
+            The ATTN key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.CrSel">
+            <summary>
+            The CRSEL key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.DbeEnterWordRegisterMode">
+            <summary>
+            The DBE_ENTERWORDREGISTERMODE key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.ExSel">
+            <summary>
+            The EXSEL key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.DbeEnterImeConfigureMode">
+            <summary>
+            The DBE_ENTERIMECONFIGMODE key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.EraseEof">
+            <summary>
+            The ERASE EOF Key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.DbeFlushString">
+            <summary>
+            The DBE_FLUSHSTRING key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Play">
+            <summary>
+            The Play key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.DbeCodeInput">
+            <summary>
+            The DBE_CODEINPUT key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.DbeNoCodeInput">
+            <summary>
+            The DBE_NOCODEINPUT key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Zoom">
+            <summary>
+            The Zoom key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.NoName">
+            <summary>
+            Reserved for future use.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.DbeDetermineString">
+            <summary>
+            The DBE_DETERMINESTRING key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.DbeEnterDialogConversionMode">
+            <summary>
+            The DBE_ENTERDLGCONVERSIONMODE key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.Pa1">
+            <summary>
+            The PA1 key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.OemClear">
+            <summary>
+            The OEM Clear key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.DeadCharProcessed">
+            <summary>
+            The key is used with another key to create a single combined character.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.FnLeftArrow">
+            <summary>
+            OSX Platform-specific Fn+Left key
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.FnRightArrow">
+            <summary>
+            OSX Platform-specific Fn+Right key
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.FnUpArrow">
+            <summary>
+            OSX Platform-specific Fn+Up key
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.Key.FnDownArrow">
+            <summary>
+            OSX Platform-specific Fn+Down key
+            </summary>
+        </member>
+        <member name="T:Avalonia.Input.KeyboardNavigation">
+            <summary>
+            Defines attached properties that control keyboard navigation behaviour for a container.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.KeyboardNavigation.TabIndexProperty">
+            <summary>
+            Defines the TabIndex attached property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.KeyboardNavigation.TabNavigationProperty">
+            <summary>
+            Defines the TabNavigation attached property.
+            </summary>
+            <remarks>
+            The TabNavigation attached property defines how pressing the Tab key causes focus to
+            be navigated between the children of the container.
+            </remarks>
+        </member>
+        <member name="F:Avalonia.Input.KeyboardNavigation.TabOnceActiveElementProperty">
+            <summary>
+            Defines the TabOnceActiveElement attached property.
+            </summary>
+            <remarks>
+            When focus enters a container which has its <see cref="F:Avalonia.Input.KeyboardNavigation.TabNavigationProperty"/>
+            attached property set to <see cref="F:Avalonia.Input.KeyboardNavigationMode.Once"/>, this property
+            defines to which child the focus should move.
+            </remarks>
+        </member>
+        <member name="F:Avalonia.Input.KeyboardNavigation.IsTabStopProperty">
+            <summary>
+            Defines the IsTabStop attached property.
+            </summary>
+            <remarks>
+            The IsTabStop attached property determines whether the control is focusable by tab navigation. 
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Input.KeyboardNavigation.GetTabIndex(Avalonia.Input.IInputElement)">
+            <summary>
+            Gets the <see cref="F:Avalonia.Input.KeyboardNavigation.TabIndexProperty"/> for an element.
+            </summary>
+            <param name="element">The container.</param>
+            <returns>The <see cref="T:Avalonia.Input.KeyboardNavigationMode"/> for the container.</returns>
+        </member>
+        <member name="M:Avalonia.Input.KeyboardNavigation.SetTabIndex(Avalonia.Input.IInputElement,System.Int32)">
+            <summary>
+            Sets the <see cref="F:Avalonia.Input.KeyboardNavigation.TabIndexProperty"/> for an element.
+            </summary>
+            <param name="element">The element.</param>
+            <param name="value">The tab index.</param>
+        </member>
+        <member name="M:Avalonia.Input.KeyboardNavigation.GetTabNavigation(Avalonia.Input.InputElement)">
+            <summary>
+            Gets the <see cref="F:Avalonia.Input.KeyboardNavigation.TabNavigationProperty"/> for a container.
+            </summary>
+            <param name="element">The container.</param>
+            <returns>The <see cref="T:Avalonia.Input.KeyboardNavigationMode"/> for the container.</returns>
+        </member>
+        <member name="M:Avalonia.Input.KeyboardNavigation.SetTabNavigation(Avalonia.Input.InputElement,Avalonia.Input.KeyboardNavigationMode)">
+            <summary>
+            Sets the <see cref="F:Avalonia.Input.KeyboardNavigation.TabNavigationProperty"/> for a container.
+            </summary>
+            <param name="element">The container.</param>
+            <param name="value">The <see cref="T:Avalonia.Input.KeyboardNavigationMode"/> for the container.</param>
+        </member>
+        <member name="M:Avalonia.Input.KeyboardNavigation.GetTabOnceActiveElement(Avalonia.Input.InputElement)">
+            <summary>
+            Gets the <see cref="F:Avalonia.Input.KeyboardNavigation.TabOnceActiveElementProperty"/> for a container.
+            </summary>
+            <param name="element">The container.</param>
+            <returns>The active element for the container.</returns>
+        </member>
+        <member name="M:Avalonia.Input.KeyboardNavigation.SetTabOnceActiveElement(Avalonia.Input.InputElement,Avalonia.Input.IInputElement)">
+            <summary>
+            Sets the <see cref="F:Avalonia.Input.KeyboardNavigation.TabOnceActiveElementProperty"/> for a container.
+            </summary>
+            <param name="element">The container.</param>
+            <param name="value">The active element for the container.</param>
+        </member>
+        <member name="M:Avalonia.Input.KeyboardNavigation.SetIsTabStop(Avalonia.Input.InputElement,System.Boolean)">
+            <summary>
+            Sets the <see cref="F:Avalonia.Input.KeyboardNavigation.IsTabStopProperty"/> for an element.
+            </summary>
+            <param name="element">The container.</param>
+            <param name="value">Value indicating whether the container is a tab stop.</param>
+        </member>
+        <member name="M:Avalonia.Input.KeyboardNavigation.GetIsTabStop(Avalonia.Input.InputElement)">
+            <summary>
+            Gets the <see cref="F:Avalonia.Input.KeyboardNavigation.IsTabStopProperty"/> for an element.
+            </summary>
+            <param name="element">The container.</param>
+            <returns>Whether the container is a tab stop.</returns>
+        </member>
+        <member name="T:Avalonia.Input.KeyboardNavigationHandler">
+            <summary>
+            Handles keyboard navigation for a window.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.KeyboardNavigationHandler._owner">
+            <summary>
+            The window to which the handler belongs.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.KeyboardNavigationHandler.SetOwner(Avalonia.Input.IInputRoot)">
+            <summary>
+            Sets the owner of the keyboard navigation handler.
+            </summary>
+            <param name="owner">The owner.</param>
+            <remarks>
+            This method can only be called once, typically by the owner itself on creation.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Input.KeyboardNavigationHandler.GetNext(Avalonia.Input.IInputElement,Avalonia.Input.NavigationDirection)">
+            <summary>
+            Gets the next control in the specified navigation direction.
+            </summary>
+            <param name="element">The element.</param>
+            <param name="direction">The navigation direction.</param>
+            <returns>
+            The next element in the specified direction, or null if <paramref name="element"/>
+            was the last in the requested direction.
+            </returns>
+        </member>
+        <member name="M:Avalonia.Input.KeyboardNavigationHandler.Move(Avalonia.Input.IInputElement,Avalonia.Input.NavigationDirection,Avalonia.Input.KeyModifiers)">
+            <summary>
+            Moves the focus in the specified direction.
+            </summary>
+            <param name="element">The current element.</param>
+            <param name="direction">The direction to move.</param>
+            <param name="keyModifiers">Any key modifiers active at the time of focus.</param>
+        </member>
+        <member name="M:Avalonia.Input.KeyboardNavigationHandler.OnKeyDown(System.Object,Avalonia.Input.KeyEventArgs)">
+            <summary>
+            Handles the Tab key being pressed in the window.
+            </summary>
+            <param name="sender">The event sender.</param>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="T:Avalonia.Input.KeyboardNavigationMode">
+            <summary>
+            Defines the mode of keyboard traversal within a container when the tab or arrow keys are
+            pressed.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.KeyboardNavigationMode.Continue">
+            <summary>
+            Items in the container will be cycled through, and focus will be moved to the
+            previous/next container after the first/last control in the container.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.KeyboardNavigationMode.Cycle">
+            <summary>
+            Items in the container will be cycled through, and moving past the first or last
+            control in the container will cause the last/first control to be focused.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.KeyboardNavigationMode.Contained">
+            <summary>
+            Items in the container will be cycled through and focus will stop moving when the edge
+            of the container is reached.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.KeyboardNavigationMode.Once">
+            <summary>
+            When focus is moved into the container, the control described by the
+            <see cref="F:Avalonia.Input.KeyboardNavigation.TabOnceActiveElementProperty"/> attached property on the
+            container will be focused. When focus moves away from this control, focus will move to
+            the previous/next container.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.KeyboardNavigationMode.None">
+            <summary>
+            The container's children will not be focused when using the tab key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.KeyboardNavigationMode.Local">
+            <summary>
+            TabIndexes are considered on local subtree only inside this container
+            </summary>
+        </member>
+        <member name="T:Avalonia.Input.KeyGesture">
+            <summary>
+            Defines a keyboard input combination.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Input.MouseDevice">
+            <summary>
+            Represents a mouse device.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.MouseDevice.Captured">
+            <summary>
+            Gets the control that is currently capturing by the mouse, if any.
+            </summary>
+            <remarks>
+            When an element captures the mouse, it receives mouse input whether the cursor is 
+            within the control's bounds or not. To set the mouse capture, call the 
+            <see cref="M:Avalonia.Input.MouseDevice.Capture(Avalonia.Input.IInputElement)"/> method.
+            </remarks>
+        </member>
+        <member name="P:Avalonia.Input.MouseDevice.Position">
+            <summary>
+            Gets the mouse position, in screen coordinates.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.MouseDevice.Capture(Avalonia.Input.IInputElement)">
+            <summary>
+            Captures mouse input to the specified control.
+            </summary>
+            <param name="control">The control.</param>
+            <remarks>
+            When an element captures the mouse, it receives mouse input whether the cursor is 
+            within the control's bounds or not. The current mouse capture control is exposed
+            by the <see cref="P:Avalonia.Input.MouseDevice.Captured"/> property.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Input.MouseDevice.GetPosition(Avalonia.VisualTree.IVisual)">
+            <summary>
+            Gets the mouse position relative to a control.
+            </summary>
+            <param name="relativeTo">The control.</param>
+            <returns>The mouse position in the control's coordinates.</returns>
+        </member>
+        <member name="T:Avalonia.Input.NavigationDirection">
+            <summary>
+            Describes how focus should be moved by directional or tab keys.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.NavigationDirection.Next">
+            <summary>
+            Move the focus to the next control in the tab order.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.NavigationDirection.Previous">
+            <summary>
+            Move the focus to the previous control in the tab order.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.NavigationDirection.First">
+            <summary>
+            Move the focus to the first control in the tab order.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.NavigationDirection.Last">
+            <summary>
+            Move the focus to the last control in the tab order.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.NavigationDirection.Left">
+            <summary>
+            Move the focus to the left.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.NavigationDirection.Right">
+            <summary>
+            Move the focus to the right.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.NavigationDirection.Up">
+            <summary>
+            Move the focus up.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.NavigationDirection.Down">
+            <summary>
+            Move the focus down.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.NavigationDirection.PageUp">
+            <summary>
+            Move the focus up a page.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.NavigationDirection.PageDown">
+            <summary>
+            Move the focus down a page.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.NavigationDirectionExtensions.IsTab(Avalonia.Input.NavigationDirection)">
+            <summary>
+            Checks whether a <see cref="T:Avalonia.Input.NavigationDirection"/> represents a tab movement.
+            </summary>
+            <param name="direction">The direction.</param>
+            <returns>
+            True if the direction represents a tab movement (<see cref="F:Avalonia.Input.NavigationDirection.Next"/>
+            or <see cref="F:Avalonia.Input.NavigationDirection.Previous"/>); otherwise false.
+            </returns>
+        </member>
+        <member name="M:Avalonia.Input.NavigationDirectionExtensions.IsDirectional(Avalonia.Input.NavigationDirection)">
+            <summary>
+            Checks whether a <see cref="T:Avalonia.Input.NavigationDirection"/> represents a directional movement.
+            </summary>
+            <param name="direction">The direction.</param>
+            <returns>
+            True if the direction represents a directional movement (any value except 
+            <see cref="F:Avalonia.Input.NavigationDirection.Next"/> and <see cref="F:Avalonia.Input.NavigationDirection.Previous"/>);
+            otherwise false.
+            </returns>
+        </member>
+        <member name="M:Avalonia.Input.NavigationDirectionExtensions.ToNavigationDirection(Avalonia.Input.Key,Avalonia.Input.KeyModifiers)">
+            <summary>
+            Converts a keypress into a <see cref="T:Avalonia.Input.NavigationDirection"/>.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="modifiers">The keyboard modifiers.</param>
+            <returns>
+            A <see cref="T:Avalonia.Input.NavigationDirection"/> if the keypress represents a navigation keypress.
+            </returns>
+        </member>
+        <member name="T:Avalonia.Input.NavigationMethod">
+            <summary>
+            Defines the method by which a focus change occurred.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.NavigationMethod.Unspecified">
+            <summary>
+            The focus was changed by an unspecified method, e.g. calling
+            <see cref="M:Avalonia.Input.InputElement.Focus"/>.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.NavigationMethod.Tab">
+            <summary>
+            The focus was changed by the user tabbing between control.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.NavigationMethod.Directional">
+            <summary>
+            The focus was changed by the user pressing a directional navigation key.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Input.NavigationMethod.Pointer">
+            <summary>
+            The focus was changed by a pointer click.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Input.Navigation.FocusExtensions">
+            <summary>
+            Provides extension methods relating to control focus.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.Navigation.FocusExtensions.CanFocus(Avalonia.Input.IInputElement)">
+            <summary>
+            Checks if the specified element can be focused.
+            </summary>
+            <param name="e">The element.</param>
+            <returns>True if the element can be focused.</returns>
+        </member>
+        <member name="M:Avalonia.Input.Navigation.FocusExtensions.CanFocusDescendants(Avalonia.Input.IInputElement)">
+            <summary>
+            Checks if descendants of the specified element can be focused.
+            </summary>
+            <param name="e">The element.</param>
+            <returns>True if descendants of the element can be focused.</returns>
+        </member>
+        <member name="T:Avalonia.Input.Navigation.TabNavigation">
+            <summary>
+            The implementation for default tab navigation.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.PointerEventArgs.GetCurrentPoint(Avalonia.VisualTree.IVisual)">
+            <summary>
+            Returns the PointerPoint associated with the current event
+            </summary>
+            <param name="relativeTo">The visual which coordinate system to use. Pass null for toplevel coordinate system</param>
+            <returns></returns>
+        </member>
+        <member name="M:Avalonia.Input.PointerEventArgs.GetIntermediatePoints(Avalonia.VisualTree.IVisual)">
+            <summary>
+            Returns the PointerPoint associated with the current event
+            </summary>
+            <param name="relativeTo">The visual which coordinate system to use. Pass null for toplevel coordinate system</param>
+            <returns></returns>
+        </member>
+        <member name="P:Avalonia.Input.PointerEventArgs.Properties">
+            <summary>
+            Returns the current pointer point properties
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.PointerReleasedEventArgs.InitialPressMouseButton">
+            <summary>
+            Gets the mouse button that triggered the corresponding PointerPressed event
+            </summary>
+        </member>
+        <member name="T:Avalonia.Input.Raw.RawInputEventArgs">
+            <summary>
+            A raw input event.
+            </summary>
+            <remarks>
+            Raw input events are sent from the windowing subsystem to the <see cref="T:Avalonia.Input.InputManager"/>
+            for processing: this gives an application the opportunity to pre-process the event. After
+            pre-processing they are consumed by the relevant <see cref="P:Avalonia.Input.Raw.RawInputEventArgs.Device"/> and turned into
+            standard Avalonia events.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Input.Raw.RawInputEventArgs.#ctor(Avalonia.Input.IInputDevice,System.UInt64,Avalonia.Input.IInputRoot)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Avalonia.Input.Raw.RawInputEventArgs"/> class.
+            </summary>
+            <param name="device">The associated device.</param>
+            <param name="timestamp">The event timestamp.</param>
+            <param name="root">The root from which the event originates.</param>
+        </member>
+        <member name="P:Avalonia.Input.Raw.RawInputEventArgs.Device">
+            <summary>
+            Gets the associated device.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.Raw.RawInputEventArgs.Root">
+            <summary>
+            Gets the root from which the event originates.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.Raw.RawInputEventArgs.Handled">
+            <summary>
+            Gets or sets a value indicating whether the event was handled.
+            </summary>
+            <remarks>
+            If an event is not marked handled after processing via the
+            <see cref="T:Avalonia.Input.InputManager"/>, then it will be passed on to the underlying OS for
+            handling.
+            </remarks>
+        </member>
+        <member name="P:Avalonia.Input.Raw.RawInputEventArgs.Timestamp">
+            <summary>
+            Gets the timestamp associated with the event.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Input.Raw.RawPointerEventArgs">
+            <summary>
+            A raw mouse event.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.Raw.RawPointerEventArgs.#ctor(Avalonia.Input.IInputDevice,System.UInt64,Avalonia.Input.IInputRoot,Avalonia.Input.Raw.RawPointerEventType,Avalonia.Point,Avalonia.Input.RawInputModifiers)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Avalonia.Input.Raw.RawPointerEventArgs"/> class.
+            </summary>
+            <param name="device">The associated device.</param>
+            <param name="timestamp">The event timestamp.</param>
+            <param name="root">The root from which the event originates.</param>
+            <param name="type">The type of the event.</param>
+            <param name="position">The mouse position, in client DIPs.</param>
+            <param name="inputModifiers">The input modifiers.</param>
+        </member>
+        <member name="M:Avalonia.Input.Raw.RawPointerEventArgs.#ctor(Avalonia.Input.IInputDevice,System.UInt64,Avalonia.Input.IInputRoot,Avalonia.Input.Raw.RawPointerEventType,Avalonia.Input.Raw.RawPointerPoint,Avalonia.Input.RawInputModifiers)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Avalonia.Input.Raw.RawPointerEventArgs"/> class.
+            </summary>
+            <param name="device">The associated device.</param>
+            <param name="timestamp">The event timestamp.</param>
+            <param name="root">The root from which the event originates.</param>
+            <param name="type">The type of the event.</param>
+            <param name="point">The point properties and position, in client DIPs.</param>
+            <param name="inputModifiers">The input modifiers.</param>
+        </member>
+        <member name="P:Avalonia.Input.Raw.RawPointerEventArgs.Point">
+            <summary>
+            Gets the pointer properties and position, in client DIPs.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.Raw.RawPointerEventArgs.Position">
+            <summary>
+            Gets the mouse position, in client DIPs.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.Raw.RawPointerEventArgs.Type">
+            <summary>
+            Gets the type of the event.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.Raw.RawPointerEventArgs.InputModifiers">
+            <summary>
+            Gets the input modifiers.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.Raw.RawPointerEventArgs.IntermediatePoints">
+            <summary>
+            Points that were traversed by a pointer since the previous relevant event,
+            only valid for Move and TouchUpdate
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.Raw.RawPointerPoint.Position">
+            <summary>
+            Pointer position, in client DIPs.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.TextInput.ITextInputMethodClient.CursorRectangle">
+            <summary>
+            The cursor rectangle relative to the TextViewVisual
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.TextInput.ITextInputMethodClient.CursorRectangleChanged">
+            <summary>
+            Should be fired when cursor rectangle is changed inside the TextViewVisual
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.TextInput.ITextInputMethodClient.TextViewVisual">
+            <summary>
+            The visual that's showing the text
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.TextInput.ITextInputMethodClient.TextViewVisualChanged">
+            <summary>
+            Should be fired when text-hosting visual is changed
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.TextInput.ITextInputMethodClient.SupportsPreedit">
+            <summary>
+            Indicates if TextViewVisual is capable of displaying non-committed input on the cursor position
+            </summary>
+        </member>
+        <member name="M:Avalonia.Input.TextInput.ITextInputMethodClient.SetPreeditText(System.String)">
+            <summary>
+            Sets the non-committed input string
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.TextInput.ITextInputMethodClient.SupportsSurroundingText">
+            <summary>
+            Indicates if text input client is capable of providing the text around the cursor
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.TextInput.ITextInputMethodClient.SurroundingText">
+            <summary>
+            Returns the text around the cursor, usually the current paragraph, the cursor position inside that text and selection start position
+            </summary>
+        </member>
+        <member name="E:Avalonia.Input.TextInput.ITextInputMethodClient.SurroundingTextChanged">
+            <summary>
+            Should be fired when surrounding text changed
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.TextInput.ITextInputMethodClient.TextBeforeCursor">
+            <summary>
+            Returns the text before the cursor. Must return a non-empty string if cursor is not at the beginning of the text entry
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.TextInput.ITextInputMethodClient.TextAfterCursor">
+            <summary>
+            Returns the text before the cursor. Must return a non-empty string if cursor is not at the end of the text entry
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.TextInput.TextInputMethodClientRequestedEventArgs.Client">
+            <summary>
+            Set this property to a valid text input client to enable input method interaction
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.TextInput.TextInputOptionsQueryEventArgs.ContentType">
+            <summary>
+            The content type (mostly for determining the shape of the virtual keyboard)
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.TextInput.TextInputOptionsQueryEventArgs.Multiline">
+            <summary>
+            Text is multiline
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.TextInput.TextInputOptionsQueryEventArgs.Lowercase">
+            <summary>
+            Text is in lower case
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.TextInput.TextInputOptionsQueryEventArgs.Uppercase">
+            <summary>
+            Text is in upper case
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.TextInput.TextInputOptionsQueryEventArgs.AutoCapitalization">
+            <summary>
+            Automatically capitalize letters at the start of the sentence
+            </summary>
+        </member>
+        <member name="P:Avalonia.Input.TextInput.TextInputOptionsQueryEventArgs.IsSensitive">
+            <summary>
+            Text contains sensitive data like card numbers and should not be stored  
+            </summary>
+        </member>
+        <member name="T:Avalonia.Input.TouchDevice">
+            <summary>
+            Handles raw touch events
+            <remarks>
+            This class is supposed to be used on per-toplevel basis, don't use a shared one
+            </remarks>
+            </summary>
+        </member>
+        <member name="T:Avalonia.Platform.ICursorImpl">
+            <summary>
+            Represents a platform implementation of a <see cref="T:Avalonia.Input.Cursor"/>.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -130,5 +130,8 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [C:/Users/Ddggd/Desktop/tmp/WonderLab/WonderLab/Views/TaskView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[C:/Users/Ddggd/Desktop/tmp/WonderLab/WonderLab/Views/UpdataSettingView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [C:/Users/Ddggd/Desktop/tmp/WonderLab/WonderLab/Views/UsersView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

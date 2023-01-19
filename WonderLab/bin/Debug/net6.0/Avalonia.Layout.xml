@@ -1,0 +1,1476 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Avalonia.Layout</name>
+    </assembly>
+    <members>
+        <member name="T:Avalonia.Layout.AttachedLayout">
+            <summary>
+            Represents the base class for an object that sizes and arranges child elements for a host.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Layout.AttachedLayout.MeasureInvalidated">
+            <summary>
+            Occurs when the measurement state (layout) has been invalidated.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.AttachedLayout.MeasureInvalidatedWeakEvent">
+            <summary>
+            Occurs when the measurement state (layout) has been invalidated.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Layout.AttachedLayout.ArrangeInvalidated">
+            <summary>
+            Occurs when the arrange state (layout) has been invalidated.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.AttachedLayout.ArrangeInvalidatedWeakEvent">
+            <summary>
+            Occurs when the arrange state (layout) has been invalidated.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Layout.AttachedLayout.InitializeForContext(Avalonia.Layout.LayoutContext)">
+             <summary>
+             Initializes any per-container state the layout requires when it is attached to an
+             <see cref="T:Avalonia.Layout.ILayoutable"/> container.
+             </summary>
+             <param name="context">
+             The context object that facilitates communication between the layout and its host
+             container.
+             </param>
+             <remarks>
+             Container elements that support attached layouts should call this method when a layout
+             instance is first assigned. The container is expected to give the attached layout
+             instance a way to store and retrieve any per-container state by way of the provided
+             context. It is also the responsibility of the container to not reuse the context, or
+             otherwise expose the state from one layout to another.
+            
+             When an attached layout is removed the container should release any reference to the
+             layout state it stored.
+             
+             Override <see cref="M:Avalonia.Layout.NonVirtualizingLayout.InitializeForContextCore(Avalonia.Layout.LayoutContext)"/> or
+             <see cref="M:Avalonia.Layout.VirtualizingLayout.InitializeForContextCore(Avalonia.Layout.VirtualizingLayoutContext)"/> to provide the behavior for
+             this method in a derived class.
+             </remarks>
+        </member>
+        <member name="M:Avalonia.Layout.AttachedLayout.UninitializeForContext(Avalonia.Layout.LayoutContext)">
+            <summary>
+            Removes any state the layout previously stored on the ILayoutable container.
+            </summary>
+            <param name="context">
+            The context object that facilitates communication between the layout and its host
+            container.
+            </param>
+        </member>
+        <member name="M:Avalonia.Layout.AttachedLayout.Measure(Avalonia.Layout.LayoutContext,Avalonia.Size)">
+            <summary>
+            Suggests a DesiredSize for a container element. A container element that supports
+            attached layouts should call this method from their own MeasureOverride implementations
+            to form a recursive layout update. The attached layout is expected to call the Measure
+            for each of the container’s ILayoutable children.
+            </summary>
+            <param name="context">
+            The context object that facilitates communication between the layout and its host
+            container.
+            </param>
+            <param name="availableSize">
+            The available space that a container can allocate to a child object. A child object can
+            request a larger space than what is available; the provided size might be accommodated
+            if scrolling or other resize behavior is possible in that particular container.
+            </param>
+            <returns></returns>
+        </member>
+        <member name="M:Avalonia.Layout.AttachedLayout.Arrange(Avalonia.Layout.LayoutContext,Avalonia.Size)">
+            <summary>
+            Positions child elements and determines a size for a container UIElement. Container
+            elements that support attached layouts should call this method from their layout
+            override implementations to form a recursive layout update.
+            </summary>
+            <param name="context">
+            The context object that facilitates communication between the layout and its host
+            container.
+            </param>
+            <param name="finalSize">
+            The final size that the container computes for the child in layout.
+            </param>
+            <returns>The actual size that is used after the element is arranged in layout.</returns>
+        </member>
+        <member name="M:Avalonia.Layout.AttachedLayout.InvalidateMeasure">
+            <summary>
+            Invalidates the measurement state (layout) for all ILayoutable containers that reference
+            this layout.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Layout.AttachedLayout.InvalidateArrange">
+            <summary>
+            Invalidates the arrange state (layout) for all UIElement containers that reference this
+            layout. After the invalidation, the UIElement will have its layout updated, which
+            occurs asynchronously.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Layout.EffectiveViewportChangedEventArgs">
+            <summary>
+            Provides data for the <see cref="E:Avalonia.Layout.Layoutable.EffectiveViewportChanged"/> event.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.EffectiveViewportChangedEventArgs.EffectiveViewport">
+            <summary>
+            Gets the <see cref="T:Avalonia.Rect"/> representing the effective viewport.
+            </summary>
+            <remarks>
+            The viewport is expressed in coordinates relative to the control that the event is
+            raised on.
+            </remarks>
+        </member>
+        <member name="T:Avalonia.Layout.IEmbeddedLayoutRoot">
+            <summary>
+            A special layout root with enforced size for Arrange pass
+            </summary>
+        </member>
+        <member name="T:Avalonia.Layout.ILayoutable">
+            <summary>
+            Defines layout-related functionality for a control.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.ILayoutable.DesiredSize">
+            <summary>
+            Gets the size that this element computed during the measure pass of the layout process.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.ILayoutable.Width">
+            <summary>
+            Gets the width of the element.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.ILayoutable.Height">
+            <summary>
+            Gets the height of the element.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.ILayoutable.MinWidth">
+            <summary>
+            Gets the minimum width of the element.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.ILayoutable.MaxWidth">
+            <summary>
+            Gets the maximum width of the element.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.ILayoutable.MinHeight">
+            <summary>
+            Gets the minimum height of the element.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.ILayoutable.MaxHeight">
+            <summary>
+            Gets the maximum height of the element.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.ILayoutable.Margin">
+            <summary>
+            Gets the margin around the element.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.ILayoutable.HorizontalAlignment">
+            <summary>
+            Gets the element's preferred horizontal alignment in its parent.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.ILayoutable.VerticalAlignment">
+            <summary>
+            Gets the element's preferred vertical alignment in its parent.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.ILayoutable.IsMeasureValid">
+            <summary>
+            Gets a value indicating whether the control's layout measure is valid.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.ILayoutable.IsArrangeValid">
+            <summary>
+            Gets a value indicating whether the control's layouts arrange is valid.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.ILayoutable.PreviousMeasure">
+            <summary>
+            Gets the available size passed in the previous layout pass, if any.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.ILayoutable.PreviousArrange">
+            <summary>
+            Gets the layout rect passed in the previous layout pass, if any.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Layout.ILayoutable.ApplyTemplate">
+            <summary>
+            Creates the visual children of the control, if necessary
+            </summary>
+        </member>
+        <member name="M:Avalonia.Layout.ILayoutable.Measure(Avalonia.Size)">
+            <summary>
+            Carries out a measure of the control.
+            </summary>
+            <param name="availableSize">The available size for the control.</param>
+        </member>
+        <member name="M:Avalonia.Layout.ILayoutable.Arrange(Avalonia.Rect)">
+            <summary>
+            Arranges the control and its children.
+            </summary>
+            <param name="rect">The control's new bounds.</param>
+        </member>
+        <member name="M:Avalonia.Layout.ILayoutable.InvalidateMeasure">
+            <summary>
+            Invalidates the measurement of the control and queues a new layout pass.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Layout.ILayoutable.InvalidateArrange">
+            <summary>
+            Invalidates the arrangement of the control and queues a new layout pass.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Layout.ILayoutable.ChildDesiredSizeChanged(Avalonia.Layout.ILayoutable)">
+            <summary>
+            Called when a child control's desired size changes.
+            </summary>
+            <param name="control">The child control.</param>
+        </member>
+        <member name="M:Avalonia.Layout.ILayoutable.EffectiveViewportChanged(Avalonia.Layout.EffectiveViewportChangedEventArgs)">
+            <summary>
+            Used by the <see cref="T:Avalonia.Layout.LayoutManager"/> to notify the control that its effective
+            viewport is changed.
+            </summary>
+            <param name="e">The viewport information.</param>
+        </member>
+        <member name="T:Avalonia.Layout.ILayoutManager">
+            <summary>
+            Manages measuring and arranging of controls.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Layout.ILayoutManager.LayoutUpdated">
+            <summary>
+            Raised when the layout manager completes a layout pass.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Layout.ILayoutManager.InvalidateMeasure(Avalonia.Layout.ILayoutable)">
+            <summary>
+            Notifies the layout manager that a control requires a measure.
+            </summary>
+            <param name="control">The control.</param>
+        </member>
+        <member name="M:Avalonia.Layout.ILayoutManager.InvalidateArrange(Avalonia.Layout.ILayoutable)">
+            <summary>
+            Notifies the layout manager that a control requires an arrange.
+            </summary>
+            <param name="control">The control.</param>
+        </member>
+        <member name="M:Avalonia.Layout.ILayoutManager.ExecuteLayoutPass">
+            <summary>
+            Executes a layout pass.
+            </summary>
+            <remarks>
+            You should not usually need to call this method explictly, the layout manager will
+            schedule layout passes itself.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Layout.ILayoutManager.ExecuteInitialLayoutPass">
+            <summary>
+            Executes the initial layout pass on a layout root.
+            </summary>
+            <remarks>
+            You should not usually need to call this method explictly, the layout root will call
+            it to carry out the initial layout of the control.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Layout.ILayoutManager.ExecuteInitialLayoutPass(Avalonia.Layout.ILayoutRoot)">
+            <summary>
+            Executes the initial layout pass on a layout root.
+            </summary>
+            <param name="root">The control to lay out.</param>
+            <remarks>
+            You should not usually need to call this method explictly, the layout root will call
+            it to carry out the initial layout of the control.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Layout.ILayoutManager.RegisterEffectiveViewportListener(Avalonia.Layout.ILayoutable)">
+            <summary>
+            Registers a control as wanting to receive effective viewport notifications.
+            </summary>
+            <param name="control">The control.</param>
+        </member>
+        <member name="M:Avalonia.Layout.ILayoutManager.UnregisterEffectiveViewportListener(Avalonia.Layout.ILayoutable)">
+            <summary>
+            Registers a control as no longer wanting to receive effective viewport notifications.
+            </summary>
+            <param name="control">The control.</param>
+        </member>
+        <member name="T:Avalonia.Layout.ILayoutRoot">
+            <summary>
+            Defines the root of a layoutable tree.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.ILayoutRoot.ClientSize">
+            <summary>
+            The size available to lay out the controls.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.ILayoutRoot.LayoutScaling">
+            <summary>
+            The scaling factor to use in layout.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.ILayoutRoot.LayoutManager">
+            <summary>
+            Associated instance of layout manager
+            </summary>
+        </member>
+        <member name="T:Avalonia.Layout.HorizontalAlignment">
+            <summary>
+            Defines how a control aligns itself horizontally in its parent control.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.HorizontalAlignment.Stretch">
+            <summary>
+            The control stretches to fill the width of the parent control.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.HorizontalAlignment.Left">
+            <summary>
+            The control aligns itself to the left of the parent control.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.HorizontalAlignment.Center">
+            <summary>
+            The control centers itself in the parent control.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.HorizontalAlignment.Right">
+            <summary>
+            The control aligns itself to the right of the parent control.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Layout.VerticalAlignment">
+            <summary>
+            Defines how a control aligns itself vertically in its parent control.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.VerticalAlignment.Stretch">
+            <summary>
+            The control stretches to fill the height of the parent control.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.VerticalAlignment.Top">
+            <summary>
+            The control aligns itself to the top of the parent control.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.VerticalAlignment.Center">
+            <summary>
+            The control centers itself within the parent control.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.VerticalAlignment.Bottom">
+            <summary>
+            The control aligns itself to the bottom of the parent control.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Layout.Layoutable">
+            <summary>
+            Implements layout-related functionality for a control.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.Layoutable.DesiredSizeProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Layout.Layoutable.DesiredSize"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.Layoutable.WidthProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Layout.Layoutable.Width"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.Layoutable.HeightProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Layout.Layoutable.Height"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.Layoutable.MinWidthProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Layout.Layoutable.MinWidth"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.Layoutable.MaxWidthProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Layout.Layoutable.MaxWidth"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.Layoutable.MinHeightProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Layout.Layoutable.MinHeight"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.Layoutable.MaxHeightProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Layout.Layoutable.MaxHeight"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.Layoutable.MarginProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Layout.Layoutable.Margin"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.Layoutable.HorizontalAlignmentProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Layout.Layoutable.HorizontalAlignment"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.Layoutable.VerticalAlignmentProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Layout.Layoutable.VerticalAlignment"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.Layoutable.UseLayoutRoundingProperty">
+            <summary>
+            Defines the <see cref="F:Avalonia.Layout.Layoutable.UseLayoutRoundingProperty"/> property.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Layout.Layoutable.#cctor">
+            <summary>
+            Initializes static members of the <see cref="T:Avalonia.Layout.Layoutable"/> class.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Layout.Layoutable.EffectiveViewportChanged">
+            <summary>
+            Occurs when the element's effective viewport changes.
+            </summary>
+        </member>
+        <member name="E:Avalonia.Layout.Layoutable.LayoutUpdated">
+            <summary>
+            Occurs when a layout pass completes for the control.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.Layoutable.Width">
+            <summary>
+            Gets or sets the width of the element.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.Layoutable.Height">
+            <summary>
+            Gets or sets the height of the element.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.Layoutable.MinWidth">
+            <summary>
+            Gets or sets the minimum width of the element.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.Layoutable.MaxWidth">
+            <summary>
+            Gets or sets the maximum width of the element.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.Layoutable.MinHeight">
+            <summary>
+            Gets or sets the minimum height of the element.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.Layoutable.MaxHeight">
+            <summary>
+            Gets or sets the maximum height of the element.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.Layoutable.Margin">
+            <summary>
+            Gets or sets the margin around the element.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.Layoutable.HorizontalAlignment">
+            <summary>
+            Gets or sets the element's preferred horizontal alignment in its parent.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.Layoutable.VerticalAlignment">
+            <summary>
+            Gets or sets the element's preferred vertical alignment in its parent.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.Layoutable.DesiredSize">
+            <summary>
+            Gets the size that this element computed during the measure pass of the layout process.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.Layoutable.IsMeasureValid">
+            <summary>
+            Gets a value indicating whether the control's layout measure is valid.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.Layoutable.IsArrangeValid">
+            <summary>
+            Gets a value indicating whether the control's layouts arrange is valid.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.Layoutable.UseLayoutRounding">
+            <summary>
+            Gets or sets a value that determines whether the element should be snapped to pixel
+            boundaries at layout time.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.Layoutable.Avalonia#Layout#ILayoutable#PreviousMeasure">
+            <summary>
+            Gets the available size passed in the previous layout pass, if any.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.Layoutable.Avalonia#Layout#ILayoutable#PreviousArrange">
+            <summary>
+            Gets the layout rect passed in the previous layout pass, if any.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Layout.Layoutable.ApplyTemplate">
+            <summary>
+            Creates the visual children of the control, if necessary
+            </summary>
+        </member>
+        <member name="M:Avalonia.Layout.Layoutable.Measure(Avalonia.Size)">
+            <summary>
+            Carries out a measure of the control.
+            </summary>
+            <param name="availableSize">The available size for the control.</param>
+        </member>
+        <member name="M:Avalonia.Layout.Layoutable.Arrange(Avalonia.Rect)">
+            <summary>
+            Arranges the control and its children.
+            </summary>
+            <param name="rect">The control's new bounds.</param>
+        </member>
+        <member name="M:Avalonia.Layout.Layoutable.InvalidateMeasure">
+            <summary>
+            Invalidates the measurement of the control and queues a new layout pass.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Layout.Layoutable.InvalidateArrange">
+            <summary>
+            Invalidates the arrangement of the control and queues a new layout pass.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Layout.Layoutable.Avalonia#Layout#ILayoutable#ChildDesiredSizeChanged(Avalonia.Layout.ILayoutable)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Avalonia.Layout.Layoutable.AffectsMeasure(Avalonia.AvaloniaProperty[])">
+            <summary>
+            Marks a property as affecting the control's measurement.
+            </summary>
+            <param name="properties">The properties.</param>
+            <remarks>
+            After a call to this method in a control's static constructor, any change to the
+            property will cause <see cref="M:Avalonia.Layout.Layoutable.InvalidateMeasure"/> to be called on the element.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Layout.Layoutable.AffectsMeasure``1(Avalonia.AvaloniaProperty[])">
+            <summary>
+            Marks a property as affecting the control's measurement.
+            </summary>
+            <typeparam name="T">The control which the property affects.</typeparam>
+            <param name="properties">The properties.</param>
+            <remarks>
+            After a call to this method in a control's static constructor, any change to the
+            property will cause <see cref="M:Avalonia.Layout.Layoutable.InvalidateMeasure"/> to be called on the element.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Layout.Layoutable.AffectsArrange(Avalonia.AvaloniaProperty[])">
+            <summary>
+            Marks a property as affecting the control's arrangement.
+            </summary>
+            <param name="properties">The properties.</param>
+            <remarks>
+            After a call to this method in a control's static constructor, any change to the
+            property will cause <see cref="M:Avalonia.Layout.Layoutable.InvalidateArrange"/> to be called on the element.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Layout.Layoutable.AffectsArrange``1(Avalonia.AvaloniaProperty[])">
+            <summary>
+            Marks a property as affecting the control's arrangement.
+            </summary>
+            <typeparam name="T">The control which the property affects.</typeparam>
+            <param name="properties">The properties.</param>
+            <remarks>
+            After a call to this method in a control's static constructor, any change to the
+            property will cause <see cref="M:Avalonia.Layout.Layoutable.InvalidateArrange"/> to be called on the element.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Layout.Layoutable.MeasureCore(Avalonia.Size)">
+            <summary>
+            The default implementation of the control's measure pass.
+            </summary>
+            <param name="availableSize">The size available to the control.</param>
+            <returns>The desired size for the control.</returns>
+            <remarks>
+            This method calls <see cref="M:Avalonia.Layout.Layoutable.MeasureOverride(Avalonia.Size)"/> which is probably the method you
+            want to override in order to modify a control's arrangement.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Layout.Layoutable.MeasureOverride(Avalonia.Size)">
+            <summary>
+            Measures the control and its child elements as part of a layout pass.
+            </summary>
+            <param name="availableSize">The size available to the control.</param>
+            <returns>The desired size for the control.</returns>
+        </member>
+        <member name="M:Avalonia.Layout.Layoutable.ArrangeCore(Avalonia.Rect)">
+            <summary>
+            The default implementation of the control's arrange pass.
+            </summary>
+            <param name="finalRect">The control's new bounds.</param>
+            <remarks>
+            This method calls <see cref="M:Avalonia.Layout.Layoutable.ArrangeOverride(Avalonia.Size)"/> which is probably the method you
+            want to override in order to modify a control's arrangement.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Layout.Layoutable.ArrangeOverride(Avalonia.Size)">
+            <summary>
+            Positions child elements as part of a layout pass.
+            </summary>
+            <param name="finalSize">The size available to the control.</param>
+            <returns>The actual size used.</returns>
+        </member>
+        <member name="M:Avalonia.Layout.Layoutable.OnMeasureInvalidated">
+            <summary>
+            Called by InvalidateMeasure
+            </summary>
+        </member>
+        <member name="M:Avalonia.Layout.Layoutable.OnVisualParentChanged(Avalonia.VisualTree.IVisual,Avalonia.VisualTree.IVisual)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Avalonia.Layout.Layoutable.LayoutManagedLayoutUpdated(System.Object,System.EventArgs)">
+            <summary>
+            Called when the layout manager raises a LayoutUpdated event.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="M:Avalonia.Layout.Layoutable.IsInvalidRect(Avalonia.Rect)">
+            <summary>
+            Tests whether any of a <see cref="T:Avalonia.Rect"/>'s properties include negative values,
+            a NaN or Infinity.
+            </summary>
+            <param name="rect">The rect.</param>
+            <returns>True if the rect is invalid; otherwise false.</returns>
+        </member>
+        <member name="M:Avalonia.Layout.Layoutable.IsInvalidSize(Avalonia.Size)">
+            <summary>
+            Tests whether any of a <see cref="T:Avalonia.Size"/>'s properties include negative values,
+            a NaN or Infinity.
+            </summary>
+            <param name="size">The size.</param>
+            <returns>True if the size is invalid; otherwise false.</returns>
+        </member>
+        <member name="M:Avalonia.Layout.Layoutable.NonNegative(Avalonia.Size)">
+            <summary>
+            Ensures neither component of a <see cref="T:Avalonia.Size"/> is negative.
+            </summary>
+            <param name="size">The size.</param>
+            <returns>The non-negative size.</returns>
+        </member>
+        <member name="T:Avalonia.Layout.LayoutContext">
+            <summary>
+            Represents the base class for an object that facilitates communication between an attached
+            layout and its host container.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.LayoutContext.LayoutState">
+            <summary>
+            Gets or sets an object that represents the state of a layout.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.LayoutContext.LayoutStateCore">
+            <summary>
+            Implements the behavior of <see cref="P:Avalonia.Layout.LayoutContext.LayoutState"/> in a derived or custom LayoutContext.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Layout.LayoutExtensions">
+            <summary>
+            Extension methods for layout types.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Layout.LayoutExtensions.Align(Avalonia.Rect,Avalonia.Rect,Avalonia.Layout.HorizontalAlignment,Avalonia.Layout.VerticalAlignment)">
+            <summary>
+            Aligns a rect in a constraining rect according to horizontal and vertical alignment
+            settings.
+            </summary>
+            <param name="rect">The rect to align.</param>
+            <param name="constraint">The constraining rect.</param>
+            <param name="horizontalAlignment">The horizontal alignment.</param>
+            <param name="verticalAlignment">The vertical alignment.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Avalonia.Layout.LayoutHelper">
+            <summary>
+            Provides helper methods needed for layout.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.LayoutHelper.LayoutEpsilon">
+            <summary>
+            Epsilon value used for certain layout calculations.
+            Based on the value in WPF LayoutDoubleUtil.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Layout.LayoutHelper.ApplyLayoutConstraints(Avalonia.Layout.ILayoutable,Avalonia.Size)">
+            <summary>
+            Calculates a control's size based on its <see cref="P:Avalonia.Layout.ILayoutable.Width"/>,
+            <see cref="P:Avalonia.Layout.ILayoutable.Height"/>, <see cref="P:Avalonia.Layout.ILayoutable.MinWidth"/>,
+            <see cref="P:Avalonia.Layout.ILayoutable.MaxWidth"/>, <see cref="P:Avalonia.Layout.ILayoutable.MinHeight"/> and
+            <see cref="P:Avalonia.Layout.ILayoutable.MaxHeight"/>.
+            </summary>
+            <param name="control">The control.</param>
+            <param name="constraints">The space available for the control.</param>
+            <returns>The control's size.</returns>
+        </member>
+        <member name="M:Avalonia.Layout.LayoutHelper.InvalidateSelfAndChildrenMeasure(Avalonia.Layout.ILayoutable)">
+            <summary>
+            Invalidates measure for given control and all visual children recursively.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Layout.LayoutHelper.GetLayoutScale(Avalonia.Layout.ILayoutable)">
+            <summary>
+            Obtains layout scale of the given control.
+            </summary>
+            <param name="control">The control.</param>
+            <exception cref="T:System.Exception">Thrown when control has no root or returned layout scaling is invalid.</exception>
+        </member>
+        <member name="M:Avalonia.Layout.LayoutHelper.RoundLayoutSize(Avalonia.Size,System.Double,System.Double)">
+            <summary>
+            Rounds a size to integer values for layout purposes, compensating for high DPI screen
+            coordinates.
+            </summary>
+            <param name="size">Input size.</param>
+            <param name="dpiScaleX">DPI along x-dimension.</param>
+            <param name="dpiScaleY">DPI along y-dimension.</param>
+            <returns>Value of size that will be rounded under screen DPI.</returns>
+            <remarks>
+            This is a layout helper method. It takes DPI into account and also does not return
+            the rounded value if it is unacceptable for layout, e.g. Infinity or NaN. It's a helper
+            associated with the UseLayoutRounding property and should not be used as a general rounding
+            utility.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Layout.LayoutHelper.RoundLayoutValue(System.Double,System.Double)">
+            <summary>
+            Calculates the value to be used for layout rounding at high DPI.
+            </summary>
+            <param name="value">Input value to be rounded.</param>
+            <param name="dpiScale">Ratio of screen's DPI to layout DPI</param>
+            <returns>Adjusted value that will produce layout rounding on screen at high dpi.</returns>
+            <remarks>
+            This is a layout helper method. It takes DPI into account and also does not return
+            the rounded value if it is unacceptable for layout, e.g. Infinity or NaN. It's a helper
+            associated with the UseLayoutRounding property and should not be used as a general rounding
+            utility.
+            </remarks>
+        </member>
+        <member name="T:Avalonia.Layout.LayoutHelper.MinMax">
+            <summary>
+            Calculates the min and max height for a control. Ported from WPF.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Layout.LayoutManager">
+            <summary>
+            Manages measuring and arranging of controls.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Layout.LayoutManager.InvalidateMeasure(Avalonia.Layout.ILayoutable)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Avalonia.Layout.LayoutManager.InvalidateArrange(Avalonia.Layout.ILayoutable)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Avalonia.Layout.LayoutManager.ExecuteLayoutPass">
+            <inheritdoc/>
+        </member>
+        <member name="M:Avalonia.Layout.LayoutManager.ExecuteInitialLayoutPass">
+            <inheritdoc/>
+        </member>
+        <member name="T:Avalonia.Layout.NonVirtualizingLayout">
+            <summary>
+            Represents the base class for an object that sizes and arranges child elements for a host
+            and and does not support virtualization.
+            </summary>
+            <remarks>
+            NonVirtualizingLayout is the base class for layouts that do not support virtualization. You
+            can inherit from it to create your own layout.
+            
+            A non-virtualizing layout can measure and arrange child elements.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Layout.NonVirtualizingLayout.InitializeForContextCore(Avalonia.Layout.LayoutContext)">
+            <summary>
+            When overridden in a derived class, initializes any per-container state the layout
+            requires when it is attached to an ILayoutable container.
+            </summary>
+            <param name="context">
+            The context object that facilitates communication between the layout and its host
+            container.
+            </param>
+        </member>
+        <member name="M:Avalonia.Layout.NonVirtualizingLayout.UninitializeForContextCore(Avalonia.Layout.LayoutContext)">
+            <summary>
+            When overridden in a derived class, removes any state the layout previously stored on
+            the ILayoutable container.
+            </summary>
+            <param name="context">
+            The context object that facilitates communication between the layout and its host
+            container.
+            </param>
+        </member>
+        <member name="M:Avalonia.Layout.NonVirtualizingLayout.MeasureOverride(Avalonia.Layout.NonVirtualizingLayoutContext,Avalonia.Size)">
+            <summary>
+            Provides the behavior for the "Measure" pass of the layout cycle. Classes can override
+            this method to define their own "Measure" pass behavior.
+            </summary>
+            <param name="context">
+            The context object that facilitates communication between the layout and its host
+            container.
+            </param>
+            <param name="availableSize">
+            The available size that this object can give to child objects. Infinity can be
+            specified as a value to indicate that the object will size to whatever content is
+            available.
+            </param>
+            <returns>
+            The size that this object determines it needs during layout, based on its calculations
+            of the allocated sizes for child objects or based on other considerations such as a
+            fixed container size.
+            </returns>
+        </member>
+        <member name="M:Avalonia.Layout.NonVirtualizingLayout.ArrangeOverride(Avalonia.Layout.NonVirtualizingLayoutContext,Avalonia.Size)">
+            <summary>
+            When implemented in a derived class, provides the behavior for the "Arrange" pass of
+            layout. Classes can override this method to define their own "Arrange" pass behavior.
+            </summary>
+            <param name="context">
+            The context object that facilitates communication between the layout and its host
+            container.
+            </param>
+            <param name="finalSize">
+            The final area within the container that this object should use to arrange itself and
+            its children.
+            </param>
+            <returns>The actual size that is used after the element is arranged in layout.</returns>
+        </member>
+        <member name="T:Avalonia.Layout.NonVirtualizingLayoutContext">
+            <summary>
+            Represents the base class for layout context types that do not support virtualization.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.NonVirtualizingLayoutContext.Children">
+            <summary>
+            Gets the collection of child controls from the container that provides the context.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.NonVirtualizingLayoutContext.ChildrenCore">
+            <summary>
+            Implements the behavior for getting the return value of <see cref="P:Avalonia.Layout.NonVirtualizingLayoutContext.Children"/> in a
+            derived or custom <see cref="T:Avalonia.Layout.NonVirtualizingLayoutContext"/>.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.NonVirtualizingStackLayout.OrientationProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Layout.NonVirtualizingStackLayout.Orientation"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.NonVirtualizingStackLayout.SpacingProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Layout.NonVirtualizingStackLayout.Spacing"/> property.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.NonVirtualizingStackLayout.Orientation">
+            <summary>
+            Gets or sets the axis along which items are laid out.
+            </summary>
+            <value>
+            One of the enumeration values that specifies the axis along which items are laid out.
+            The default is Vertical.
+            </value>
+        </member>
+        <member name="P:Avalonia.Layout.NonVirtualizingStackLayout.Spacing">
+            <summary>
+            Gets or sets a uniform distance (in pixels) between stacked items. It is applied in the
+            direction of the StackLayout's Orientation.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Layout.Orientation">
+            <summary>
+            Defines vertical or horizontal orientation.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.Orientation.Horizontal">
+            <summary>
+            Horizontal orientation.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.Orientation.Vertical">
+            <summary>
+            Vertical orientation.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Layout.StackLayout">
+            <summary>
+            Arranges elements into a single line (with spacing) that can be oriented horizontally or vertically.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.StackLayout.DisableVirtualizationProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Layout.StackLayout.DisableVirtualization"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.StackLayout.OrientationProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Layout.StackLayout.Orientation"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.StackLayout.SpacingProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Layout.StackLayout.Spacing"/> property.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Layout.StackLayout.#ctor">
+            <summary>
+            Initializes a new instance of the StackLayout class.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.StackLayout.DisableVirtualization">
+            <summary>
+            Gets or sets a value indicating whether virtualization is disabled on the layout.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.StackLayout.Orientation">
+            <summary>
+            Gets or sets the axis along which items are laid out.
+            </summary>
+            <value>
+            One of the enumeration values that specifies the axis along which items are laid out.
+            The default is Vertical.
+            </value>
+        </member>
+        <member name="P:Avalonia.Layout.StackLayout.Spacing">
+            <summary>
+            Gets or sets a uniform distance (in pixels) between stacked items. It is applied in the
+            direction of the StackLayout's Orientation.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Layout.StackLayoutState">
+            <summary>
+            Represents the state of a StackLayout.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Layout.UniformGridLayoutItemsJustification">
+            <summary>
+            Defines constants that specify how items are aligned on the non-scrolling or non-virtualizing axis.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.UniformGridLayoutItemsJustification.Start">
+            <summary>
+            Items are aligned with the start of the row or column, with extra space at the end.
+            Spacing between items does not change.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.UniformGridLayoutItemsJustification.Center">
+            <summary>
+            Items are aligned in the center of the row or column, with extra space at the start and
+            end. Spacing between items does not change.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.UniformGridLayoutItemsJustification.End">
+            <summary>
+            Items are aligned with the end of the row or column, with extra space at the start.
+            Spacing between items does not change.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.UniformGridLayoutItemsJustification.SpaceAround">
+            <summary>
+            Items are aligned so that extra space is added evenly before and after each item.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.UniformGridLayoutItemsJustification.SpaceBetween">
+            <summary>
+            Items are aligned so that extra space is added evenly between adjacent items. No space
+            is added at the start or end.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Layout.UniformGridLayoutItemsStretch">
+            <summary>
+            Defines constants that specify how items are sized to fill the available space.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.UniformGridLayoutItemsStretch.None">
+            <summary>
+            The item retains its natural size. Use of extra space is determined by the
+            <see cref="P:Avalonia.Layout.UniformGridLayout.ItemsJustification"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.UniformGridLayoutItemsStretch.Fill">
+            <summary>
+            The item is sized to fill the available space in the non-scrolling direction. Item size
+            in the scrolling direction is not changed.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.UniformGridLayoutItemsStretch.Uniform">
+            <summary>
+            The item is sized to both fill the available space in the non-scrolling direction and
+            maintain its aspect ratio.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Layout.UniformGridLayout">
+            <summary>
+            Positions elements sequentially from left to right or top to bottom in a wrapping layout.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.UniformGridLayout.ItemsJustificationProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Layout.UniformGridLayout.ItemsJustification"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.UniformGridLayout.ItemsStretchProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Layout.UniformGridLayout.ItemsStretch"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.UniformGridLayout.MinColumnSpacingProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Layout.UniformGridLayout.MinColumnSpacing"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.UniformGridLayout.MinItemHeightProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Layout.UniformGridLayout.MinItemHeight"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.UniformGridLayout.MinItemWidthProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Layout.UniformGridLayout.MinItemWidth"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.UniformGridLayout.MinRowSpacingProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Layout.UniformGridLayout.MinRowSpacing"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.UniformGridLayout.MaximumRowsOrColumnsProperty">
+            <summary>
+            Defines the <see cref="F:Avalonia.Layout.UniformGridLayout.MaximumRowsOrColumnsProperty"/> property.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.UniformGridLayout.OrientationProperty">
+            <summary>
+            Defines the <see cref="P:Avalonia.Layout.UniformGridLayout.Orientation"/> property.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Layout.UniformGridLayout.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Avalonia.Layout.UniformGridLayout"/> class.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.UniformGridLayout.ItemsJustification">
+            <summary>
+            Gets or sets a value that indicates how items are aligned on the non-scrolling or non-
+            virtualizing axis.
+            </summary>
+            <value>
+            An enumeration value that indicates how items are aligned. The default is Start.
+            </value>
+        </member>
+        <member name="P:Avalonia.Layout.UniformGridLayout.ItemsStretch">
+            <summary>
+            Gets or sets a value that indicates how items are sized to fill the available space.
+            </summary>
+            <value>
+            An enumeration value that indicates how items are sized to fill the available space.
+            The default is None.
+            </value>
+            <remarks>
+            This property enables adaptive layout behavior where the items are sized to fill the
+            available space along the non-scrolling axis, and optionally maintain their aspect ratio.
+            </remarks>
+        </member>
+        <member name="P:Avalonia.Layout.UniformGridLayout.MinColumnSpacing">
+            <summary>
+            Gets or sets the minimum space between items on the horizontal axis.
+            </summary>
+            <remarks>
+            The spacing may exceed this minimum value when <see cref="P:Avalonia.Layout.UniformGridLayout.ItemsJustification"/> is set
+            to SpaceEvenly, SpaceAround, or SpaceBetween.
+            </remarks>
+        </member>
+        <member name="P:Avalonia.Layout.UniformGridLayout.MinItemHeight">
+            <summary>
+            Gets or sets the minimum height of each item.
+            </summary>
+            <value>
+            The minimum height (in pixels) of each item. The default is NaN, in which case the
+            height of the first item is used as the minimum.
+            </value>
+        </member>
+        <member name="P:Avalonia.Layout.UniformGridLayout.MinItemWidth">
+            <summary>
+            Gets or sets the minimum width of each item.
+            </summary>
+            <value>
+            The minimum width (in pixels) of each item. The default is NaN, in which case the width
+            of the first item is used as the minimum.
+            </value>
+        </member>
+        <member name="P:Avalonia.Layout.UniformGridLayout.MinRowSpacing">
+            <summary>
+            Gets or sets the minimum space between items on the vertical axis.
+            </summary>
+            <remarks>
+            The spacing may exceed this minimum value when <see cref="P:Avalonia.Layout.UniformGridLayout.ItemsJustification"/> is set
+            to SpaceEvenly, SpaceAround, or SpaceBetween.
+            </remarks>
+        </member>
+        <member name="P:Avalonia.Layout.UniformGridLayout.MaximumRowsOrColumns">
+            <summary>
+            Gets or sets the maximum row or column count.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.UniformGridLayout.Orientation">
+            <summary>
+            Gets or sets the axis along which items are laid out.
+            </summary>
+            <value>
+            One of the enumeration values that specifies the axis along which items are laid out.
+            The default is Vertical.
+            </value>
+        </member>
+        <member name="T:Avalonia.Layout.UniformGridLayoutState">
+            <summary>
+            Represents the state of a <see cref="T:Avalonia.Layout.UniformGridLayout"/>.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Layout.VirtualizingLayout">
+            <summary>
+            Represents the base class for an object that sizes and arranges child elements for a host
+            and supports virtualization.
+            </summary>
+            <remarks>
+            <see cref="T:Avalonia.Layout.VirtualizingLayout"/> is the base class for layouts that support virtualization.
+            You can use one of the provided derived class, or inherit from it to create your own layout.
+            Provided concrete virtualizing layout classes are <see cref="T:Avalonia.Layout.StackLayout"/> and 
+            <see cref="T:Avalonia.Layout.UniformGridLayout"/>.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Layout.VirtualizingLayout.OnItemsChanged(Avalonia.Layout.VirtualizingLayoutContext,System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            Notifies the layout when the data collection assigned to the container element (Items)
+            has changed.
+            </summary>
+            <param name="context">
+            The context object that facilitates communication between the layout and its host
+            container.
+            </param>
+            <param name="source">The data source.</param>
+            <param name="args">Data about the collection change.</param>
+            <remarks>
+            Override <see cref="M:Avalonia.Layout.VirtualizingLayout.OnItemsChangedCore(Avalonia.Layout.VirtualizingLayoutContext,System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)"/>
+            to provide the behavior for this method in a derived class.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Layout.VirtualizingLayout.InitializeForContextCore(Avalonia.Layout.VirtualizingLayoutContext)">
+            <summary>
+            When overridden in a derived class, initializes any per-container state the layout
+            requires when it is attached to an ILayoutable container.
+            </summary>
+            <param name="context">
+            The context object that facilitates communication between the layout and its host
+            container.
+            </param>
+        </member>
+        <member name="M:Avalonia.Layout.VirtualizingLayout.UninitializeForContextCore(Avalonia.Layout.VirtualizingLayoutContext)">
+            <summary>
+            When overridden in a derived class, removes any state the layout previously stored on
+            the ILayoutable container.
+            </summary>
+            <param name="context">
+            The context object that facilitates communication between the layout and its host
+            container.
+            </param>
+        </member>
+        <member name="M:Avalonia.Layout.VirtualizingLayout.MeasureOverride(Avalonia.Layout.VirtualizingLayoutContext,Avalonia.Size)">
+            <summary>
+            Provides the behavior for the "Measure" pass of the layout cycle. Classes can override
+            this method to define their own "Measure" pass behavior.
+            </summary>
+            <param name="context">
+            The context object that facilitates communication between the layout and its host
+            container.
+            </param>
+            <param name="availableSize">
+            The available size that this object can give to child objects. Infinity can be
+            specified as a value to indicate that the object will size to whatever content is
+            available.
+            </param>
+            <returns>
+            The size that this object determines it needs during layout, based on its calculations
+            of the allocated sizes for child objects or based on other considerations such as a
+            fixed container size.
+            </returns>
+        </member>
+        <member name="M:Avalonia.Layout.VirtualizingLayout.ArrangeOverride(Avalonia.Layout.VirtualizingLayoutContext,Avalonia.Size)">
+            <summary>
+            When implemented in a derived class, provides the behavior for the "Arrange" pass of
+            layout. Classes can override this method to define their own "Arrange" pass behavior.
+            </summary>
+            <param name="context">
+            The context object that facilitates communication between the layout and its host
+            container.
+            </param>
+            <param name="finalSize">
+            The final area within the container that this object should use to arrange itself and
+            its children.
+            </param>
+            <returns>The actual size that is used after the element is arranged in layout.</returns>
+        </member>
+        <member name="M:Avalonia.Layout.VirtualizingLayout.OnItemsChangedCore(Avalonia.Layout.VirtualizingLayoutContext,System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            Notifies the layout when the data collection assigned to the container element (Items)
+            has changed.
+            </summary>
+            <param name="context">
+            The context object that facilitates communication between the layout and its host
+            container.
+            </param>
+            <param name="source">The data source.</param>
+            <param name="args">Data about the collection change.</param>
+        </member>
+        <member name="T:Avalonia.Layout.ElementRealizationOptions">
+            <summary>
+            Defines constants that specify whether to suppress automatic recycling of the retrieved
+            element or force creation of a new element.
+            </summary>
+            <remarks>
+            When you call <see cref="M:Avalonia.Layout.VirtualizingLayoutContext.GetOrCreateElementAt(System.Int32,Avalonia.Layout.ElementRealizationOptions)"/>,
+            you can specify whether to suppress automatic recycling of the retrieved element or force
+            creation of a new element. Elements retrieved with automatic recycling suppressed
+            (SuppressAutoRecycle) are ignored by the automatic recycling logic that clears realized
+            elements that were not retrieved as part of the current layout pass. You must explicitly
+            recycle these elements by passing them to the RecycleElement method to avoid memory leaks.
+            </remarks>
+        </member>
+        <member name="F:Avalonia.Layout.ElementRealizationOptions.None">
+            <summary>
+            No option is specified.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.ElementRealizationOptions.ForceCreate">
+            <summary>
+            Creation of a new element is forced.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.ElementRealizationOptions.SuppressAutoRecycle">
+            <summary>
+            The element is ignored by the automatic recycling logic.
+            </summary>
+        </member>
+        <member name="T:Avalonia.Layout.VirtualizingLayoutContext">
+            <summary>
+            Represents the base class for layout context types that support virtualization.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.VirtualizingLayoutContext.ItemCount">
+            <summary>
+            Gets the number of items in the data.
+            </summary>
+            <remarks>
+            This property gets the value returned by ItemCountCore, which must be implemented in
+            a derived class.
+            </remarks>
+        </member>
+        <member name="P:Avalonia.Layout.VirtualizingLayoutContext.LayoutOrigin">
+            <summary>
+            Gets or sets the origin point for the estimated content size.
+            </summary>
+            <remarks>
+            LayoutOrigin is used by virtualizing layouts that rely on estimations when determining
+            the size and position of content. It allows the layout to fix-up the estimated origin
+            of the content as it changes due to on-going estimation or potentially identifying the
+            actual size to use. For example, it’s possible that as a user is scrolling back to the
+            top of the content that the layout's estimates for the content size that it reports as
+            part of its MeasureOverride become increasingly accurate. If the predicted position of
+            the content does not already match the previously predicted position (for example, if
+            the size of the elements ends up being smaller than previously thought), then the
+            layout can indicate a new origin. The viewport provided to the layout on subsequent
+            passes will take into account the adjusted origin.
+            </remarks>
+        </member>
+        <member name="P:Avalonia.Layout.VirtualizingLayoutContext.RealizationRect">
+            <summary>
+            Gets an area that represents the viewport and buffer that the layout should fill with
+            realized elements.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.VirtualizingLayoutContext.RecommendedAnchorIndex">
+            <summary>
+            Gets the recommended index from which to start the generation and layout of elements.
+            </summary>
+            <remarks>
+            The recommended index might be the result of programmatically realizing an element and
+            requesting that it be brought into view. Or, it may be that a user drags the scrollbar
+            thumb so quickly that the new viewport and the viewport and buffer previously given to
+            the layout do not intersect, so a new index is suggested as the anchor from which to
+            generate and layout other elements.
+            </remarks>
+        </member>
+        <member name="P:Avalonia.Layout.VirtualizingLayoutContext.LayoutOriginCore">
+            <summary>
+            Implements the behavior of LayoutOrigin in a derived or custom VirtualizingLayoutContext.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.VirtualizingLayoutContext.RecommendedAnchorIndexCore">
+            <summary>
+            Implements the behavior for getting the return value of RecommendedAnchorIndex in a
+            derived or custom <see cref="T:Avalonia.Layout.VirtualizingLayoutContext"/>.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Layout.VirtualizingLayoutContext.GetItemAt(System.Int32)">
+            <summary>
+            Retrieves the data item in the source found at the specified index.
+            </summary>
+            <param name="index">The index of the data item to retrieve.</param>
+        </member>
+        <member name="M:Avalonia.Layout.VirtualizingLayoutContext.GetOrCreateElementAt(System.Int32)">
+            <summary>
+            Retrieves a UIElement that represents the data item in the source found at the
+            specified index. By default, if an element already exists, it is returned; otherwise,
+            a new element is created.
+            </summary>
+            <param name="index">The index of the data item to retrieve a UIElement for.</param>
+            <remarks>
+            This method calls <see cref="M:Avalonia.Layout.VirtualizingLayoutContext.GetOrCreateElementAtCore(System.Int32,Avalonia.Layout.ElementRealizationOptions)"/>
+            with options set to None. GetElementAtCore must be implemented in a derived class.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Layout.VirtualizingLayoutContext.GetOrCreateElementAt(System.Int32,Avalonia.Layout.ElementRealizationOptions)">
+            <summary>
+            Retrieves a UIElement that represents the data item in the source found at the
+            specified index using the specified options.
+            </summary>
+            <param name="index">The index of the data item to retrieve a UIElement for.</param>
+            <param name="options">
+            A value of <see cref="T:Avalonia.Layout.ElementRealizationOptions"/> that specifies whether to suppress
+            automatic recycling of the retrieved element or force creation of a new element.
+            </param>
+            <remarks>
+            This method calls <see cref="M:Avalonia.Layout.VirtualizingLayoutContext.GetOrCreateElementAtCore(System.Int32,Avalonia.Layout.ElementRealizationOptions)"/>,
+            which must be implemented in a derived class. When you request an element for the
+            specified index, you can optionally specify whether to suppress automatic recycling of
+            the retrieved element or force creation of a new element.Elements retrieved with
+            automatic recycling suppressed(SuppressAutoRecycle) are ignored by the automatic
+            recycling logic that clears realized elements that were not retrieved as part of the
+            current layout pass.You must explicitly recycle these elements by passing them to the
+            RecycleElement method to avoid memory leaks. These options are intended for more
+            advanced layouts that choose to explicitly manage the realization and recycling of
+            elements as a performance optimization.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Layout.VirtualizingLayoutContext.RecycleElement(Avalonia.Layout.ILayoutable)">
+            <summary>
+            Clears the specified UIElement and allows it to be either re-used or released.
+            </summary>
+            <param name="element">The element to clear.</param>
+            <remarks>
+            This method calls <see cref="M:Avalonia.Layout.VirtualizingLayoutContext.RecycleElementCore(Avalonia.Layout.ILayoutable)"/>, which must be implemented
+            in a derived class.
+            </remarks>
+        </member>
+        <member name="M:Avalonia.Layout.VirtualizingLayoutContext.ItemCountCore">
+            <summary>
+            When implemented in a derived class, retrieves the number of items in the data.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Layout.VirtualizingLayoutContext.GetItemAtCore(System.Int32)">
+            <summary>
+            When implemented in a derived class, retrieves the data item in the source found at the
+            specified index.
+            </summary>
+            <param name="index">The index of the data item to retrieve.</param>
+        </member>
+        <member name="M:Avalonia.Layout.VirtualizingLayoutContext.RealizationRectCore">
+            <summary>
+            When implemented in a derived class, retrieves an area that represents the viewport and
+            buffer that the layout should fill with realized elements.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Layout.VirtualizingLayoutContext.GetOrCreateElementAtCore(System.Int32,Avalonia.Layout.ElementRealizationOptions)">
+            <summary>
+            When implemented in a derived class, retrieves a UIElement that represents the data item
+            in the source found at the specified index using the specified options.
+            </summary>
+            <param name="index">The index of the data item to retrieve a UIElement for.</param>
+            <param name="options">
+            A value of <see cref="T:Avalonia.Layout.ElementRealizationOptions"/> that specifies whether to suppress
+            automatic recycling of the retrieved element or force creation of a new element.
+            </param>
+        </member>
+        <member name="M:Avalonia.Layout.VirtualizingLayoutContext.RecycleElementCore(Avalonia.Layout.ILayoutable)">
+            <summary>
+            When implemented in a derived class, clears the specified UIElement and allows it to be
+            either re-used or released.
+            </summary>
+            <param name="element">The element to clear.</param>
+        </member>
+        <member name="T:Avalonia.Layout.WrapLayout">
+            <summary>
+            Arranges elements by wrapping them to fit the available space.
+            When <see cref="P:Avalonia.Layout.WrapLayout.Orientation"/> is set to Orientation.Horizontal, element are arranged in rows until the available width is reached and then to a new row.
+            When <see cref="P:Avalonia.Layout.WrapLayout.Orientation"/> is set to Orientation.Vertical, element are arranged in columns until the available height is reached.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.WrapLayout.HorizontalSpacing">
+            <summary>
+            Gets or sets a uniform Horizontal distance (in pixels) between items when <see cref="P:Avalonia.Layout.WrapLayout.Orientation"/> is set to Horizontal,
+            or between columns of items when <see cref="P:Avalonia.Layout.WrapLayout.Orientation"/> is set to Vertical.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.WrapLayout.HorizontalSpacingProperty">
+            <summary>
+            Identifies the <see cref="P:Avalonia.Layout.WrapLayout.HorizontalSpacing"/> dependency property.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.WrapLayout.VerticalSpacing">
+            <summary>
+            Gets or sets a uniform Vertical distance (in pixels) between items when <see cref="P:Avalonia.Layout.WrapLayout.Orientation"/> is set to Vertical,
+            or between rows of items when <see cref="P:Avalonia.Layout.WrapLayout.Orientation"/> is set to Horizontal.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.WrapLayout.VerticalSpacingProperty">
+            <summary>
+            Identifies the <see cref="P:Avalonia.Layout.WrapLayout.VerticalSpacing"/> dependency property.
+            </summary>
+        </member>
+        <member name="P:Avalonia.Layout.WrapLayout.Orientation">
+            <summary>
+            Gets or sets the orientation of the WrapLayout.
+            Horizontal means that child controls will be added horizontally until the width of the panel is reached, then a new row is added to add new child controls.
+            Vertical means that children will be added vertically until the height of the panel is reached, then a new column is added.
+            </summary>
+        </member>
+        <member name="F:Avalonia.Layout.WrapLayout.OrientationProperty">
+            <summary>
+            Identifies the <see cref="P:Avalonia.Layout.WrapLayout.Orientation"/> dependency property.
+            </summary>
+        </member>
+        <member name="M:Avalonia.Layout.WrapLayout.InitializeForContextCore(Avalonia.Layout.VirtualizingLayoutContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Avalonia.Layout.WrapLayout.UninitializeForContextCore(Avalonia.Layout.VirtualizingLayoutContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Avalonia.Layout.WrapLayout.OnItemsChangedCore(Avalonia.Layout.VirtualizingLayoutContext,System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <inheritdoc />
+        </member>
+        <member name="M:Avalonia.Layout.WrapLayout.MeasureOverride(Avalonia.Layout.VirtualizingLayoutContext,Avalonia.Size)">
+            <inheritdoc />
+        </member>
+        <member name="M:Avalonia.Layout.WrapLayout.ArrangeOverride(Avalonia.Layout.VirtualizingLayoutContext,Avalonia.Size)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>
