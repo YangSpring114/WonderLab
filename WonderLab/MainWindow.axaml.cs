@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
+using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
 using Avalonia.Themes.Fluent;
@@ -8,10 +9,12 @@ using FluentAvalonia.Styling;
 using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Media;
 using GithubLib;
+using Natsurainko.Toolkits.Network.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,8 +25,11 @@ using WonderLab.Modules.Styles;
 using WonderLab.Modules.Toolkits;
 using WonderLab.ViewModels;
 using WonderLab.Views;
+using static WonderLab.ViewModels.OtherViewModel;
+using static WonderLab.ByDdggdd135.utils.StaticVar;
 using Brushes = Avalonia.Media.Brushes;
 using Color = Avalonia.Media.Color;
+using FluentAvalonia.UI.Media.Animation;
 
 namespace WonderLab
 {
@@ -129,7 +135,7 @@ namespace WonderLab
         private void MainWindow_Closed(object? sender, System.EventArgs e) => JsonToolkit.JsonWrite();
         public static string GetVersion()
         {
-            return "1.0.0.0";
+            return "1.0.1.1";
         }
         public static void AutoUpdata()
         {
@@ -140,7 +146,12 @@ namespace WonderLab
                 {
                     if (release.name != GetVersion())
                     {
-                        MainWindow.ShowInfoBarAsync("自动更新", "发现新版本" + release.name + "  当前版本" + GetVersion() + "  ", InfoBarSeverity.Informational);
+                        var button = new HyperlinkButton()
+                        {
+                            Content = "点击下载",
+                        };
+                        button.Click += Button_Click;
+                        ShowInfoBarAsync("自动更新", "发现新版本" + release.name + "  当前版本" + GetVersion() + "  ", InfoBarSeverity.Informational, 7000, button);
                     }
                 }
             }
@@ -149,6 +160,51 @@ namespace WonderLab
 
             };
         }
+
+        public static void Button_Click(object? sender, RoutedEventArgs e)
+        {
+            CanUpdata = false;
+            var res = Updata();
+            var button = new HyperlinkButton()
+            {
+                Content = "转至 祝福终端>任务中心"
+            };
+            button.Click += Button_Click1;
+            MainWindow.ShowInfoBarAsync("提示：", $"开始下载更新  更新内容:\n {res.body} \n\n推送者{res.author.login} \n 可前往任务中心查看进度", InfoBarSeverity.Informational, 8000, button);
+            string save = @"updata.zip";
+            if (Directory.Exists("updata-cache"))
+            {
+                File.Delete(Path.Combine("updata-cache", save));
+            }
+            string url = null;
+            foreach (var asset in res.assets)
+            {
+                if (asset.name == "Results.zip")
+                {
+                    url = asset.browser_download_url;
+                }
+            }
+            HttpDownloadRequest httpDownload = new HttpDownloadRequest();
+            httpDownload.Url = url;
+            httpDownload.FileName = save;
+            httpDownload.Directory = new DirectoryInfo("updata-cache");
+            DownItemView downItemView = new DownItemView(httpDownload, $"更新  {res.name} 下载", new AfterDo(After_Do));
+            TaskView.Add(downItemView);
+        }
+
+        private static void After_Do()
+        {
+            File.Create(Path.Combine("updata-cache", "UpdataNextTime")).Close();
+        }
+
+        public static void Button_Click1(object? sender, RoutedEventArgs e)
+        {
+            BlessingView.IsTask = true;
+            MainView.mv.FrameView.Navigate(typeof(BlessingView));
+            MainView.mv.main.IsSelected = true;
+            BlessingView.view.FrameView.Navigate(typeof(TaskView), null, new SlideNavigationTransitionInfo());
+        }
+
         protected override void OnOpened(EventArgs e)
         {
             base.OnOpened(e);

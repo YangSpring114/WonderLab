@@ -2307,6 +2307,16 @@
         "runtime": {
           "bin/placeholder/PluginLoader.dll": {}
         }
+      },
+      "Updata/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Updata.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Updata.dll": {}
+        }
       }
     },
     "net6.0/osx-x64": {
@@ -4731,6 +4741,16 @@
         },
         "runtime": {
           "bin/placeholder/PluginLoader.dll": {}
+        }
+      },
+      "Updata/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Updata.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Updata.dll": {}
         }
       }
     }
@@ -10657,6 +10677,11 @@
       "type": "project",
       "path": "../PluginLoader/PluginLoader.csproj",
       "msbuildProject": "../PluginLoader/PluginLoader.csproj"
+    },
+    "Updata/1.0.0": {
+      "type": "project",
+      "path": "../Updata/Updata.csproj",
+      "msbuildProject": "../Updata/Updata.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -10676,6 +10701,7 @@
       "Packaging.Targets >= 0.1.220-*",
       "PluginLoader >= 1.0.0",
       "ReactiveUI >= 18.4.1",
+      "Updata >= 1.0.0",
       "XamlNameReferenceGenerator >= 1.5.1"
     ]
   },
@@ -10719,6 +10745,9 @@
             },
             "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\PluginLoader\\PluginLoader.csproj": {
               "projectPath": "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\PluginLoader\\PluginLoader.csproj"
+            },
+            "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\Updata\\Updata.csproj": {
+              "projectPath": "C:\\Users\\Ddggd\\Desktop\\tmp\\WonderLab\\Updata\\Updata.csproj"
             }
           }
         }

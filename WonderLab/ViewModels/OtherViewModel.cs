@@ -13,6 +13,8 @@ using Downloader;
 using WonderLab.Views;
 using Natsurainko.Toolkits.Network.Model;
 using FluentAvalonia.UI.Controls;
+using FluentAvalonia.UI.Media.Animation;
+using static WonderLab.ByDdggdd135.utils.StaticVar;
 
 namespace WonderLab.ViewModels
 {
@@ -24,10 +26,17 @@ namespace WonderLab.ViewModels
             Release? release = GithubLib.GithubLib.GetRepoLatestRelease(releaseUrl);
             return release;
         }
+        public void Button_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            BlessingView.IsTask = true;
+            MainView.mv.FrameView.Navigate(typeof(BlessingView));
+            MainView.mv.main.IsSelected = true;
+            BlessingView.view.FrameView.Navigate(typeof(TaskView), null, new SlideNavigationTransitionInfo());
+        }
         public async Task Check()
         {
             var res = Updata();
-            if (ButtonContent == "检查更新")
+            if (ButtonContent == "检查更新" && CanUpdata)
             {
                 MainWindow.ShowInfoBarAsync("提示：", "开始检查更新");
                 if (res != null)
@@ -49,46 +58,42 @@ namespace WonderLab.ViewModels
                     MainWindow.ShowInfoBarAsync("错误：", "检查更新出错", FluentAvalonia.UI.Controls.InfoBarSeverity.Error);
                 }
             }
-            else
+            else if(ButtonContent == "立即更新" && CanUpdata)
             {
-                var button = new HyperlinkButton()
-                {
-                    Content = "转至 祝福终端>任务中心",
-                };
-                MainWindow.ShowInfoBarAsync("提示：", $"开始下载更新  更新内容:\n {res.body} \n\n推送者{res.author.login} \n 可前往任务中心查看进度", InfoBarSeverity.Informational, 8000, button);
-                string save = @"updata.zip";
-                File.Delete(Path.Combine(save, "updata-cache"));
-                string url = null;
-                foreach(var asset in res.assets)
-                {
-                    if(asset.name == "Results.zip")
-                    {
-                        url = asset.browser_download_url;
-                    }
-                }
-                HttpDownloadRequest httpDownload = new HttpDownloadRequest();
-                httpDownload.Url = url;
-                httpDownload.FileName = save;
-                httpDownload.Directory = new DirectoryInfo("updata-cache");
-                DownItemView downItemView = new DownItemView(httpDownload, $"更新  {res.name} 下载");
-                TaskView.Add(downItemView);
+                DownloadUpdata(res);
+                ButtonContent = "正在更新";
+                CanUpdata = false;
             }
         }
-        /// <summary>
-        /// 解压Zip文件到指定目录
-        /// </summary>
-        /// <param name="zipPath">zip地址</param>
-        /// <param name="folderPath">文件夹地址</param>
-        public static void DecompressZip(string zipPath, string folderPath)
+        public void DownloadUpdata(Release res)
         {
-            DirectoryInfo directoryInfo = new(folderPath);
-
-            if (!directoryInfo.Exists)
+            var button = new HyperlinkButton()
             {
-                directoryInfo.Create();
+                Content = "转至 祝福终端>任务中心",
+            };
+            button.Click += Button_Click;
+            MainWindow.ShowInfoBarAsync("提示：", $"开始下载更新  更新内容:\n {res.body} \n\n推送者{res.author.login} \n 可前往任务中心查看进度", InfoBarSeverity.Informational, 8000, button);
+            string save = @"updata.zip";
+            File.Delete(Path.Combine(save, "updata-cache"));
+            string url = null;
+            foreach (var asset in res.assets)
+            {
+                if (asset.name == "Results.zip")
+                {
+                    url = asset.browser_download_url;
+                }
             }
-
-            ZipFile.ExtractToDirectory(zipPath, folderPath);
+            HttpDownloadRequest httpDownload = new HttpDownloadRequest();
+            httpDownload.Url = url;
+            httpDownload.FileName = save;
+            httpDownload.Directory = new DirectoryInfo("updata-cache");
+            DownItemView downItemView = new DownItemView(httpDownload, $"更新  {res.name} 下载", new AfterDo(After_do));
+            TaskView.Add(downItemView);
+        }
+        public void After_do()
+        {
+            ButtonContent = "等待重启启动器";
+            File.Create(Path.Combine("updata-cache", "UpdataNextTime")).Close();
         }
     }
 

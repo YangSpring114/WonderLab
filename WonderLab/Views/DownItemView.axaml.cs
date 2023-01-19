@@ -21,6 +21,7 @@ using WonderLab.ViewModels;
 
 namespace WonderLab.Views
 {
+    public delegate void AfterDo();
     public partial class DownItemView : Page, ITask
     {
 
@@ -39,6 +40,11 @@ namespace WonderLab.Views
         public DownItemView(HttpDownloadRequest http, string TaskName)
         {
             InitializeComponent(http, TaskName);
+        }
+
+        public DownItemView(HttpDownloadRequest http, string TaskName, AfterDo AfterDo)
+        {
+            InitializeComponent(http, TaskName, AfterDo);
         }
 
         public DownItemView(List<ModLoaderInformationViewData> Id)
@@ -79,6 +85,12 @@ namespace WonderLab.Views
         {
             InitializeComponent(true);
             DataContext = new DownItemViewModel(Id, TaskName);
+        }
+
+        private void InitializeComponent(HttpDownloadRequest Id, string TaskName, AfterDo AfterDo)
+        {
+            InitializeComponent(true);
+            DataContext = new DownItemViewModel(Id, TaskName, AfterDo);
         }
 
         private void InitializeComponent(ModLoaderInformationViewData Id)

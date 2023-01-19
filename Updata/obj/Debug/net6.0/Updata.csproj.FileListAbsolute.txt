@@ -1,0 +1,15 @@
+C:\Users\Ddggd\Desktop\tmp\WonderLab\Updata\bin\Debug\net6.0\Updata.exe
+C:\Users\Ddggd\Desktop\tmp\WonderLab\Updata\bin\Debug\net6.0\Updata.deps.json
+C:\Users\Ddggd\Desktop\tmp\WonderLab\Updata\bin\Debug\net6.0\Updata.runtimeconfig.json
+C:\Users\Ddggd\Desktop\tmp\WonderLab\Updata\bin\Debug\net6.0\Updata.dll
+C:\Users\Ddggd\Desktop\tmp\WonderLab\Updata\bin\Debug\net6.0\Updata.pdb
+C:\Users\Ddggd\Desktop\tmp\WonderLab\Updata\obj\Debug\net6.0\Updata.csproj.AssemblyReference.cache
+C:\Users\Ddggd\Desktop\tmp\WonderLab\Updata\obj\Debug\net6.0\Updata.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ddggd\Desktop\tmp\WonderLab\Updata\obj\Debug\net6.0\Updata.AssemblyInfoInputs.cache
+C:\Users\Ddggd\Desktop\tmp\WonderLab\Updata\obj\Debug\net6.0\Updata.AssemblyInfo.cs
+C:\Users\Ddggd\Desktop\tmp\WonderLab\Updata\obj\Debug\net6.0\Updata.csproj.CoreCompileInputs.cache
+C:\Users\Ddggd\Desktop\tmp\WonderLab\Updata\obj\Debug\net6.0\Updata.dll
+C:\Users\Ddggd\Desktop\tmp\WonderLab\Updata\obj\Debug\net6.0\refint\Updata.dll
+C:\Users\Ddggd\Desktop\tmp\WonderLab\Updata\obj\Debug\net6.0\Updata.pdb
+C:\Users\Ddggd\Desktop\tmp\WonderLab\Updata\obj\Debug\net6.0\Updata.genruntimeconfig.cache
+C:\Users\Ddggd\Desktop\tmp\WonderLab\Updata\obj\Debug\net6.0\ref\Updata.dll

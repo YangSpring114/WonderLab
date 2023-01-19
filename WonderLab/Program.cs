@@ -3,6 +3,8 @@ using Avalonia.Logging;
 using Avalonia.ReactiveUI;
 using GithubLib;
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Text;
 
 namespace WonderLab
@@ -15,19 +17,12 @@ namespace WonderLab
         [STAThread]
         public static void Main(string[] args)
         {
-            string releaseUrl = GithubLib.GithubLib.GetRepoLatestReleaseUrl("Blessing-Studio", "WonderLab");
-            Release? release = null;
-            try
+            if(File.Exists(Path.Combine("updata-cache", "UpdataNextTime")))
             {
-                 release = GithubLib.GithubLib.GetRepoLatestRelease(releaseUrl);
-            }
-            catch (Exception _)
-            {
-
-            }
-            if(release != null)
-            {
-
+                Process pro = new Process();
+                pro.StartInfo.FileName = "updata.exe";
+                pro.Start();
+                return;
             }
             PluginLoader.PluginLoader.LoadAllFromPlugin();
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
