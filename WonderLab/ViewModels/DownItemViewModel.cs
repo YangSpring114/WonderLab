@@ -104,6 +104,46 @@ namespace WonderLab.ViewModels
             ModInstall(http);
         }
 
+        public DownItemViewModel(HttpDownloadRequest http, string TaskName)
+        {
+            HttpTask(http, TaskName);
+        }
+        private async void HttpTask(HttpDownloadRequest http, string taskName)
+        {
+            try
+            {
+                if (App.CurrentGameCore is not null)
+                {
+                    TaskTitle = taskName;
+                    Dispatcher.UIThread.Post(() => IsLoadOk = true);//先静等一下再开始下载，不然这sb进度条要炸
+                    await Task.Delay(2000);
+                    Dispatcher.UIThread.Post(() => IsLoadOk = false);
+                    FileLink = http.Url;
+                    IsFileLinkVisible = true;
+                    var res = await HttpWrapper.HttpDownloadAsync(http, (p, s) =>
+                    {
+                        Dispatcher.UIThread.Post(() => TaskProgress = p);
+                        Dispatcher.UIThread.Post(() =>
+                        {
+                            LittleTaskProgress = s;
+                            MainTaskProgress = s;
+                        });
+                    });
+
+                    if (res.HttpStatusCode is HttpStatusCode.OK || res.FileInfo.Exists)
+                    {
+                        LittleTaskProgress = "下载完成";
+                        MainTaskProgress = "已完成";
+                        Dispatcher.UIThread.Post(() => TaskProgress = 1);
+                        IsFileOpenVisible = true;
+                        FilePath = res.FileInfo.Directory.FullName;
+                    }
+                }
+            }
+            catch { }
+            MainView.ViewModel.AllTaskCount--;
+        }
+
         public DownItemViewModel(string http)
         {
             JavaInstall(http);

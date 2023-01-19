@@ -36,6 +36,11 @@ namespace WonderLab.Views
             InitializeComponent(http);
         }
 
+        public DownItemView(HttpDownloadRequest http, string TaskName)
+        {
+            InitializeComponent(http, TaskName);
+        }
+
         public DownItemView(List<ModLoaderInformationViewData> Id)
         {
             InitializeComponent(Id);
@@ -68,6 +73,12 @@ namespace WonderLab.Views
         {
             InitializeComponent(true);
             DataContext = new DownItemViewModel(Id);
+        }
+
+        private void InitializeComponent(HttpDownloadRequest Id, string TaskName)
+        {
+            InitializeComponent(true);
+            DataContext = new DownItemViewModel(Id, TaskName);
         }
 
         private void InitializeComponent(ModLoaderInformationViewData Id)

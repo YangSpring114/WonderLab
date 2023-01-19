@@ -10,6 +10,9 @@ using System.Net;
 using System.IO;
 using System.IO.Compression;
 using Downloader;
+using WonderLab.Views;
+using Natsurainko.Toolkits.Network.Model;
+using FluentAvalonia.UI.Controls;
 
 namespace WonderLab.ViewModels
 {
@@ -48,9 +51,13 @@ namespace WonderLab.ViewModels
             }
             else
             {
-                MainWindow.ShowInfoBarAsync("提示：", $"开始下载更新  更新内容:\n {res.body} \n\n推送者{res.author.login}");
+                var button = new HyperlinkButton()
+                {
+                    Content = "转至 祝福终端>任务中心",
+                };
+                MainWindow.ShowInfoBarAsync("提示：", $"开始下载更新  更新内容:\n {res.body} \n\n推送者{res.author.login} \n 可前往任务中心查看进度", InfoBarSeverity.Informational, 8000, button);
                 string save = @"updata.zip";
-                File.Delete(save);
+                File.Delete(Path.Combine(save, "updata-cache"));
                 string url = null;
                 foreach(var asset in res.assets)
                 {
@@ -59,18 +66,12 @@ namespace WonderLab.ViewModels
                         url = asset.browser_download_url;
                     }
                 }
-                var downloadOpt = new DownloadConfiguration()
-                {
-                    BufferBlockSize = 10240, // 通常，主机最大支持8000字节，默认值为8000。
-                    ChunkCount = 8, // 要下载的文件分片数量，默认值为1
-                    MaxTryAgainOnFailover = 4, // 失败的最大次数
-                    ParallelDownload = true, // 下载文件是否为并行的。默认值为false
-                    Timeout = 3000, // 每个 stream reader  的超时（毫秒），默认值是1000
-                };
-                var downloader = new DownloadService(downloadOpt);
-                await downloader.DownloadFileTaskAsync(url, save);
-                DecompressZip("updata.zip", "updata-cache");
-                MainWindow.ShowInfoBarAsync("提示：", "下载更新完成 重启启动器以更新", FluentAvalonia.UI.Controls.InfoBarSeverity.Success);
+                HttpDownloadRequest httpDownload = new HttpDownloadRequest();
+                httpDownload.Url = url;
+                httpDownload.FileName = save;
+                httpDownload.Directory = new DirectoryInfo("updata-cache");
+                DownItemView downItemView = new DownItemView(httpDownload, $"更新  {res.name} 下载");
+                TaskView.Add(downItemView);
             }
         }
         /// <summary>
