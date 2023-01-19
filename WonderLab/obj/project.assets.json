@@ -765,10 +765,10 @@
           "lib/net6.0/MinecaftOAuth.dll": {}
         }
       },
-      "Natsurainko.FluentCore/2.0.3": {
+      "Natsurainko.FluentCore/2.0.2": {
         "type": "package",
         "dependencies": {
-          "Natsurainko.Toolkits": "1.0.3",
+          "Natsurainko.Toolkits": "1.0.2",
           "Newtonsoft.Json": "13.0.1",
           "System.Threading.Tasks.Dataflow": "6.0.0"
         },
@@ -779,7 +779,7 @@
           "lib/net6.0/Natsurainko.FluentCore.dll": {}
         }
       },
-      "Natsurainko.Toolkits/1.0.3": {
+      "Natsurainko.Toolkits/1.0.2": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "13.0.1",
@@ -3016,10 +3016,10 @@
           "lib/net6.0/MinecaftOAuth.dll": {}
         }
       },
-      "Natsurainko.FluentCore/2.0.3": {
+      "Natsurainko.FluentCore/2.0.2": {
         "type": "package",
         "dependencies": {
-          "Natsurainko.Toolkits": "1.0.3",
+          "Natsurainko.Toolkits": "1.0.2",
           "Newtonsoft.Json": "13.0.1",
           "System.Threading.Tasks.Dataflow": "6.0.0"
         },
@@ -3030,7 +3030,7 @@
           "lib/net6.0/Natsurainko.FluentCore.dll": {}
         }
       },
-      "Natsurainko.Toolkits/1.0.3": {
+      "Natsurainko.Toolkits/1.0.2": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "13.0.1",
@@ -5870,29 +5870,29 @@
         "minecraftoauth.nuspec"
       ]
     },
-    "Natsurainko.FluentCore/2.0.3": {
-      "sha512": "flUeU2JsUQ7BwRusffPLdFN8q5Gniu7e9aFPbkZcHdpZNz7F16HBXvkFqA7zervaXBiPWwaVu5lo1A+f+OHZWg==",
+    "Natsurainko.FluentCore/2.0.2": {
+      "sha512": "JvD6mO7W+4yVIz0ZB3nLU5wOhL6tMcSieFPwoZHYJYemz5XxdogWDxvNSPff42XB4BgKJ5A1rI3ZQi5LVRW9gw==",
       "type": "package",
-      "path": "natsurainko.fluentcore/2.0.3",
+      "path": "natsurainko.fluentcore/2.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
         "lib/net6.0/Natsurainko.FluentCore.dll",
         "lib/netstandard2.0/Natsurainko.FluentCore.dll",
-        "natsurainko.fluentcore.2.0.3.nupkg.sha512",
+        "natsurainko.fluentcore.2.0.2.nupkg.sha512",
         "natsurainko.fluentcore.nuspec"
       ]
     },
-    "Natsurainko.Toolkits/1.0.3": {
-      "sha512": "VJUh2Zs3BxkMbVpZ0lKBXJA2hxFFmyqLaL8y7Qs8CCYsK4QdKxjt5hBKbwapxSaaDXocsy0/bLr6ZOw6pNXJEg==",
+    "Natsurainko.Toolkits/1.0.2": {
+      "sha512": "AuHxfQDqa4ARNyaibdCGRkLNFwVpLbW0/k8nW92hfLR96Pi4JvkOWtOLimkDcRfuc5LDUKV4wk4Yj1vnDoTpCA==",
       "type": "package",
-      "path": "natsurainko.toolkits/1.0.3",
+      "path": "natsurainko.toolkits/1.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/Natsurainko.Toolkits.dll",
-        "natsurainko.toolkits.1.0.3.nupkg.sha512",
+        "natsurainko.toolkits.1.0.2.nupkg.sha512",
         "natsurainko.toolkits.nuspec"
       ]
     },
@@ -10671,7 +10671,7 @@
       "FluentAvaloniaUI >= 1.4.5",
       "GithubLib >= 1.0.0",
       "MinecraftOAuth >= 1.8.0-preview",
-      "Natsurainko.FluentCore >= 2.0.3",
+      "Natsurainko.FluentCore >= 2.0.2",
       "Newtonsoft.Json >= 13.0.2",
       "Packaging.Targets >= 0.1.220-*",
       "PluginLoader >= 1.0.0",
@@ -10769,7 +10769,7 @@
           },
           "Natsurainko.FluentCore": {
             "target": "Package",
-            "version": "[2.0.3, )"
+            "version": "[2.0.2, )"
           },
           "Newtonsoft.Json": {
             "target": "Package",
