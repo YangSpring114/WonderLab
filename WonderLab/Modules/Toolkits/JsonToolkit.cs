@@ -54,8 +54,8 @@ namespace WonderLab.Modules.Toolkits
         }
 
         public static void CreaftGameInfoJson(string root, GameCore core)
-        {
-            var v = PathConst.GetVersionFolder(root, core.Id) + $"\\info.json";
+        {            
+            var v = Path.Combine(PathConst.GetVersionFolder(root, core.Id), "info.json");
             var data = new GameDataModels()
             {
                 LastLaunchTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"),
@@ -84,7 +84,7 @@ namespace WonderLab.Modules.Toolkits
             if (Directory.Exists(folder))
                 Directory.CreateDirectory(folder);
 
-            var v = folder + $"\\info.json";
+            var v = Path.Combine(folder, "info.json");
             var data = new GameDataModels()
             {
                 IsEnableIndependencyCore = IsEnableIndependencycore
@@ -100,7 +100,7 @@ namespace WonderLab.Modules.Toolkits
             if (Directory.Exists(folder))
                 Directory.CreateDirectory(folder);
 
-            var v = folder + $"\\info.json";
+            var v = Path.Combine(folder, "info.json");
             var data = new GameDataModels()
             {
                 IsEnableIndependencyCore = IsEnableIndependencycore
@@ -111,13 +111,13 @@ namespace WonderLab.Modules.Toolkits
 
         public static void WriteEnableIndependencyCoreInfoJson(string root, GameCore core, GameDataModels models)
         {
-            var v = PathConst.GetVersionFolder(root, core.Id) + $"\\info.json";
+            var v = Path.Combine(PathConst.GetVersionFolder(root, core.Id), "info.json");
             File.WriteAllText(v, models.ToJson());
         }
 
         public static string GetTimeInfoJson(string root, GameCore core)
         {
-            var jsonpath = PathConst.GetVersionFolder(root, core.Id) + $"\\info.json";
+            var jsonpath = Path.Combine(PathConst.GetVersionFolder(root, core.Id), "info.json");
             if (File.Exists(jsonpath))
             {
                 var json = File.ReadAllText(jsonpath);
@@ -129,7 +129,7 @@ namespace WonderLab.Modules.Toolkits
 
         public static GameDataModels GetEnableIndependencyCoreData(string root, GameCore core)
         {
-            var jsonpath = PathConst.GetVersionFolder(root, core.Id) + $"\\info.json";
+            var jsonpath = Path.Combine(PathConst.GetVersionFolder(root, core.Id), "info.json");
             if (File.Exists(jsonpath))
             {
                 var json = File.ReadAllText(jsonpath);
@@ -141,7 +141,7 @@ namespace WonderLab.Modules.Toolkits
 
         public static (string,DateTime) GetTimeInfoJsons(string root, GameCore core)
         {
-            var jsonpath = PathConst.GetVersionFolder(root, core.Id) + $"\\info.json";
+            var jsonpath = Path.Combine(PathConst.GetVersionFolder(root, core.Id), "info.json");
             if (File.Exists(jsonpath))
             {
                 var json = File.ReadAllText(jsonpath);
