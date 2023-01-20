@@ -21,25 +21,6 @@ namespace WonderLab.ViewModels
     {
         public async Task Check()
         {
-            try
-            {
-                await Task.Run(() =>
-                {
-                    string releaseUrl = GithubLib.GithubLib.GetRepoLatestReleaseUrl("Blessing-Studio", "WonderLab");
-                    Release? release = GithubLib.GithubLib.GetRepoLatestRelease(releaseUrl);
-                    if (release != null)
-                    {
-                        if (release.name != GetVersion())
-                        {
-                            ShowInfoBarAsync("自动更新", "发现新版本" + release.name + "  当前版本" + GetVersion() + "  ", InfoBarSeverity.Informational, 7000);
-                        }
-                    }
-                });
-            }
-            finally
-            {
-
-            }
             await Task.Run(async () =>
             {
                 IsCheckVersion = true;

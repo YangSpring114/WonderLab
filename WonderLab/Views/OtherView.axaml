@@ -14,8 +14,9 @@
 					<ui:SymbolIcon Symbol="AlignLeftFilled"/>
 				</card:OptionsDisplayItem.Icon>-->
 				<card:OptionsDisplayItem.ActionButton>
-					<StackPanel Orientation="Horizontal" Spacing="10">
-						<ProgressBar Classes="Circle" IsIndeterminate="{Binding IsCheckVersion}" Height="25" Width="25"/>
+					<StackPanel Orientation="Horizontal" Spacing="15">
+						<ProgressBar Classes="Circle" IsIndeterminate="{Binding IsCheckVersion}"
+									 Height="22" Width="22"/>
 						<Button Command="{Binding Check}" Content="{Binding ButtonContent}"/>
 					</StackPanel>
 				</card:OptionsDisplayItem.ActionButton>

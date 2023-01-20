@@ -394,7 +394,6 @@ namespace WonderLab
             //var faTheme = AvaloniaLocator.Current.GetService<FluentTheme>();
             //faTheme.Mode = FluentThemeMode.Light;
             d.Click += D_Click;
-            AutoUpdata();
         }
     }
 
