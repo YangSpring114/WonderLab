@@ -288,15 +288,7 @@ namespace WonderLab
                     width = 400;
                 }
             }
-<<<<<<< HEAD
-=======
-<<<<<<< Updated upstream
             AutoUpdata();
-=======
-            //AutoUpdata();
-
->>>>>>> Stashed changes
->>>>>>> ce83b5ace99935a27d7cfb6f1d1d7f04d36de7fb
         }
 
         private void OnRequestedThemeChanged(FluentAvaloniaTheme sender, RequestedThemeChangedEventArgs args)
