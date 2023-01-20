@@ -11,9 +11,9 @@ namespace Updataer
             {
                 //去除文件夹和子文件的只读属性
                 //去除文件夹的只读属性
-                System.IO.DirectoryInfo fileInfo = new DirectoryInfo(folderPath);
+                DirectoryInfo fileInfo = new DirectoryInfo(folderPath);
                 fileInfo.Attributes = FileAttributes.Normal & FileAttributes.Directory;
-                System.IO.File.SetAttributes(folderPath, System.IO.FileAttributes.Normal);  //去除文件的只读属性
+                File.SetAttributes(folderPath, FileAttributes.Normal);  //去除文件的只读属性
                 if (Directory.Exists(folderPath))
                 {
                     foreach (string f in Directory.GetFileSystemEntries(folderPath))
@@ -56,11 +56,10 @@ namespace Updataer
             try
             {
                 //Declare a temporary path to unzip your files
-                deleteUploadOaFolder(folderPath);
-                string tempPath = Path.Combine(Directory.GetCurrentDirectory(), "tempUnzip");
-                string extractPath = Directory.GetCurrentDirectory();
+                string tempPath = Path.Combine(Path.GetTempPath(), "tempUnzip");
+                string extractPath = folderPath;
                 ZipFile.ExtractToDirectory(zipPath, tempPath);
-
+                deleteUploadOaFolder(folderPath);
                 //build an array of the unzipped files
                 string[] files = Directory.GetFiles(tempPath);
 
@@ -78,8 +77,7 @@ namespace Updataer
                         File.Move(f.FullName, Path.Combine(extractPath, f.Name));
                     }
                 }
-                //Delete the temporary directory.
-                Directory.Delete(tempPath);
+                deleteUploadOaFolder(tempPath);
             }
             catch (Exception)
             {
