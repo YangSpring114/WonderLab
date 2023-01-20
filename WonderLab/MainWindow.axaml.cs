@@ -288,6 +288,7 @@ namespace WonderLab
                     width = 400;
                 }
             }
+            AutoUpdata();
         }
 
         private void OnRequestedThemeChanged(FluentAvaloniaTheme sender, RequestedThemeChangedEventArgs args)
