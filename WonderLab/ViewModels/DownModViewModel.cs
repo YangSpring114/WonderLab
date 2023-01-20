@@ -62,7 +62,6 @@ namespace WonderLab.ViewModels
                     return ModLoaderType.LiteLoader;
                 default:
                     return ModLoaderType.Any;
-                    break;
             }
         }
 

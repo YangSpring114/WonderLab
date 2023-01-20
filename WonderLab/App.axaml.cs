@@ -75,7 +75,8 @@ namespace WonderLab
                 {
                     //Java
                     Data.JavaList = Data.JavaList.Distinct().ToList();
-                    Data.JavaList.ForEach(x => 
+                    var tmp = Data.JavaList;
+                    tmp.ForEach(x => 
                     {
                         if (!File.Exists(x))
                             Data.JavaList.Remove(x);
