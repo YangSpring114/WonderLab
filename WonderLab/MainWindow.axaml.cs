@@ -130,7 +130,7 @@ namespace WonderLab
         private void MainWindow_Closed(object? sender, System.EventArgs e) => JsonToolkit.JsonWrite();
         public static string GetVersion()
         {
-            return "Build 1.0.1.3";
+            return "Build 1.0.1.4";
         }
         public static void AutoUpdata()
         {
