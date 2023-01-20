@@ -20,7 +20,7 @@
 	</UserControl.Resources>
 	<ScrollViewer>
 		<StackPanel Margin="20">
-			<ui:ContentDialog x:Name="JavaInstallDialog" Classes="WinUiPro">
+			<ui:ContentDialog IsVisible="False" x:Name="JavaInstallDialog" Classes="WinUiPro">
 				<ui:ContentDialog.Content>
 					<Grid Width="450">
 						<Grid.RowDefinitions>

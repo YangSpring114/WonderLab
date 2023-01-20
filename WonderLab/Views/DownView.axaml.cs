@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using FluentAvalonia.UI.Controls;
+using System.Threading.Tasks;
 using WonderLab.Modules.Controls;
 using WonderLab.Modules.Toolkits;
 using WonderLab.ViewModels;
@@ -20,9 +21,16 @@ namespace WonderLab.Views
         private void InitializeComponent()
         {
             InitializeComponent(true);
+            Initialized += DownView_Initialized;
             DataContext = ViewModel;
             JavaInstallDialog.DataContext = ViewModel;
             JavaInstall.PointerPressed += JavaInstall_PointerPressed;
+        }
+
+        private async void DownView_Initialized(object? sender, System.EventArgs e)
+        {
+            await Task.Delay(500);
+            JavaInstallDialog.IsVisible = true;
         }
 
         private async void JavaInstall_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e) => await JavaInstallDialog.ShowAsync();

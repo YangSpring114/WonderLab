@@ -54,7 +54,7 @@ namespace WonderLab
             BackgroundWorker worker = new();
             worker.DoWork += async (_, _) =>
             {
-                await WebToolkit.VersionCheckAsync();
+                //await WebToolkit.VersionCheckAsync();
                 if (!File.Exists(PathConst.DownloaderPath))
                 {
                     //resm:WonderLab.Resources.WonderLab.Desktop.exe
