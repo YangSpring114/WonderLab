@@ -18,25 +18,15 @@ namespace WonderLab
         [STAThread]
         public static void Main(string[] args)
         {
-            //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            //{
-            //    if (File.Exists(Path.Combine("updata-cache", "UpdataNextTime")))
-            //    {
-            //        Process pro = new Process();
-            //        pro.StartInfo.FileName = "Updata.exe";
-            //        pro.Start();
-            //        return;
-            //    }
-            //}
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                //if (File.Exists(Path.Combine("updata-cache", "UpdataNextTime")))
-                //{
-                //    Process pro = new Process();
-                //    pro.StartInfo.FileName = "Updata.exe";
-                //    pro.Start();
-                //    return;
-                //}
+                if (File.Exists(Path.Combine("updata-cache", "UpdataNextTime")))
+                {
+                    Process pro = new Process();
+                    pro.StartInfo.FileName = "Updata.exe";
+                    pro.Start();
+                    return;
+                }
             }
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             BuildAvaloniaApp()
