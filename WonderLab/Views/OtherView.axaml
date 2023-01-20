@@ -38,32 +38,6 @@
 			</card:OptionsDisplayItem>
 
 			<card:OptionsDisplayItem Expands="True" Margin="10,15,10,0" Header="Blessing Studio" Description="本启动器的开发团队">
-<<<<<<< Updated upstream
-					<!--<card:OptionsDisplayItem.Icon>
-					<ui:SymbolIcon Symbol="People"/>
-				</card:OptionsDisplayItem.Icon>-->
-					<card:OptionsDisplayItem.Content>
-						<StackPanel Orientation="Vertical" Spacing="10">
-							<StackPanel Orientation="Horizontal" Spacing="50">
-								<TextBlock Text="前端开发"/>
-								<TextBlock Text="西路Baka"/>
-							</StackPanel>
-							<StackPanel Orientation="Horizontal" Spacing="50">
-								<TextBlock Text="后端开发"/>
-								<TextBlock Text="Ddggdd135、[mailset@arch ~ ]$"/>
-							</StackPanel>
-							<StackPanel Orientation="Horizontal" Spacing="35">
-								<TextBlock Text="跨平台编译"/>
-								<TextBlock Text="[mailset@arch ~ ]$"/>
-							</StackPanel>
-							<StackPanel Orientation="Horizontal" Spacing="60">
-								<TextBlock Text="UI 审查"/>
-								<TextBlock Text="Starcloudsea"/>
-							</StackPanel>
-						</StackPanel>
-					</card:OptionsDisplayItem.Content>
-				</card:OptionsDisplayItem>
-=======
 				<!--<card:OptionsDisplayItem.Icon>
 					<ui:SymbolIcon Symbol="People"/>
 				</card:OptionsDisplayItem.Icon>-->
@@ -88,7 +62,6 @@
 					</StackPanel>
 				</card:OptionsDisplayItem.Content>
 			</card:OptionsDisplayItem>
->>>>>>> Stashed changes
 
 				<card:OptionsDisplayItem Expands="True" Margin="10,15,10,0" Header="特别鸣谢" Description="感谢所有为本启动器开发提供帮助的大佬">
 				<!--<card:OptionsDisplayItem.Icon>

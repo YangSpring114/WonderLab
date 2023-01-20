@@ -21,7 +21,6 @@ namespace WonderLab.ViewModels
     {
         public async Task Check()
         {
-<<<<<<< Updated upstream
             try
             {
                 await Task.Run(() =>
@@ -41,7 +40,6 @@ namespace WonderLab.ViewModels
             {
 
             }
-=======
             await Task.Run(async () =>
             {
                 IsCheckVersion = true;
@@ -57,7 +55,6 @@ namespace WonderLab.ViewModels
                 //    }
                 //}
             });
->>>>>>> Stashed changes
         }
     }
 
