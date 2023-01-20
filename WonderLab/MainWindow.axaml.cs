@@ -131,7 +131,7 @@ namespace WonderLab
         private void MainWindow_Closed(object? sender, System.EventArgs e) => JsonToolkit.JsonWrite();
         public static string GetVersion()
         {
-            return "1.0.1.2";
+            return "1.0.1.3";
         }
         public static void AutoUpdata()
         {
@@ -289,7 +289,6 @@ namespace WonderLab
                     width = 400;
                 }
             }
-            AutoUpdata();
         }
 
         private void OnRequestedThemeChanged(FluentAvaloniaTheme sender, RequestedThemeChangedEventArgs args)
@@ -396,6 +395,7 @@ namespace WonderLab
             //var faTheme = AvaloniaLocator.Current.GetService<FluentTheme>();
             //faTheme.Mode = FluentThemeMode.Light;
             d.Click += D_Click;
+            AutoUpdata();
         }
     }
 

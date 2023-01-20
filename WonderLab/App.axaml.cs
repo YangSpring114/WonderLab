@@ -119,8 +119,12 @@ namespace WonderLab
                     {
                         InfoConst.ModLangDatas = new();
                     }
-                    model.ForEach(x => InfoConst.ModLangDatas.Add(x.CurseForgeId, x));
-
+                    model.ForEach(x => {
+                        if (x.CurseForgeId != null)
+                        {
+                            InfoConst.ModLangDatas.Add(x.CurseForgeId, x);
+                        }
+                        });
                     InfoConst.ModLangDatas.Values.ToList().ForEach(x =>
                     {
                         if (x.Chinese.Contains("*"))

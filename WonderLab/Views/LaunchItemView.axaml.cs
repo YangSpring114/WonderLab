@@ -156,7 +156,104 @@ namespace WonderLab.Views
                 #region 综合设置
                 var locator = new GameCoreToolkit(Path is "" ? App.Data.FooterPath : Path);
                 var res = JsonToolkit.GetEnableIndependencyCoreData(App.Data.FooterPath,locator.GetGameCore(version).ToNatsurainkoGameCore());
-                settings.JvmConfig = new(App.Data.JavaPath)
+                var JavaPath = App.Data.JavaPath;
+                string? realVersion = locator.GetGameCore(version).InheritsFrom;
+                if(realVersion == null)
+                {
+                    realVersion = locator.GetGameCore(version).Source;
+                }
+                VersionInfo versionInfo = McVersionLib.GetVersionInfo(realVersion);
+                if(versionInfo.HeadVersion == 1 && versionInfo.MidVersion < 17 && RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    foreach(string javaPath in App.Data.JavaList)
+                    {
+                        FileInfo fileInfo = new(javaPath);
+                        var tmp = Modules.Toolkits.JavaToolkit.GetJavaInfo(fileInfo.Directory.FullName);
+                        if (tmp != null)
+                        {
+                            var javaversion = tmp.JavaVersion;
+                            if(javaversion.Contains("1.8"))
+                            {
+                                JavaPath = javaPath;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (versionInfo.HeadVersion == 1 && versionInfo.MidVersion == 17 && RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    bool needToFind18 = true;
+                    foreach (string javaPath in App.Data.JavaList)
+                    {
+                        FileInfo fileInfo = new(javaPath);
+                        var tmp = Modules.Toolkits.JavaToolkit.GetJavaInfo(fileInfo.Directory.FullName);
+                        if (tmp != null)
+                        {
+                            var javaversion = tmp.JavaVersion;
+                            if (javaversion.Contains("17"))
+                            {
+                                JavaPath = javaPath;
+                                needToFind18 = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (needToFind18)
+                    {
+                        foreach (string javaPath in App.Data.JavaList)
+                        {
+                            FileInfo fileInfo = new(javaPath);
+                            var tmp = Modules.Toolkits.JavaToolkit.GetJavaInfo(fileInfo.Directory.FullName);
+                            if (tmp != null)
+                            {
+                                var javaversion = tmp.JavaVersion;
+                                if (javaversion.Contains("18"))
+                                {
+                                    JavaPath = javaPath;
+                                    needToFind18 = false;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (versionInfo.HeadVersion == 1 && versionInfo.MidVersion > 17 && RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    bool needToFind17 = true;
+                    foreach (string javaPath in App.Data.JavaList)
+                    {
+                        FileInfo fileInfo = new(javaPath);
+                        var tmp = Modules.Toolkits.JavaToolkit.GetJavaInfo(fileInfo.Directory.FullName);
+                        if (tmp != null)
+                        {
+                            var javaversion = tmp.JavaVersion;
+                            if (javaversion.Contains("18"))
+                            {
+                                JavaPath = javaPath;
+                                needToFind17 = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (needToFind17)
+                    {
+                        foreach (string javaPath in App.Data.JavaList)
+                        {
+                            FileInfo fileInfo = new(javaPath);
+                            var tmp = Modules.Toolkits.JavaToolkit.GetJavaInfo(fileInfo.Directory.FullName);
+                            if (tmp != null)
+                            {
+                                var javaversion = tmp.JavaVersion;
+                                if (javaversion.Contains("17"))
+                                {
+                                    JavaPath = javaPath;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                settings.JvmConfig = new(JavaPath)
                 {
                     MaxMemory = App.Data.Max,
                     AdvancedArguments = new List<string>() { App.Data.Jvm, IsYgg },
