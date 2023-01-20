@@ -5,6 +5,7 @@ using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Shapes;
 using Avalonia.Media;
+using FluentAvalonia.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,8 @@ using System.Reactive.Disposables;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using WonderLab.Modules.Const;
+using Button = Avalonia.Controls.Button;
 
 namespace WonderLab.Modules.Controls
 {
@@ -99,14 +102,19 @@ namespace WonderLab.Modules.Controls
 
         public virtual void OnClose()
         {
-            HostWindow?.Close();
+            if (InfoConst.IsWindows || InfoConst.IsLinux)
+                HostWindow?.Close();
+            else if (InfoConst.IsMacOS)
+                HostWindow?.Hide();
         }
-        
+
         public virtual void OnRestore()
         {
             if (HostWindow != null)
             {
-                HostWindow.WindowState = HostWindow.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+                if (InfoConst.IsWindows || InfoConst.IsLinux)
+                    HostWindow.WindowState = HostWindow.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+                else if (InfoConst.IsMacOS) HostWindow.WindowState = WindowState.FullScreen;
             }
 
             if (HostWindow.WindowState is WindowState.Maximized)
@@ -129,7 +137,8 @@ namespace WonderLab.Modules.Controls
             closebutton = e.NameScope.Get<Button>("Close");
             maxbutton = e.NameScope.Get<Button>("Max");
             minibutton = e.NameScope.Get<Button>("Mini");
-            _RestoreButtonPath = e.NameScope.Get<Path>("RestoreButtonPath");
+            if (InfoConst.IsWindows)
+                _RestoreButtonPath = e.NameScope.Get<Path>("RestoreButtonPath");
             closebutton.Click += Closebutton_Click;
             minibutton.Click += Minibutton_Click;
             maxbutton.Click += Maxbutton_Click;
@@ -141,7 +150,7 @@ namespace WonderLab.Modules.Controls
 
         private void HostWindow_PropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
         {
-            if (e.Property.Name is "WindowState")
+            if (e.Property.Name is "WindowState" && InfoConst.IsWindows)
             {
                 if (((WindowState)e.NewValue) is WindowState.Maximized)
                     _RestoreButtonPath.Data = StreamGeometry.Parse("M2048 410h-410v-410h-1638v1638h410v410h1638v-1638zM1434 1434h-1229v-1229h1229v1229zM1843 1843h-1229v-205h1024v-1024h205v1229z");

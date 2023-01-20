@@ -158,7 +158,7 @@
 				</ui:ContentDialog.Content>
 			</ui:ContentDialog>
 		</Panel>
-		<wmc:TitleBar 
+		<wmc:TitleBar
 			x:Name="BarHost"
 			CloseButtonCommand="{Binding Colse}"
 			MiniButtonCommand="{Binding MiniWindowSize}"

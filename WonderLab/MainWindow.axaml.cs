@@ -24,16 +24,15 @@ using Brushes = Avalonia.Media.Brushes;
 using Color = Avalonia.Media.Color;
 using FluentAvalonia.UI.Media.Animation;
 using WonderLab.Modules.Controls;
+using WonderLab.Modules.Const;
 #pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
 namespace WonderLab
 {
     public partial class MainWindow : Window
-    {
-        public bool IsWindows11 { get => (Environment.OSVersion.Version.Build >= 22000); }
-
+    {        
         public void AcrylicColorChange()
         {
-            if (!IsWindows11)
+            if (!InfoConst.IsWindows11)
             {
 #pragma warning disable CS8602 // 解引用可能出现空引用。
                 if (AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().RequestedTheme is "Dark")
@@ -62,7 +61,7 @@ namespace WonderLab
 
         public void EnableMica()
         {
-            if (IsWindows11)
+            if (InfoConst.IsWindows11)
                 TransparencyLevelHint = WindowTransparencyLevel.Mica;
         }
 
@@ -234,7 +233,7 @@ namespace WonderLab
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 // TODO: add Windows version to CoreWindow
-                if (IsWindows11 && thm.RequestedTheme != FluentAvaloniaTheme.HighContrastModeString)
+                if (InfoConst.IsWindows11 && thm.RequestedTheme != FluentAvaloniaTheme.HighContrastModeString)
                 {
                     TransparencyBackgroundFallback = Brushes.Transparent;
                     TransparencyLevelHint = WindowTransparencyLevel.Mica;
@@ -289,6 +288,15 @@ namespace WonderLab
                     width = 400;
                 }
             }
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+            AutoUpdata();
+=======
+            //AutoUpdata();
+
+>>>>>>> Stashed changes
+>>>>>>> ce83b5ace99935a27d7cfb6f1d1d7f04d36de7fb
         }
 
         private void OnRequestedThemeChanged(FluentAvaloniaTheme sender, RequestedThemeChangedEventArgs args)
@@ -296,7 +304,7 @@ namespace WonderLab
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 // TODO: add Windows version to CoreWindow
-                if (IsWindows11 && args.NewTheme != FluentAvaloniaTheme.HighContrastModeString)
+                if (InfoConst.IsWindows11 && args.NewTheme != FluentAvaloniaTheme.HighContrastModeString)
                 {
                     TryEnableMicaEffect(sender);
                 }

@@ -8,6 +8,17 @@
         </Border>
     </Design.PreviewWith>
 
+	<Style Selector="Button.MacButton">
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Border CornerRadius="114514" Width="10" Height="10"
+						Background="{TemplateBinding Background}">
+					<ContentPresenter Content="{TemplateBinding Content}"/>
+				</Border>
+			</ControlTemplate>
+		</Setter>
+	</Style>
+	
 	<Style Selector="Button.Transparent">
 		<Setter Property="CornerRadius" Value="0"/>
 		<Setter Property="Width" Value="45"/>
@@ -57,7 +68,6 @@
 		<Setter Property="Background" Value="Red"/>
 	</Style>
 	
-    <!-- Add Styles Here -->
 	<Style Selector="ws|TitleBar">
 		<Setter Property="Template">
 			<ControlTemplate>
@@ -94,5 +104,22 @@
 
 	<Style Selector="ws|TitleBar:maximized /template/ Path#RestoreButtonPath">
 		<Setter Property="Data" Value="M2048 410h-410v-410h-1638v1638h410v410h1638v-1638zM1434 1434h-1229v-1229h1229v1229zM1843 1843h-1229v-205h1024v-1024h205v1229z"/>
+	</Style>
+
+	<Style Selector="ws|TitleBar.Mac">
+		<Setter Property="Template">
+			<ControlTemplate>
+				<StackPanel Orientation="Horizontal" Spacing="10">
+					<Button Classes="MacButton" Background="Green" x:Name="Mini"
+							Command="{TemplateBinding MiniButtonCommand}"/>
+					
+					<Button Classes="MacButton" Background="Yellow" x:Name="Max"
+						    Command="{TemplateBinding MaxButtonCommand}"/>
+					
+					<Button Classes="MacButton" Background="Red" x:Name="Close"
+						    Command="{TemplateBinding CloseButtonCommand}"/>
+				</StackPanel>
+			</ControlTemplate>
+		</Setter>
 	</Style>
 </Styles>
