@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using WonderLab.Modules.Models;
@@ -12,6 +13,14 @@ namespace WonderLab.Modules.Const
         public const string CForgeToken = "$2a$10$Awb53b9gSOIJJkdV3Zrgp.CyFP.dI13QKbWn/4UZI4G4ff18WneB6";
 
         public const string ClientId = "9fd44410-8ed7-4eb3-a160-9f1cc62c824c";
+
+        public static bool IsMacOS => RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
+
+        public static bool IsWindows11 => (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && Environment.OSVersion.Version.Build >= 22000);
+
+        public static bool IsWindows => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+
+        public static bool IsLinux => RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
 
         public static Dictionary<string, KeyValuePair<string, string>[]> OpenJdkDownloadSources => new()
         {
