@@ -18,6 +18,7 @@ namespace WonderLab
         [STAThread]
         public static void Main(string[] args)
         {
+<<<<<<< Updated upstream
             //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             //{
             //    if (File.Exists(Path.Combine("updata-cache", "UpdataNextTime")))
@@ -28,6 +29,18 @@ namespace WonderLab
             //        return;
             //    }
             //}
+=======
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                //if (File.Exists(Path.Combine("updata-cache", "UpdataNextTime")))
+                //{
+                //    Process pro = new Process();
+                //    pro.StartInfo.FileName = "Updata.exe";
+                //    pro.Start();
+                //    return;
+                //}
+            }
+>>>>>>> Stashed changes
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             BuildAvaloniaApp()
             .StartWithClassicDesktopLifetime(args);
