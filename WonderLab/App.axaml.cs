@@ -75,20 +75,9 @@ namespace WonderLab
                 {
                     //Java
                     Data.JavaList = Data.JavaList.Distinct().ToList();
-                    var tmp = Data.JavaList;
-                    tmp.ForEach(x => 
-                    {
-                        if (!File.Exists(x))
-                            Data.JavaList.Remove(x);
-                    });
 
                     //Game Footer
                     Data.GameFooterList = Data.GameFooterList.Distinct().ToList();
-                    Data.GameFooterList.ForEach(x =>
-                    {
-                        if (!Directory.Exists(x))
-                            Data.GameFooterList.Remove(x);
-                    });
 
                     //GameCore
                     if (!string.IsNullOrEmpty(Data.FooterPath) && !string.IsNullOrEmpty(Data.SelectedGameCore))
@@ -109,9 +98,7 @@ namespace WonderLab
             var al = AvaloniaLocator.Current.GetService<IAssetLoader>();
             await Task.Run(() =>
             {
-#pragma warning disable CS8602 // 解引用可能出现空引用。
-                using var s = al.Open(new Uri("resm:WonderLab.Resources.ModData.json"));
-#pragma warning restore CS8602 // 解引用可能出现空引用。
+                using var s = al!.Open(new Uri("resm:WonderLab.Resources.ModData.json"));
                 StreamReader stream = new(s);
                 var model = JsonConvert.DeserializeObject<List<ModLangDataModel>>(stream.ReadToEnd());
                 if (model != null)

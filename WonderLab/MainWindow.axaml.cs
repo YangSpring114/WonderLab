@@ -130,7 +130,7 @@ namespace WonderLab
         private void MainWindow_Closed(object? sender, System.EventArgs e) => JsonToolkit.JsonWrite();
         public static string GetVersion()
         {
-            return "1.0.1.3";
+            return "Build 1.0.1.3";
         }
         public static void AutoUpdata()
         {
@@ -288,7 +288,6 @@ namespace WonderLab
                     width = 400;
                 }
             }
-            AutoUpdata();
         }
 
         private void OnRequestedThemeChanged(FluentAvaloniaTheme sender, RequestedThemeChangedEventArgs args)

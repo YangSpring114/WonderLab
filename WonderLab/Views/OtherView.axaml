@@ -9,22 +9,61 @@
              x:Class="WonderLab.Views.OtherView">
 	<ScrollViewer>
 		<StackPanel>
-			<card:OptionsDisplayItem Navigates="True" Margin="10,20,10,0" Header="WonderLab" Description="{Binding Version}">
+			<card:OptionsDisplayItem Expands="True" Margin="10,20,10,0" Header="WonderLab" Description="当前版本号：Release 1.0.1.3">
 				<!--<card:OptionsDisplayItem.Icon>
 					<ui:SymbolIcon Symbol="AlignLeftFilled"/>
 				</card:OptionsDisplayItem.Icon>-->
 				<card:OptionsDisplayItem.ActionButton>
-					<Button Command="{Binding Check}" Content="{Binding ButtonContent}"/>
+					<StackPanel Orientation="Horizontal" Spacing="10">
+						<ProgressBar Classes="Circle" IsIndeterminate="{Binding IsCheckVersion}" Height="25" Width="25"/>
+						<Button Command="{Binding Check}" Content="{Binding ButtonContent}"/>
+					</StackPanel>
 				</card:OptionsDisplayItem.ActionButton>
+				<card:OptionsDisplayItem.Content>
+					<StackPanel Orientation="Vertical" Spacing="10">
+						<StackPanel Orientation="Horizontal" Spacing="50">
+							<TextBlock Text="构建版本号"/>
+							<TextBlock Text="{Binding Version}"/>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal" Spacing="50">
+							<TextBlock Text="实际版本号"/>
+							<TextBlock Text="Release 1.0.1.3"/>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal" Spacing="60">
+							<TextBlock Text="版权信息"/>
+							<TextBlock Text="© Blessing Studios(2021-2023) 保留所有权利"/>
+						</StackPanel>
+					</StackPanel>
+				</card:OptionsDisplayItem.Content>
 			</card:OptionsDisplayItem>
 
-			<card:OptionsDisplayItem Navigates="True" Margin="10,15,10,0" Header="BlessingLife Studio" Description="本启动器的开发团队">
-				<!--<card:OptionsDisplayItem.Icon>
+			<card:OptionsDisplayItem Expands="True" Margin="10,15,10,0" Header="Blessing Studio" Description="本启动器的开发团队">
+					<!--<card:OptionsDisplayItem.Icon>
 					<ui:SymbolIcon Symbol="People"/>
 				</card:OptionsDisplayItem.Icon>-->
-			</card:OptionsDisplayItem>
+					<card:OptionsDisplayItem.Content>
+						<StackPanel Orientation="Vertical" Spacing="10">
+							<StackPanel Orientation="Horizontal" Spacing="50">
+								<TextBlock Text="前端开发"/>
+								<TextBlock Text="西路Baka"/>
+							</StackPanel>
+							<StackPanel Orientation="Horizontal" Spacing="50">
+								<TextBlock Text="后端开发"/>
+								<TextBlock Text="Ddggdd135、[mailset@arch ~ ]$"/>
+							</StackPanel>
+							<StackPanel Orientation="Horizontal" Spacing="35">
+								<TextBlock Text="跨平台编译"/>
+								<TextBlock Text="[mailset@arch ~ ]$"/>
+							</StackPanel>
+							<StackPanel Orientation="Horizontal" Spacing="60">
+								<TextBlock Text="UI 审查"/>
+								<TextBlock Text="Starcloudsea"/>
+							</StackPanel>
+						</StackPanel>
+					</card:OptionsDisplayItem.Content>
+				</card:OptionsDisplayItem>
 
-			<card:OptionsDisplayItem Expands="True" Margin="10,15,10,0" Header="特别鸣谢" Description="感谢所有为本启动器开发提供帮助的大佬">
+				<card:OptionsDisplayItem Expands="True" Margin="10,15,10,0" Header="特别鸣谢" Description="感谢所有为本启动器开发提供帮助的大佬">
 				<!--<card:OptionsDisplayItem.Icon>
 					<ui:SymbolIcon Symbol="ImportFilled"/>
 				</card:OptionsDisplayItem.Icon>-->
