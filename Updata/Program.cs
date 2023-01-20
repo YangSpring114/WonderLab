@@ -41,6 +41,52 @@ namespace Updataer
             }
         }
         /// <summary>
+        /// 实现复制整个文件夹到另一个路径，如果存在此文件夹，便覆盖
+        /// </summary>
+        /// <param name="srcPath"></param>
+        /// <param name="aimPath"></param>
+        public static void CopyDir(string srcPath, string aimPath)
+        {
+            try
+            {
+                // 检查目标目录是否以目录分割字符结束如果不是则添加
+                if (aimPath[aimPath.Length - 1] != System.IO.Path.DirectorySeparatorChar)
+                {
+                    aimPath += System.IO.Path.DirectorySeparatorChar;
+                }
+                // 判断目标目录是否存在如果不存在则新建
+                if (!System.IO.Directory.Exists(aimPath))
+                {
+                    System.IO.Directory.CreateDirectory(aimPath);
+                }
+                //string[] fileList = Directory.GetFiles(srcPath);// 如果你指向copy目标文件下面的文件而不包含目录请使用下面的方法
+                string[] fileList = System.IO.Directory.GetFileSystemEntries(srcPath);// 得到源目录的文件列表，该里面是包含文件以及目录路径的一个数组
+                for (int i = 0; i < fileList.Length; i++)
+                {
+                    Trace.WriteLine(fileList[i].ToString());
+                }
+
+                // 遍历所有的文件和目录
+                foreach (string file in fileList)
+                {
+                    // 先当作目录处理如果存在这个目录就递归Copy该目录下面的文件
+                    if (System.IO.Directory.Exists(file))
+                    {
+                        CopyDir(file, aimPath + System.IO.Path.GetFileName(file));
+                    }
+                    // 否则直接Copy文件
+                    else
+                    {
+                        System.IO.File.Copy(file, aimPath + System.IO.Path.GetFileName(file), true);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+        /// <summary>
         /// 解压Zip文件到指定目录
         /// </summary>
         /// <param name="zipPath">zip地址</param>
@@ -61,23 +107,7 @@ namespace Updataer
                 string extractPath = folderPath;
                 ZipFile.ExtractToDirectory(zipPath, tempPath);
                 deleteUploadOaFolder(folderPath);
-                //build an array of the unzipped files
-                string[] files = Directory.GetFiles(tempPath);
-
-                foreach (string file in files)
-                {
-                    FileInfo f = new FileInfo(file);
-                    //Check if the file exists already, if so delete it and then move the new file to the extract folder
-                    if (File.Exists(Path.Combine(extractPath, f.Name)))
-                    {
-                        File.Delete(Path.Combine(extractPath, f.Name));
-                        File.Move(f.FullName, Path.Combine(extractPath, f.Name));
-                    }
-                    else
-                    {
-                        File.Move(f.FullName, Path.Combine(extractPath, f.Name));
-                    }
-                }
+                CopyDir(tempPath, folderPath);
                 deleteUploadOaFolder(tempPath);
             }
             catch (Exception)
