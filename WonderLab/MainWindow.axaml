@@ -102,13 +102,14 @@
 				</ListBox.ItemTemplate>
 			</ListBox>
 
-			<ui:ContentDialog Classes="WinUiPro" Name="dialog" CloseButtonText="了解" Title="{Binding Title}">
+			<ui:ContentDialog Classes="WinUiPro" IsVisible="False"
+							  Name="dialog" CloseButtonText="了解" Title="{Binding Title}">
 				<ui:ContentDialog.Content>
 					<TextBlock Name="message" TextAlignment="Left" TextWrapping="WrapWithOverflow" Text="{Binding Message}"/>
 				</ui:ContentDialog.Content>
 			</ui:ContentDialog>
 
-			<ui:ContentDialog Classes="WinUiPro" Name="VersionDialog">
+			<ui:ContentDialog IsVisible="False" Classes="WinUiPro" Name="VersionDialog">
 				<ui:ContentDialog.Content>
 					<Grid Width="450">
 						<Grid.RowDefinitions>
@@ -167,7 +168,9 @@
 			VerticalAlignment="Top"/>
 		<!--<Button Content="Run Animation" x:Name="Run"/>-->
 		
-		<Grid HorizontalAlignment="Stretch" VerticalAlignment="Bottom"
+		
+		<!--此代码已弃用-->
+		<Grid HorizontalAlignment="Stretch" IsVisible="False" VerticalAlignment="Bottom"
 			  Height="200" >
 			<Border CornerRadius="8" Background="{DynamicResource ContentDialogBackground}" ClipToBounds="True"
 					HorizontalAlignment="Center" MaxWidth="450"

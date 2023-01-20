@@ -40,7 +40,7 @@ namespace WonderLab.Views
                 foreach (var i in v.entries)
                 {
                     NewItemView newItem = new(i.newsPageImage.url, i.title, i.text, i.date, i.readMoreLink);
-                    newItem.IsOk.Description = i.tag + " ¿ìÑ¶";
+                    newItem.IsOk.Description = i.tag + " 快讯";
                     newItemViews.Add(newItem);
                     if (newItemViews.Count is 20)
                         break;

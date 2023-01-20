@@ -128,10 +128,12 @@ namespace WonderLab
         }
 
         private void MainWindow_Closed(object? sender, System.EventArgs e) => JsonToolkit.JsonWrite();
+
         public static string GetVersion()
         {
             return "Build 1.0.1.4";
         }
+
         public static void AutoUpdata()
         {
             try
@@ -200,12 +202,14 @@ namespace WonderLab
             DownItemView downItemView = new DownItemView(httpDownload, $"更新  {res.name} 下载", new AfterDo(After_Do));
             TaskView.Add(downItemView);
         }
+
         public static Release? Updata()
         {
             string releaseUrl = GithubLib.GithubLib.GetRepoLatestReleaseUrl("Blessing-Studio", "WonderLab");
             Release? release = GithubLib.GithubLib.GetRepoLatestRelease(releaseUrl);
             return release;
         }
+
         private static void After_Do()
         {
             File.Create(Path.Combine("updata-cache", "UpdataNextTime")).Close();
@@ -375,6 +379,7 @@ namespace WonderLab
         public void InitializeComponent()
         {
             InitializeComponent(true);
+            Initialized += MainWindow_Initialized;
             TipClose();
             BarHost.Attach(this);
             win = this;
@@ -383,18 +388,20 @@ namespace WonderLab
             ContentDialogView = VersionDialog;
             AcrylicColorChange();
             EnableMica();
-            //SplashScreen = new SplashScreenStyle();
             ViewModel = new MainWindowViewModel(this);
             DataContext = ViewModel;
             MainPanel.Children.Add(new MainView());
             //this.Activated += MainWindow_Activated;
             //Deactivated += MainWindow_Deactivated;
             Closed += MainWindow_Closed;
-            FluentTheme theme = new(new Uri("avares://WonderLab"));
-            theme.Mode = FluentThemeMode.Light;
-            //var faTheme = AvaloniaLocator.Current.GetService<FluentTheme>();
-            //faTheme.Mode = FluentThemeMode.Light;
             d.Click += D_Click;
+        }
+
+        private async void MainWindow_Initialized(object? sender, EventArgs e)
+        {
+            await Task.Delay(1500);
+            dialog.IsVisible = true;
+            VersionDialog.IsVisible = true;
         }
     }
 
@@ -402,8 +409,6 @@ namespace WonderLab
     partial class MainWindow
     {
         public MainWindow() => InitializeComponent();
-
-        //CancelButtonClick
         public MainWindowViewModel ViewModel { get; protected set; }
         private static List<InfoBarModel> InfoBarItems = new();
         private static ListBox InformationListBox { get; set; }
