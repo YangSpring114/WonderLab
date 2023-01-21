@@ -59,9 +59,7 @@ namespace WonderLab
                 {
                     //resm:WonderLab.Resources.WonderLab.Desktop.exe
                     var al = AvaloniaLocator.Current.GetService<IAssetLoader>();
-#pragma warning disable CS8602 // 解引用可能出现空引用。
-                    using var s = al.Open(new Uri("resm:WonderLab.Resources.WonderLab.Desktop.exe"));
-#pragma warning restore CS8602 // 解引用可能出现空引用。
+                    using var s = al!.Open(new Uri($"resm:WonderLab.Resources.WonderLab.Desktop{(InfoConst.IsWindows ? ".exe" : "")}"));
                     using FileStream fileStream = File.Create(PathConst.DownloaderPath);
                     byte[] bytes = new byte[HttpToolkit.BufferSize];
                     for (int num = await s.ReadAsync(bytes, 0, HttpToolkit.BufferSize); num > 0; num = await s.ReadAsync(bytes, 0, HttpToolkit.BufferSize))

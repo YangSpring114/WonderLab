@@ -15,7 +15,7 @@ namespace WonderLab.Modules.Const
     {
         public static readonly string X = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) == true ? "\\" : "/";
 
-        public static string DownloaderPath = $"{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "WonderLab","Temp")}{X}WonderLab.Desktop.exe";
+        public static string DownloaderPath = $"{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "WonderLab","Temp")}{X}WonderLab.Desktop{(InfoConst.IsWindows ? ".exe" : "")}";
 
         public static string SettingJsonPtah = $"{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "WonderLab")}{X}MainSetting.json";
 
