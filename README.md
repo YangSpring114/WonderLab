@@ -21,8 +21,8 @@ WonderLab是一个跨平台 Minecraft 启动器，支持自动更新，Mod安装
 
 ## 下载
 
-目前我们仅开放了Windows，MacOS和Linux的下载链接，你可以在 [这里](https://github.com/Blessing-Studio/WonderLab/releases) 下载你想要的版本。
-我们暂时不开放MacOS和Linux的下载链接，但是你可以通过加入 [WonderLab内部测试群](https://jq.qq.com/?_wv=1027&k=kU7khFu6) 来获取MacOS和Linux版本。
+目前我们仅开放了Windows，Linux的下载链接，你可以在 [这里](https://github.com/Blessing-Studio/WonderLab/releases) 下载你想要的版本。
+我们暂时不开放MacOS的下载链接，但是你可以通过加入 [WonderLab内部测试群](https://jq.qq.com/?_wv=1027&k=kU7khFu6) 来获取MacOS版本。
 
 ## 引用
 
