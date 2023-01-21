@@ -184,7 +184,7 @@ namespace WonderLab.ViewModels
                 var filter = new FileDialogFilter();
                 //如果为win就设置后缀限制为exe
                 if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                    filter.Extensions.Add("javaw.exe");
+                    filter.Extensions.Add("exe");
 
                 filter.Name = "Java路径";
                 filters.Add(filter);

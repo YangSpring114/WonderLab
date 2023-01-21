@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Reflection.PortableExecutable;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WonderLab.Modules.Base;
 using WonderLab.Modules.Const;
@@ -134,27 +135,35 @@ namespace WonderLab.ViewModels
         {
             if (SelectedAuthenticator is "第三方验证")
             {
-                YggdrasilAuthenticator yggdrasilAuthenticator = new(UrlTextBoxText, TextBoxText, PasswordBoxText);
-                var res = await yggdrasilAuthenticator.AuthAsync(x => Debug.WriteLine(x));
-                res.ToList().ForEach(x =>
-                {// /api/yggdrasil
-                    string p = new FileInfo(PathConst.MainDirectory).FullName +@"\" + "authlib-injector.jar";
-                    string ag = $"-javaagent:{p}={x.YggdrasilServerUrl}";
-                    Debug.WriteLine(ag);
-                    var str = x.YggdrasilServerUrl.Replace("/api/yggdrasil", string.Empty);
-                    var user = new UserDataModels()
-                    {
-                        UserAccessToken = x.AccessToken,
-                        UserName = x.Name,
-                        UserUuid = x.Uuid.ToString(),
-                        SkinHeadImage = $"{str}/avatar/player/{x.Name}",
-                        UserType = "第三方账户",
-                        AIJvm = ag,
-                    };
-                    App.Data.UserList.Add(user);
-                    MainWindow.ShowInfoBarAsync("添加账户成功：", $"{user.UserType} {user.UserName} 欢迎回来,{user.UserName}", InfoBarSeverity.Success);
-                });
-                UsersView.CloseDialog();
+                try
+                {
+                    YggdrasilAuthenticator yggdrasilAuthenticator = new(UrlTextBoxText, TextBoxText, PasswordBoxText);
+                    var res = await yggdrasilAuthenticator.AuthAsync(x => Debug.WriteLine(x));
+                    res.ToList().ForEach(x =>
+                    {// /api/yggdrasil
+                        string p = new FileInfo(PathConst.MainDirectory).FullName + @"\" + "authlib-injector.jar";
+                        string ag = $"-javaagent:{p}={x.YggdrasilServerUrl}";
+                        Debug.WriteLine(ag);
+                        var str = x.YggdrasilServerUrl.Replace("/api/yggdrasil", string.Empty);
+                        var user = new UserDataModels()
+                        {
+                            UserAccessToken = x.AccessToken,
+                            UserName = x.Name,
+                            UserUuid = x.Uuid.ToString(),
+                            SkinHeadImage = $"{str}/avatar/player/{x.Name}",
+                            UserType = "第三方账户",
+                            AIJvm = ag,
+                        };
+                        App.Data.UserList.Add(user);
+                        MainWindow.ShowInfoBarAsync("添加账户成功：", $"{user.UserType} {user.UserName} 欢迎回来,{user.UserName}", InfoBarSeverity.Success);
+                    });
+                    UsersView.CloseDialog();
+                }
+                catch (Exception ex)
+                {
+                    UsersView.CloseDialog();
+                    MainWindow.ShowInfoBarAsync("错误：", $"WonderLab 遇到了不可描述的异常！\n最后的异常堆栈信息：\n{ex}", InfoBarSeverity.Error);
+                }
             }
             else if (SelectedAuthenticator is "离线验证")
             {
