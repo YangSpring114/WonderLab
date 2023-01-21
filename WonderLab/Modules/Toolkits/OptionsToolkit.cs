@@ -15,8 +15,16 @@ namespace WonderLab.Modules.Toolkits
         /// 游戏语言切换
         /// </summary>
         /// <returns></returns>
-        public static async ValueTask GameLangChange(string langtype = "en_us")
+        public static async ValueTask GameLangChange(int index = 1)
         {
+            string langtype = "en_us";
+
+            if (index is 0)
+            {
+                langtype = "zh_cn";
+            }
+            else if (index is 2) langtype = "";
+
             string path = IsEnableIndependencyCore ? Path.Combine(PathConst.GetVersionFolder(App.Data.FooterPath, App.Data.SelectedGameCore!), "options.txt") :
                 Path.Combine(App.Data.FooterPath, "options.txt");
 

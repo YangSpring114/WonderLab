@@ -336,6 +336,7 @@ namespace WonderLab.Views
                 #endregion
 
                 #region 启动
+                await OptionsToolkit.GameLangChange(App.Data.SelectedLang);
                 bool IsCanel = false;
                 GameId = version;
                 var launcher = new JavaClientLauncher(settings, locator, IsEnableIndependencyCore);
@@ -349,6 +350,7 @@ namespace WonderLab.Views
                     var core = new GameCoreToolkit(App.Data.FooterPath).GetGameCore(version);
                     JsonToolkit.ChangeEnableIndependencyCoreInfoJsonTime(App.Data.FooterPath, core.ToNatsurainkoGameCore(), JsonToolkit.GetEnableIndependencyCoreData(App.Data.FooterPath, core.ToNatsurainkoGameCore()));
                     #endregion
+
                     await Dispatcher.UIThread.InvokeAsync(() => main.Description = "等待游戏窗口出现", DispatcherPriority.Background);
                     await Task.Run(response.Process.WaitForInputIdle);
                     await Dispatcher.UIThread.InvokeAsync(() =>

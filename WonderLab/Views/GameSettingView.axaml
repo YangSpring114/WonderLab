@@ -101,7 +101,7 @@
 				<Border Margin="0 10 0 0" Height="50" CornerRadius="4" Background="{DynamicResource ControlFillColorDefaultBrush}">
 					<Panel>
 						<TextBlock DockPanel.Dock="Left" Text="游戏内语言" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,0,0,0"/>
-						<ComboBox Margin="0 0 13 0" VerticalAlignment="Center" HorizontalAlignment="Right" Items="{Binding Langs}"/>
+						<ComboBox SelectedIndex="{Binding SelectedLang}" Margin="0 0 13 0" VerticalAlignment="Center" HorizontalAlignment="Right" Items="{Binding Langs}"/>
 					</Panel>
 				</Border>
 			</StackPanel>
