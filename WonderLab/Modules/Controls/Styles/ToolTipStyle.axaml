@@ -46,7 +46,7 @@
                         BorderThickness="{TemplateBinding BorderThickness}"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
-                        Padding="{TemplateBinding Padding}"
+                        Padding="{TemplateBinding Padding}"						
                         CornerRadius="3">
 					<ContentPresenter Name="PART_ContentPresenter"
 									  Background="Transparent"

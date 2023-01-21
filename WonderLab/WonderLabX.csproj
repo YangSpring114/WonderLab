@@ -42,6 +42,7 @@
 	<EmbeddedResource Include="Resources\normal.png" />
     <EmbeddedResource Include="Resources\sdf.png" />
     <EmbeddedResource Include="Resources\WonderLab.Desktop.exe" />
+    <EmbeddedResource Include="半圆.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
@@ -86,9 +87,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\ModData.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="半圆.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Inter-Bold.ttf" />

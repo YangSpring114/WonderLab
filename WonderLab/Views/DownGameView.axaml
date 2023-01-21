@@ -81,11 +81,11 @@
 											<StackPanel Orientation="Vertical">
 												<TextBlock Text="{Binding Data.LoaderName}"/>
 												<StackPanel Orientation="Horizontal">
-													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text="{Binding Data.Version}"/>
-													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text=" - "/>
-													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text="{Binding Data.McVersion}"/>
-													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text=" "/>
-													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text="{Binding Data.ReleaseTime}"/>												</StackPanel>
+													<TextBlock FontSize="12" Opacity="0.65" Text="{Binding Data.Version}"/>
+													<TextBlock FontSize="12" Opacity="0.65" Text=" - "/>
+													<TextBlock FontSize="12" Opacity="0.65" Text="{Binding Data.McVersion}"/>
+													<TextBlock FontSize="12" Opacity="0.65" Text=" "/>
+													<TextBlock FontSize="12" Opacity="0.65" Text="{Binding Data.ReleaseTime}"/>												</StackPanel>
 											</StackPanel>
 										</StackPanel>
 									</DataTemplate>
@@ -144,11 +144,11 @@
 											<StackPanel Orientation="Vertical">
 												<TextBlock Text="{Binding Data.LoaderName}"/>
 												<StackPanel Orientation="Horizontal">
-													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text="{Binding Data.Version}"/>
-													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text=" - "/>
-													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text="{Binding Data.McVersion}"/>
-													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text=" "/>
-													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text="{Binding Data.ReleaseTime}"/>												</StackPanel>
+													<TextBlock FontSize="12" Opacity="0.65" Text="{Binding Data.Version}"/>
+													<TextBlock FontSize="12" Opacity="0.65" Text=" - "/>
+													<TextBlock FontSize="12" Opacity="0.65" Text="{Binding Data.McVersion}"/>
+													<TextBlock FontSize="12" Opacity="0.65" Text=" "/>
+													<TextBlock FontSize="12" Opacity="0.65" Text="{Binding Data.ReleaseTime}"/>												</StackPanel>
 											</StackPanel>
 										</StackPanel>
 									</DataTemplate>
@@ -208,11 +208,11 @@
 											<StackPanel Orientation="Vertical">
 												<TextBlock Text="{Binding Data.LoaderName}"/>
 												<StackPanel Orientation="Horizontal">
-													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text="{Binding Data.Version}"/>
-													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text=" - "/>
-													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text="{Binding Data.McVersion}"/>
-													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text=" "/>
-													<TextBlock FontSize="12" Foreground="White" Opacity="0.65" Text="{Binding Data.ReleaseTime}"/>
+													<TextBlock FontSize="12" Opacity="0.65" Text="{Binding Data.Version}"/>
+													<TextBlock FontSize="12" Opacity="0.65" Text=" - "/>
+													<TextBlock FontSize="12" Opacity="0.65" Text="{Binding Data.McVersion}"/>
+													<TextBlock FontSize="12" Opacity="0.65" Text=" "/>
+													<TextBlock FontSize="12" Opacity="0.65" Text="{Binding Data.ReleaseTime}"/>
 												</StackPanel>
 											</StackPanel>
 										</StackPanel>
