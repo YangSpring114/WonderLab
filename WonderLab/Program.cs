@@ -38,7 +38,6 @@ namespace WonderLab
         public static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<App>()
                 .UsePlatformDetect()
-                .LogToTrace(LogEventLevel.Error, LogArea.Property, LogArea.Layout)
                 .With(new Win32PlatformOptions
                 {
                      UseWindowsUIComposition = true,
