@@ -40,8 +40,8 @@ namespace WonderLab
                 .UsePlatformDetect()
                 .With(new Win32PlatformOptions
                 {
-                     UseWindowsUIComposition = true,
-                })
-                .UseReactiveUI();
+                    UseWindowsUIComposition = true,
+                });
+                //.UseReactiveUI();
     }
 }
