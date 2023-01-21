@@ -72,7 +72,7 @@ Avalonia是一个跨平台UI框架，提供灵活的样式系统并支持广泛�
 
 [博客](https://mailset.top)
 
-#### Founder of Jvav
+#### Ddggdd135
 
 帮忙测试/杂项。
 
