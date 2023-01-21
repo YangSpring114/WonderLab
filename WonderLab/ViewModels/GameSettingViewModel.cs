@@ -1,4 +1,7 @@
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Platform;
+using Avalonia.Platform;
 using FluentAvalonia.UI.Controls;
 using MinecraftLaunch.Modules.Toolkits;
 using System;
@@ -158,28 +161,30 @@ namespace WonderLab.ViewModels
         {
             try
             {
-                List<FileDialogFilter> v = new List<FileDialogFilter>();
-                var v1 = new FileDialogFilter();
+                List<FileDialogFilter> filters = new List<FileDialogFilter>();
+                var filter = new FileDialogFilter();
                 //如果为win就设置后缀限制为exe
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                    v1.Extensions.Add("exe");
+                    filter.Extensions.Add("exe");
 
-                v1.Name = "Java路径";
-                v.Add(v1);
+                filter.Name = "Java路径";
+                filters.Add(filter);
 
                 var dialog = new OpenFileDialog
                 {
                     Title = "请选择Java路径",
-                    Filters = v
+                    Filters = filters
                 };
+
                 var result = await dialog.ShowAsync(MainWindow.win);
+
                 if (result is not null)
                 {
                     foreach (var i in result)
                         App.Data.JavaList.Add(i);
                     Javas = null;
                     Javas = App.Data.JavaList;
-                    CurrentJava = result[0];
+                    CurrentJava = result.FirstOrDefault()!;
                 }
                 JsonToolkit.JsonWrite();
             }
