@@ -25,7 +25,6 @@
 					</ui:NavigationViewItem.Icon>
 				</ui:NavigationViewItem>
 				<ui:NavigationViewItem Tag="DownSettingView" Icon="Download" Content="下载设置"/>
-				<ui:NavigationViewItem Tag="UpdataSettingView" Icon="Download" Content="自动更新设置"/>
 
 				<!--<ui:NavigationViewItem Tag="ColorSettingView" Content="个性化">
 					<ui:NavigationViewItem.Icon>

@@ -20,11 +20,10 @@ namespace WonderLab.Modules.Toolkits
             string langtype = "en_us";
 
             if (index is 0)
-            {
                 langtype = "zh_cn";
-            }
-            else if (index is 2) langtype = "";
-
+            else if (index is 2) langtype = "ja_jp";
+            else if (index is 3) langtype = "ko_kr";
+            //ja_jp
             string path = IsEnableIndependencyCore ? Path.Combine(PathConst.GetVersionFolder(App.Data.FooterPath, App.Data.SelectedGameCore!), "options.txt") :
                 Path.Combine(App.Data.FooterPath, "options.txt");
 
@@ -47,12 +46,6 @@ namespace WonderLab.Modules.Toolkits
                     return;
                 }
             }
-
-            //if (allText.Contains("lang"))
-            //{
-            //    allText.Replace(line, $"lang:{langtype}");
-            //}
-            //else allText.Append("");
         }
 
         public static bool IsEnableIndependencyCore

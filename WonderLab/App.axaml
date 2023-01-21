@@ -16,17 +16,18 @@
 		<StyleInclude Source="avares://ControlX/OptionsDisplayItemStyles.axaml" />
 		<StyleInclude Source="/Modules/Controls/Styles/ScrollViewerStyle.axaml"/>
 		<StyleInclude Source="avares://WonderLab/Modules/Controls/Styles/TitleBarStyle.axaml"/>
-		<Style Selector="PopupRoot">
+		<!--<Style Selector="PopupRoot">
+			<Setter Property="CornerRadius" Value="6"/>
 			<Setter Property="TransparencyLevelHint" Value="AcrylicBlur" />
 			<Setter Property="Background" Value="Transparent" />
 			<Setter Property="TransparencyBackgroundFallback" Value="Transparent" />
-		</Style>
-		<Style Selector="MenuFlyoutPresenter /template/ Border#LayoutRoot">
+		</Style>-->
+		<!--<Style Selector="MenuFlyoutPresenter /template/ Border#LayoutRoot">
 			<Setter Property="Background">
 				<SolidColorBrush Color="{DynamicResource SolidBackgroundFillColorBase}"
                                  Opacity="0.725"/>
 			</Setter>
-		</Style>
+		</Style>-->
 
 		<!--bb2155.ttf  avares://ControlCatalog/Assets/Fonts#Source Sans Pro-->
 	</Application.Styles>

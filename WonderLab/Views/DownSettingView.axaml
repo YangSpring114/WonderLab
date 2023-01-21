@@ -32,6 +32,19 @@
 						</StackPanel>
 					</card:OptionsDisplayItem.Content>
 				</card:OptionsDisplayItem>
+
+				<card:OptionsDisplayItem Margin="0 15 0 0"
+	                      IsExpanded="True" Name="updataSetting"
+	                      Expands="True" Header="自动更新设置"
+	                      Description="启动器自动更新的配置">
+					<card:OptionsDisplayItem.Content>
+						<StackPanel>
+							<Grid>
+								<TextBlock VerticalAlignment="Center" Text="当前下载源：github"/>
+							</Grid>
+						</StackPanel>
+					</card:OptionsDisplayItem.Content>
+				</card:OptionsDisplayItem>
 			</StackPanel>
 		</ScrollViewer>
 	</Panel>

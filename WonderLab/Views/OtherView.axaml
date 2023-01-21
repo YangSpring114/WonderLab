@@ -9,7 +9,7 @@
              x:Class="WonderLab.Views.OtherView">
 	<ScrollViewer>
 		<StackPanel>
-			<card:OptionsDisplayItem Expands="True" Margin="10,20,10,0" Header="WonderLab" Description="当前版本号：Release 1.0.1.3">
+			<card:OptionsDisplayItem Expands="True" Margin="10,20,10,0" Header="WonderLab" Description="当前版本号：Release 1.0.1.4">
 				<!--<card:OptionsDisplayItem.Icon>
 					<ui:SymbolIcon Symbol="AlignLeftFilled"/>
 				</card:OptionsDisplayItem.Icon>-->
@@ -28,7 +28,7 @@
 						</StackPanel>
 						<StackPanel Orientation="Horizontal" Spacing="50">
 							<TextBlock Text="实际版本号"/>
-							<TextBlock Text="Release 1.0.1.3"/>
+							<TextBlock Text="Release 1.0.1.4"/>
 						</StackPanel>
 						<StackPanel Orientation="Horizontal" Spacing="60">
 							<TextBlock Text="版权信息"/>

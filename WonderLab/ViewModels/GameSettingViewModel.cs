@@ -49,6 +49,7 @@ namespace WonderLab.ViewModels
             "简体中文",
             "English",
             "日本語",
+            "한국어"
         };
 
         public string CurrentJava
@@ -146,7 +147,7 @@ namespace WonderLab.ViewModels
         public string _Jvm = App.Data.Jvm;
         public List<string> _GameFolders = App.Data.GameFooterList;
         public List<string> _Javas = App.Data.JavaList;
-        public int _SelectedLang = 0;
+        public int _SelectedLang = App.Data.SelectedLang;
     }
 
     partial class GameSettingViewModel
@@ -182,8 +183,8 @@ namespace WonderLab.ViewModels
                 List<FileDialogFilter> filters = new List<FileDialogFilter>();
                 var filter = new FileDialogFilter();
                 //如果为win就设置后缀限制为exe
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                    filter.Extensions.Add("exe");
+                if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    filter.Extensions.Add("javaw.exe");
 
                 filter.Name = "Java路径";
                 filters.Add(filter);
