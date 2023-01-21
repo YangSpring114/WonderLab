@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+BINDir=./WonderLab/bin/Debug/net6.0
+if [ $# -ge 2 ]; then
+    Ver=$2
+else
+    Ver=1.0.0
+fi
+
+if [ "$0" == ".\/autoMake" ]; then
+    echo "请在项目根目录下运行！并使用./autoMake运行。"
+    exit 114
+fi
+
+if [ "$1" == "build" ]; then
+   echo "开始编译"
+   cd WonderLab
+   dotnet build
+   dotnet deb install
+   dotnet rpm install
+   echo "编译结束，输入 autoMake package 以打包。" 
+   exit 0
+elif [ "$1" == "package" ]; then
+    echo "开始打包"
+    if [ -d "$BINDir" ]; then
+        cd WonderLab
+        dotnet msbuild ./WonderLabX.csproj /t:CreateDeb
+        dotnet msbuild ./WonderLabX.csproj /t:CreateRpm
+        cd ../$BINDir
+        mv WonderLab.$Ver.deb linux-x86_64.deb
+        mv WonderLab.$Ver.rpm linux-x86_64.rpm
+        cd publish
+        tar -zcvf ../linux-x86_64.tar.gz ./*
+        echo "打包成功，正在移动包"
+        cd ../
+        rm -rf ../../../../bin
+        mkdir ../../../../bin
+        mv ./linux-x86_64.* ../../../../bin
+        cd ../../../../
+        echo "打包完成！在bin目录下！"
+        exit 0
+    fi
+    echo "请先成功编译！"
+    exit 514
+else
+    echo "帮助："
+    echo "build 编译软件"
+    echo "package 打包软件（须先编译）"
+    exit 1919
+fi
