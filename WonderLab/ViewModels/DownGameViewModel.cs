@@ -178,6 +178,7 @@ namespace WonderLab.ViewModels
                 CoreManifest core = null;
                 try
                 {
+                    GameCoreInstaller.GetGameCoresAsync();
                     core = await MinecraftVanlliaInstaller.GetCoreManifest();
                 }
                 catch (Exception ex)

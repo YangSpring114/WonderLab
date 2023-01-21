@@ -336,6 +336,7 @@ namespace WonderLab.Views
                 #endregion
 
                 #region 启动
+                JsonToolkit.JsonWrite();
                 await OptionsToolkit.GameLangChange(App.Data.SelectedLang);
                 bool IsCanel = false;
                 GameId = version;

@@ -28,8 +28,16 @@ namespace WonderLab
             //        return;
             //    }
             //}
-            BuildAvaloniaApp()
-            .StartWithClassicDesktopLifetime(args);
+            try
+            {
+                BuildAvaloniaApp()
+                .StartWithClassicDesktopLifetime(args);
+            }
+            catch (Exception)
+            {
+                BuildAvaloniaApp()
+                .StartWithClassicDesktopLifetime(args);
+            }
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             //PluginLoader.PluginLoader.LoadAllFromPlugin();
         }
