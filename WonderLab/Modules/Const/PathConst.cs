@@ -13,17 +13,17 @@ namespace WonderLab.Modules.Const
     /// </summary>
     public class PathConst
     {
-        public static string DownloaderPath = $"{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "WonderLab","Temp")}\\WonderLab.Desktop.exe";
+        public static readonly string X = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) == true ? "\\" : "/";
 
-        public static string SettingJsonPtah = $"{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "WonderLab")}\\MainSetting.json";
+        public static string DownloaderPath = $"{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "WonderLab","Temp")}{X}WonderLab.Desktop.exe";
 
-        public static string OtherJsonPtah = $"{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "WonderLab")}\\Other.json";
+        public static string SettingJsonPtah = $"{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "WonderLab")}{X}MainSetting.json";
+
+        public static string OtherJsonPtah = $"{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "WonderLab")}{X}Other.json";
 
         public static string MainDirectory = $"{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),"WonderLab")}";
 
-        public static string TempDirectory = $"{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "WonderLab")}\\Temp";
-
-        public static readonly string X = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) == true ? "\\" : "/";
+        public static string TempDirectory = $"{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "WonderLab")}{X}Temp";
 
         public static string GetVersionsFolder(string root) => $"{root}{X}versions";
 
