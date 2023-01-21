@@ -20,6 +20,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Updata", "Updata\Updata.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WonderLab.Desktop", "..\WonderLabX\WonderLab.Desktop\WonderLab.Desktop.csproj", "{067B5F2E-16F5-4C1A-8ECA-E0B5C73E2817}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftLaunch", "..\MinecraftLaunch\MinecraftLaunch.csproj", "{6AD37C81-44FE-4E5B-9EFD-0D17506C2228}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{067B5F2E-16F5-4C1A-8ECA-E0B5C73E2817}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{067B5F2E-16F5-4C1A-8ECA-E0B5C73E2817}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{067B5F2E-16F5-4C1A-8ECA-E0B5C73E2817}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AD37C81-44FE-4E5B-9EFD-0D17506C2228}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AD37C81-44FE-4E5B-9EFD-0D17506C2228}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AD37C81-44FE-4E5B-9EFD-0D17506C2228}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AD37C81-44FE-4E5B-9EFD-0D17506C2228}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

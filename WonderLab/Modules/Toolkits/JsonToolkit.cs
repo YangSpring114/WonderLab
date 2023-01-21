@@ -139,6 +139,18 @@ namespace WonderLab.Modules.Toolkits
             return null;
         }
 
+        public static GameDataModels GetEnableIndependencyCoreData(string root, string core)
+        {
+            var jsonpath = Path.Combine(PathConst.GetVersionFolder(root, core), "info.json");
+            if (File.Exists(jsonpath))
+            {
+                var json = File.ReadAllText(jsonpath);
+                var v = Newtonsoft.Json.JsonConvert.DeserializeObject<GameDataModels>(json);
+                return v;
+            }
+            return null;
+        }
+
         public static (string,DateTime) GetTimeInfoJsons(string root, GameCore core)
         {
             var jsonpath = Path.Combine(PathConst.GetVersionFolder(root, core.Id), "info.json");
@@ -152,6 +164,7 @@ namespace WonderLab.Modules.Toolkits
             return new();
         }
 
+        [Obsolete]
         public static string JsonConverts<T>(T data)
         {
             StringBuilder stringBuilder = new StringBuilder();

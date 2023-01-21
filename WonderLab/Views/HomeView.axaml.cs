@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using WonderLab.Modules.Base;
 using WonderLab.Modules.Controls;
+using WonderLab.Modules.Toolkits;
 using WonderLab.ViewModels;
 
 namespace WonderLab.Views

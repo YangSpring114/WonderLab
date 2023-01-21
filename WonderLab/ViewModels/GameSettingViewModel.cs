@@ -44,6 +44,13 @@ namespace WonderLab.ViewModels
             set => RaiseAndSetIfChanged(ref _Javas, value);
         }
 
+        public List<string> Langs => new()
+        {
+            "简体中文",
+            "English",
+            "日本語",
+        };
+
         public string CurrentJava
         {
             get => _CurrentJava;
@@ -115,6 +122,16 @@ namespace WonderLab.ViewModels
                 }
             }
         }
+
+        public int SelectedLang
+        {
+            get => _SelectedLang;
+            set
+            {
+                if (RaiseAndSetIfChanged(ref _SelectedLang,value))
+                    App.Data.SelectedLang = value;
+            }
+        }
     }
 
     partial class GameSettingViewModel
@@ -129,6 +146,7 @@ namespace WonderLab.ViewModels
         public string _Jvm = App.Data.Jvm;
         public List<string> _GameFolders = App.Data.GameFooterList;
         public List<string> _Javas = App.Data.JavaList;
+        public int _SelectedLang = 0;
     }
 
     partial class GameSettingViewModel

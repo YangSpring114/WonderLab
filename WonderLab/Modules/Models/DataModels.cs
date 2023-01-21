@@ -16,6 +16,7 @@ namespace WonderLab.Modules.Models
     {
         public int Max { get; set; } = 1024;
         public int SelectedJava { get; set; } = 0;
+        public int SelectedLang { get; set; } = 0;
         public int SelectedAPI { get; set; } = 0;
         public int MaxThreadCount { get; set; } = 0;
         public string SelectedGameFooter { get; set; } = string.Empty;
