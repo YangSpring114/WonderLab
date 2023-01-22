@@ -205,8 +205,7 @@
 						</Button>
 						<Button Click="CancelButtonClick"
 							Width="75"
-							Margin="15,0,0,0"
-							Foreground="White">
+							Margin="15,0,0,0">
 							<TextBlock Text="取消" />
 						</Button>
 					</StackPanel>
