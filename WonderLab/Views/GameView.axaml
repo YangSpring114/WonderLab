@@ -83,13 +83,13 @@
 				                            Height="60"/>
 									<StackPanel Orientation="Horizontal" Name="ButtonsPanel" IsHitTestVisible="True" Margin="10,10" Height="30" HorizontalAlignment="Right">
 										<!--Placement="BottomEdgeAlignedRight"-->
-										<Button Width="80" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ButtonClick" Content="启动"></Button>
+										<Button Width="80" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="LaunchButtonClick" Content="启动"></Button>
 										
 										<Button Margin="10,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 											<ui:SymbolIcon FontSize="16" Symbol="Setting"/>
 											<Button.Flyout>
 												<ui:MenuFlyout Placement="BottomEdgeAlignedRight">
-													<ui:MenuFlyoutItem Click="ButtonClick1" FontSize="12" Text="启动该核心">
+													<ui:MenuFlyoutItem Click="ButtonClick" FontSize="12" Text="启动该核心">
 														<ui:MenuFlyoutItem.Icon>
 															<ui:SymbolIcon Foreground="#8AE28A" Symbol="Play"/>
 														</ui:MenuFlyoutItem.Icon>
