@@ -16,15 +16,12 @@
 	</PropertyGroup>
   <ItemGroup>
     <None Remove=".gitignore" />
-    <None Remove="Resources\bb2155.ttf" />
-    <None Remove="Resources\butler.ttf" />
-    <None Remove="Resources\DINPro-Bold.otf" />
     <None Remove="Resources\fabric.png" />
     <None Remove="Resources\forge.png" />
-    <None Remove="Resources\HarmonyOS.ttf" />
     <None Remove="Resources\HarmonyOS_Sans_Black.ttf" />
     <None Remove="Resources\HarmonyOS_Sans_Bold.ttf" />
     <None Remove="Resources\HarmonyOS_Sans_Light.ttf" />
+    <None Remove="Resources\Icon.ico" />
     <None Remove="Resources\ModData.json" />
     <None Remove="Resources\normal.png" />
     <None Remove="Resources\sdf.png" />
@@ -34,18 +31,14 @@
     <None Remove="半圆.ico" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\bb2155.ttf" />
-    <EmbeddedResource Include="Resources\butler.ttf" />
-    <EmbeddedResource Include="Resources\DINPro-Bold.otf" />
     <EmbeddedResource Include="Resources\fabric.png" />
     <EmbeddedResource Include="Resources\forge.png" />
-    <EmbeddedResource Include="Resources\HarmonyOS.ttf" />
-    <EmbeddedResource Include="Resources\Icon.ico" />
 	<EmbeddedResource Include="Resources\normal.png" />
     <EmbeddedResource Include="Resources\sdf.png" />
     <EmbeddedResource Include="Resources\WonderLab.Desktop-Linux" />
     <EmbeddedResource Include="Resources\WonderLab.Desktop-Mac" />
     <EmbeddedResource Include="Resources\WonderLab.Desktop.exe" />
+    <EmbeddedResource Include="Resources\Icon.ico" />
     <EmbeddedResource Include="半圆.ico" />
   </ItemGroup>
   <ItemGroup>
