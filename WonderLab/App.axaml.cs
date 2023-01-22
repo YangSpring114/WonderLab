@@ -59,13 +59,17 @@ namespace WonderLab
                 {
                     //resm:WonderLab.Resources.WonderLab.Desktop.exe
                     var al = AvaloniaLocator.Current.GetService<IAssetLoader>();
-                    using var s = al!.Open(new Uri($"resm:WonderLab.Resources.WonderLab.Desktop{(InfoConst.IsWindows ? ".exe" : "")}"));
+                    var s = al!.Open(new Uri($"resm:WonderLab.Resources.WonderLab.Desktop.exe"));
+
+                    if (InfoConst.IsLinux)
+                        s = al!.Open(new("resm:WonderLab.Resources.WonderLab.Desktop-Linux"));
+                    else if(InfoConst.IsMacOS)
+                        s = al!.Open(new("resm:WonderLab.Resources.WonderLab.Desktop-Mac"));
+
                     using FileStream fileStream = File.Create(PathConst.DownloaderPath);
                     byte[] bytes = new byte[HttpToolkit.BufferSize];
                     for (int num = await s.ReadAsync(bytes, 0, HttpToolkit.BufferSize); num > 0; num = await s.ReadAsync(bytes, 0, HttpToolkit.BufferSize))
-                    {
                         await fileStream.WriteAsync(bytes, 0, num);
-                    }
 
                     fileStream.Flush();
                 }

@@ -28,6 +28,8 @@
     <None Remove="Resources\ModData.json" />
     <None Remove="Resources\normal.png" />
     <None Remove="Resources\sdf.png" />
+    <None Remove="Resources\WonderLab.Desktop-Linux" />
+    <None Remove="Resources\WonderLab.Desktop-Mac" />
     <None Remove="Resources\WonderLab.Desktop.exe" />
     <None Remove="半圆.ico" />
   </ItemGroup>
@@ -41,6 +43,8 @@
     <EmbeddedResource Include="Resources\Icon.ico" />
 	<EmbeddedResource Include="Resources\normal.png" />
     <EmbeddedResource Include="Resources\sdf.png" />
+    <EmbeddedResource Include="Resources\WonderLab.Desktop-Linux" />
+    <EmbeddedResource Include="Resources\WonderLab.Desktop-Mac" />
     <EmbeddedResource Include="Resources\WonderLab.Desktop.exe" />
     <EmbeddedResource Include="半圆.ico" />
   </ItemGroup>
