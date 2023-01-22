@@ -229,9 +229,7 @@ namespace WonderLab
             base.OnOpened(e);
 
             var thm = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
-#pragma warning disable CS8602 // 解引用可能出现空引用。
-            thm.RequestedThemeChanged += OnRequestedThemeChanged;
-#pragma warning restore CS8602 // 解引用可能出现空引用。
+            thm!.RequestedThemeChanged += OnRequestedThemeChanged;
 
             // Enable Mica on Windows 11
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
