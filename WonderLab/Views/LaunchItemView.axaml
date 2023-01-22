@@ -5,28 +5,33 @@
              xmlns:cx="using:ControlX"
 			 xmlns:ui="using:FluentAvalonia.UI.Controls"
              x:Class="WonderLab.Views.LaunchItemView" Margin="10,0,10,10" >
-	<cx:OptionsDisplayItem Expands="True" Description="检查游戏资源中" Header="游戏启动任务" x:Name="main">
+	<cx:OptionsDisplayItem Expands="True" 
+						   Description="{Binding State}" 
+						   Header="{Binding Title}" x:Name="main">
 		<cx:OptionsDisplayItem.Content>
-			<StackPanel Orientation="Vertical">
+			<StackPanel IsVisible="{Binding IsLaunchOk}" Orientation="Vertical">
 				<Grid Margin="0">
 					<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="游戏日志输出："/>
 					<Grid HorizontalAlignment="Right" Width="550">
 						<Button Name="gamelog" Content="转至控制台" HorizontalAlignment="Right" IsTabStop="False"/>
 					</Grid>
 				</Grid>
+				
 				<Grid Margin="0,25,0,0">
 					<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="游戏已运行时间："/>
 					<Grid HorizontalAlignment="Right" Width="550">
-						<TextBlock Text="00:00:00" Name="time" TextAlignment="Right" HorizontalAlignment="Right"/>
+						<TextBlock Text="{Binding RunTime}" Name="time" TextAlignment="Right" HorizontalAlignment="Right"/>
 					</Grid>
 				</Grid>
-				<Grid Name="Close" Margin="0,30,0,0">
+				
+				<Grid IsVisible="{Binding IsWindowsLoadOk}" Name="Close" Margin="0,30,0,0">
 					<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="强制结束游戏："/>
-                    <Button Content="强制结束" Name="closegame" HorizontalAlignment="Right"/>
+                    <Button Command="{Binding GameKillAction}" Content="强制结束" Name="closegame" HorizontalAlignment="Right"/>
 				</Grid>
-				<Grid Name="gameout" IsVisible="False" Margin="0,30,0,0">
+				
+				<Grid Name="gameout" IsVisible="{Binding IsClose}" Margin="0,30,0,0">
 					<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="游戏崩溃："/>
-					<TextBlock Name="exitcode" HorizontalAlignment="Right"/>
+					<TextBlock Text="{Binding ExitCode}" Name="exitcode" HorizontalAlignment="Right"/>
 				</Grid>
 			</StackPanel>
 		</cx:OptionsDisplayItem.Content>

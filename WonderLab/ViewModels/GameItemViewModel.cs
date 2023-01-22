@@ -104,8 +104,8 @@ namespace WonderLab.ViewModels
             button.Click += Button_Click;
 
             MainWindow.ShowInfoBarAsync("提示：", $"开始启动游戏核心：{InfoHeader}，可前往任务中心查看详细信息", InfoBarSeverity.Informational, 5000, button);
-
-            LaunchItemView view = new(version, App.Data.SelectedUser, GameView.gv.fodlercombo.SelectedItem.ToString());
+            //!!!!!!!!!!!!!!!!!!!!
+            LaunchItemView view = new(version, App.Data.SelectedUser);
 
             if (TaskView.itemView.Count is not 0 && TaskView.task is not null)
             {
