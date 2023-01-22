@@ -70,6 +70,7 @@
     </PackageReference>
     <PackageReference Include="Dotnet.Bundle" Version="0.9.13" />
     <PackageReference Include="FluentAvaloniaUI" Version="1.4.5" />
+    <PackageReference Include="MinecraftLaunch" Version="1.7.0" />
     <PackageReference Include="MinecraftOAuth" Version="1.8.0-preview" />
     <PackageReference Include="Natsurainko.FluentCore" Version="2.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />

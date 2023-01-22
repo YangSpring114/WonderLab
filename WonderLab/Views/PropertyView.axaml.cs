@@ -41,8 +41,8 @@ namespace WonderLab.Views
                 PropertyViewModel.LibraryCount = PropertyViewModel.GetLibraryCount(core);
                 PropertyViewModel.TotalSize = PropertyViewModel.GetTotalSize(core);
                 PropertyViewModel.ModLoaders = PropertyViewModel.GetModLoader(core)
-                    .Any() ? string.Join('，', PropertyViewModel.GetModLoader(core)
-                    .Select(x => $"{x.LoaderType}，{x.Version}")) : null;
+                    .Any() ? string.Join(": ", PropertyViewModel.GetModLoader(core)
+                    .Select(x => $"{x.LoaderType}: {x.Version}")) : null;
             }
             catch (NullReferenceException ex)
             {
