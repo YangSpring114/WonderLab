@@ -164,7 +164,7 @@
 			CloseButtonCommand="{Binding Colse}"
 			MiniButtonCommand="{Binding MiniWindowSize}"
 			MaxButtonCommand="{Binding MaxWindowSize}"
-			HorizontalAlignment="Right" 
+			HorizontalAlignment="Right" 			
 			VerticalAlignment="Top"/>
 		<!--<Button Content="Run Animation" x:Name="Run"/>-->
 		
