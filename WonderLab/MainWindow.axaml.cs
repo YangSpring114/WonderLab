@@ -131,7 +131,7 @@ namespace WonderLab
 
         public static string GetVersion()
         {
-            return "Build 1.0.1.4";
+            return "Build 1.0.1.5";
         }
 
         public static void AutoUpdata()
