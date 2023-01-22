@@ -30,7 +30,7 @@
 				</ExperimentalAcrylicBorder>
 			</Panel>
 			<!--C:\Users\w\Desktop\总整包\素材库\图片素材\杂项\20.png-->
-			<Image Opacity="0.22" Stretch="UniformToFill" Source="C:\Users\w\Desktop\xcmy.jpg"/>
+			<!--<Image Opacity="0.22" Stretch="UniformToFill" Source="C:\Users\w\Desktop\xcmy.jpg"/>-->
 			<Panel Name="MainPanel"/>
 			<!--x:Name="InformationList"-->
 			<ListBox
