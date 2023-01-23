@@ -187,7 +187,8 @@ namespace WonderLab.ViewModels
                     filter.Extensions.Add("exe");
 
                 filter.Name = "Java路径";
-                filters.Add(filter);
+                if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    filters.Add(filter);
 
                 var dialog = new OpenFileDialog
                 {
