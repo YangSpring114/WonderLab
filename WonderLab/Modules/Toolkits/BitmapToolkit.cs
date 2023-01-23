@@ -19,12 +19,12 @@ namespace WonderLab.Modules.Toolkits
     public class BitmapToolkit
     {
         /// <summary>
-        /// 裁剪图片
+        /// 裁剪皮肤图片头像
         /// </summary>
         /// <param name="originImage">原图片</param>
         /// <param name="region">裁剪的方形区域</param>
         /// <returns>裁剪后图片</returns>
-        public static async ValueTask<Stream> CropImage(string stream)
+        public static async ValueTask<Stream> CropSkinImage(string stream)
         {
             Image<Rgba32> head = (Image<Rgba32>)Image.Load(stream);
             head.Mutate(x => x.Crop(Rectangle.FromLTRB(8, 8, 16, 16)));
@@ -45,11 +45,11 @@ namespace WonderLab.Modules.Toolkits
                 }
             }
 
-            endImage.Mutate(x => x.Resize(128, 128));
-
+#if DEBUG
             //缓存图片
-            await endImage.SaveAsync(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop),(stream.Length.ToString() + ".jpg")));
+            await endImage.SaveAsync(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), (stream.Length.ToString() + ".jpg")));
             return null;
+#endif
         }
 
         /// <summary>
