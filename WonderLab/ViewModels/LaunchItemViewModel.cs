@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using Avalonia;
+using Microsoft.CodeAnalysis;
 using MinecraftLaunch.Launch;
 using MinecraftLaunch.Modules.Enum;
 using MinecraftLaunch.Modules.Installer;
@@ -32,11 +33,15 @@ namespace WonderLab.ViewModels
 
         public string ExitCode { get => _ExitCode; set => RaiseAndSetIfChanged(ref _ExitCode, value); }
 
+        public Thickness TimerMargin { get => _TimerMargin; set => RaiseAndSetIfChanged(ref _TimerMargin, value); }
+
         public bool IsLaunchOk { get => _IsLaunchOk; set => RaiseAndSetIfChanged(ref _IsLaunchOk, value); }
 
         public bool IsWindowsLoadOk { get => _IsWindowsLoadOk; set => RaiseAndSetIfChanged(ref _IsWindowsLoadOk, value); }
 
         public bool IsClose { get => _IsClose; set => RaiseAndSetIfChanged(ref _IsClose, value); }
+
+        public bool IsCanGoToConsole { get => _IsCanGoToConsole; set => RaiseAndSetIfChanged(ref _IsCanGoToConsole, value); }
     }
 
     partial class LaunchItemViewModel
@@ -119,8 +124,9 @@ namespace WonderLab.ViewModels
                     State = "游戏运行中";
                     IsLaunchOk = true;
                     await Task.Run(GameProcess.WaitForInputIdle);
+                    TimerMargin = new(0, 25, 0, 0);
                     IsWindowsLoadOk = true;
-
+                    IsCanGoToConsole = true;
                 }
                 else if (res.State is LaunchState.Failed)
                 {
@@ -146,10 +152,12 @@ namespace WonderLab.ViewModels
                 {
                     State = $"资源补全进度：{x}";
                 });
+
+                State = "资源补全完成";
             }
             catch (Exception)
             {
-
+                LaunchFailedAction(LaunchFailedType.CompletionedFailed);
             }
         }
 
@@ -214,11 +222,13 @@ namespace WonderLab.ViewModels
         public GameCore GameCore = null;
         public Account Account = null;
         public Process GameProcess = null;
+        private Thickness _TimerMargin = new(0);
         private string _Title = string.Empty;
         private string _ExitCode = string.Empty;
         private bool _IsLaunchOk = false;
         private bool _IsClose = false;
         private bool _IsWindowsLoadOk = false;
+        private bool _IsCanGoToConsole = false;
         private string _RunTime = "00:00:00";
         private string _State = "准备启动游戏核心";
     }
