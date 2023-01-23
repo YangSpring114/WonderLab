@@ -4,6 +4,8 @@ using Avalonia.Controls.Shapes;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -63,11 +65,25 @@ namespace WonderLab.Modules.Toolkits
         /// </summary>
         /// <param name="uri"></param>
         /// <returns></returns>
-        public static IImage GetAssetsImage(string uri)
+        public static Avalonia.Media.IImage GetAssetsImage(string uri)
         {
             var al = AvaloniaLocator.Current.GetService<IAssetLoader>();
             using (var s = al.Open(new Uri(uri)))
                 return new Bitmap(s);
+        }
+        public static Image<TPixel> ResizeImage<TPixel>(Image<TPixel> image, int w, int h) where TPixel : unmanaged, IPixel<TPixel>
+        {
+            Image<TPixel> image2 = new(w, h);
+            for(int i = 0;i < w; i++)
+            {
+                for (int j = 0; j < h; j++)
+                {
+                    int realW = image.Width / w * (i + 1);
+                    int realH = image.Height / h * (j + 1);
+                    image2[i, j] = image[realW, realH];
+                }
+            }
+            return image2;
         }
     }
 }
