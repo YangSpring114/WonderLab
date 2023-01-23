@@ -131,7 +131,7 @@ namespace WonderLab
 
         public static string GetVersion()
         {
-            return "Build 1.0.1.5";
+            return "1.0.1.5";
         }
 
         public static void AutoUpdata()
@@ -290,7 +290,7 @@ namespace WonderLab
                     width = 400;
                 }
             }
-            //AutoUpdata();
+            AutoUpdata();
         }
 
         private void OnRequestedThemeChanged(FluentAvaloniaTheme sender, RequestedThemeChangedEventArgs args)
