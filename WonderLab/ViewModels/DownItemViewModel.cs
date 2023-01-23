@@ -640,8 +640,8 @@ namespace WonderLab.ViewModels
         public string FilePath;
         public string _TaskType;
         public float _TaskProgress = 0;
-        public string _MainTaskProgress = "准备进行安装";
-        public string _LittleTaskProgress = "准备进行安装";
+        public string _MainTaskProgress = "初始化中";
+        public string _LittleTaskProgress = "初始化中";
         public string _FileLink = "";
         public bool _IsFileLinkVisible = false;
         public bool _IsFileOpenVisible = false;
