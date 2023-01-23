@@ -26,7 +26,7 @@ namespace WonderLab.Modules.Toolkits
         /// <param name="originImage">原图片</param>
         /// <param name="region">裁剪的方形区域</param>
         /// <returns>裁剪后图片</returns>
-        public static async ValueTask<Stream> CropSkinImage(string stream)
+        public static async ValueTask<Image<Rgba32>> CropSkinImage(string stream)
         {
             Image<Rgba32> head = (Image<Rgba32>)Image.Load(stream);
             head.Mutate(x => x.Crop(Rectangle.FromLTRB(8, 8, 16, 16)));
@@ -49,8 +49,8 @@ namespace WonderLab.Modules.Toolkits
 
 #if DEBUG
             //缓存图片
-            await endImage.SaveAsync(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), (stream.Length.ToString() + ".jpg")));
-            return null;
+            //await endImage.SaveAsync(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), (stream.Length.ToString() + ".jpg")));
+            return endImage;
 #endif
         }
 
@@ -65,16 +65,28 @@ namespace WonderLab.Modules.Toolkits
             using (var s = al.Open(new Uri(uri)))
                 return new Bitmap(s);
         }
+
+        /// <summary>
+        /// 重置图片长宽
+        /// </summary>
+        /// <typeparam name="TPixel"></typeparam>
+        /// <param name="image"></param>
+        /// <param name="w"></param>
+        /// <param name="h"></param>
+        /// <returns></returns>
         public static Image<TPixel> ResizeImage<TPixel>(Image<TPixel> image, int w, int h) where TPixel : unmanaged, IPixel<TPixel>
         {
             Image<TPixel> image2 = new(w, h);
-            for(int i = 0;i < w; i++)
+            for (int i = 0; i < w; i++)
             {
                 for (int j = 0; j < h; j++)
                 {
-                    int realW = image.Width / w * (i + 1);
-                    int realH = image.Height / h * (j + 1);
-                    image2[i, j] = image[realW, realH];
+                    double tmp;
+                    tmp = (double)image.Width / (double)w;
+                    double realW = tmp * (i);
+                    tmp = (double)image.Height / (double)h;
+                    double realH = (tmp) * (j);
+                    image2[i, j] = image[(int)realW, (int)realH];
                 }
             }
             return image2;

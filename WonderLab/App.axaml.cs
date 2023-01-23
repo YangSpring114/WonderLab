@@ -11,6 +11,8 @@ using MinecraftLaunch.Modules.Toolkits;
 using Natsurainko.FluentCore.Class.Model.Launch;
 using Newtonsoft.Json;
 using ReactiveUI;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
@@ -98,6 +100,9 @@ namespace WonderLab
         }
         public async void InitializeModData()
         {
+            var res = await BitmapToolkit.CropSkinImage("C:\\Users\\w\\Desktop\\总整包\\MC\\mc皮肤资源\\starcloudsea.png");
+            BitmapToolkit.ResizeImage(res, 512, 512).Save("C:\\Users\\w\\Desktop\\starcloudsea.jpg");
+            //
             var al = AvaloniaLocator.Current.GetService<IAssetLoader>();
             await Task.Run(() =>
             {
