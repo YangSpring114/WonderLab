@@ -98,6 +98,7 @@ namespace WonderLab
         }
         public async void InitializeModData()
         {
+            await BitmapToolkit.CropImage("C:\\Users\\w\\Desktop\\xiaoniao_.png");
             var al = AvaloniaLocator.Current.GetService<IAssetLoader>();
             await Task.Run(() =>
             {
