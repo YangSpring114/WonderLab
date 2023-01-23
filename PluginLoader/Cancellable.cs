@@ -2,9 +2,18 @@ namespace PluginLoader
 {
     public interface ICancellable
     {
-        public bool IsCancel();
-        public void Cancel();
-        public void SetCancel(bool IsCancel);
+        public bool IsCancel()
+        {
+            return IsCanceled;
+        }
+        public void Cancel()
+        {
+            IsCanceled = true;
+        }
+        public void SetCancel(bool IsCancel)
+        {
+            IsCanceled = IsCancel;
+        }
         public bool IsCanceled { get; set; }
     }
 }

@@ -10,11 +10,8 @@ namespace PluginLoader
         /// 所有插件监听器
         /// </summary>
         public static List<Listener> Listeners = new List<Listener>();
-        public virtual string Name { get; }
-        public virtual void Do()
-        {
-
-        }
+        public abstract string Name { get; }
+        public abstract bool Do();
         public string GetEventName()
         {
             return Name;
@@ -34,7 +31,7 @@ namespace PluginLoader
          /// <param name="event">
          /// 事件
          /// </param>
-        public static void SetEvent(Event @event)
+        public static bool CallEvent(Event @event)
         {
             bool cancel = false;
             for (int i = 0; i < Listeners.Count; i++)
@@ -75,7 +72,7 @@ namespace PluginLoader
                     }
                 }
             }
-            @event.Do();
+            return @event.Do();
         }
     }
 }

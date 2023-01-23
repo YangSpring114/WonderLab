@@ -8,6 +8,11 @@ namespace PluginLoader
 {
     public class EmptyEvent : Event
     {
+        public override string Name { get { return "EmptyEvent"; } }
 
+        public override bool Do()
+        {
+            return true;
+        }
     }
 }

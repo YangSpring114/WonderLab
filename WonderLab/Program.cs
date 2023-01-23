@@ -43,7 +43,7 @@ namespace WonderLab
                 //.StartWithClassicDesktopLifetime(args);
             }
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            //PluginLoader.PluginLoader.LoadAllFromPlugin();
+            PluginLoader.PluginLoader.LoadAllFromPlugin();
         }
 
         // Avalonia configuration, don't remove; also used by visual designer.

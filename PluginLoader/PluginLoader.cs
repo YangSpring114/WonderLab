@@ -135,7 +135,7 @@ namespace PluginLoader
                     Plugins.Add((Plugin)obj);
                     PluginLoadEvent e = new PluginLoadEvent();
                     e.PluginInfo = pluginInfo;
-                    Event.SetEvent(e);
+                    Event.CallEvent(e);
                 }
                 catch { }
             }
@@ -233,7 +233,7 @@ namespace PluginLoader
                     }
                     PluginUnLoadEvent e = new PluginUnLoadEvent();
                     e.PluginInfo = PluginInfos[i];
-                    Event.SetEvent(e);
+                    Event.CallEvent(e);
                     for (int j = 0; j < Event.Listeners.Count; j++)
                     {
                         if (Event.Listeners[j].PluginInfo.Guid == PluginInfos[i].Guid)
@@ -284,7 +284,7 @@ namespace PluginLoader
                     }
                     PluginUnLoadEvent e = new PluginUnLoadEvent();
                     e.PluginInfo = PluginInfos[i];
-                    Event.SetEvent(e);
+                    Event.CallEvent(e);
                     for (int j = 0; j < Event.Listeners.Count; j++)
                     {
                         if (Event.Listeners[j].PluginInfo.Guid == PluginInfos[i].Guid)
