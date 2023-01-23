@@ -7,6 +7,7 @@ using MinecraftLaunch.Modules.Interface;
 using MinecraftLaunch.Modules.Models.Auth;
 using MinecraftLaunch.Modules.Models.Launch;
 using MinecraftLaunch.Modules.Toolkits;
+using Splat;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -63,13 +64,28 @@ namespace WonderLab.ViewModels
             BackgroundWorker worker = new();
             worker.DoWork += async (_, _) =>
             {
-                ResourceCompletionedAction();
-                Trace.WriteLine($"游戏核心 {GameCore.Id} 的启动任务");
+                var IsCompletedSuccess = await ResourceCompletionedAction();
+
+                if (!IsCompletedSuccess) {                    
+                    return;
+                }
+
                 Title = $"游戏核心 {GameCore.Id} 的启动任务";
                 bool IsEnableIndependencyCore = false;
                 var setting = new LaunchConfig();
                 var toolkit = new GameCoreToolkit(App.Data.FooterPath);
                 var IndependencyCoreData = JsonToolkit.GetEnableIndependencyCoreData(App.Data.FooterPath, GameCore.Id!);
+
+                setting.Account = Account;
+                if (setting.Account.Type is AccountType.Yggdrasil)
+                {
+                    if (!File.Exists(Path.Combine(PathConst.TempDirectory, "authlib-injector.jar")))
+                    {
+                        await HttpToolkit.HttpDownloadAsync("https://bmclapi2.bangbang93.com/mirrors/authlib-injector/artifact/45/authlib-injector-1.1.45.jar",
+                            PathConst.TempDirectory, "authlib-injector.jar");
+                    }
+                    //setting.JvmConfig.AdvancedArguments = new List<string>() { viewModel.Account.AIJvm };
+                }
 
                 setting.JvmConfig = new(App.Data.JavaPath)
                 {
@@ -81,6 +97,8 @@ namespace WonderLab.ViewModels
                 {
                     IsFullscreen = App.Data.IsFull,
                 };
+
+                JavaClientLauncher launcher = new(setting, toolkit, App.Data.Isolate);
 
                 if (IndependencyCoreData is not null && IndependencyCoreData.IsEnableIndependencyCore)
                 {
@@ -97,22 +115,11 @@ namespace WonderLab.ViewModels
                         Height = IndependencyCoreData.WindowHeight,
                         Width = IndependencyCoreData.WindowWidth
                     };
+                    launcher = new(setting, toolkit, IsEnableIndependencyCore);
                     Trace.WriteLine("[Launch] 已启用独立游戏核心设置");
                 }
 
-                setting.Account = Account;
-                if (setting.Account.Type is AccountType.Yggdrasil)
-                {
-                    if (!File.Exists(Path.Combine(PathConst.TempDirectory, "authlib-injector.jar")))
-                    {
-                        await HttpToolkit.HttpDownloadAsync("https://bmclapi2.bangbang93.com/mirrors/authlib-injector/artifact/45/authlib-injector-1.1.45.jar",
-                            PathConst.TempDirectory, "authlib-injector.jar");
-                    }
-                    //setting.JvmConfig.AdvancedArguments = new List<string>() { viewModel.Account.AIJvm };
-                }
-
                 JsonToolkit.JsonWrite();
-                JavaClientLauncher launcher = new(setting, toolkit, IsEnableIndependencyCore);
                 var res = await launcher.LaunchTaskAsync(GameCore.Id!);
 
                 if (res.State is LaunchState.Succeess)
@@ -143,7 +150,7 @@ namespace WonderLab.ViewModels
         /// <summary>
         /// 游戏资源补全事件
         /// </summary>
-        public async void ResourceCompletionedAction()
+        public async ValueTask<bool> ResourceCompletionedAction()
         {
             try
             {
@@ -154,10 +161,12 @@ namespace WonderLab.ViewModels
                 });
 
                 State = "资源补全完成";
+                return true;
             }
             catch (Exception)
             {
                 LaunchFailedAction(LaunchFailedType.CompletionedFailed);
+                return false;
             }
         }
 
