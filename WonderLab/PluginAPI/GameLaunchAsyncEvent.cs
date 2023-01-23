@@ -34,7 +34,6 @@ namespace WonderLab.PluginAPI
         {
             string version = "";
 
-
             #region 预启动检查
 
             #region 检查游戏核心

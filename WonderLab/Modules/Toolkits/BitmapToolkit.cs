@@ -1,14 +1,9 @@
 using Avalonia;
 using Avalonia.Platform;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using IImage = Avalonia.Media.IImage;
 using Avalonia.Media.Imaging;
-using System;
 using SixLabors.ImageSharp.Processing;
-using WonderLab.ViewModels;
-using SixLabors.ImageSharp.Advanced;
 using System.Threading.Tasks;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
@@ -47,11 +42,7 @@ namespace WonderLab.Modules.Toolkits
                 }
             }
 
-#if DEBUG
-            //缓存图片
-            //await endImage.SaveAsync(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), (stream.Length.ToString() + ".jpg")));
             return endImage;
-#endif
         }
 
         /// <summary>
@@ -59,7 +50,7 @@ namespace WonderLab.Modules.Toolkits
         /// </summary>
         /// <param name="uri"></param>
         /// <returns></returns>
-        public static Avalonia.Media.IImage GetAssetsImage(string uri)
+        public static IImage GetAssetsImage(string uri)
         {
             var al = AvaloniaLocator.Current.GetService<IAssetLoader>();
             using (var s = al.Open(new Uri(uri)))
