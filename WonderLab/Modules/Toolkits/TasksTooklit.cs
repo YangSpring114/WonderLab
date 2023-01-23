@@ -1,16 +1,22 @@
 using Avalonia.Controls;
+using Avalonia.OpenGL;
 using FluentAvalonia.UI.Controls;
+using MinecraftLaunch.Launch;
+using MinecraftLaunch.Modules.Enum;
+using MinecraftLaunch.Modules.Interface;
+using MinecraftLaunch.Modules.Models.Launch;
+using MinecraftLaunch.Modules.Toolkits;
 using Natsurainko.Toolkits.Network.Model;
+using Splat;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using WonderLab.Modules.Base;
 using WonderLab.Modules.Const;
 using WonderLab.Modules.Controls;
+using WonderLab.Modules.Enum;
 using WonderLab.Modules.Models;
 using WonderLab.ViewModels;
 using WonderLab.Views;
@@ -20,8 +26,77 @@ namespace WonderLab.Modules.Toolkits
     /// <summary>
     /// 任务操作工具类
     /// </summary>
-    public class TasksTooklit : ViewModelBase
+    public class TasksTooklit
     {
+        /// <summary>
+        /// 创建游戏进程任务
+        /// </summary>
+        /// <param name="core"></param>
+        public static async ValueTask<JavaClientLaunchResponse> CreateGameLaunchTask(GameCore core, LaunchItemViewModel viewModel)
+        {
+            Trace.WriteLine($"游戏核心 {core.Id} 的启动任务");
+            viewModel.Title = $"游戏核心 {core.Id} 的启动任务";
+            bool IsEnableIndependencyCore = false;
+            var setting = new LaunchConfig();
+            var toolkit = new GameCoreToolkit(App.Data.FooterPath);
+            var IndependencyCoreData = JsonToolkit.GetEnableIndependencyCoreData(App.Data.FooterPath, core.Id!);
+
+            setting.JvmConfig = new(App.Data.JavaPath)
+            {
+                MaxMemory = App.Data.Max,
+                AdvancedArguments = new List<string>() { App.Data.Jvm },
+            };
+
+            setting.GameWindowConfig = new()
+            {
+                IsFullscreen = App.Data.IsFull,
+            };
+
+            if (IndependencyCoreData is not null && IndependencyCoreData.IsEnableIndependencyCore)
+            {
+                IsEnableIndependencyCore = IndependencyCoreData.Isolate;
+                setting.JvmConfig = new(App.Data.JavaPath)
+                {
+                    MaxMemory = App.Data.Max,
+                    AdvancedArguments = new List<string>() { IndependencyCoreData.Jvm },
+                };
+
+                setting.GameWindowConfig = new()
+                {
+                    IsFullscreen = IndependencyCoreData.IsFullWindows,
+                    Height = IndependencyCoreData.WindowHeight,
+                    Width = IndependencyCoreData.WindowWidth
+                };
+                Trace.WriteLine("[Launch] 已启用独立游戏核心设置");
+            }
+
+            setting.Account = viewModel.Account;
+            if (setting.Account.Type is AccountType.Yggdrasil)
+            {                
+                if (!File.Exists(Path.Combine(PathConst.TempDirectory, "authlib-injector.jar")))
+                {
+                    await HttpToolkit.HttpDownloadAsync("https://bmclapi2.bangbang93.com/mirrors/authlib-injector/artifact/45/authlib-injector-1.1.45.jar",
+                        PathConst.TempDirectory, "authlib-injector.jar");
+                }
+                //setting.JvmConfig.AdvancedArguments = new List<string>() { viewModel.Account.AIJvm };
+            }
+
+            JsonToolkit.JsonWrite();
+            JavaClientLauncher launcher = new(setting, toolkit, IsEnableIndependencyCore);
+            var res = await launcher.LaunchTaskAsync(core.Id!);
+
+            if (res.State is LaunchState.Succeess)
+            {
+                viewModel.LaunchTime = DateTime.Now;
+                viewModel.State = "游戏运行中";
+            }
+            else if (res.State is LaunchState.Failed)
+            {
+                viewModel.LaunchFailedAction(LaunchFailedType.LaunchFailed, res.Exception);
+            }
+            return null;
+        }
+
         /// <summary>
         /// 创建模组下载任务
         /// </summary>

@@ -102,6 +102,7 @@ namespace WonderLab.Views
         public void Button_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             TaskView.Remove(this);
+            MainView.ViewModel.AllTaskCount--;
         }
     }
 }

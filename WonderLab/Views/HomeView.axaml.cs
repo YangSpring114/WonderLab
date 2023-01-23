@@ -1,5 +1,7 @@
+using Avalonia.Threading;
 using FluentAvalonia.UI.Controls;
 using MinecraftLaunch.Modules.Toolkits;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using WonderLab.Modules.Base;
@@ -43,8 +45,13 @@ namespace WonderLab.Views
 
         public override async void OnNavigatedTo()
         {
-            HomeViewModel.GameSearchAsync();
-            HomeViewModel.RefreshUserAsync();
+            BackgroundWorker worker = new();
+            worker.DoWork += (_, _) =>
+            {
+                HomeViewModel.GameSearchAsync();
+                HomeViewModel.RefreshUserAsync();
+            };
+            worker.RunWorkerAsync();
         }
     }
 

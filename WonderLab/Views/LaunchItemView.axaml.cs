@@ -35,6 +35,7 @@ namespace WonderLab.Views
 {
     public partial class LaunchItemView : Page, ITask
     {
+        public static LaunchItemViewModel ViewModel { get; set; }
         Process GameProcess = null;
 
         ConsoleWindow Window = null;
@@ -43,12 +44,11 @@ namespace WonderLab.Views
 
         public LaunchItemView() => InitializeComponent();
 
-        public LaunchItemView(string version, UserDataModels userData,string IsList = "")
+        public LaunchItemView(string version, UserDataModels userData)
         {
             MainView.ViewModel.AllTaskCount++;
-            InitializeComponent();
-            Path = IsList;
-            Async(version, userData);
+            InitializeComponent(version);
+            //Async(version, userData);
         }
 
         async void Async(string version,UserDataModels userData)
@@ -62,11 +62,14 @@ namespace WonderLab.Views
             }
         }//MainWindow.ShowInfoBarAsync
 
-        private void InitializeComponent()
+        private void InitializeComponent(string version)
         {
             InitializeComponent(true);
-            gamelog.Click += Gamelog_Click;
-            closegame.Click += Closegame_Click;
+            ViewModel = new(GameCoreToolkit.GetGameCore(App.Data.FooterPath, version), Account.Default);
+            DataContext = ViewModel;
+            ViewModel.GameLaunchAction();
+            //gamelog.Click += Gamelog_Click;
+            //closegame.Click += Closegame_Click;
         }
 
         private void Gamelog_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -162,97 +165,7 @@ namespace WonderLab.Views
                 {
                     realVersion = locator.GetGameCore(version).Source;
                 }
-                VersionInfo versionInfo = McVersionLib.GetVersionInfo(realVersion);
-                if(versionInfo.HeadVersion == 1 && versionInfo.MidVersion < 17 && RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                {
-                    foreach(string javaPath in App.Data.JavaList)
-                    {
-                        FileInfo fileInfo = new(javaPath);
-                        var tmp = Modules.Toolkits.JavaToolkit.GetJavaInfo(fileInfo.Directory.FullName);
-                        if (tmp != null)
-                        {
-                            var javaversion = tmp.JavaVersion;
-                            if(javaversion.Contains("1.8"))
-                            {
-                                JavaPath = javaPath;
-                                break;
-                            }
-                        }
-                    }
-                }
-                if (versionInfo.HeadVersion == 1 && versionInfo.MidVersion == 17 && RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                {
-                    bool needToFind18 = true;
-                    foreach (string javaPath in App.Data.JavaList)
-                    {
-                        FileInfo fileInfo = new(javaPath);
-                        var tmp = Modules.Toolkits.JavaToolkit.GetJavaInfo(fileInfo.Directory.FullName);
-                        if (tmp != null)
-                        {
-                            var javaversion = tmp.JavaVersion;
-                            if (javaversion.Contains("17"))
-                            {
-                                JavaPath = javaPath;
-                                needToFind18 = false;
-                                break;
-                            }
-                        }
-                    }
-                    if (needToFind18)
-                    {
-                        foreach (string javaPath in App.Data.JavaList)
-                        {
-                            FileInfo fileInfo = new(javaPath);
-                            var tmp = Modules.Toolkits.JavaToolkit.GetJavaInfo(fileInfo.Directory.FullName);
-                            if (tmp != null)
-                            {
-                                var javaversion = tmp.JavaVersion;
-                                if (javaversion.Contains("18"))
-                                {
-                                    JavaPath = javaPath;
-                                    needToFind18 = false;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-                if (versionInfo.HeadVersion == 1 && versionInfo.MidVersion > 17 && RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                {
-                    bool needToFind17 = true;
-                    foreach (string javaPath in App.Data.JavaList)
-                    {
-                        FileInfo fileInfo = new(javaPath);
-                        var tmp = Modules.Toolkits.JavaToolkit.GetJavaInfo(fileInfo.Directory.FullName);
-                        if (tmp != null)
-                        {
-                            var javaversion = tmp.JavaVersion;
-                            if (javaversion.Contains("18"))
-                            {
-                                JavaPath = javaPath;
-                                needToFind17 = false;
-                                break;
-                            }
-                        }
-                    }
-                    if (needToFind17)
-                    {
-                        foreach (string javaPath in App.Data.JavaList)
-                        {
-                            FileInfo fileInfo = new(javaPath);
-                            var tmp = Modules.Toolkits.JavaToolkit.GetJavaInfo(fileInfo.Directory.FullName);
-                            if (tmp != null)
-                            {
-                                var javaversion = tmp.JavaVersion;
-                                if (javaversion.Contains("17"))
-                                {
-                                    JavaPath = javaPath;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
+
                 settings.JvmConfig = new(JavaPath)
                 {
                     MaxMemory = App.Data.Max,
@@ -275,7 +188,6 @@ namespace WonderLab.Views
                     settings.NativesFolder = new(Path is "" ? App.Data.FooterPath : Path);
                 if (res is not null && res.IsEnableIndependencyCore)
                 {
-                    //settings.EnableIndependencyCore = res.Isolate;
                     IsEnableIndependencyCore = res.Isolate;
                     settings.JvmConfig = new(App.Data.JavaPath)
                     {
@@ -290,10 +202,6 @@ namespace WonderLab.Views
                         Width = res.WindowWidth
                     };
                     Trace.WriteLine("[Launch] 已启用独立游戏核心设置");
-                    //if (res.Isolate is true)
-                    //    settings.WorkingFolder = new(PathConst.GetVersionFolder(Path is "" ? App.Data.FooterPath : Path, version));
-                    //else
-                    //    settings.WorkingFolder = new(Path is "" ? App.Data.FooterPath : Path);
                 }
                 #endregion
 

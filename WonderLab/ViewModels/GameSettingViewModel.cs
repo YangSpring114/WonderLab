@@ -7,12 +7,14 @@ using MinecraftLaunch.Modules.Toolkits;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WonderLab.Modules.Base;
+using WonderLab.Modules.Const;
 using WonderLab.Modules.Toolkits;
 
 namespace WonderLab.ViewModels
@@ -228,14 +230,38 @@ namespace WonderLab.ViewModels
             {
                 try
                 {
-                    var res = Modules.Toolkits.JavaToolkit.GetJavas().Distinct();//数组去重，防止出现多个相同的java
-                    foreach (var j in res)
+                    if (InfoConst.IsWindows)
                     {
-                        App.Data.JavaList.Add(j.JavaPath);
+                        var res = Modules.Toolkits.JavaToolkit.GetJavas().Distinct();//数组去重，防止出现多个相同的java
+
+                        var basePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                        basePath = Path.Combine(basePath, ".minecraft", "runtime");
+                        var paths = new[] { "java-runtime-alpha", "java-runtime-beta", "jre-legacy" };
+                        App.Data.JavaList.AddRange(paths.Select(path => Path.Combine(basePath, path, "bin", "javaw.exe")).Where(File.Exists));  
+                        
+                        foreach (var j in res)
+                            App.Data.JavaList.Add(j.JavaPath);
+                    }
+                    else if (InfoConst.IsLinux)
+                    {
+                        //尝试搜索官方游戏文件夹目录里的 Java
+                        var basePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                        basePath = Path.Combine(basePath, ".minecraft", "runtime");
+                        var paths = new[] { "java-runtime-alpha", "java-runtime-beta", "jre-legacy" };
+                        App.Data.JavaList.AddRange(paths.Select(path => Path.Combine(basePath, path, "bin", "javaw.exe")).Where(File.Exists));
+                    }
+                    else//傻逼MacOS
+                    {
+                        //尝试搜索官方游戏文件夹目录里的 Java
+                        var path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                        var basePath = Path.Combine(path, "Application Support");
+                        basePath = Path.Combine(basePath, ".minecraft", "runtime");
+                        var paths = new[] { "java-runtime-alpha", "java-runtime-beta", "jre-legacy" };
+                        App.Data.JavaList.AddRange(paths.Select(path => Path.Combine(basePath, path, "bin", "javaw.exe")).Where(File.Exists));
                     }
 
                     Javas = null;
-                    Javas = App.Data.JavaList;
+                    Javas = App.Data.JavaList.Distinct().ToList();
                     if (Javas.Count > 0)
                     {
                         JavaRemoveVisible = true;

@@ -131,7 +131,7 @@ namespace WonderLab
 
         public static string GetVersion()
         {
-            return "Build 1.0.1.4";
+            return "Build 1.0.1.5";
         }
 
         public static void AutoUpdata()
@@ -229,9 +229,7 @@ namespace WonderLab
             base.OnOpened(e);
 
             var thm = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
-#pragma warning disable CS8602 // 解引用可能出现空引用。
-            thm.RequestedThemeChanged += OnRequestedThemeChanged;
-#pragma warning restore CS8602 // 解引用可能出现空引用。
+            thm!.RequestedThemeChanged += OnRequestedThemeChanged;
 
             // Enable Mica on Windows 11
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))

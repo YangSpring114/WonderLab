@@ -66,6 +66,8 @@ namespace WonderLab.ViewModels
             string version = "";
             Enabled = false;
 
+            #region 预启动检查
+
             #region 检查游戏核心
 
             try
@@ -122,6 +124,8 @@ namespace WonderLab.ViewModels
                 MainWindow.ShowInfoBarAsync("错误：", $"选择的游戏档案里有信息为空！", InfoBarSeverity.Error);
                 return;
             }
+
+            #endregion
 
             #endregion
 

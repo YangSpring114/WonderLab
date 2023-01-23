@@ -28,7 +28,9 @@
                                  Opacity="0.725"/>
 			</Setter>
 		</Style>-->
-
+		<!--<Style Selector="TextBlock">
+			<Setter Property="FontFamily" Value="avares://WonderLab/Resources/HarmonyOS#HarmonyOS Sans"/>
+		</Style>-->
 		<!--bb2155.ttf  avares://ControlCatalog/Assets/Fonts#Source Sans Pro-->
 	</Application.Styles>
 	<Application.Resources>

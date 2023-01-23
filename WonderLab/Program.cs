@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using WonderLab.Modules.Toolkits;
 
 namespace WonderLab
 {
@@ -28,15 +29,18 @@ namespace WonderLab
             //        return;
             //    }
             //}
+            AppBuilder builder = null;
             try
             {
-                BuildAvaloniaApp()
-                .StartWithClassicDesktopLifetime(args);
+                builder = BuildAvaloniaApp();
+                builder.StartWithClassicDesktopLifetime(args);
             }
             catch (Exception)
             {
-                BuildAvaloniaApp()
-                .StartWithClassicDesktopLifetime(args);
+                JsonToolkit.JsonWrite();
+                new MainWindow().Show();
+                //BuildAvaloniaApp()
+                //.StartWithClassicDesktopLifetime(args);
             }
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             //PluginLoader.PluginLoader.LoadAllFromPlugin();

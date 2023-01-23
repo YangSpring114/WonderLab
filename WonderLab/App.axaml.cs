@@ -59,13 +59,17 @@ namespace WonderLab
                 {
                     //resm:WonderLab.Resources.WonderLab.Desktop.exe
                     var al = AvaloniaLocator.Current.GetService<IAssetLoader>();
-                    using var s = al!.Open(new Uri($"resm:WonderLab.Resources.WonderLab.Desktop{(InfoConst.IsWindows ? ".exe" : "")}"));
+                    var s = al!.Open(new Uri($"resm:WonderLab.Resources.WonderLab.Desktop.exe"));
+
+                    if (InfoConst.IsLinux)
+                        s = al!.Open(new("resm:WonderLab.Resources.WonderLab.Desktop-Linux"));
+                    else if(InfoConst.IsMacOS)
+                        s = al!.Open(new("resm:WonderLab.Resources.WonderLab.Desktop-Mac"));
+
                     using FileStream fileStream = File.Create(PathConst.DownloaderPath);
                     byte[] bytes = new byte[HttpToolkit.BufferSize];
                     for (int num = await s.ReadAsync(bytes, 0, HttpToolkit.BufferSize); num > 0; num = await s.ReadAsync(bytes, 0, HttpToolkit.BufferSize))
-                    {
                         await fileStream.WriteAsync(bytes, 0, num);
-                    }
 
                     fileStream.Flush();
                 }
@@ -146,7 +150,7 @@ namespace WonderLab
     {
         private readonly Typeface[] _customTypefaces;
         private readonly string _defaultFamilyName;
-        //resm:WonderLab.Resources.HarmonyOS#HarmonyOS Sans
+
         //Load font resources in the project, you can load multiple font resources
         private readonly Typeface _defaultTypeface =
             new Typeface("resm:WonderLab.Resources.HarmonyOS#HarmonyOS Sans");
@@ -194,25 +198,19 @@ namespace WonderLab
 
         public IGlyphTypefaceImpl CreateGlyphTypeface(Typeface typeface)
         {
-            SKTypeface? skTypeface = default;
-            Trace.WriteLine(typeface.FontFamily.Name);
+            SKTypeface skTypeface;
+
             switch (typeface.FontFamily.Name)
             {
-                case "HarmonyOS Sans":
                 case FontFamily.DefaultFontFamilyName:
                 case "微软雅黑":  //font family name
-                   skTypeface = SKTypeface.FromFamilyName(_defaultTypeface.FontFamily.Name); break;
-                case "Symbols":
-                    skTypeface = SKTypeface.FromFamilyName("Symbols");
+                    skTypeface = SKTypeface.FromFamilyName(_defaultTypeface.FontFamily.Name); break;
+                default:
+                    skTypeface = SKTypeface.FromFamilyName(typeface.FontFamily.Name,
+                        (SKFontStyleWeight)typeface.Weight, SKFontStyleWidth.Normal, (SKFontStyleSlant)typeface.Style);
                     break;
-                //default:
-                    //skTypeface = SKTypeface.FromFamilyName(typeface.FontFamily.Name,
-                    //    (SKFontStyleWeight)typeface.Weight, SKFontStyleWidth.Normal, (SKFontStyleSlant)typeface.Style);
-                //    break;
             }
-            //skTypeface = SKTypeface.FromFamilyName("Symbols");
 
-            skTypeface = SKTypeface.FromFamilyName(_defaultTypeface.FontFamily.Name);
             return new GlyphTypefaceImpl(skTypeface);
         }
     }

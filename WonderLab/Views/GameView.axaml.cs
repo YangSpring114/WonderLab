@@ -46,12 +46,15 @@ namespace WonderLab.Views
             ViewModel.GameSearchAsync();      
         }
 
+        private void LaunchButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e) =>
+            ViewModel.LaunchClick((((Button)sender!).DataContext as GameCore)!);
+
         private void ButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e) =>
-            ViewModel.LaunchClick(((Button)sender).DataContext as GameCore);
+            ViewModel.LaunchClick((((MenuFlyoutItem)sender!).DataContext as GameCore)!);
 
         private void ButtonClick1(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            MainPropertyView.SelectGameCore = ((MenuFlyoutItem)sender).DataContext as GameCore;
+            MainPropertyView.SelectGameCore = (((MenuFlyoutItem)sender!).DataContext as GameCore)!;
             var view = new MainPropertyView();
             MainView.mv.FrameView.Navigate(view.GetType());
         }
