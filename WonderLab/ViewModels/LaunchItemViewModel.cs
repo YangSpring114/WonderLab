@@ -191,7 +191,7 @@ namespace WonderLab.ViewModels
                 MainWindow.ShowInfoBarAsync("启动失败：",$"未知异常，信息已提交至 终端记录仪");
             }
         }
-
+        
         /// <summary>
         /// 游戏运行时间记录事件
         /// </summary>
