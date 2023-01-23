@@ -35,10 +35,10 @@ namespace WonderLab
                 builder = BuildAvaloniaApp();
                 builder.StartWithClassicDesktopLifetime(args);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 JsonToolkit.JsonWrite();
-                new MainWindow().Show();
+                Trace.WriteLine(ex.ToString());
                 //BuildAvaloniaApp()
                 //.StartWithClassicDesktopLifetime(args);
             }

@@ -21,6 +21,7 @@ using WonderLab.Modules.Base;
 using WonderLab.Modules.Const;
 using WonderLab.Modules.Enum;
 using WonderLab.Modules.Toolkits;
+using WonderLab.Views;
 
 namespace WonderLab.ViewModels
 {
@@ -124,7 +125,9 @@ namespace WonderLab.ViewModels
 
                 if (res.State is LaunchState.Succeess)
                 {
+                    Outputs = new();
                     LaunchTime = DateTime.Now;
+                    LaunchResponse = res;
                     res.Exited += GameExitedAction;
                     res.ProcessOutput += ProcessOutputAction;
                     GameProcess = res.Process;
@@ -216,6 +219,16 @@ namespace WonderLab.ViewModels
         public void ProcessOutputAction(object? sender, IProcessOutput e)
         {
             Trace.WriteLine(e.Raw);
+            Outputs.Add(e.Raw);
+        }
+
+        /// <summary>
+        /// 创建游戏日志输出窗口
+        /// </summary>
+        public void CreateOutputWindowAction()
+        {
+            ConsoleWindow window = new();
+            window.ShowAsync(Outputs ?? new(), GameCore, LaunchResponse);
         }
     }
 
@@ -231,6 +244,9 @@ namespace WonderLab.ViewModels
         public GameCore GameCore = null;
         public Account Account = null;
         public Process GameProcess = null;
+        public List<string> Outputs = null;
+        public JavaClientLaunchResponse LaunchResponse = null;
+        public bool IsBakcgroundLoad = true;
         private Thickness _TimerMargin = new(0);
         private string _Title = string.Empty;
         private string _ExitCode = string.Empty;

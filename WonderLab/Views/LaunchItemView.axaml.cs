@@ -47,11 +47,18 @@ namespace WonderLab.Views
         public LaunchItemView(string version, UserDataModels userData)
         {
             MainView.ViewModel.AllTaskCount++;
-            InitializeComponent(version);
-            //Async(version, userData);
+            InitializeComponent(version, userData);
         }
 
-        [Obsolete
+        private void InitializeComponent(string version, UserDataModels userData)
+        {
+            InitializeComponent(true);
+            ViewModel = new(GameCoreToolkit.GetGameCore(App.Data.FooterPath, version), userData.ToAccount());
+            DataContext = ViewModel;
+            ViewModel.GameLaunchAction();
+        }
+
+        [Obsolete]
         async void Async(string version,UserDataModels userData)
         {
             var v = await CheckFileAsync(version,Path);
@@ -62,17 +69,6 @@ namespace WonderLab.Views
                 MainWindow.ShowInfoBarAsync("错误", "游戏资源文件补全失败", InfoBarSeverity.Error);
             }
         }//MainWindow.ShowInfoBarAsync
-
-        [Obsolete]
-        private void InitializeComponent(string version)
-        {
-            InitializeComponent(true);
-            ViewModel = new(GameCoreToolkit.GetGameCore(App.Data.FooterPath, version), Account.Default);
-            DataContext = ViewModel;
-            ViewModel.GameLaunchAction();
-            //gamelog.Click += Gamelog_Click;
-            //closegame.Click += Closegame_Click;
-        }
 
         [Obsolete]
         private void Gamelog_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

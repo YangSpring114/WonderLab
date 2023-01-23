@@ -13,7 +13,7 @@
 				<Grid IsVisible="{Binding IsCanGoToConsole}" Margin="0">
 					<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="游戏日志输出："/>
 					<Grid HorizontalAlignment="Right" Width="550">
-						<Button Name="gamelog" Content="转至控制台" HorizontalAlignment="Right" IsTabStop="False"/>
+						<Button Command="{Binding CreateOutputWindowAction}" Name="gamelog" Content="转至控制台" HorizontalAlignment="Right" IsTabStop="False"/>
 					</Grid>
 				</Grid>
 				<!--0,25,0,0-->
