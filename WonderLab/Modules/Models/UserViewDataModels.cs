@@ -1,22 +1,15 @@
-using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using FluentAvalonia.UI.Controls;
-using MinecaftOAuth;
 using MinecaftOAuth.Authenticator;
 using Natsurainko.Toolkits.Network;
 using SixLabors.ImageSharp;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using WonderLab.Modules.Base;
 using WonderLab.Modules.Const;
 using WonderLab.Modules.Toolkits;
-using WonderLab.ViewModels;
 
 namespace WonderLab.Modules.Models
 {
@@ -160,7 +153,6 @@ namespace WonderLab.Modules.Models
                 UserType = Type,
                 UserAccessToken = AccessToken,
                 UserUuid = Uuid,
-                SkinHeadImage = $"https://crafatar.com/avatars/{Uuid}"
             };
         }
     }

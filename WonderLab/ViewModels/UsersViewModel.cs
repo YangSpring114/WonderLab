@@ -1,16 +1,10 @@
 using FluentAvalonia.UI.Controls;
-using MinecaftOAuth;
 using MinecaftOAuth.Authenticator;
-using Natsurainko.FluentCore.Class.Model.Auth.Yggdrasil;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net.NetworkInformation;
-using System.Reflection.PortableExecutable;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WonderLab.Modules.Base;
 using WonderLab.Modules.Const;
