@@ -103,7 +103,6 @@ namespace WonderLab.ViewModels
                         UserRefreshToken = v.RefreshToken,
                         UserName = v.Name,
                         UserUuid = v.Uuid.ToString(),
-                        SkinHeadImage = $"https://crafatar.com/avatars/{v.Uuid}",
                         UserType = "微软账户"
                     };
 
@@ -174,7 +173,6 @@ namespace WonderLab.ViewModels
                     UserAccessToken = v.AccessToken,
                     UserName = v.Name,
                     UserUuid = v.Uuid.ToString(),
-                    SkinHeadImage = $"https://crafatar.com/avatars/{v.Uuid}",
                     UserType = "离线账户"
                 };
                 App.Data.UserList.Add(user);

@@ -3,6 +3,8 @@ using Avalonia.Media.Imaging;
 using FluentAvalonia.UI.Controls;
 using MinecaftOAuth;
 using MinecaftOAuth.Authenticator;
+using Natsurainko.Toolkits.Network;
+using SixLabors.ImageSharp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -31,7 +33,7 @@ namespace WonderLab.Modules.Models
                 Uuid = user.UserUuid;
                 Jvm = user.AIJvm;
                 SkinLink = user.SkinHeadImage;
-                Auth();
+                //Auth();
                 _ = DownloadImageAsync();
             }
         }
@@ -61,17 +63,25 @@ namespace WonderLab.Modules.Models
             set => RaiseAndSetIfChanged(ref _link, value);
         }
 
+        public bool Loading
+        {
+            get => _load;
+            set => RaiseAndSetIfChanged(ref _load, value);
+        }
+
         public Bitmap Icon
         {
             get => _SkinBitmapIcon;
             set => RaiseAndSetIfChanged(ref _SkinBitmapIcon, value);
         }
-
+        
         public Bitmap _SkinBitmapIcon = null;
 
         public string _AuthState = "";
 
         public string _link = "";
+
+        public bool _load = true;
 
         public async void Auth()
         {
@@ -117,16 +127,26 @@ namespace WonderLab.Modules.Models
         {
             await Task.Run(async delegate
             {
-                if (Type is not "离线账户")
+                if (Type.Contains("离线账户"))
                 {
-                     var stream = await new HttpClient().GetByteArrayAsync(SkinLink);
-                     using var ms = new MemoryStream(stream);
-                     Icon = new Bitmap(ms);
+                    Icon = (BitmapToolkit.GetAssetsImage("resm:WonderLab.Resources.sdf.png") as Bitmap)!;
+                }
+                else if(Type.Contains("微软"))
+                {
+                    var url = await WebToolkit.GetUserSkinUrl("95883f77-eef8-4bc6-b727-4f9c754a5a2c");
+                    var btyes = await (await HttpWrapper.HttpGetAsync(url)).Content.ReadAsByteArrayAsync();
+                    var Image = await BitmapToolkit.CropSkinImage(btyes);
+                    BitmapToolkit.ResizeImage(Image, 512, 512).Save(Path.Combine(PathConst.TempDirectory, $"{btyes.Length}.png"));
+
+                    Icon = new Bitmap(Path.Combine(PathConst.TempDirectory, $"{btyes.Length}.png"));
                 }
                 else
                 {
-                    Icon = (BitmapToolkit.GetAssetsImage("resm:WonderLab.Resources.sdf.png") as Bitmap);
+                    var stream = await new HttpClient().GetByteArrayAsync(SkinLink);
+                    using var ms = new MemoryStream(stream);
+                    Icon = new Bitmap(ms);
                 }
+                Loading = false;
             }, default);
         }
 

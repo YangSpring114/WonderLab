@@ -1,6 +1,7 @@
 using Natsurainko.Toolkits.Network;
 using Natsurainko.Toolkits.Text;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -32,6 +33,27 @@ namespace WonderLab.Modules.Toolkits
                 return new(false,model);
 
             return new(true, model);
+        }
+
+        /// <summary>
+        /// 获取正版皮肤 Url
+        /// </summary>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
+        public static async ValueTask<string> GetUserSkinUrl(string uuid)
+        {
+            var res = await HttpWrapper.HttpGetAsync($"https://sessionserver.mojang.com/session/minecraft/profile/{uuid}");
+            var json = await res.Content.ReadAsStringAsync();
+            Trace.WriteLine($"[信息] 返回的 Json 信息如下：{json}");
+
+            var skinjson = Encoding.UTF8.GetString(Convert.FromBase64String(json.ToJsonEntity<UserSkinInfo>().Properties.First().Value));
+            Trace.WriteLine($"[信息] 皮肤 Base64 解码的 Json 信息如下：{skinjson}");
+
+            var url = skinjson.ToJsonEntity<SkinMoreInfo>().Textures.Skin.Url;
+            Trace.WriteLine($"[信息] 皮肤的链接如下：{url}");
+            return url;
+            //JObject jobject = new(json);
+            //var base64 = (jobject["properties"] as JArray)[0]["value"];
         }
     }
 
@@ -135,5 +157,62 @@ namespace WonderLab.Modules.Toolkits
 
         [JsonProperty("site_admin")]
         public string SiteAdmin { get; set; }
+    }
+
+    public class SkinInfo
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("value")]
+        public string Value { get; set; }
+    }
+
+    public class UserSkinInfo
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("properties")]
+        public List<SkinInfo> Properties { get; set; }
+    }
+
+    public class SKIN
+    {
+        [JsonProperty("url")]
+        public string Url { get; set; }
+    }
+
+    public class CAPE
+    {
+        [JsonProperty("url")]
+        public string Url { get; set; }
+    }
+
+    public class Textures
+    {
+        [JsonProperty("SKIN")]
+        public SKIN Skin { get; set; }
+
+        [JsonProperty("CAPE")]
+        public CAPE Cape { get; set; }
+    }
+
+    public class SkinMoreInfo
+    {
+        [JsonProperty("timestamp")]
+        public Int64 TimeStamp { get; set; }
+
+        [JsonProperty("profileId")]
+        public string ProfileId { get; set; }
+
+        [JsonProperty("profileName")]
+        public string ProfileName { get; set; }
+
+        [JsonProperty("textures")]
+        public Textures Textures { get; set; }
     }
 }

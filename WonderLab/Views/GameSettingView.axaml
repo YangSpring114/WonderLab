@@ -55,18 +55,28 @@
 								<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="当前 Java 运行时："/>
 								<ComboBox SelectedItem="{Binding CurrentJava}" Items="{Binding Javas}" Grid.Column="2" HorizontalAlignment="Right"/>
 							</Grid>
+							
 							<Grid Margin="0,25,0,0">
 								<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="添加 Java 运行时："/>
 								<Button Command="{Binding AddJavaAction}" Name="AddJava" Content="浏览" HorizontalAlignment="Right"/>
 								<Button Command="{Binding FindJavasAction}" Margin="0,0,60,0" Name="FindJava" Content="自动搜索" HorizontalAlignment="Right"/>
 							</Grid>
+							
 							<Grid IsVisible="{Binding JavaRemoveVisible}" Margin="0,25,0,0">
 								<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="移除当前 Java 运行时："/>
 								<Button Background="{DynamicResource DeleteButtonBackground}" Command="{Binding OutJavaAction}" Content="移除" HorizontalAlignment="Right"/>
 							</Grid>
-							<Grid Margin="0,25,0,0">
+							
+							<Grid Margin="0,25,0,10">
 								<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="游戏运行内存修改："/>
                                 <TextBox Text="{Binding MaxMemory}" Name="max" MinWidth="150" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+							</Grid>
+							
+							<Grid Margin="0,15,0,0">
+								<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="自动选择 Java 运行时："/>
+								<Grid HorizontalAlignment="Right" Width="550">
+									<ToggleSwitch IsEnabled="False" MaxWidth="0" MinWidth="75" HorizontalAlignment="Right" OnContent="开" OffContent="关" IsTabStop="False"/>
+								</Grid>
 							</Grid>
 						</StackPanel>
 					</card:OptionsDisplayItem.Content>

@@ -9,6 +9,7 @@ using FluentAvalonia.Styling;
 using Flurl;
 using MinecraftLaunch.Modules.Toolkits;
 using Natsurainko.FluentCore.Class.Model.Launch;
+using Natsurainko.Toolkits.Network;
 using Newtonsoft.Json;
 using ReactiveUI;
 using SixLabors.ImageSharp;
@@ -52,6 +53,7 @@ namespace WonderLab
         public async void CheckAsync()
         {
             ///Modules/Controls/zh-cn.axaml
+
             JsonToolkit.JsonAllWrite();
             await Task.Delay(900);
             BackgroundWorker worker = new();

@@ -7,6 +7,7 @@ using SixLabors.ImageSharp.Processing;
 using System.Threading.Tasks;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
+using System.IO;
 
 namespace WonderLab.Modules.Toolkits
 {
@@ -21,7 +22,7 @@ namespace WonderLab.Modules.Toolkits
         /// <param name="originImage">原图片</param>
         /// <param name="region">裁剪的方形区域</param>
         /// <returns>裁剪后图片</returns>
-        public static async ValueTask<Image<Rgba32>> CropSkinImage(string stream)
+        public static async ValueTask<Image<Rgba32>> CropSkinImage(byte[] stream)
         {
             Image<Rgba32> head = (Image<Rgba32>)Image.Load(stream);
             head.Mutate(x => x.Crop(Rectangle.FromLTRB(8, 8, 16, 16)));
@@ -42,7 +43,7 @@ namespace WonderLab.Modules.Toolkits
                 }
             }
 
-            return endImage;
+            return await Task.FromResult(endImage);
         }
 
         /// <summary>
