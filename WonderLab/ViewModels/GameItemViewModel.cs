@@ -49,10 +49,14 @@ namespace WonderLab.ViewModels
         public void LaunchAsync()
         {
             string version = InfoHeader;
-            var tmp = new GameCoreLocator(GameView.gv.fodlercombo.SelectedItem.ToString()).GetGameCore(version);
-            if (!PluginLoader.Event.CallEvent(new GameLaunchAsyncEvent(GameCoreToolkit.GetGameCore(tmp.Root.FullName, tmp.Id))))
+            var core = new GameCoreLocator(GameView.gv.fodlercombo.SelectedItem.ToString()).GetGameCore(version);
+            var e = new GameLaunchAsyncEvent(GameCoreToolkit.GetGameCore(core.Root.FullName, core.Id));
+            if (PluginLoader.Event.CallEvent(e))
             {
-                MainWindow.ShowInfoBarAsync("提示：", $"游戏启动任务被取消", InfoBarSeverity.Informational);
+                if (e.IsCanceled)
+                {
+                    MainWindow.ShowInfoBarAsync("提示：", $"游戏启动任务被取消", InfoBarSeverity.Informational);
+                }
             }
         }
 

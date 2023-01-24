@@ -65,9 +65,13 @@ namespace WonderLab.ViewModels
         public void LaunchAsync()
         {
             Enabled = false;
-            if(!PluginLoader.Event.CallEvent(new GameLaunchAsyncEvent(SelectedGameCore)))
+            var e = new GameLaunchAsyncEvent(SelectedGameCore);
+            if (PluginLoader.Event.CallEvent(e))
             {
-                MainWindow.ShowInfoBarAsync("提示：", $"游戏启动任务被取消", InfoBarSeverity.Informational);
+                if (e.IsCanceled)
+                {
+                    MainWindow.ShowInfoBarAsync("提示：", $"游戏启动任务被取消", InfoBarSeverity.Informational);
+                }
             }
             Enabled = true;
         }

@@ -36,7 +36,7 @@ namespace PluginLoader
             bool cancel = false;
             for (int i = 0; i < Listeners.Count; i++)
             {
-                @event = Listeners[i].GetEvent(@event);
+                Listeners[i].GetEvent(@event);
                 if (@event is ICancellable)
                 {
                     cancel = cancel || ((ICancellable)@event).IsCanceled;

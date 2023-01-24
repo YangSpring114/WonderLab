@@ -19,16 +19,17 @@ namespace WonderLab
         [STAThread]
         public static void Main(string[] args)
         {
-            //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            //{
-            //    if (File.Exists(Path.Combine("updata-cache", "UpdataNextTime")))
-            //    {
-            //        Process pro = new Process();
-            //        pro.StartInfo.FileName = "Updata.exe";
-            //        pro.Start();
-            //        return;
-            //    }
-            //}
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                if (File.Exists(Path.Combine("updata-cache", "UpdataNextTime")))
+                {
+                    Process pro = new Process();
+                    pro.StartInfo.FileName = "Updata.exe";
+                    pro.Start();
+                    return;
+                }
+            }
+            PluginLoader.PluginLoader.LoadAllFromPlugin();
             AppBuilder builder = null;
             try
             {
@@ -43,7 +44,6 @@ namespace WonderLab
                 //.StartWithClassicDesktopLifetime(args);
             }
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            PluginLoader.PluginLoader.LoadAllFromPlugin();
         }
 
         // Avalonia configuration, don't remove; also used by visual designer.
