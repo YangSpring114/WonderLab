@@ -51,6 +51,7 @@ namespace WonderLab
         /// </summary>
         public async void CheckAsync()
         {
+            ///Modules/Controls/zh-cn.axaml
             JsonToolkit.JsonAllWrite();
             await Task.Delay(900);
             BackgroundWorker worker = new();
