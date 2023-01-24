@@ -110,8 +110,8 @@
 	  <ProjectReference Include="..\GithubLib\GithubLib.csproj" />
 	  <ProjectReference Include="..\PluginLoader\PluginLoader.csproj" />
 	  <ProjectReference Include="..\Updata\Updata.csproj">
-	    <Private>True</Private>
-	    <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
+	    <Private>False</Private>
+	    <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
 	  </ProjectReference>
 	</ItemGroup>	
 	

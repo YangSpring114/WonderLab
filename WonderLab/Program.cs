@@ -30,10 +30,9 @@ namespace WonderLab
                 }
             }
             PluginLoader.PluginLoader.LoadAllFromPlugin();
-            AppBuilder builder = null;
             try
             {
-                builder = BuildAvaloniaApp();
+                AppBuilder builder = BuildAvaloniaApp();
                 builder.StartWithClassicDesktopLifetime(args);
             }
             catch (Exception ex)
