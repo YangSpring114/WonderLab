@@ -14,6 +14,8 @@ using MinecraftLaunch.Modules.Models.Launch;
 using Button = Avalonia.Controls.Button;
 using Avalonia.Controls.Presenters;
 using WonderLab.Modules.Controls;
+using MenuFlyout = FluentAvalonia.UI.Controls.MenuFlyout;
+using System.Threading.Tasks;
 
 namespace WonderLab.Views
 {
@@ -65,6 +67,23 @@ namespace WonderLab.Views
                 await ChangeNameDialog.ShowAsync();
             else
                 MainWindow.ShowInfoBarAsync("提示：","未选择任何游戏核心！", InfoBarSeverity.Error);
+        }
+
+        private async void ButtonClick3(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            var core = (((MenuFlyoutItem)sender!).DataContext as GameCore)!;
+
+            try {           
+                await Task.Run(() => {
+                    using var res = Process.Start(new ProcessStartInfo(core.Root.FullName)
+                    {
+                        UseShellExecute = true,
+                        Verb = "open"
+                    });
+                });
+            } finally {
+                GC.Collect();
+            }
         }
 
         private void CancelButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
