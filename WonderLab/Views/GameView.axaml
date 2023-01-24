@@ -88,7 +88,7 @@
 										<Button Margin="10,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 											<ui:SymbolIcon FontSize="16" Symbol="Setting"/>
 											<Button.Flyout>
-												<ui:MenuFlyout Placement="BottomEdgeAlignedRight">
+												<ui:MenuFlyout ShowMode="Standard" Placement="BottomEdgeAlignedRight">
 													<ui:MenuFlyoutItem Click="ButtonClick" FontSize="12" Text="启动该核心">
 														<ui:MenuFlyoutItem.Icon>
 															<ui:SymbolIcon Foreground="#8AE28A" Symbol="Play"/>
@@ -106,6 +106,16 @@
 															<ui:SymbolIcon Foreground="#F44B56" Symbol="Delete" />
 														</ui:MenuFlyoutItem.Icon>
 													</ui:MenuFlyoutItem>
+													
+													<ui:MenuFlyoutSeparator/>
+
+													<ui:MenuFlyoutItem Click="ButtonClick3" FontSize="12" Text="打开游戏目录">
+														<ui:MenuFlyoutItem.Icon>
+															<ui:SymbolIcon Foreground="#FFCD43" Symbol="Folder" />
+														</ui:MenuFlyoutItem.Icon>
+													</ui:MenuFlyoutItem>
+
+													<ui:MenuFlyoutSeparator/>
 
 													<ui:MenuFlyoutItem Click="ButtonClick1" FontSize="12" Text="属性">
 														<ui:MenuFlyoutItem.Icon>

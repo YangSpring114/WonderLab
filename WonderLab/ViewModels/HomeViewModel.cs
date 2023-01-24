@@ -53,7 +53,8 @@ namespace WonderLab.ViewModels
                     lmlist.Add(i);
                 }
                 GameCores = lmlist;
-                SelectedGameCore = GameCores.GetGameCoreInIndex(App.Data.SelectedGameCore);
+                SelectedGameCore =  string.IsNullOrEmpty(App.Data.SelectedGameCore) ? null : GameCores.GetGameCoreInIndex(App.Data.SelectedGameCore);
+                Trace.WriteLine($"[DeBug] 索引值为 {App.Data.SelectedGameCore} ");
             };
             worker.RunWorkerAsync();
         }

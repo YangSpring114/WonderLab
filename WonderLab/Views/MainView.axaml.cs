@@ -60,7 +60,6 @@ namespace WonderLab.Views
                 foreach (NavigationViewItem item in RootMenuItems) {                
                     if ((string)item.Tag == e.SourcePageType.Name) {                    
                         item.IsSelected = true;
-                        await Task.Delay(1000);
                     }
                 }
                 FrameView.NavigateTo((Page)e.Content);
