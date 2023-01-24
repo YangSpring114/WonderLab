@@ -16,6 +16,7 @@ using Avalonia.Controls.Presenters;
 using WonderLab.Modules.Controls;
 using MenuFlyout = FluentAvalonia.UI.Controls.MenuFlyout;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace WonderLab.Views
 {
@@ -42,9 +43,9 @@ namespace WonderLab.Views
         {
             ViewModel.SelectCoreVisibilityOption = 0;
             ViewModel.SelectCoreSortOption = 0;
-            ViewModel.SelectedFooler = App.Data.SelectedGameFooter;
             ViewModel.FodlerRefresh();
-            ViewModel.GameSearchAsync();      
+            ViewModel.GameSearchAsync();
+            Trace.WriteLine($"[调试] 选中的游戏文件夹的值：{ViewModel.SelectedFooler}");
         }
 
         private void LaunchButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e) =>

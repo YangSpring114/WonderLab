@@ -198,11 +198,10 @@ namespace WonderLab.ViewModels
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                     filter.Extensions.Add("exe");
                 filter.Name = "Java路径";
-                if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                     filters.Add(filter);
                 OpenFileDialog dialog;
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                {
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {                
                     dialog = new OpenFileDialog
                     {
                         Title = "请选择Java路径",

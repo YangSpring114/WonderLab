@@ -8,6 +8,7 @@ using PluginLoader;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace WonderLab.ViewModels
             }
         }
         
-        public List<string> FodlerList
+        public ObservableCollection<string> FodlerList
         {
             get => _FodlerList;
             set => RaiseAndSetIfChanged(ref _FodlerList, value);
@@ -151,8 +152,11 @@ namespace WonderLab.ViewModels
 
         public void FodlerRefresh()
         {
-            FodlerList = null!;
-            FodlerList = App.Data.GameFooterList;
+            var temp = SelectedFooler;
+            FodlerList.Clear();
+            App.Data.GameFooterList.Distinct().ToList().ForEach(x => FodlerList.Add(x));            
+            SelectedFooler = string.Empty;
+            SelectedFooler = temp;//GameCores.Where(x => x.Root.FullName == App.Data.FooterPath).ToList()[0].Root!.FullName;
         }
 
         public void ChangeGameCoreName()
@@ -308,6 +312,6 @@ namespace WonderLab.ViewModels
         public string _SelectedIndex = App.Data.FooterPath;
         public string _NewGameCoreName = string.Empty;
         public string _GameCoresFilter = string.Empty;
-        public List<string> _FodlerList = App.Data.GameFooterList;
+        public ObservableCollection<string> _FodlerList = new();
     }
 }
