@@ -6,8 +6,10 @@ using Avalonia.Styling;
 using FluentAvalonia.Core.ApplicationModel;
 using FluentAvalonia.UI.Controls;
 using System;
+using System.Collections;
 using System.Diagnostics;
 using System.Reflection;
+using System.Threading.Tasks;
 using WonderLab.Modules.Controls;
 using WonderLab.ViewModels;
 
@@ -17,6 +19,7 @@ namespace WonderLab.Views
     {
         public static MainViewModel ViewModel { get; } = new();
         public static NavigationViewDisplayMode NavigationViewDisplayMode;
+        public static IEnumerable RootMenuItems;
         public static MainView mv;
         public MainView()
         {
@@ -35,6 +38,7 @@ namespace WonderLab.Views
         private void InitializeComponent()
         {
             InitializeComponent(true);
+            RootMenuItems = RootNavigationView.MenuItems;
             RootNavigationView.BackRequested += RootNavigationView_BackRequested;
             RootNavigationView.ItemInvoked += RootNavigationView_ItemInvoked;
             RootNavigationView.DisplayModeChanged += RootNavigationView_DisplayModeChanged;
@@ -50,17 +54,20 @@ namespace WonderLab.Views
         private void RootNavigationView_PaneOpened(NavigationView sender, EventArgs args) =>
             UpdateAppTitleMargin();
 
-        private void FrameView_Navigated(object sender, FluentAvalonia.UI.Navigation.NavigationEventArgs e)
+        private async void FrameView_Navigated(object sender, FluentAvalonia.UI.Navigation.NavigationEventArgs e)
         {            
-            foreach (NavigationViewItem item in RootNavigationView.MenuItems)
-            {
-                if ((string)item.Tag == e.SourcePageType.Name)
-                {
-                    RootNavigationView.SelectedItem = item;
-                    item.IsSelected = true;
+            try {
+                foreach (NavigationViewItem item in RootMenuItems) {                
+                    if ((string)item.Tag == e.SourcePageType.Name) {                    
+                        item.IsSelected = true;
+                        await Task.Delay(1000);
+                    }
                 }
+                FrameView.NavigateTo((Page)e.Content);
             }
-            FrameView.NavigateTo((Page)e.Content);
+            catch (Exception ex) {
+                Trace.WriteLine(ex.ToString());
+            }
         }
 
         private void RootNavigationView_DisplayModeChanged(object? sender, NavigationViewDisplayModeChangedEventArgs e)
@@ -89,7 +96,7 @@ namespace WonderLab.Views
 
         public void Load()
         {
-            home.IsSelected = true;
+            //home.IsSelected = true;
             FrameView.Navigate(typeof(HomeView), new FluentAvalonia.UI.Media.Animation.DrillInNavigationTransitionInfo());
         }
 

@@ -28,6 +28,11 @@
                                  Opacity="0.725"/>
 			</Setter>
 		</Style>-->
+
+		<Style Selector="ui|NavigationViewItem">
+			<Setter Property="CornerRadius" Value="1"/>
+		</Style>
+		
 		<!--<Style Selector="TextBlock">
 			<Setter Property="FontFamily" Value="avares://WonderLab/Resources/HarmonyOS#HarmonyOS Sans"/>
 		</Style>-->
@@ -101,7 +106,7 @@
 			<x:Double x:Key="InfoBarIconFontSize">16</x:Double>
 
 			<!--Symbol-->
-			<ui:Symbol x:Key="InfoBarCloseButtonSymbol">Dismiss</ui:Symbol>
+			<ui:Symbol x:Key="InfoBarCloseButtonSymbol">Home</ui:Symbol>
 		</ResourceDictionary>		
 	</Application.Resources>
 </Application>

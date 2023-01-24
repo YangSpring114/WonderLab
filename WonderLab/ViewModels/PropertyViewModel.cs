@@ -175,7 +175,7 @@ namespace WonderLab.ViewModels
 
             try
             {
-                var assets = new ResourceDownloader(new()).GetAssetResourcesAsync().Result;
+                var assets = new ResourceDownloader(id).GetAssetResourcesAsync().Result;
 
                 foreach (var asset in assets)
                 {
