@@ -1,19 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using WonderLab.Modules.Base;
-using WonderLab.Modules.Toolkits;
 using GithubLib;
-using System.Net;
-using System.IO;
-using System.IO.Compression;
-using WonderLab.Views;
-using Natsurainko.Toolkits.Network.Model;
 using FluentAvalonia.UI.Controls;
-using FluentAvalonia.UI.Media.Animation;
 using static WonderLab.MainWindow;
+using PluginLoader;
+using WonderLab.PluginAPI;
 
 namespace WonderLab.ViewModels
 {
@@ -21,21 +12,26 @@ namespace WonderLab.ViewModels
     {
         public async Task Check()
         {
-            await Task.Run(async () =>
+            Event.CallEvent(new UpdataCheckEvent());
+            try
             {
-                IsCheckVersion = true;
-                await Task.Delay(2000);
-                IsCheckVersion = false;
-                //string releaseUrl = GithubLib.GithubLib.GetRepoLatestReleaseUrl("Blessing-Studio", "WonderLab");
-                //Release? release = GithubLib.GithubLib.GetRepoLatestRelease(releaseUrl);
-                //if (release != null)
-                //{
-                //    if (release.name != GetVersion())
-                //    {
-                //        ShowInfoBarAsync("自动更新", "发现新版本" + release.name + "  当前版本" + GetVersion() + "  ", InfoBarSeverity.Informational, 7000);
-                //    }
-                //}
-            });
+                await Task.Run(async () =>
+                {
+                    IsCheckVersion = true;
+                    await Task.Delay(2000);
+                    IsCheckVersion = false;
+                    string releaseUrl = GithubLib.GithubLib.GetRepoLatestReleaseUrl("Blessing-Studio", "WonderLab");
+                    Release? release = GithubLib.GithubLib.GetRepoLatestRelease(releaseUrl);
+                    if (release != null)
+                    {
+                        if (release.name != GetVersion())
+                        {
+                            ShowInfoBarAsync("自动更新", "发现新版本" + release.name + "  当前版本" + GetVersion() + "  ", InfoBarSeverity.Informational, 7000);
+                        }
+                    }
+                });
+            }
+            catch { }
         }
     }
 

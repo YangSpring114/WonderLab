@@ -4,6 +4,7 @@ using FluentAvalonia.UI.Media.Animation;
 using MinecraftLaunch.Modules.Models.Launch;
 using MinecraftLaunch.Modules.Toolkits;
 using Natsurainko.FluentCore.Module.Launcher;
+using PluginLoader;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -196,12 +197,10 @@ namespace WonderLab.ViewModels
         public void LaunchAsync(GameCore core)
         {
             var e = new GameLaunchAsyncEvent(core);
-            if (PluginLoader.Event.CallEvent(e))
+            Event.CallEvent(e);
+            if (e.IsCanceled)
             {
-                if (e.IsCanceled)
-                {
-                    MainWindow.ShowInfoBarAsync("提示：", $"游戏启动任务被取消", InfoBarSeverity.Informational);
-                }
+                MainWindow.ShowInfoBarAsync("提示：", $"游戏启动任务被取消", InfoBarSeverity.Informational);
             }
         }
 

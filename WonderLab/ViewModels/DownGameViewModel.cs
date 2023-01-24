@@ -1,31 +1,22 @@
 using Avalonia.Threading;
 using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Media.Animation;
-using JetBrains.Annotations;
 using MinecraftLaunch.Modules.Installer;
-using MinecraftLaunch.Modules.Models.Download;
 using MinecraftLaunch.Modules.Models.Install;
 using MinecraftLaunch.Modules.Models.Launch;
 using Natsurainko.FluentCore.Class.Model.Install;
 using Natsurainko.FluentCore.Class.Model.Install.Vanilla;
 using Natsurainko.FluentCore.Module.Installer;
-using Natsurainko.FluentCore.Service;
-using Natsurainko.Toolkits.Network;
-using Newtonsoft.Json;
+using PluginLoader;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.SymbolStore;
 using System.Linq;
-using System.Net.Http;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
 using WonderLab.Modules.Base;
 using WonderLab.Modules.Controls;
 using WonderLab.Modules.Enum;
-using WonderLab.Modules.Models;
+using WonderLab.PluginAPI;
 using WonderLab.Views;
 
 namespace WonderLab.ViewModels
@@ -281,9 +272,12 @@ namespace WonderLab.ViewModels
                     MainWindow.ShowVersionDialogAsync();
                     return;
                 }
-
-                DownItemView downItemView1 = new(ModLoaders);
-                TaskView.Add(downItemView1);
+                var e = new ModLoadersDownloadEvent(ModLoaders);
+                Event.CallEvent(e);
+                if (e.IsCanceled)
+                {
+                    MainWindow.ShowInfoBarAsync("提示：", $"Mod加载器下载任务被取消", InfoBarSeverity.Informational);
+                }
                 isinstall = true;
             }
 
@@ -296,8 +290,12 @@ namespace WonderLab.ViewModels
 
             if(isinstall is not true)
             {
-                DownItemView downItemView = new DownItemView(DownloadCore, DownType.Vanllia);
-                TaskView.Add(downItemView);
+                var e = new GameDownloadEvent(DownloadCore, DownType.Vanllia);
+                Event.CallEvent(e);
+                if (e.IsCanceled)
+                {
+                    MainWindow.ShowInfoBarAsync("提示：", $"游戏下载任务被取消", InfoBarSeverity.Informational);
+                }
             }
 
             MainWindow.ShowInfoBarAsync("提示", $"开始安装游戏核心：{DownloadCore}，可前往任务中心查看进度", InfoBarSeverity.Informational, 5000, button);

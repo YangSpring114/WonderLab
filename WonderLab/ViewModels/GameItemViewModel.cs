@@ -9,6 +9,7 @@ using WonderLab.Modules.Models;
 using WonderLab.Views;
 using WonderLab.PluginAPI;
 using MinecraftLaunch.Modules.Toolkits;
+using PluginLoader;
 
 namespace WonderLab.ViewModels
 {
@@ -51,12 +52,10 @@ namespace WonderLab.ViewModels
             string version = InfoHeader;
             var core = new GameCoreLocator(GameView.gv.fodlercombo.SelectedItem.ToString()).GetGameCore(version);
             var e = new GameLaunchAsyncEvent(GameCoreToolkit.GetGameCore(core.Root.FullName, core.Id));
-            if (PluginLoader.Event.CallEvent(e))
+            Event.CallEvent(e);
+            if (e.IsCanceled)
             {
-                if (e.IsCanceled)
-                {
-                    MainWindow.ShowInfoBarAsync("提示：", $"游戏启动任务被取消", InfoBarSeverity.Informational);
-                }
+                MainWindow.ShowInfoBarAsync("提示：", $"游戏启动任务被取消", InfoBarSeverity.Informational);
             }
         }
 

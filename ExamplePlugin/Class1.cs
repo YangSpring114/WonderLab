@@ -29,5 +29,20 @@ namespace ExamplePlugin
         {
             ((ICancellable)e).Cancel();
         }
+        [EventHandle]
+        public void OnModLoadersDownloadEvent(ModLoadersDownloadEvent e)
+        {
+            ((ICancellable)e).Cancel();
+        }
+        [EventHandle]
+        public void OnModLoaderDownloadEvent(ModLoaderDownloadEvent e)
+        {
+            ((ICancellable)e).Cancel();
+        }
+        [EventHandle]
+        public void OnHttpDownloadEvent(HttpDownloadEvent e)
+        {
+            ((ICancellable)e).Cancel();
+        }
     }
 }
