@@ -1,15 +1,12 @@
 using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Controls.Shapes;
-using Avalonia.Media;
-using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+using IImage = Avalonia.Media.IImage;
+using Avalonia.Media.Imaging;
+using SixLabors.ImageSharp.Processing;
 using System.Threading.Tasks;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 
 namespace WonderLab.Modules.Toolkits
 {
@@ -19,45 +16,35 @@ namespace WonderLab.Modules.Toolkits
     public class BitmapToolkit
     {
         /// <summary>
-        /// 裁剪图片
+        /// 裁剪皮肤图片头像
         /// </summary>
         /// <param name="originImage">原图片</param>
         /// <param name="region">裁剪的方形区域</param>
         /// <returns>裁剪后图片</returns>
-        public static IImage CropImage(Bitmap originImage)
+        public static async ValueTask<Image<Rgba32>> CropSkinImage(string stream)
         {
-            var v = originImage.CreateScaledBitmap(new(), Avalonia.Visuals.Media.Imaging.BitmapInterpolationMode.Default);
-            return v;
-        }
+            Image<Rgba32> head = (Image<Rgba32>)Image.Load(stream);
+            head.Mutate(x => x.Crop(Rectangle.FromLTRB(8, 8, 16, 16)));
 
-        public static void RenderToFile(Geometry geometry, Brush brush, string path)
-        {
-            var control = new DrawingPresenter()
+            Image<Rgba32> hat = (Image<Rgba32>)Image.Load(stream);
+            hat.Mutate(x => x.Crop(Rectangle.FromLTRB(40, 8, 48, 16)));
+
+            Image<Rgba32> endImage = new Image<Rgba32>(8, 8);
+            for (int i = 0; i < 8; i++)
             {
-                Drawing = new GeometryDrawing
+                for (int j = 0; j < 8; j++)
                 {
-                    Geometry = geometry,
-                    Brush = brush,
-                },
-                Width = geometry.Bounds.Right,
-                Height = geometry.Bounds.Bottom
-            };
-
-            RenderToFile(control, path);
-        }
-
-        public static void RenderToFile(Control target, string path)
-        {
-            var pixelSize = new PixelSize((int)target.Width, (int)target.Height);
-            var size = new Size(target.Width, target.Height);
-            using (RenderTargetBitmap bitmap = new RenderTargetBitmap(pixelSize, new Vector(96, 96)))
-            {
-                target.Measure(size);
-                target.Arrange(new Rect(size));
-                bitmap.Render(target);
-                bitmap.Save(path);
+                    endImage[i, j] = head[i, j];
+                    if (hat[i, j].A == 255)
+                    {
+                        endImage[i, j] = hat[i, j];
+                    }
+                }
             }
+
+            return endImage;
         }
+
         /// <summary>
         /// 获取资源图片
         /// </summary>
@@ -68,6 +55,32 @@ namespace WonderLab.Modules.Toolkits
             var al = AvaloniaLocator.Current.GetService<IAssetLoader>();
             using (var s = al.Open(new Uri(uri)))
                 return new Bitmap(s);
+        }
+
+        /// <summary>
+        /// 重置图片长宽
+        /// </summary>
+        /// <typeparam name="TPixel"></typeparam>
+        /// <param name="image"></param>
+        /// <param name="w"></param>
+        /// <param name="h"></param>
+        /// <returns></returns>
+        public static Image<TPixel> ResizeImage<TPixel>(Image<TPixel> image, int w, int h) where TPixel : unmanaged, IPixel<TPixel>
+        {
+            Image<TPixel> image2 = new(w, h);
+            for (int i = 0; i < w; i++)
+            {
+                for (int j = 0; j < h; j++)
+                {
+                    double tmp;
+                    tmp = (double)image.Width / (double)w;
+                    double realW = tmp * (i);
+                    tmp = (double)image.Height / (double)h;
+                    double realH = (tmp) * (j);
+                    image2[i, j] = image[(int)realW, (int)realH];
+                }
+            }
+            return image2;
         }
     }
 }

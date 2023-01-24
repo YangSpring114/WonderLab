@@ -1,3 +1,4 @@
+using MinecraftLaunch.Modules.Models.Auth;
 using MinecraftLaunch.Modules.Models.Install;
 using MinecraftLaunch.Modules.Models.Launch;
 using Natsurainko.FluentCore.Class.Model.Launch;
@@ -17,6 +18,7 @@ namespace WonderLab.Modules.Toolkits
     public static class ExtendToolkit
     {
         public static UserModels ToUserModel(this UserDataModels user) => new(user);
+
         public static Dictionary<string, DateTime?> GetGameCoresLastLaunchTime(this IEnumerable<GameCore> cores)
         {
             var gameCoresLastLaunchTime = new Dictionary<string, DateTime?>();
@@ -27,6 +29,7 @@ namespace WonderLab.Modules.Toolkits
             }
             return gameCoresLastLaunchTime;
         }
+
         public static string ToVersionType(this string raw)
         {
             string type = string.Empty;
@@ -57,13 +60,8 @@ namespace WonderLab.Modules.Toolkits
         public static Natsurainko.FluentCore.Class.Model.Launch.GameCore ToNatsurainkoGameCore(this GameCore core) =>
             new GameCoreLocator(App.Data.FooterPath).GetGameCore(core.Id);
 
-        public static GameCore GetGameCoreInIndex(this List<GameCore> cores ,string id)
-        {
-            foreach (var i in cores)
-                if (i.Id == id)
-                    return i;
-
-            return null;
+        public static GameCore GetGameCoreInIndex(this List<GameCore> cores ,string id) {        
+            return cores.Where(x => x.Id == id).FirstOrDefault()!;
         }
 
         public static UserModels GetUserInIndex(this List<UserModels> users, string id)
@@ -74,6 +72,7 @@ namespace WonderLab.Modules.Toolkits
 
             return null;
         }
+
         public static string GetVersionType(string raw)
         {
             string type = string.Empty;
@@ -84,6 +83,45 @@ namespace WonderLab.Modules.Toolkits
             else if (raw.Contains("old_alpha"))
                 type = "远古版";
             return type;
+        }
+
+        public static Account ToAccount(this UserDataModels raw)
+        {
+            if (raw.UserType.Contains("微软")) {            
+                return new MicrosoftAccount()
+                {
+                    Name = raw.UserName,
+                    AccessToken = raw.UserAccessToken,
+                    Uuid = Guid.Parse(raw.UserUuid),
+                    RefreshToken = raw.UserRefreshToken,
+                };
+            }
+            else if (raw.UserType.Contains("离线")) {
+                return new OfflineAccount()
+                {
+                    Name = raw.UserName,
+                    AccessToken = raw.UserAccessToken,
+                    Uuid = Guid.Parse(raw.UserUuid),
+                };
+            } else {
+                return new YggdrasilAccount()
+                {
+                    Name = raw.UserName,
+                    AccessToken = raw.UserAccessToken,
+                    Uuid = Guid.Parse(raw.UserUuid),
+                };
+            }
+        }
+
+        public static LogModels ToOutput(this GameLogAnalyseResponse response)
+        {
+            return new LogModels()
+            {
+                Log = response.Log,
+                LogLevel = response.LogType,
+                Source = response.Source,
+                Time = response.Time,
+            };
         }
     }
 }

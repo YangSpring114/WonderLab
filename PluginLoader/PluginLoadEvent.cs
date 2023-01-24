@@ -4,8 +4,9 @@ namespace PluginLoader
     {
         public override string Name { get { return "PluginUnLoadEvent"; } }
         public PluginInfo PluginInfo { get; set; }
-        public override void Do()
+        public override bool Do()
         {
+            return true;
         }
     }
 }

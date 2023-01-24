@@ -11,6 +11,8 @@ using MinecraftLaunch.Modules.Toolkits;
 using Natsurainko.FluentCore.Class.Model.Launch;
 using Newtonsoft.Json;
 using ReactiveUI;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
@@ -49,6 +51,7 @@ namespace WonderLab
         /// </summary>
         public async void CheckAsync()
         {
+            ///Modules/Controls/zh-cn.axaml
             JsonToolkit.JsonAllWrite();
             await Task.Delay(900);
             BackgroundWorker worker = new();
@@ -77,10 +80,12 @@ namespace WonderLab
                 if (Data is not null)
                 {
                     //Java
-                    Data.JavaList = Data.JavaList.Distinct().ToList();
+                    if(Data.JavaList is not null)
+                        Data.JavaList = Data.JavaList.Distinct().ToList();
 
                     //Game Footer
-                    Data.GameFooterList = Data.GameFooterList.Distinct().ToList();
+                    if (Data.GameFooterList is not null)
+                        Data.GameFooterList = Data.GameFooterList.Distinct().ToList();
 
                     //GameCore
                     if (!string.IsNullOrEmpty(Data.FooterPath) && !string.IsNullOrEmpty(Data.SelectedGameCore))
@@ -98,6 +103,9 @@ namespace WonderLab
         }
         public async void InitializeModData()
         {
+            //var res = await BitmapToolkit.CropSkinImage("C:\\Users\\w\\Desktop\\总整包\\MC\\mc皮肤资源\\starcloudsea.png");
+            //BitmapToolkit.ResizeImage(res, 512, 512).Save("C:\\Users\\w\\Desktop\\starcloudsea.jpg");
+            //
             var al = AvaloniaLocator.Current.GetService<IAssetLoader>();
             await Task.Run(() =>
             {

@@ -4,6 +4,7 @@ using FluentAvalonia.UI.Media.Animation;
 using MinecraftLaunch.Modules.Models.Launch;
 using MinecraftLaunch.Modules.Toolkits;
 using Natsurainko.FluentCore.Module.Launcher;
+using PluginLoader;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ using WonderLab.Modules.Base;
 using WonderLab.Modules.Controls;
 using WonderLab.Modules.Models;
 using WonderLab.Modules.Toolkits;
+using WonderLab.PluginAPI;
 using WonderLab.Views;
 
 namespace WonderLab.ViewModels
@@ -149,7 +151,7 @@ namespace WonderLab.ViewModels
 
         public void FodlerRefresh()
         {
-            FodlerList.Clear();
+            FodlerList = null!;
             FodlerList = App.Data.GameFooterList;
         }
 
@@ -194,85 +196,12 @@ namespace WonderLab.ViewModels
 
         public void LaunchAsync(GameCore core)
         {
-            if (core is not null)
-                Debug.WriteLine($"将要被启动的核心：{core.Id}");
-
-            #region 检查游戏核心
-
-            try
+            var e = new GameLaunchAsyncEvent(core);
+            Event.CallEvent(e);
+            if (e.IsCanceled)
             {
-                if (core is not null)
-                {
-                    var v = new GameCoreToolkit(GameView.gv.fodlercombo.SelectedItem.ToString()).GetGameCore(core.Id);
-
-                    if (v is null)
-                    {
-                        MainWindow.ShowInfoBarAsync("错误：", $"选择的游戏核心：{core.Id} 不存在或已损坏！", InfoBarSeverity.Error);
-                        return;
-                    }
-                }
-                else
-                {
-                    MainWindow.ShowInfoBarAsync("错误：", $"选择的游戏核心的值为 Null！", InfoBarSeverity.Error);
-                    return;
-                }
+                MainWindow.ShowInfoBarAsync("提示：", $"游戏启动任务被取消", InfoBarSeverity.Informational);
             }
-            catch (Exception ex)
-            {
-                MainWindow.ShowInfoBarAsync("错误：", $"选择的游戏核心：{core.Id} 在检查时出现了异常，详细信息：{ex.Message}", InfoBarSeverity.Error);
-                return;
-            }
-
-            #endregion
-
-            #region 检查Java
-
-            if (!File.Exists(App.Data.JavaPath))
-            {
-                MainWindow.ShowInfoBarAsync("错误：", $"选择的Java不存在或已损坏！", InfoBarSeverity.Error);
-                return;
-            }
-
-            #endregion
-
-            #region 检查账户
-
-            if (App.Data.SelectedUser is null)
-            {
-                MainWindow.ShowInfoBarAsync("错误：", $"未选择任何游戏档案！", InfoBarSeverity.Error);
-                return;
-            }
-
-            if (string.IsNullOrEmpty(App.Data.SelectedUser.UserName) || string.IsNullOrEmpty(App.Data.SelectedUser.UserUuid))
-            {
-                MainWindow.ShowInfoBarAsync("错误：", $"选择的游戏档案里有信息为空！", InfoBarSeverity.Error);
-                return;
-            }
-
-            #endregion
-
-            var button = new HyperlinkButton()
-            {
-                Content = "转至 祝福终端>任务中心",
-            };
-
-            button.Click += ButtonClick;
-
-            MainWindow.ShowInfoBarAsync("提示：", $"开始启动游戏核心：{core.Id!}，可前往任务中心查看详细信息", InfoBarSeverity.Informational, 5000, button);
-            //!!!!!!!!!!!!!!!!!!!
-            LaunchItemView view = new(core.Id, App.Data.SelectedUser);
-
-            if (TaskView.itemView.Count is not 0 && TaskView.task is not null)
-            {
-                TaskView.task.infopanel.Children.Add(view);
-                TaskView.task.nullText.IsVisible = false;
-            }
-            else if (TaskView.itemView.Count is not 0 && TaskView.task is null)
-                TaskView.itemView.Add(view);
-            else if (TaskView.itemView.Count is 0 && TaskView.task is null)
-                TaskView.itemView.Add(view);
-            else if (TaskView.itemView.Count is 0 && TaskView.task is not null)
-                TaskView.task.AddItem(view);
         }
 
         public async void SearchGameCores()
@@ -295,6 +224,7 @@ namespace WonderLab.ViewModels
 
         private void UpdateGameCores()
         {
+            string SelectedGameCore = string.Empty;
             if (!string.IsNullOrEmpty(SelectedFooler))
             {
                 var gameCores = (new GameCoreToolkit(SelectedFooler).GetGameCores()).Where(x =>
@@ -335,7 +265,12 @@ namespace WonderLab.ViewModels
                 }).ToList();
 
                 GameCores = gameCores;
-            }
+
+                if (GameCores.Count > 0 && GameCores.Where(x=>x.Id == SelectedGameCore).Count() == 1) {
+                    App.Data.SelectedGameCore = SelectedGameCore;
+                    CurrentGameCore = GameCores.GetGameCoreInIndex(SelectedGameCore);
+                }
+            }            
 
             UpdateTips();
             //CoresList.ScrollIntoView(CurrentGameCore);

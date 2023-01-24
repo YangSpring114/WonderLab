@@ -90,5 +90,6 @@
 				</ComboBox.ItemTemplate>
 			</ComboBox>			
 		</Grid>
+		<!--<Image Height="30" Width="30" Stretch="UniformToFill" Source="C:\Users\w\Desktop\32.jpg"/>-->
 	</Grid>
 </UserControl>

@@ -38,7 +38,7 @@ namespace WonderLab.Views
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             JavaInstallDialog.Hide();
-            MainWindow.ShowInfoBarAsync($"信息", "已取消安装 Java 运行时", severity: InfoBarSeverity.Informational);
+            MainWindow.ShowInfoBarAsync($"信息：", "已取消安装 Java 运行时", severity: InfoBarSeverity.Informational);
         }
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)

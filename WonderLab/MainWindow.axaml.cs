@@ -25,6 +25,8 @@ using Color = Avalonia.Media.Color;
 using FluentAvalonia.UI.Media.Animation;
 using WonderLab.Modules.Controls;
 using WonderLab.Modules.Const;
+using PluginLoader;
+using WonderLab.PluginAPI;
 #pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
 namespace WonderLab
 {
@@ -131,13 +133,14 @@ namespace WonderLab
 
         public static string GetVersion()
         {
-            return "Build 1.0.1.5";
+            return "1.0.1.5";
         }
 
         public static void AutoUpdata()
         {
             try
             {
+                Event.CallEvent(new UpdataCheckEvent());
                 string releaseUrl = GithubLib.GithubLib.GetRepoLatestReleaseUrl("Blessing-Studio", "WonderLab");
                 Release? release = GithubLib.GithubLib.GetRepoLatestRelease(releaseUrl);
                 if (release != null)
@@ -183,7 +186,7 @@ namespace WonderLab
                 Content = "转至 祝福终端>任务中心",
             };
             button.Click += (object? sender, RoutedEventArgs e) =>{ Page.NavigatedToTaskView(); };
-            MainWindow.ShowInfoBarAsync("提示：", $"开始下载更新  更新内容:\n {res.body} \n\n推送者{res.author.login} \n 可前往任务中心查看进度", InfoBarSeverity.Informational, 8000, button);
+            ShowInfoBarAsync("提示：", $"开始下载更新  更新内容:\n {res.body} \n\n推送者{res.author.login} \n 可前往任务中心查看进度", InfoBarSeverity.Informational, 5000, button);
             string save = @"updata.zip";
             if(Directory.Exists("updata-cache"))
             File.Delete(Path.Combine("updata-cache", save));
@@ -199,8 +202,11 @@ namespace WonderLab
             httpDownload.Url = url;
             httpDownload.FileName = save;
             httpDownload.Directory = new DirectoryInfo("updata-cache");
-            DownItemView downItemView = new DownItemView(httpDownload, $"更新  {res.name} 下载", new AfterDo(After_Do));
-            TaskView.Add(downItemView);
+            var e = new HttpDownloadEvent(httpDownload, $"更新  {res.name} 下载", new AfterDo(After_Do));
+            if (!Event.CallEvent(e))
+            {
+                ShowInfoBarAsync("提示：", $"更新被插件取消", InfoBarSeverity.Informational, 5000, button);
+            }
         }
 
         public static Release? Updata()

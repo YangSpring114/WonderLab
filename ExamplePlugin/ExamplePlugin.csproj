@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ControlX\ControlX.csproj" />
+    <ProjectReference Include="..\GithubLib\GithubLib.csproj" />
+    <ProjectReference Include="..\PluginLoader\PluginLoader.csproj" />
+    <ProjectReference Include="..\Updata\Updata.csproj" />
+    <ProjectReference Include="..\WonderLab.Desktop\WonderLab.Desktop.csproj" />
+    <ProjectReference Include="..\WonderLab\WonderLabX.csproj" />
+  </ItemGroup>
+
+</Project>

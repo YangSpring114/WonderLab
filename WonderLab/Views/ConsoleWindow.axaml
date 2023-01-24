@@ -56,7 +56,7 @@
 		
 		<!--Center-->
 		<ScrollViewer x:Name="ss" Margin="10 45 0 50">
-			<ListBox x:Name="LogList" Padding="0"
+			<ListBox x:Name="LogList" Padding="0" Items="{Binding Outputs}"
 					 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
 					 ScrollViewer.VerticalScrollBarVisibility="Disabled">
 				<ListBox.ItemsPanel>
@@ -68,7 +68,6 @@
 					<Style Selector="ListBoxItem">
 						<Setter Property="Background" Value="Beige"/>
 						<Setter Property="MinHeight" Value="20"/>
-						<Setter Property="Height" Value="NaN"/>
 						<Setter Property="Padding" Value="0"/>
 						<Setter Property="Template">
 							<ControlTemplate>
@@ -105,9 +104,16 @@
 		                                           TextWrapping="Wrap" TextAlignment="Left" IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"
 		                                           FontFamily="Din Pro"/>
 
-										<TextBlock Text="/" TextWrapping="Wrap" TextAlignment="Left" FontFamily="Din Pro" IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"/>
+										<TextBlock Text="/" TextWrapping="Wrap" 
+												   TextAlignment="Left" 
+												   FontFamily="Din Pro" 
+												   IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"/>
 
-										<TextBlock Text="{Binding LogType}" IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}" Foreground="{DynamicResource SystemAccentColorLight3}" TextWrapping="Wrap" TextAlignment="Left" FontFamily="Din Pro"/>
+										<TextBlock Text="{Binding LogType}"
+												   IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"
+												   Foreground="{DynamicResource SystemAccentColorLight3}"
+												   TextWrapping="Wrap" TextAlignment="Left"
+												   FontFamily="Din Pro"/>
 
 										<TextBlock Text="] " IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"
 		                                           TextAlignment="Left" TextWrapping="Wrap"
@@ -144,5 +150,6 @@
 		<CheckBox x:Name="IsTopmost" HorizontalAlignment="Left" Margin="10 0 -15 10" VerticalAlignment="Bottom" Content="窗口置顶"/>
 		<CheckBox x:Name="IsAuto" HorizontalAlignment="Left" Margin="110 0 -15 10" VerticalAlignment="Bottom" Content="拖动锁定"/>
 		<Button x:Name="CloseButton" Command="{Binding KillGame}" Content="结束游戏" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 10" Classes="accent"/>
+		<!--<Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 100 10" Command="{Binding DebugAction}" Classes="accent" Content="DeBug"/>-->
 	</Grid>
 </Window>

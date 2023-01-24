@@ -1,14 +1,15 @@
+﻿using PluginLoader;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PluginLoader
+namespace WonderLab.PluginAPI
 {
-    public class EmptyEvent : Event
+    public class UpdataCheckEvent : Event
     {
-        public override string Name { get { return "EmptyEvent"; } }
+        public override string Name { get { return "UpdataCheckEvent"; } }
 
         public override bool Do()
         {

@@ -14,5 +14,15 @@ namespace PluginLoader
         {
             this.Flag = Flag;
         }
+
+        public override void onPluginLoad()
+        {
+
+        }
+
+        public override void onPluginUnLoad()
+        {
+
+        }
     }
 }

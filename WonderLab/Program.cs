@@ -19,41 +19,40 @@ namespace WonderLab
         [STAThread]
         public static void Main(string[] args)
         {
-            //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            //{
-            //    if (File.Exists(Path.Combine("updata-cache", "UpdataNextTime")))
-            //    {
-            //        Process pro = new Process();
-            //        pro.StartInfo.FileName = "Updata.exe";
-            //        pro.Start();
-            //        return;
-            //    }
-            //}
-            AppBuilder builder = null;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                if (File.Exists(Path.Combine("updata-cache", "UpdataNextTime")))
+                {
+                    Process pro = new Process();
+                    pro.StartInfo.FileName = "Updata.exe";
+                    pro.Start();
+                    return;
+                }
+            }
+            PluginLoader.PluginLoader.LoadAllFromPlugin();
             try
             {
-                builder = BuildAvaloniaApp();
+                AppBuilder builder = BuildAvaloniaApp();
                 builder.StartWithClassicDesktopLifetime(args);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 JsonToolkit.JsonWrite();
-                new MainWindow().Show();
+                Trace.WriteLine(ex.ToString());
                 //BuildAvaloniaApp()
                 //.StartWithClassicDesktopLifetime(args);
             }
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            //PluginLoader.PluginLoader.LoadAllFromPlugin();
         }
 
         // Avalonia configuration, don't remove; also used by visual designer.
         public static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<App>()
-                .UsePlatformDetect()
-                .With(new Win32PlatformOptions
-                {
-                    UseWindowsUIComposition = true,
-                });
+                .UsePlatformDetect();
+                //.With(new Win32PlatformOptions
+                //{
+                //    UseWindowsUIComposition = true,
+                //});
                 //.UseReactiveUI();
     }
 }

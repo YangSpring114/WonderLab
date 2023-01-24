@@ -11,13 +11,7 @@ namespace PluginLoader
         public virtual string? Description { get; }
         [Obsolete]
         public virtual string? Version { get; }
-        public virtual void onPluginLoad()
-        {
-          
-        }
-        public virtual void onPluginUnLoad()
-        {
-
-        }
+        public abstract void onPluginLoad();
+        public abstract void onPluginUnLoad();
     }
 }

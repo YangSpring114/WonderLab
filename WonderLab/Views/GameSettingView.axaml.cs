@@ -26,11 +26,19 @@ namespace WonderLab.Views
 
         public override void OnNavigatedTo()
         {
-            if (App.Data.JavaList.Count != 0)
-                ViewModel.CurrentJava = App.Data.JavaPath;
-            if (App.Data.GameFooterList.Count != 0)
-                ViewModel.CurrentGameFolder = App.Data.FooterPath;
-            ViewModel.IsOlate = App.Data.Isolate;
+            try {
+                ViewModel.DataRefresh();
+
+                //if (App.Data.JavaList is not null && App.Data.JavaList.Count != 0)
+                //    ViewModel.CurrentJava = App.Data.JavaPath;
+
+                if (App.Data.GameFooterList is not null && App.Data.GameFooterList.Count != 0)
+                    ViewModel.CurrentGameFolder = App.Data.FooterPath;
+
+                ViewModel.IsOlate = App.Data.Isolate;
+            } catch (Exception ex) {
+                Trace.WriteLine("[Error] " + ex.ToString());
+            }
         }
 
         private void InitializeComponent() => InitializeComponent(true);
