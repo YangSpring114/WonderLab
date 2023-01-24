@@ -272,6 +272,7 @@ namespace WonderLab.ViewModels
                     MainWindow.ShowVersionDialogAsync();
                     return;
                 }
+
                 var e = new ModLoadersDownloadEvent(ModLoaders);
                 Event.CallEvent(e);
                 if (e.IsCanceled)
