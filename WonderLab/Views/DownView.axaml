@@ -89,6 +89,7 @@
 					</Grid>
 				</ui:ContentDialog.Content>
 			</ui:ContentDialog>
+			
 			<local:OptionsDisplayItem Header="安装新的核心"
 									  Description="您可以在此页面安装新的游戏核心，核心将被安装至您选择的目录"
 									  Navigates="True"
@@ -98,12 +99,14 @@
 					<ui:IconSourceElement IconSource="{StaticResource AddCoreIcon}" />
 				</local:OptionsDisplayItem.Icon>
 			</local:OptionsDisplayItem>
+			
 			<local:OptionsDisplayItem NavigationCommand="{Binding NavigationToDownMod}" Header="搜索、下载模组" Margin="0,10,0,0" Navigates="True"
 							  Description="您可以在此页面搜索和下载模组，之后将由WonderLab自动安装至您选择的核心目录">
 				<local:OptionsDisplayItem.Icon>
 					<ui:IconSourceElement IconSource="{StaticResource GetModIcon}"/>
 				</local:OptionsDisplayItem.Icon>
 			</local:OptionsDisplayItem>
+			
 			<local:OptionsDisplayItem Name="JavaInstall" Header="安装新的 Java 运行时" Icon="Save" Margin="0,10,0,0"
 					  Description="安装新的 Java 运行时，它将被安装至主磁盘目录"
 					  Navigates="True">
@@ -111,6 +114,7 @@
 					<ui:IconSourceElement IconSource="{StaticResource JavaIcon}"/>
 				</local:OptionsDisplayItem.Icon>
 			</local:OptionsDisplayItem>
+			
 			<local:OptionsDisplayItem NavigationCommand="{Binding NavigationToDown}" Header="自定义下载" Margin="0,10,0,0"
 			  Description="如名，一个简单的下载器"
 			 IsEnabled="False" Background="{DynamicResource ControlFillColorTertiaryBrush}"

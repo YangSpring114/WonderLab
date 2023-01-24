@@ -30,7 +30,7 @@ namespace WonderLab.Views
 
         private void RootNavigationView_ItemInvoked(object? sender, NavigationViewItemInvokedEventArgs e)
         {
-            FrameView.Navigate((Type.GetType($"WonderLab.Views.{((NavigationViewItem)e.InvokedItemContainer).Tag ??= string.Empty}")) ?? typeof(NewsView), null, null);
+            FrameView.Navigate((Type.GetType($"WonderLab.Views.{((NavigationViewItem)e.InvokedItemContainer).Tag ??= string.Empty}")) ?? typeof(NewsView));
         }
     }
 }

@@ -11,6 +11,7 @@
 		<StyleInclude Source="/Modules/Controls/Styles/ContentDialog.axaml" />
 		<StyleInclude Source="/Modules/Controls/Styles/FrameXStyle.axaml" />
 		<StyleInclude Source="/Modules/Controls/Styles/TextBoxStyle.axaml" />
+		<StyleInclude Source="/Modules/Controls/Styles/OptionsDisplayItemStyles.axaml"/>
 		<StyleInclude Source="/Modules/Controls/Styles/ToolTipStyle.axaml" />
 		<StyleInclude Source="avares://ControlX/ProgressBar.xaml" />
 		<StyleInclude Source="avares://ControlX/OptionsDisplayItemStyles.axaml" />

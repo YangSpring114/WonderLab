@@ -127,13 +127,19 @@ namespace WonderLab.ViewModels
         /// <summary>
         /// 按钮事件
         /// </summary>
-        public void OpenFooter()
+        public async void OpenFooter()
         {
-            using var res = Process.Start(new ProcessStartInfo(GamePath)
-            {
-                UseShellExecute = true,
-                Verb = "open"
-            });
+            try {
+                await Task.Run(() => {
+                    using var res = Process.Start(new ProcessStartInfo(GamePath)
+                    {
+                        UseShellExecute = true,
+                        Verb = "open"
+                    });
+                });
+            } finally{
+                GC.Collect();
+            }
         }
         /// <summary>
         /// 按钮事件
