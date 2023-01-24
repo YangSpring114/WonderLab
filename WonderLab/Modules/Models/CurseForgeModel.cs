@@ -172,10 +172,6 @@ namespace WonderLab.Modules.Models
             using var ms = new MemoryStream(stream);
             Icon = new Bitmap(ms);
             Load = false;
-            //await Task.Run(async delegate
-            //{
-
-            //}, default);
         }
     }
 }

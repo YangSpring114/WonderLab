@@ -7,6 +7,62 @@
              xmlns:nfc="using:Natsurainko.FluentCore.Class.Model.Mod"
              x:Class="WonderLab.Views.DownModView">
     <Grid>
+		<ui:ContentDialog x:Name="SelectGameCoreDialog" Classes="WinUiPro">
+			<ui:ContentDialog.Content>
+				<Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="1*" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+					<TextBlock
+						Grid.Row="0"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Center"
+						FontSize="18"
+						FontWeight="Bold"
+						Text="选择一个游戏核心" />
+
+					<StackPanel
+	                      Grid.Row="1"
+	                      Margin="0,10"
+	                      HorizontalAlignment="Stretch">
+						<ListBox x:Name="DemoBox">
+							<ListBox.DataTemplates>
+								<DataTemplate>
+									<Grid Margin="0 10 10 10" HorizontalAlignment="Left">
+										<Panel>
+											<Border HorizontalAlignment="Left" VerticalAlignment="Center" CornerRadius="4" Height="35" Width="35" Margin="0,0,10,0">
+												<Border.Background>
+													<ImageBrush Source="{Binding HasModLoader,Mode=OneWay,Converter={StaticResource BitmapConverter}}"/>
+												</Border.Background>
+											</Border>
+											<Grid HorizontalAlignment="Left" VerticalAlignment="Center" Margin="42,0,0,0" Height="35">
+												<TextBlock TextTrimming="CharacterEllipsis" FontSize="16" FontWeight="Bold" FontFamily="DIN Pro" Text="{Binding Id,Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+												<TextBlock Height="20" Margin="0,0,0,-5" TextTrimming="CharacterEllipsis" MaxWidth="140" FontFamily="DIN Pro" FontSize="13" Opacity="0.65" Text="{Binding Type,Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+											</Grid>
+										</Panel>
+									</Grid>
+								</DataTemplate>
+							</ListBox.DataTemplates>
+						</ListBox>
+					</StackPanel>
+					
+					<StackPanel
+						Grid.Row="2"
+						HorizontalAlignment="Right"
+						VerticalAlignment="Center"
+						Orientation="Horizontal">
+						<Button Click="CancelButtonClick"
+							Width="75"
+							Margin="15,0,0,0">
+							<TextBlock Text="取消" />
+						</Button>
+					</StackPanel>
+				</Grid>
+			</ui:ContentDialog.Content>
+		</ui:ContentDialog>
+		
         <ScrollViewer Margin="0,100,0,0">
             <Grid>
                 <StackPanel IsVisible="{Binding IsLoadedOver}" Orientation="Vertical">
