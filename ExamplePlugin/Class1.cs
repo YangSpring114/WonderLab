@@ -44,5 +44,10 @@ namespace ExamplePlugin
         {
             ((ICancellable)e).Cancel();
         }
+        [EventHandle]
+        public void OnGameDownloadEvent(GameDownloadEvent e)
+        {
+            ((ICancellable)e).Cancel();
+        }
     }
 }
