@@ -6,7 +6,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="WonderLab.Views.IndependencyCoreSettingView">
 	<ScrollViewer>
-		<StackPanel Spacing="10" Orientation="Vertical">
+		<StackPanel Margin="0 0 0 10" Spacing="10" Orientation="Vertical">
 			<Border Margin="20,20,20,5" Height="50" CornerRadius="4" Background="{DynamicResource ControlFillColorDefaultBrush}">
 				<Panel>
 					<TextBlock DockPanel.Dock="Left" Text="启用独立版本设置" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,0,0,0"/>
