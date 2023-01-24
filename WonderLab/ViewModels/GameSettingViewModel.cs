@@ -2,11 +2,14 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Platform;
 using Avalonia.Platform;
+using DynamicData;
 using FluentAvalonia.UI.Controls;
 using MinecraftLaunch.Modules.Toolkits;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -34,13 +37,17 @@ namespace WonderLab.ViewModels
             } 
         }
 
-        public List<string> GameFolders
+        public ObservableCollection<string> GameFolders
         {
             get => _GameFolders;
-            set => RaiseAndSetIfChanged(ref _GameFolders, value);
+            set {
+                if (RaiseAndSetIfChanged(ref _GameFolders, value)) {
+                    ///App.Data.GameFooterList = value;
+                }
+            }
         }
 
-        public List<string> Javas
+        public ObservableCollection<string> Javas
         {
             get => _Javas;
             set => RaiseAndSetIfChanged(ref _Javas, value);
@@ -59,8 +66,7 @@ namespace WonderLab.ViewModels
             get => _CurrentJava;
             set
             {
-                if (RaiseAndSetIfChanged(ref _CurrentJava, value) && value is not null)
-                {
+                if (RaiseAndSetIfChanged(ref _CurrentJava, value) && value is not null) {               
                     App.Data.JavaPath = value;
                 }
             }
@@ -71,8 +77,7 @@ namespace WonderLab.ViewModels
             get => _Jvm;
             set
             {
-                if (RaiseAndSetIfChanged(ref _Jvm, value) && value is not null)
-                {
+                if (RaiseAndSetIfChanged(ref _Jvm, value) && value is not null) {               
                     App.Data.Jvm = value;
                 }
             }
@@ -147,8 +152,8 @@ namespace WonderLab.ViewModels
         public string _CurrentGameFolder = App.Data.SelectedGameFooter;
         public string _CurrentJava = App.Data.JavaPath;
         public string _Jvm = App.Data.Jvm;
-        public List<string> _GameFolders = App.Data.GameFooterList;
-        public List<string> _Javas = App.Data.JavaList;
+        public ObservableCollection<string> _GameFolders = new();
+        public ObservableCollection<string> _Javas = new();
         public int _SelectedLang = App.Data.SelectedLang;
     }
 
@@ -165,9 +170,13 @@ namespace WonderLab.ViewModels
                 var result = await dialog.ShowAsync(MainWindow.win);
                 if (result is not null)
                 {
+                    if (App.Data.GameFooterList is null)
+                        App.Data.GameFooterList = new();
+
                     App.Data.GameFooterList.Add(result);
-                    GameFolders = null;
-                    GameFolders = App.Data.GameFooterList;
+
+                    GameFolders.Add(result);
+
                     CurrentGameFolder = result;
                     GameRemoveVisible = true;
                 }
@@ -178,6 +187,7 @@ namespace WonderLab.ViewModels
                 MainWindow.win.ShowDialog("", "");
             }
         }
+
         async void OpenFileDialog()
         {
             try
@@ -185,7 +195,7 @@ namespace WonderLab.ViewModels
                 List<FileDialogFilter> filters = new List<FileDialogFilter>();
                 var filter = new FileDialogFilter();
                 //如果为win就设置后缀限制为exe
-                if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                     filter.Extensions.Add("exe");
 
                 filter.Name = "Java路径";
@@ -201,11 +211,16 @@ namespace WonderLab.ViewModels
 
                 if (result is not null)
                 {
-                    foreach (var i in result)
-                        App.Data.JavaList.Add(i);
-                    Javas = null;
-                    Javas = App.Data.JavaList;
-                    CurrentJava = result.FirstOrDefault()!;
+                    var javapath = result.Where(x => new FileInfo(x).Exists).ToList().First();
+
+                    App.Data.JavaList.Add(javapath);
+                    Trace.WriteLine($"[调试] 添加的 Java 路径为 {javapath}");
+                    Javas.Add(javapath);
+                    //Javas = new();
+                    //Javas = App.Data.JavaList.Distinct().ToList();
+                    CurrentJava = javapath;
+
+                    Trace.WriteLine($"[调试] 活动 Java 路径为 {CurrentJava}");
                 }
                 JsonToolkit.JsonWrite();
             }
@@ -214,14 +229,17 @@ namespace WonderLab.ViewModels
                 MainWindow.ShowInfoBarAsync("错误：", $"发生了意想不到的错误：\n{ex}", InfoBarSeverity.Error);
             }
         }
+
         public void AddGameAction()
         {
             OpenFolderDialog();
         }
+
         public void AddJavaAction()
         {
             OpenFileDialog();
         }
+
         public void FindJavas()
         {
             BackgroundWorker worker = new();
@@ -236,7 +254,7 @@ namespace WonderLab.ViewModels
                         var basePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                         basePath = Path.Combine(basePath, ".minecraft", "runtime");
                         var paths = new[] { "java-runtime-alpha", "java-runtime-beta", "jre-legacy" };
-                        App.Data.JavaList.AddRange(paths.Select(path => Path.Combine(basePath, path, "bin", "javaw.exe")).Where(File.Exists));  
+                        App.Data.JavaList.AddRange(paths.Select(path => Path.Combine(basePath, path, "bin", "javaw.exe")).Where(File.Exists).Distinct());  
                         
                         foreach (var j in res)
                             App.Data.JavaList.Add(j.JavaPath);
@@ -247,7 +265,7 @@ namespace WonderLab.ViewModels
                         var basePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
                         basePath = Path.Combine(basePath, ".minecraft", "runtime");
                         var paths = new[] { "java-runtime-alpha", "java-runtime-beta", "jre-legacy" };
-                        App.Data.JavaList.AddRange(paths.Select(path => Path.Combine(basePath, path, "bin", "javaw.exe")).Where(File.Exists));
+                        App.Data.JavaList.AddRange(paths.Select(path => Path.Combine(basePath, path, "bin", "javaw.exe")).Where(File.Exists).Distinct());
                     }
                     else//傻逼MacOS
                     {
@@ -256,11 +274,10 @@ namespace WonderLab.ViewModels
                         var basePath = Path.Combine(path, "Application Support");
                         basePath = Path.Combine(basePath, ".minecraft", "runtime");
                         var paths = new[] { "java-runtime-alpha", "java-runtime-beta", "jre-legacy" };
-                        App.Data.JavaList.AddRange(paths.Select(path => Path.Combine(basePath, path, "bin", "javaw.exe")).Where(File.Exists));
+                        App.Data.JavaList.AddRange(paths.Select(path => Path.Combine(basePath, path, "bin", "javaw.exe")).Where(File.Exists).Distinct());
                     }
 
-                    Javas = null;
-                    Javas = App.Data.JavaList.Distinct().ToList();
+                    Javas.AddRange(App.Data.JavaList.Distinct());
                     if (Javas.Count > 0)
                     {
                         JavaRemoveVisible = true;
@@ -277,6 +294,7 @@ namespace WonderLab.ViewModels
 
             worker.RunWorkerAsync();
         }
+
         public void FindJavasAction()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -289,21 +307,36 @@ namespace WonderLab.ViewModels
                 MainWindow.win.ShowDialog("错误", "回肠抱歉，该功能只能在Windows上跑（正在研究当中）");
             }
         }
+
         public void OutGameAction()
         {
             App.Data.GameFooterList.Remove(App.Data.SelectedGameFooter);
-            GameFolders = null;
-            GameFolders = App.Data.GameFooterList;
-            CurrentGameFolder = App.Data.GameFooterList.Any() ? App.Data.GameFooterList[0] : null;
+            GameFolders.Remove(CurrentGameFolder);
+            CurrentGameFolder = App.Data.GameFooterList.Any() ? App.Data.GameFooterList[0] : null!;
             GameRemoveVisible = CurrentGameFolder is null ? false : true;
+            //App.Data.GameFooterList.Remove(App.Data.SelectedGameFooter);
+            //GameFolders = App.Data.GameFooterList;
         }
+
         public void OutJavaAction()
         {
+            Trace.WriteLine($"[调试] 即将被移除的 Java 运行时 {App.Data.JavaPath}");
             App.Data.JavaList.Remove(App.Data.JavaPath);
-            Javas = null;
-            Javas = App.Data.JavaList;
-            CurrentJava = App.Data.JavaList.Any() ? App.Data.JavaList[0] : null;
-            JavaRemoveVisible = CurrentJava is null ? false : true;
+            Javas.Remove(App.Data.JavaPath);
+            CurrentJava = Javas.Any()! ? Javas[0] : null!;
+            JavaRemoveVisible = Javas.Any()! ? true : false;
+            //Javas = new();
+            //Javas = App.Data.JavaList.Distinct().ToList();
+            Trace.WriteLine($"[调试] 被移除的 Java 运行时后面的 Java 运行时为 {CurrentJava}");
+        }
+
+        public void DataRefresh()
+        {
+            //Javas = null;
+            //Javas = App.Data.JavaList;
+
+            //GameFolders = null;
+            //GameFolders = App.Data.GameFooterList;
         }
     }
 
@@ -311,10 +344,13 @@ namespace WonderLab.ViewModels
     {
         public GameSettingViewModel()
         {
-            if (GameFolders.Count == 0 || GameFolders.Count == -1)
+            App.Data.JavaList.ForEach(x => Javas.Add(x));
+            App.Data.GameFooterList.ForEach(x => GameFolders.Add(x));
+
+            if (GameFolders is not null && (GameFolders.Count == 0 || GameFolders.Count == -1))
                 GameRemoveVisible = false;
 
-            if (Javas.Count == 0 || Javas.Count == -1)
+            if (Javas is not null && (Javas.Count == 0 || Javas.Count == -1))
                 JavaRemoveVisible = false;
         }
     }

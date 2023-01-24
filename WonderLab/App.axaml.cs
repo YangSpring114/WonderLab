@@ -80,10 +80,12 @@ namespace WonderLab
                 if (Data is not null)
                 {
                     //Java
-                    Data.JavaList = Data.JavaList.Distinct().ToList();
+                    if(Data.JavaList is not null)
+                        Data.JavaList = Data.JavaList.Distinct().ToList();
 
                     //Game Footer
-                    Data.GameFooterList = Data.GameFooterList.Distinct().ToList();
+                    if (Data.GameFooterList is not null)
+                        Data.GameFooterList = Data.GameFooterList.Distinct().ToList();
 
                     //GameCore
                     if (!string.IsNullOrEmpty(Data.FooterPath) && !string.IsNullOrEmpty(Data.SelectedGameCore))

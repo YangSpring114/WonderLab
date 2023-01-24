@@ -151,7 +151,7 @@ namespace WonderLab.ViewModels
 
         public void FodlerRefresh()
         {
-            FodlerList.Clear();
+            FodlerList = null!;
             FodlerList = App.Data.GameFooterList;
         }
 

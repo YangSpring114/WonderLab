@@ -42,9 +42,8 @@ namespace WonderLab.Views
         {
             ViewModel.SelectCoreVisibilityOption = 0;
             ViewModel.SelectCoreSortOption = 0;
-            ViewModel.FodlerList = null!;
-            ViewModel.FodlerList = App.Data.GameFooterList;
             ViewModel.SelectedFooler = App.Data.SelectedGameFooter;
+            ViewModel.FodlerRefresh();
             ViewModel.GameSearchAsync();      
         }
 

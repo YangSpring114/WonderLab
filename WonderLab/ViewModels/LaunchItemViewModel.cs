@@ -65,13 +65,13 @@ namespace WonderLab.ViewModels
             BackgroundWorker worker = new();
             worker.DoWork += async (_, _) =>
             {
+                Title = $"游戏核心 {GameCore.Id} 的启动任务";
                 var IsCompletedSuccess = await ResourceCompletionedAction();
 
                 if (!IsCompletedSuccess) {                    
                     return;
                 }
 
-                Title = $"游戏核心 {GameCore.Id} 的启动任务";
                 bool IsEnableIndependencyCore = false;
                 var setting = new LaunchConfig();
                 var toolkit = new GameCoreToolkit(App.Data.FooterPath);
