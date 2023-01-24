@@ -297,10 +297,12 @@ namespace WonderLab.ViewModels
                 {
                     MainWindow.ShowInfoBarAsync("提示：", $"游戏下载任务被取消", InfoBarSeverity.Informational);
                 }
+                else
+                {
+                    MainWindow.ShowInfoBarAsync("提示", $"开始安装游戏核心：{DownloadCore}，可前往任务中心查看进度", InfoBarSeverity.Informational, 5000, button);
+
+                }
             }
-
-            MainWindow.ShowInfoBarAsync("提示", $"开始安装游戏核心：{DownloadCore}，可前往任务中心查看进度", InfoBarSeverity.Informational, 5000, button);
-
             Page.NavigatedToDownView();
         }
         public async void Change()

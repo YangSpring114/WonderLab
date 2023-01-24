@@ -60,9 +60,16 @@ namespace PluginLoader
                     }
                     if (IsEventMethod && method.GetParameters().Length == 1)
                     {
-                        if (!IsContinue && method.GetParameters()[0].ParameterType.BaseType == typeof(Event) && method.GetParameters()[0].ParameterType == @event.GetType())
+                        Type? baseType = method.GetParameters()[0].ParameterType.BaseType;
+                        if (baseType != null)
                         {
-
+                            while (baseType.BaseType != null && baseType != typeof(Event))
+                            {
+                                baseType = baseType.BaseType;
+                            }
+                        }
+                        if (!IsContinue && baseType == typeof(Event) && method.GetParameters()[0].ParameterType == @event.GetType())
+                        {
                             method.Invoke(Listeners[i], new object[] { @event });
                             if (@event is ICancellable)
                             {
