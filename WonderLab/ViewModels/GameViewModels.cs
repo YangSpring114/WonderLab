@@ -224,6 +224,7 @@ namespace WonderLab.ViewModels
 
         private void UpdateGameCores()
         {
+            string SelectedGameCore = string.Empty;
             if (!string.IsNullOrEmpty(SelectedFooler))
             {
                 var gameCores = (new GameCoreToolkit(SelectedFooler).GetGameCores()).Where(x =>
@@ -264,7 +265,12 @@ namespace WonderLab.ViewModels
                 }).ToList();
 
                 GameCores = gameCores;
-            }
+
+                if (GameCores.Count > 0 && GameCores.Where(x=>x.Id == SelectedGameCore).Count() == 1) {
+                    App.Data.SelectedGameCore = SelectedGameCore;
+                    CurrentGameCore = GameCores.GetGameCoreInIndex(SelectedGameCore);
+                }
+            }            
 
             UpdateTips();
             //CoresList.ScrollIntoView(CurrentGameCore);

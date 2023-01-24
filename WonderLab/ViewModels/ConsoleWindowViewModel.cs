@@ -91,6 +91,6 @@ namespace WonderLab.ViewModels
         public ConsoleWindowViewModel() => ShowLogTypeBar();
         public double _T = 0;
         public Dictionary<string, string> _Test = new();
-        public List<LogModels> _Logs = null;
+        public List<LogModels> _Logs = new();
     }
 }
