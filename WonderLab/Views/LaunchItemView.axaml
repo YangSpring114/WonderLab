@@ -10,14 +10,14 @@
 						   Header="{Binding Title}" x:Name="main">
 		<cx:OptionsDisplayItem.Content>
 			<StackPanel IsVisible="{Binding IsLaunchOk}" Orientation="Vertical">
-				<Grid Margin="0">
+				<Grid IsVisible="{Binding IsCanGoToConsole}" Margin="0">
 					<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="游戏日志输出："/>
 					<Grid HorizontalAlignment="Right" Width="550">
-						<Button Name="gamelog" Content="转至控制台" HorizontalAlignment="Right" IsTabStop="False"/>
+						<Button Command="{Binding CreateOutputWindowAction}" Name="gamelog" Content="转至控制台" HorizontalAlignment="Right" IsTabStop="False"/>
 					</Grid>
 				</Grid>
-				
-				<Grid Margin="0,25,0,0">
+				<!--0,25,0,0-->
+				<Grid Margin="{Binding TimerMargin}">
 					<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="游戏已运行时间："/>
 					<Grid HorizontalAlignment="Right" Width="550">
 						<TextBlock Text="{Binding RunTime}" Name="time" TextAlignment="Right" HorizontalAlignment="Right"/>

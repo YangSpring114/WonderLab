@@ -28,9 +28,9 @@
 					<ui:NavigationViewItem.Icon>
 						<ui:IconSourceElement IconSource="{StaticResource LaunchSettingIcon}" />
 					</ui:NavigationViewItem.Icon>
-					<ui:NavigationViewItem.InfoBadge>
+					<!--<ui:NavigationViewItem.InfoBadge>
 						<ui:InfoBadge Name="infoBadge1" Value="{Binding AllTaskCount}" IsVisible="{Binding IsBadgeVisible}"/>
-					</ui:NavigationViewItem.InfoBadge>
+					</ui:NavigationViewItem.InfoBadge>-->
 				</ui:NavigationViewItem>
 				<ui:NavigationViewItem Tag="UsersView" Icon="People" Content="账户中心"/>
 			</ui:NavigationView.MenuItems>

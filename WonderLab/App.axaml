@@ -7,7 +7,8 @@
              x:Class="WonderLab.App">
     <Application.Styles>
 		<sty:FluentAvaloniaTheme RequestedTheme="Dark"/>
-		<StyleInclude Source="/Modules/Controls/Styles/OptionsDisplayItemStyles.axaml" />
+		<StyleInclude Source="/Modules/Language/Styles/CaptionButtonsStyle.axaml"/>
+		<StyleInclude Source="/Modules/Controls/zh-cn.axaml" />
 		<StyleInclude Source="/Modules/Controls/Styles/ContentDialog.axaml" />
 		<StyleInclude Source="/Modules/Controls/Styles/FrameXStyle.axaml" />
 		<StyleInclude Source="/Modules/Controls/Styles/TextBoxStyle.axaml" />

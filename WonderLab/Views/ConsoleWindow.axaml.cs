@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WonderLab.Modules.Models;
 using WonderLab.ViewModels;
+using GameCore = MinecraftLaunch.Modules.Models.Launch.GameCore;
 
 namespace WonderLab.Views
 {
@@ -37,6 +38,15 @@ namespace WonderLab.Views
             lr.Exited += Lr_Exited;
             DataContext = ViewModel;
             LogList.DataContext = ViewModel;
+        }
+
+        public void ShowAsync<TOutputs>(TOutputs log, GameCore id, JavaClientLaunchResponse response) where TOutputs: List<string> {
+            Title = $"游戏实时日志输出窗口 - {id.Id}";
+            CloseButton.Click += CloseButton_Click;
+
+            ViewModel = new(log, response, ss);
+            DataContext = ViewModel;
+            Show();
         }
 
         private async void Lr_Exited(object? sender, MinecraftLaunch.Events.ExitedArgs e)

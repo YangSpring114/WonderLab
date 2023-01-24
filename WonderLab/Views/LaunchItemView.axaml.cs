@@ -47,10 +47,18 @@ namespace WonderLab.Views
         public LaunchItemView(string version, UserDataModels userData)
         {
             MainView.ViewModel.AllTaskCount++;
-            InitializeComponent(version);
-            //Async(version, userData);
+            InitializeComponent(version, userData);
         }
 
+        private void InitializeComponent(string version, UserDataModels userData)
+        {
+            InitializeComponent(true);
+            ViewModel = new(GameCoreToolkit.GetGameCore(App.Data.FooterPath, version), userData.ToAccount());
+            DataContext = ViewModel;
+            ViewModel.GameLaunchAction();
+        }
+
+        [Obsolete]
         async void Async(string version,UserDataModels userData)
         {
             var v = await CheckFileAsync(version,Path);
@@ -62,16 +70,7 @@ namespace WonderLab.Views
             }
         }//MainWindow.ShowInfoBarAsync
 
-        private void InitializeComponent(string version)
-        {
-            InitializeComponent(true);
-            ViewModel = new(GameCoreToolkit.GetGameCore(App.Data.FooterPath, version), Account.Default);
-            DataContext = ViewModel;
-            ViewModel.GameLaunchAction();
-            //gamelog.Click += Gamelog_Click;
-            //closegame.Click += Closegame_Click;
-        }
-
+        [Obsolete]
         private void Gamelog_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             Window = null;
@@ -79,9 +78,11 @@ namespace WonderLab.Views
             Window.Show();
         }
 
+        [Obsolete]
         private void Closegame_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e) =>
             CloseGame();
 
+        [Obsolete]
         public void CloseGame()
         {
             if (GameProcess is not null && !GameProcess.HasExited)
@@ -104,10 +105,7 @@ namespace WonderLab.Views
                 MainWindow.ShowInfoBarAsync("作甚", "游戏都没开就想关，搁着给我搁着呢", FluentAvalonia.UI.Controls.InfoBarSeverity.Warning);
         }
 
-        /// <summary>
-        /// 检测游戏文件是否缺失
-        /// </summary>
-        /// <returns></returns>
+        [Obsolete]
         public async Task<(bool,string)> CheckFileAsync(string version,string i = "")
         {
             (bool, string) refs = new();
@@ -147,6 +145,7 @@ namespace WonderLab.Views
             }
         }
 
+        [Obsolete]
         public void LaunchAsync(string version, UserDataModels userData)
         {
             LaunchConfig settings = null;
@@ -294,6 +293,7 @@ namespace WonderLab.Views
             backgroundWorker.RunWorkerAsync();
         }
 
+        [Obsolete]
         private void Response_MinecraftExited(object? sender, ExitedArgs e)
         {
             TaskBase.InvokeAsync(() =>
@@ -320,6 +320,7 @@ namespace WonderLab.Views
             });
         }
 
+        [Obsolete]
         private void Response_MinecraftProcessOutput(object? sender, IProcessOutput e)
         {
             //Window.ViewModel.Logs.Add(new() { Source = e.Raw });
@@ -327,19 +328,25 @@ namespace WonderLab.Views
             Debug.WriteLine($"[Game Log] {e.Raw}");
         }
 
+        [Obsolete]
         public void Button_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             TaskView.Remove(this);
         }
 
+        [Obsolete]
         public bool IsKill { get; set; } = false;
 
+        [Obsolete]
         string GameId = string.Empty;
 
+        [Obsolete]
         JavaClientLaunchResponse LaunchResponse = null;
 
+        [Obsolete]
         public List<string> Logs = new();
 
+        [Obsolete]
         public string IsYgg
         {
             get
