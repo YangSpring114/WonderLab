@@ -169,7 +169,7 @@ namespace WonderLab.Modules.Models
         {
             Load = true;
             var stream = await new HttpClient().GetByteArrayAsync(IconUrl);
-            using var ms = new MemoryStream(stream);
+            Stream ms = new MemoryStream(stream);
             Icon = new Bitmap(ms);
             Load = false;
         }

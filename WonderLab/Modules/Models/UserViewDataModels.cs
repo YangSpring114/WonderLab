@@ -4,6 +4,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using MinecaftOAuth.Authenticator;
 using Natsurainko.Toolkits.Network;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Bmp;
 using SixLabors.ImageSharp.Formats.Png;
 using System;
 using System.IO;
@@ -64,13 +65,13 @@ namespace WonderLab.Modules.Models
             set => RaiseAndSetIfChanged(ref _load, value);
         }
 
-        public Bitmap Icon
+        public Bitmap? Icon
         {
             get => _SkinBitmapIcon;
             set => RaiseAndSetIfChanged(ref _SkinBitmapIcon, value);
         }
         
-        public Bitmap _SkinBitmapIcon = null;
+        public Bitmap? _SkinBitmapIcon = null;
 
         public string _AuthState = "";
 
@@ -120,8 +121,8 @@ namespace WonderLab.Modules.Models
 
         public async ValueTask DownloadImageAsync()
         {
-            await Task.Run(async delegate
-            {
+            //await Task.Run(async delegate
+            //{
                 if (Type.Contains("离线账户"))
                 {
                     Icon = (BitmapToolkit.GetAssetsImage("resm:WonderLab.Resources.sdf.png") as Bitmap)!;
@@ -131,11 +132,14 @@ namespace WonderLab.Modules.Models
                     var url = await WebToolkit.GetUserSkinUrl("95883f77-eef8-4bc6-b727-4f9c754a5a2c");
                     var btyes = await (await HttpWrapper.HttpGetAsync(url)).Content.ReadAsByteArrayAsync();
                     var Image = await BitmapToolkit.CropSkinImage(btyes);
-                    var stream = new MemoryStream();
 
+                //Path.Combine(PathConst.TempDirectory, $"{btyes.Length}.png")
+                using (var stream = new MemoryStream())
+                {
                     BitmapToolkit.ResizeImage(Image, 512, 512).Save(stream, new PngEncoder());
-                    //Path.Combine(PathConst.TempDirectory, $"{btyes.Length}.png")
+                    stream.Position = 0;
                     Icon = new Bitmap(stream);
+                }
                 }
                 else
                 {
@@ -144,7 +148,7 @@ namespace WonderLab.Modules.Models
                     Icon = new Bitmap(ms);
                 }
                 Loading = false;
-            }, default);
+            //}, default);
         }
 
         public UserDataModels ToUserDataModel()
