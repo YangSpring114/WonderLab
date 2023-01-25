@@ -223,16 +223,14 @@
 			</ui:ContentDialog.Content>
 		</ui:ContentDialog>
 
-		
-		<StackPanel IsVisible="False"
-					HorizontalAlignment="Center"
-					IsHitTestVisible="False" Grid.Row="1"
-					Name="IsCoreHave" VerticalAlignment="Center" Orientation="Vertical">
-			<TextBlock Opacity="0.85" FontFamily="DIN Pro" FontWeight="Bold" FontSize="25" HorizontalAlignment="Center" Text="未找到任何游戏核心"/>
-			<TextBlock Opacity="0.65" FontFamily="DIN Pro" FontSize="16" HorizontalAlignment="Center" Text="可能是您指定的文件夹目录下没有游戏导致的"/>
-		</StackPanel>
 		<!--Margin="0,0,0,100"-->
-		<StackPanel Grid.Row="1"	                
+		<ProgressBar Grid.Row="1" Height="80" Width="80"
+					 IsIndeterminate="True"
+					 Classes="Circle" IsVisible="{Binding IsGameCoresLoading}"
+					 HorizontalAlignment="Center"
+					 VerticalAlignment="Center" BorderThickness="6"/>
+		
+		<StackPanel Grid.Row="1"       
 	                HorizontalAlignment="Center"
 	                VerticalAlignment="Center"
 					IsHitTestVisible="{Binding IsCoresHas}"

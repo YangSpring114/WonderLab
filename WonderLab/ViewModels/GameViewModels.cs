@@ -99,6 +99,12 @@ namespace WonderLab.ViewModels
             set => RaiseAndSetIfChanged(ref _iscorehas, value);
         }
 
+        public bool IsGameCoresLoading
+        {
+            get => _IsGameCoresLoading;
+            set => RaiseAndSetIfChanged(ref _IsGameCoresLoading, value);
+        }
+
         public string NewGameCoreName
         {
             get => _NewGameCoreName;
@@ -199,20 +205,21 @@ namespace WonderLab.ViewModels
                         GameCores.Clear();
 
                         var game = new GameCoreToolkit(App.Data.FooterPath).GetGameCores().Distinct();
-                        game.ToList().ForEach(x =>
+                        game.ToList().ForEach(async x =>
                         {
                             var type = x.Type!.ToVersionType();
                             x.Type = x.HasModLoader ? $"{type} 继承自 {x.Source}" : $"{type} {x.Source}";
                             GameCores.Add(x);
                         });
 
+                        IsGameCoresLoading = false;
                         Trace.WriteLine($"[信息] 游戏列表的元素个数为 {GameCores.Count}");
 
                         UpdateTips();
 
-                        //if (GameCores.Count > 0) {                        
-                        //    CurrentGameCore = GameCores.ToList().GetGameCoreInIndex(App.Data.SelectedGameCore);
-                        //}
+                        if (GameCores.Count > 0) {                        
+                            CurrentGameCore = GameCores.ToList().GetGameCoreInIndex(App.Data.SelectedGameCore);
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -330,6 +337,7 @@ namespace WonderLab.ViewModels
         public ObservableCollection<GameCore> _gameCores = new();
         public GameCore _gameCore = new();
         public bool _iscorehas = true;
+        public bool _IsGameCoresLoading = true;
         public int _SelectCoreSortOption = 0;
         public int _SelectCoreVisibilityOption = 0;
         public string _SelectedIndex = App.Data.FooterPath;

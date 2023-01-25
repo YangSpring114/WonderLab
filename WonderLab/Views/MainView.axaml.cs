@@ -101,7 +101,13 @@ namespace WonderLab.Views
 
         private void RootNavigationView_BackRequested(object? sender, NavigationViewBackRequestedEventArgs e)
         {
-            FrameView.GoBack();
+            Trace.WriteLine($"[信息] 剩余可返回的页面 {FrameView.BackStack.Count}");
+
+            if (FrameView.BackStack.Count > 0) {
+                FrameView.GoBack();
+                if (FrameView.BackStack.Count == 0)
+                    RootNavigationView.IsBackEnabled = false;
+            }
         }
 
         private void RootNavigationView_ItemInvoked(object? sender, NavigationViewItemInvokedEventArgs e)
@@ -112,6 +118,7 @@ namespace WonderLab.Views
                 return;
             }
 
+            RootNavigationView.IsBackEnabled = true;
             FrameView.Navigate((Page)FrameView.Content, e.IsSettingsInvoked ? typeof(SettingView) : (Type.GetType($"WonderLab.Views.{((NavigationViewItem)e.InvokedItemContainer).Tag ??= string.Empty}")) ?? typeof(HomeView), null, null);
         }
     }
