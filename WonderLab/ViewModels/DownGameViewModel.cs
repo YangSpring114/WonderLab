@@ -10,6 +10,7 @@ using Natsurainko.FluentCore.Module.Installer;
 using PluginLoader;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -557,6 +558,9 @@ namespace WonderLab.ViewModels
     {
         public static TResult CreateViewData<TData, TResult>(this TData data) where TResult : ViewDataBase<TData>                      
                       => Activator.CreateInstance(typeof(TResult), data) as TResult;
+
+        public static ObservableCollection<TData> BuildObservableCollection<TData>(this IEnumerable<TData> data)
+                      => new(data.Select(x => x));
     }
 
     public class ViewDataBase<T> : ViewModelBase

@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using WonderLab.Modules.Base;
 using WonderLab.Modules.Const;
 using WonderLab.Modules.Toolkits;
+using WonderLab.Views;
 
 namespace WonderLab.ViewModels
 {
@@ -176,6 +177,7 @@ namespace WonderLab.ViewModels
                     App.Data.GameFooterList.Add(result);
 
                     GameFolders.Add(result);
+                    GameView.ViewModel.FodlerList.Add(result);
 
                     CurrentGameFolder = result;
                     GameRemoveVisible = true;
@@ -335,15 +337,6 @@ namespace WonderLab.ViewModels
             //Javas = new();
             //Javas = App.Data.JavaList.Distinct().ToList();
             Trace.WriteLine($"[调试] 被移除的 Java 运行时后面的 Java 运行时为 {CurrentJava}");
-        }
-
-        public void DataRefresh()
-        {
-            //Javas = null;
-            //Javas = App.Data.JavaList;
-
-            //GameFolders = null;
-            //GameFolders = App.Data.GameFooterList;
         }
     }
 

@@ -32,6 +32,7 @@ namespace WonderLab.Modules.Models
                 _ = DownloadImageAsync();
             }
         }
+
         public UserModels Current => this;
 
         public string Name { get; set; }
@@ -128,11 +129,10 @@ namespace WonderLab.Modules.Models
                 }
                 else if (Type.Contains("微软"))
                 {
-                    var url = await WebToolkit.GetUserSkinUrl("95883f77-eef8-4bc6-b727-4f9c754a5a2c");
+                    var url = await WebToolkit.GetUserSkinUrl(Uuid);
                     var btyes = await (await HttpWrapper.HttpGetAsync(url)).Content.ReadAsByteArrayAsync();
                     var Image = await BitmapToolkit.CropSkinImage(btyes);
 
-                    //Path.Combine(PathConst.TempDirectory, $"{btyes.Length}.png")
                     using (var stream = new MemoryStream())
                     {
                         BitmapToolkit.ResizeImage(Image, 512, 512).Save(stream, new PngEncoder());

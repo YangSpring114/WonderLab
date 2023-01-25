@@ -39,6 +39,7 @@ namespace WonderLab
                 JsonToolkit.JsonWrite();
                 Trace.WriteLine(ex.ToString());
                 MainWindow.ShowInfoBarAsync("错误：",$"WonderLab 在使用中遇到了不可描述的异常,这可能会影响您的使用体验！\n异常堆栈： {ex}");
+                File.WriteAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop),$"崩溃日志-{ex.GetType().Name}.txt"), ex.ToString());
                 //BuildAvaloniaApp()
                 //.StartWithClassicDesktopLifetime(args);
             }

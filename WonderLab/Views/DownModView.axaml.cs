@@ -20,6 +20,7 @@ namespace WonderLab.Views
         
         public void NavigationToModInfo(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
+            
         }
 
         public async void InstallClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

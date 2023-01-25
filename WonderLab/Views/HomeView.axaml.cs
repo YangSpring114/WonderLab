@@ -43,7 +43,7 @@ namespace WonderLab.Views
             SettingButton.Width = 25;
         }
 
-        public override async void OnNavigatedTo()
+        public override void OnNavigatedTo()
         {
             BackgroundWorker worker = new();
             worker.DoWork += (_, _) =>

@@ -30,6 +30,12 @@ namespace WonderLab.ViewModels
             get => _Logs;
             set => RaiseAndSetIfChanged(ref _Logs, value);
         }
+
+        public LogModels LastOutput
+        {
+            get => _Log;
+            set => RaiseAndSetIfChanged(ref _Log, value);
+        }
     }
 
     partial class ConsoleWindowViewModel
@@ -39,18 +45,24 @@ namespace WonderLab.ViewModels
             Process = process;
             Box = box;
             Process.ProcessOutput += Process_ProcessOutput;
-
             outputs.ForEach(x =>
             {
                 var output = GameLogAnalyzer.AnalyseAsync(x);
                 Outputs.Add(output.ToOutput());
             });
+
+            LastOutput = Outputs.Last();
         }
 
         private async void Process_ProcessOutput(object? sender, MinecraftLaunch.Modules.Interface.IProcessOutput e)
         {
             Outputs.Add(GameLogAnalyzer.AnalyseAsync(e.Raw).ToOutput());
-            await Dispatcher.UIThread.InvokeAsync(() => Box.ScrollToEnd());         
+            LastOutput = Outputs.Last();
+            
+            Trace.WriteLine($"[调试] Outputs的索引为 {LastOutput.Log}");
+            await Dispatcher.UIThread.InvokeAsync(() => Box.ScrollToEnd());
+            //await Dispatcher.UIThread.InvokeAsync(() =>
+
         }
 
         public async void ShowLogTypeBar()
@@ -78,5 +90,6 @@ namespace WonderLab.ViewModels
         public ConsoleWindowViewModel() => ShowLogTypeBar();
         public double _T = 0;
         public ObservableCollection<LogModels> _Logs = new();
+        public LogModels _Log = new();
     }
 }

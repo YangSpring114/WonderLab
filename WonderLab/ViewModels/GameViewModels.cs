@@ -3,6 +3,7 @@ using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Media.Animation;
 using MinecraftLaunch.Modules.Models.Launch;
 using MinecraftLaunch.Modules.Toolkits;
+using Natsurainko.FluentCore.Class.Model.Launch;
 using Natsurainko.FluentCore.Module.Launcher;
 using PluginLoader;
 using ReactiveUI;
@@ -20,6 +21,7 @@ using WonderLab.Modules.Models;
 using WonderLab.Modules.Toolkits;
 using WonderLab.PluginAPI;
 using WonderLab.Views;
+using GameCore = MinecraftLaunch.Modules.Models.Launch.GameCore;
 
 namespace WonderLab.ViewModels
 {
@@ -29,14 +31,14 @@ namespace WonderLab.ViewModels
 
         public ListBox CoresList { get; set; }
 
-        public List<GameCore> GameCores
+        public ObservableCollection<GameCore> GameCores
         {
             get => _gameCores;
             set
             {
                 if (RaiseAndSetIfChanged(ref _gameCores, value))
                 {
-                    Debug.WriteLine(value.Count);
+                    //Debug.WriteLine(value.Count);
                 }
             }
         }
@@ -140,6 +142,12 @@ namespace WonderLab.ViewModels
     
     partial class GameViewModels
     {
+        public GameViewModels() {
+            if(App.Data.GameFooterList is not null && App.Data.GameFooterList.Count > 0) {
+                FodlerList = App.Data.GameFooterList.BuildObservableCollection();
+            }
+        }
+
         public void LaunchClick(GameCore core)
         {
             LaunchAsync(core);
@@ -152,11 +160,14 @@ namespace WonderLab.ViewModels
 
         public void FodlerRefresh()
         {
-            var temp = SelectedFooler;
-            FodlerList.Clear();
-            App.Data.GameFooterList.Distinct().ToList().ForEach(x => FodlerList.Add(x));            
-            SelectedFooler = string.Empty;
-            SelectedFooler = temp;//GameCores.Where(x => x.Root.FullName == App.Data.FooterPath).ToList()[0].Root!.FullName;
+            //if (FodlerList.Count != App.Data.GameFooterList.Count) {
+            //    FodlerList = new();
+            //    App.Data.GameFooterList.Distinct().ToList().ForEach(x => FodlerList.Add(x));
+            //}
+
+            //if (!SelectedFooler.Equals(App.Data.FooterPath)) {
+            //    SelectedFooler = App.Data.FooterPath;
+            //}
         }
 
         public void ChangeGameCoreName()
@@ -181,20 +192,33 @@ namespace WonderLab.ViewModels
         {
             await Task.Run(() =>
             {
-                GameCores.Clear();
-                List<GameCore> lmlist = new();
-                var game = new GameCoreToolkit(App.Data.FooterPath).GetGameCores();
-                foreach (var item in game)
+                try
                 {
-                    string type = item.Type.ToVersionType();
-                    var tm = GameCoreToolkit.GetGameCore(App.Data.FooterPath, item.Id);
-                    tm.Type = item.HasModLoader ? $"{type} 继承自 {item.Source}" : $"{type} {item.Source}";
-                    lmlist.Add(tm);
-                }
+                    if (!string.IsNullOrEmpty(SelectedFooler))
+                    {
+                        GameCores.Clear();
 
-                GameCores = lmlist;
-                UpdateTips();
-                CurrentGameCore = GameCores.GetGameCoreInIndex(App.Data.SelectedGameCore);
+                        var game = new GameCoreToolkit(App.Data.FooterPath).GetGameCores().Distinct();
+                        game.ToList().ForEach(x =>
+                        {
+                            var type = x.Type!.ToVersionType();
+                            x.Type = x.HasModLoader ? $"{type} 继承自 {x.Source}" : $"{type} {x.Source}";
+                            GameCores.Add(x);
+                        });
+
+                        Trace.WriteLine($"[信息] 游戏列表的元素个数为 {GameCores.Count}");
+
+                        UpdateTips();
+
+                        //if (GameCores.Count > 0) {                        
+                        //    CurrentGameCore = GameCores.ToList().GetGameCoreInIndex(App.Data.SelectedGameCore);
+                        //}
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine($"[错误] {ex}");
+                }
             });
         }
 
@@ -214,13 +238,13 @@ namespace WonderLab.ViewModels
             {
                 GameSearchAsync();
                 await Task.Delay(100);
-                GameCores = GameCores.Where(x =>
+                GameCores.Where(x =>
                 {
                     if (x.Id.Contains(GameCoresFilter))
                         return true;
 
                     return false;
-                }).ToList();
+                }).ToList().ForEach(x => GameCores.Add(x));
 
                 UpdateTips();
             }
@@ -268,11 +292,11 @@ namespace WonderLab.ViewModels
                     return true;
                 }).ToList();
 
-                GameCores = gameCores;
+                GameCores = gameCores.BuildObservableCollection();
 
-                if (GameCores.Count > 0 && GameCores.Where(x=>x.Id == SelectedGameCore).Count() == 1) {
+                if (GameCores.Count > 0 && GameCores.Where(x => x.Id == SelectedGameCore).Count() == 1) {
                     App.Data.SelectedGameCore = SelectedGameCore;
-                    CurrentGameCore = GameCores.GetGameCoreInIndex(SelectedGameCore);
+                    CurrentGameCore = GameCores.ToList().GetGameCoreInIndex(SelectedGameCore);
                 }
             }            
 
@@ -303,8 +327,7 @@ namespace WonderLab.ViewModels
 
     partial class GameViewModels
     {
-        public GameViewModels() => GameSearchAsync();
-        public List<GameCore> _gameCores = new();
+        public ObservableCollection<GameCore> _gameCores = new();
         public GameCore _gameCore = new();
         public bool _iscorehas = true;
         public int _SelectCoreSortOption = 0;

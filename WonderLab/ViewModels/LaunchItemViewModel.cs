@@ -218,7 +218,7 @@ namespace WonderLab.ViewModels
         /// </summary>
         public void ProcessOutputAction(object? sender, IProcessOutput e)
         {
-            Trace.WriteLine(e.Raw);
+            //Trace.WriteLine(e.Raw);
             Outputs.Add(e.Raw);
         }
 

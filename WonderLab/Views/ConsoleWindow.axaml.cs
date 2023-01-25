@@ -49,58 +49,12 @@ namespace WonderLab.Views
             Show();
         }
 
-        private async void Lr_Exited(object? sender, MinecraftLaunch.Events.ExitedArgs e)
-        {            
-            await Dispatcher.UIThread.InvokeAsync(() => { CloseButton.IsEnabled = false; });
-            await Task.Delay(1000);
-            await Dispatcher.UIThread.InvokeAsync(() => Close());            
-        }
-
-        private async void Ss_ScrollChanged(object? sender, ScrollChangedEventArgs e)
-        {
-            await Dispatcher.UIThread.InvokeAsync(() =>
-            {
-                if (IsAuto.IsChecked is true)
-                    ss.ScrollToEnd();
-            });
-        }
-
         private async void CloseButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             IsKill = true;
             CloseButton.IsEnabled = false;
             await Task.Delay(1000);
             Close();
-        }
-
-        List<LogModels> logs = new();
-        private async void Lr_MinecraftProcessOutput(object? sender, IProcessOutput e)
-        {
-            await Task.Run(async() =>
-            {
-                try
-                {
-                    await Dispatcher.UIThread.InvokeAsync(() => ss.ScrollToEnd());
-                    var logres = GameLogAnalyzer.AnalyseAsync(e.Raw);
-                    Dispatcher.UIThread.Post(() =>
-                    {
-                        var res = new LogModels()
-                        {
-                            Log = logres.Log,
-                            LogLevel = logres.LogType,
-                            Source = logres.Source,
-                            Time = logres.Time,
-                        };
-                        logs.Add(res);
-                        var log = logs;
-                        LogList.Items = null;
-                        LogList.Items = logs;
-                        
-                        ss.ScrollToEnd();
-                    });
-                }
-                catch { }
-            });
         }
     }
 }

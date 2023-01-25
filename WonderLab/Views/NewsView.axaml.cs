@@ -16,7 +16,6 @@ namespace WonderLab.Views
 {
     public partial class NewsView : Page
     {
-        //https://launchercontent.mojang.com/news.json
         public NewsView()
         {
             InitializeComponent();
@@ -42,6 +41,7 @@ namespace WonderLab.Views
                     NewItemView newItem = new(i.newsPageImage.url, i.title, i.text, i.date, i.readMoreLink);
                     newItem.IsOk.Description = i.tag + " 快讯";
                     newItemViews.Add(newItem);
+
                     if (newItemViews.Count is 20)
                         break;
                 }
@@ -54,11 +54,8 @@ namespace WonderLab.Views
             {
                 Isok.IsVisible = false;
                 hc.Dispose();
-                await Task.Run(async() =>
-                {
-                    foreach (var i in newItemViews)
-                        await Dispatcher.UIThread.InvokeAsync(() => { newslist.Children.Add(i); }, DispatcherPriority.Background);
-                });
+                foreach (var i in newItemViews)
+                    await Dispatcher.UIThread.InvokeAsync(() => { newslist.Children.Add(i); }, DispatcherPriority.Background);
             }
         }
     }

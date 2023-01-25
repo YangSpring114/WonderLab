@@ -53,10 +53,11 @@
 				</Transitions>
 			</Border.Transitions>
 		</Border>
-		
+
 		<!--Center-->
 		<ScrollViewer x:Name="ss" Margin="10 45 0 50">
-			<ListBox x:Name="LogList" Padding="0" Items="{Binding Outputs}"
+			<ListBox x:Name="LogList" Padding="0"
+					 Items="{Binding Outputs}" SelectedItem="{Binding LastOutput}"
 					 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
 					 ScrollViewer.VerticalScrollBarVisibility="Disabled">
 				<ListBox.ItemsPanel>

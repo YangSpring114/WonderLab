@@ -17,6 +17,7 @@ using WonderLab.Modules.Controls;
 using MenuFlyout = FluentAvalonia.UI.Controls.MenuFlyout;
 using System.Threading.Tasks;
 using System.Linq;
+using System.ComponentModel;
 
 namespace WonderLab.Views
 {
@@ -25,7 +26,7 @@ namespace WonderLab.Views
         public static double ScrollViewerWidth => gv.ScrollViewerHost.Width;
         public static double HostPageWidth => gv.Width;
         public static GameView gv;
-        public static GameViewModels ViewModel { get; } = new GameViewModels();
+        public static GameViewModels ViewModel { get; } = new();
         public GameView()
         {
             InitializeComponent();
@@ -41,11 +42,17 @@ namespace WonderLab.Views
 
         public override void OnNavigatedTo()
         {
-            ViewModel.SelectCoreVisibilityOption = 0;
-            ViewModel.SelectCoreSortOption = 0;
-            ViewModel.FodlerRefresh();
-            ViewModel.GameSearchAsync();
-            Trace.WriteLine($"[调试] 选中的游戏文件夹的值：{ViewModel.SelectedFooler}");
+            BackgroundWorker worker = new();
+            worker.DoWork += (_, _) =>
+            {
+                ViewModel.SelectCoreVisibilityOption = 0;
+                ViewModel.SelectCoreSortOption = 0;
+                ViewModel.SelectedFooler = App.Data.FooterPath;
+                ViewModel.GameSearchAsync();
+                Trace.WriteLine($"[调试] 选中的游戏文件夹的值：{ViewModel.SelectedFooler}");
+            };
+
+            worker.RunWorkerAsync();
         }
 
         private void LaunchButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e) =>
