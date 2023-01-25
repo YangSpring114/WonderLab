@@ -1,8 +1,10 @@
 using Avalonia.Media.Imaging;
 using FluentAvalonia.UI.Controls;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using MinecaftOAuth.Authenticator;
 using Natsurainko.Toolkits.Network;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Png;
 using System;
 using System.IO;
 using System.Net.Http;
@@ -129,9 +131,11 @@ namespace WonderLab.Modules.Models
                     var url = await WebToolkit.GetUserSkinUrl("95883f77-eef8-4bc6-b727-4f9c754a5a2c");
                     var btyes = await (await HttpWrapper.HttpGetAsync(url)).Content.ReadAsByteArrayAsync();
                     var Image = await BitmapToolkit.CropSkinImage(btyes);
-                    BitmapToolkit.ResizeImage(Image, 512, 512).Save(Path.Combine(PathConst.TempDirectory, $"{btyes.Length}.png"));
+                    var mtream = new MemoryStream();
 
-                    Icon = new Bitmap(Path.Combine(PathConst.TempDirectory, $"{btyes.Length}.png"));
+                    BitmapToolkit.ResizeImage(Image, 512, 512).Save(mtream,new PngEncoder());
+                    //Path.Combine(PathConst.TempDirectory, $"{btyes.Length}.png")
+                    Icon = new Bitmap(mtream);
                 }
                 else
                 {
