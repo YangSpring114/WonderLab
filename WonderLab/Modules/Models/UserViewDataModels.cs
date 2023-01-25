@@ -131,11 +131,11 @@ namespace WonderLab.Modules.Models
                     var url = await WebToolkit.GetUserSkinUrl("95883f77-eef8-4bc6-b727-4f9c754a5a2c");
                     var btyes = await (await HttpWrapper.HttpGetAsync(url)).Content.ReadAsByteArrayAsync();
                     var Image = await BitmapToolkit.CropSkinImage(btyes);
-                    var mtream = new MemoryStream();
+                    var stream = new MemoryStream();
 
-                    BitmapToolkit.ResizeImage(Image, 512, 512).Save(mtream,new PngEncoder());
+                    BitmapToolkit.ResizeImage(Image, 512, 512).Save(stream, new PngEncoder());
                     //Path.Combine(PathConst.TempDirectory, $"{btyes.Length}.png")
-                    Icon = new Bitmap(mtream);
+                    Icon = new Bitmap(stream);
                 }
                 else
                 {
