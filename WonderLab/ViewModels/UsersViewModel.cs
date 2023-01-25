@@ -187,10 +187,14 @@ namespace WonderLab.ViewModels
             DeviceTips = "";
         }
 
-        public void GetSaveUserInfo()
+        public async void GetSaveUserInfo()
         {
-            Users = new(App.Data.UserList.Select(x => new UserModels(x)));
-            JsonToolkit.JsonWrite();
+            await Task.Run(() =>
+            {
+                Users = new(App.Data.UserList.Select(x => new UserModels(x)));
+                JsonToolkit.JsonWrite();
+            });
+
             //CurrentUser = Users.GetUserInIndex(App.Data.SelectedUser.UserName);
         }
 
