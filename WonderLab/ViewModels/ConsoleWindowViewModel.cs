@@ -6,6 +6,7 @@ using Natsurainko.FluentCore.Class.Model.Launch;
 using Natsurainko.FluentCore.Interface;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,7 @@ namespace WonderLab.ViewModels
             set => RaiseAndSetIfChanged(ref _T, value);
         }
 
-        public List<LogModels> Outputs
+        public ObservableCollection<LogModels> Outputs
         {
             get => _Logs;
             set => RaiseAndSetIfChanged(ref _Logs, value);
@@ -38,32 +39,18 @@ namespace WonderLab.ViewModels
             Process = process;
             Box = box;
             Process.ProcessOutput += Process_ProcessOutput;
-            Outputs = outputs.Select(x =>
+
+            outputs.ForEach(x =>
             {
                 var output = GameLogAnalyzer.AnalyseAsync(x);
-
-                return output.ToOutput();
-            }).ToList();
+                Outputs.Add(output.ToOutput());
+            });
         }
 
         private async void Process_ProcessOutput(object? sender, MinecraftLaunch.Modules.Interface.IProcessOutput e)
         {
-            OutputsInsertAction(GameLogAnalyzer.AnalyseAsync(e.Raw).ToOutput());
+            Outputs.Add(GameLogAnalyzer.AnalyseAsync(e.Raw).ToOutput());
             await Dispatcher.UIThread.InvokeAsync(() => Box.ScrollToEnd());         
-        }
-
-        [Obsolete]
-        public ConsoleWindowViewModel(JavaClientLaunchResponse process)
-        {
-            ShowLogTypeBar();
-            Process = process;
-        }
-
-        public void OutputsInsertAction(LogModels raw)
-        {
-            var outputs = Outputs;
-            outputs.Add(raw);
-            Outputs = outputs.Select(x => x).ToList();
         }
 
         public async void ShowLogTypeBar()
@@ -90,7 +77,6 @@ namespace WonderLab.ViewModels
         public Process GameProcess = null;
         public ConsoleWindowViewModel() => ShowLogTypeBar();
         public double _T = 0;
-        public Dictionary<string, string> _Test = new();
-        public List<LogModels> _Logs = new();
+        public ObservableCollection<LogModels> _Logs = new();
     }
 }

@@ -29,15 +29,15 @@ namespace WonderLab.Views
         public ConsoleWindow(JavaClientLaunchResponse lr,string gameId)
         {
             InitializeComponent();
-            Title = $"游戏实时日志输出窗口 - {gameId}";
-            //ViewModel = new(lr);            
-            CloseButton.Click += CloseButton_Click;
-            ViewModel = new ConsoleWindowViewModel(lr);
-            ss.ScrollChanged += Ss_ScrollChanged;
-            lr.ProcessOutput += Lr_MinecraftProcessOutput;
-            lr.Exited += Lr_Exited;
-            DataContext = ViewModel;
-            LogList.DataContext = ViewModel;
+            //Title = $"游戏实时日志输出窗口 - {gameId}";
+            ////ViewModel = new(lr);            
+            //CloseButton.Click += CloseButton_Click;
+            //ViewModel = new ConsoleWindowViewModel(lr);
+            //ss.ScrollChanged += Ss_ScrollChanged;
+            //lr.ProcessOutput += Lr_MinecraftProcessOutput;
+            //lr.Exited += Lr_Exited;
+            //DataContext = ViewModel;
+            //LogList.DataContext = ViewModel;
         }
 
         public void ShowAsync<TOutputs>(TOutputs log, GameCore id, JavaClientLaunchResponse response) where TOutputs: List<string> {

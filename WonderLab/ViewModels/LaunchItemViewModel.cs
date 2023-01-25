@@ -132,11 +132,11 @@ namespace WonderLab.ViewModels
                     res.ProcessOutput += ProcessOutputAction;
                     GameProcess = res.Process;
                     State = "游戏运行中";
+                    IsCanGoToConsole = true;
                     IsLaunchOk = true;
                     await Task.Run(GameProcess.WaitForInputIdle);
                     TimerMargin = new(0, 25, 0, 0);
                     IsWindowsLoadOk = true;
-                    IsCanGoToConsole = true;
                 }
                 else if (res.State is LaunchState.Failed)
                 {
