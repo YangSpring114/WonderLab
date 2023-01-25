@@ -19,16 +19,6 @@ namespace WonderLab
         [STAThread]
         public static void Main(string[] args)
         {
-            //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            //{
-            //    if (File.Exists(Path.Combine("updata-cache", "UpdataNextTime")))
-            //    {
-            //        Process pro = new Process();
-            //        pro.StartInfo.FileName = "Updata.exe";
-            //        pro.Start();
-            //        return;
-            //    }
-            //}
             try
             {
                 AppBuilder builder = BuildAvaloniaApp();
@@ -40,8 +30,6 @@ namespace WonderLab
                 Trace.WriteLine(ex.ToString());
                 MainWindow.ShowInfoBarAsync("错误：",$"WonderLab 在使用中遇到了不可描述的异常,这可能会影响您的使用体验！\n异常堆栈： {ex}");
                 File.WriteAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop),$"崩溃日志-{ex.GetType().Name}.txt"), ex.ToString());
-                //BuildAvaloniaApp()
-                //.StartWithClassicDesktopLifetime(args);
             }
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             PluginLoader.PluginLoader.LoadAllFromPlugin();
@@ -54,7 +42,7 @@ namespace WonderLab
                 .With(new Win32PlatformOptions
                 {
                     UseWindowsUIComposition = true,
-                });
-        //.UseReactiveUI();
+                })
+                .UseReactiveUI();
     }
 }

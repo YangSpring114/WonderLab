@@ -6,7 +6,7 @@
 			 xmlns:c="using:WonderLab.Views.Converters"
              x:Class="WonderLab.App">
     <Application.Styles>
-		<sty:FluentAvaloniaTheme RequestedTheme="Dark"/>
+		<sty:FluentAvaloniaTheme RequestedTheme="Light"/>
 		<!--<StyleInclude Source="/Modules/Language/Styles/CaptionButtonsStyle.axaml"/>-->
 		<StyleInclude Source="/Modules/Controls/Styles/ContentDialog.axaml" />
 		<StyleInclude Source="/Modules/Controls/Styles/FrameXStyle.axaml" />

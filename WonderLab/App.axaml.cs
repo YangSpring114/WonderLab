@@ -53,12 +53,11 @@ namespace WonderLab
         public async void CheckAsync()
         {
             ///Modules/Controls/zh-cn.axaml
-
-            JsonToolkit.JsonAllWrite();
-            await Task.Delay(900);
             BackgroundWorker worker = new();
             worker.DoWork += async (_, _) =>
             {
+                JsonToolkit.JsonAllWrite();
+                await Task.Delay(900);
                 //await WebToolkit.VersionCheckAsync();
                 if (!File.Exists(PathConst.DownloaderPath))
                 {

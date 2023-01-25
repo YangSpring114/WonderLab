@@ -105,8 +105,9 @@ namespace WonderLab.Views
 
             if (FrameView.BackStack.Count > 0) {
                 FrameView.GoBack();
-                if (FrameView.BackStack.Count == 0)
+                if (FrameView.BackStack.Count == 0) {
                     RootNavigationView.IsBackEnabled = false;
+                }
             }
         }
 

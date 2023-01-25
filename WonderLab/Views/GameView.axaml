@@ -50,37 +50,28 @@
 				<Style Selector="ListBoxItem">
 					<Setter Property="HorizontalContentAlignment" Value="Stretch" />
 					<Setter Property="BorderBrush" Value="Transparent" />
-					<Setter Property="BorderThickness" Value="0" />
-					<Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}"/>
-					<Setter Property="Margin" Value="0,3" />
+					<Setter Property="Height" Value="60"/>
+					<Setter Property="Margin" Value="0,6" />
 					<Setter Property="Template">
 						<Setter.Value>
 							<ControlTemplate TargetType="ListBoxItem">
-								<Grid Background="Transparent">
-									<Border
-										Height="{TemplateBinding Height}"
-										BorderBrush="{TemplateBinding BorderBrush}"
-										BorderThickness="{TemplateBinding BorderThickness}"
-										CornerRadius="5">
-										<ContentPresenter
-											Height="{TemplateBinding Height}"
-											HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-											VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-									</Border>
-
-									<Border Name="BackBorder"
-											HorizontalAlignment="Stretch"
-											VerticalAlignment="Stretch"
-											CornerRadius="8"
-											Height="60"
-											Background="{TemplateBinding Background}">
-									</Border>
-
-									<Border Name="OpBorder"
-				                            HorizontalAlignment="Stretch"
-				                            VerticalAlignment="Stretch"
-				                            CornerRadius="8"
-				                            Height="60"/>
+								<Grid>
+									<Border Name="BorderElement"
+											Background="{DynamicResource ButtonBackground}"
+		                                    RenderTransform="scaleY(-1)"
+		                                    CornerRadius="{DynamicResource ControlCornerRadius}"
+		                                    IsHitTestVisible="False"/>
+									
+									<Border Name="SelectBorderBackgroundElement"
+											RenderTransform="scaleY(-1)"
+											CornerRadius="{DynamicResource ControlCornerRadius}"/>
+									
+									<Border Name="SelectBorderElement"
+											RenderTransform="scaleY(-1)"
+		                                    CornerRadius="{DynamicResource ControlCornerRadius}"											
+											BorderBrush="{DynamicResource ButtonBorderBrush}"/>
+									
+									<!--The gamecore info on the control top-->
 									<StackPanel Orientation="Horizontal" Name="ButtonsPanel" IsHitTestVisible="True" Margin="10,10" Height="30" HorizontalAlignment="Right">
 										<!--Placement="BottomEdgeAlignedRight"-->
 										<Button Width="80" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="LaunchButtonClick" Content="启动"></Button>
@@ -155,22 +146,46 @@
 					<Setter Property="IsVisible" Value="False"/>
 				</Style>
 
+				<Style Selector="ListBoxItem /template/ Border#SelectBorderBackgroundElement">
+					<Setter Property="Background" Value="Transparent"/>
+					<Setter Property="Opacity" Value="0"/>
+				</Style>
+
+				<Style Selector="ListBoxItem /template/ Border#SelectBorderElement">
+					<Setter Property="BorderThickness" Value="{DynamicResource ButtonBorderThemeThickness}"/>
+					<Setter Property="Background" Value="Transparent"/>
+				</Style>
+
+				<Style Selector="ListBoxItem /template/ Border#BorderElement">
+					<Setter Property="Background" Value="{DynamicResource ButtonBackground}" />
+				</Style>
+
 				<Style Selector="ListBoxItem:pointerover /template/ StackPanel#ButtonsPanel">
 					<Setter Property="IsVisible" Value="True"/>
 				</Style>
 
-				<Style Selector="ListBoxItem:pointerover /template/ Border#BackBorder">
-					<Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+				<Style Selector="ListBoxItem:pointerover /template/ Border#SelectBorderElement">
+					<Setter Property="BorderThickness" Value="1.3 1.8 1.3 1.3" />
 				</Style>
 
-				<Style Selector="ListBoxItem:selected /template/ Border#BackBorder">
-					<Setter Property="Background" Value="{DynamicResource SystemAccentColorDark1}" />
+				<Style Selector="ListBoxItem:pointerover /template/ Border#SelectBorderBackgroundElement">
+					<Setter Property="Background" Value="{DynamicResource SystemAccentColorDark2}"/>
+					<Setter Property="Opacity" Value="0.06"/>
 				</Style>
 
-				<Style Selector="ListBoxItem:selected /template/ Border#BackBorder:pointerover">
-					<Setter Property="Background" Value="{DynamicResource SystemAccentColorDark2}" />
+				<Style Selector="ListBoxItem:selected /template/ Border#SelectBorderBackgroundElement">
+					<Setter Property="Opacity" Value="0.35"/>
+					<Setter Property="Background" Value="{DynamicResource SystemAccentColorLight2}"/>
 				</Style>
 
+				<Style Selector="ListBoxItem:selected:pressed /template/ Border#SelectBorderBackgroundElement">
+					<Setter Property="Opacity" Value="0.45"/>
+					<Setter Property="Background" Value="{DynamicResource SystemAccentColorLight3}"/>
+				</Style>
+
+				<Style Selector="ListBoxItem:selected /template/ Border#SelectBorderElement">
+					<Setter Property="BorderThickness" Value="1.5"/>
+				</Style>
 			</ListBox.Styles>
 		</ListBox>
 
