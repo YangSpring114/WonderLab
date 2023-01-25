@@ -35,6 +35,7 @@
 			<!--x:Name="InformationList"-->
 			<ListBox
 				x:Name="InformationList"
+				Items="{Binding InfoBarItems}"
 	            VerticalAlignment="Bottom"
 				Background="Transparent">
 				<ListBox.Styles>

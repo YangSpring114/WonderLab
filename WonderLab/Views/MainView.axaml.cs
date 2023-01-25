@@ -143,22 +143,10 @@ namespace WonderLab.Views
                 {
                     titleBar.ExtendViewIntoTitleBar = true;
 
-                    //titleBar.LayoutMetricsChanged += OnApplicationTitleBarLayoutMetricsChanged;
-
-                    if (this.FindControl<Grid>("AppTitleBar") is Grid g)
-                    {
+                    if (this.FindControl<Grid>("AppTitleBar") is Grid g) {                    
                         cw.SetTitleBar(g);
-                        //g.Margin = new Thickness(0, 0, titleBar.SystemOverlayRightInset, 0);
                     }
                 }
-            }
-        }
-
-        private void O1nApplicationTitleBarLayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
-        {
-            if (this.FindControl<Grid>("AppTitleBar") is Grid g)
-            {
-                //UpdateAppTitleMargin(new Thickness(0, sender.SystemOverlayRightInset, 0, 0));
             }
         }
 
@@ -174,6 +162,5 @@ namespace WonderLab.Views
                     AppTitle.Margin = new(24, 15, 0, 0);
             }
         }
-        //private void AppTitleBar_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e) => MainWindow.win.BeginMoveDrag(e);
     }
 }

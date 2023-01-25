@@ -2,6 +2,7 @@ using FluentAvalonia.UI.Controls;
 using MinecaftOAuth.Authenticator;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -189,12 +190,13 @@ namespace WonderLab.ViewModels
 
         public async void GetSaveUserInfo()
         {
-            await Task.Run(() =>
+            BackgroundWorker worker = new();
+            worker.DoWork += (_, _) =>
             {
                 Users = new(App.Data.UserList.Select(x => new UserModels(x)));
-                JsonToolkit.JsonWrite();
-            });
+            };
 
+            worker.RunWorkerAsync();
             //CurrentUser = Users.GetUserInIndex(App.Data.SelectedUser.UserName);
         }
 

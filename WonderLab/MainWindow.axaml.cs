@@ -27,7 +27,9 @@ using WonderLab.Modules.Controls;
 using WonderLab.Modules.Const;
 using PluginLoader;
 using WonderLab.PluginAPI;
-#pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
+using System.Collections.ObjectModel;
+using Avalonia.Threading;
+#pragma warning disable CS8618
 namespace WonderLab
 {
     public partial class MainWindow : Window
@@ -80,17 +82,11 @@ namespace WonderLab
                     Title = title,
                     Severity = severity
                 };
-                InformationListBox.Items = null;
-                InfoBarItems.Add(viewData);
-                InformationListBox.Items = InfoBarItems;
+                win.ViewModel.InfoBarItems.Add(viewData);
                 await Task.Delay(delay);
 
                 if (!viewData.Removed)
-                {
-                    InfoBarItems.Remove(viewData);
-                    InformationListBox.Items = null;
-                    InformationListBox.Items = InfoBarItems;
-                }
+                    win.ViewModel.InfoBarItems.Remove(viewData);
             }
             catch (Exception)
             {
@@ -322,10 +318,7 @@ namespace WonderLab
             if (viewData != null)
             {
                 viewData.Removed = true;
-
-                InfoBarItems.Remove(viewData);
-                InformationListBox.Items = null;
-                InformationListBox.Items = InfoBarItems;
+                ViewModel.InfoBarItems.Remove(viewData);
             }
         }
         
@@ -388,7 +381,7 @@ namespace WonderLab
             BarHost.Attach(this);
             win = this;
             MainWindowViewModel.TitleBar = BarHost;
-            InformationListBox = InformationList;
+            //InformationListBox = InformationList;
             ContentDialogView = VersionDialog;
             AcrylicColorChange();
             EnableMica();
@@ -403,9 +396,14 @@ namespace WonderLab
 
         private async void MainWindow_Initialized(object? sender, EventArgs e)
         {
-            await Task.Delay(1500);
-            dialog.IsVisible = true;
-            VersionDialog.IsVisible = true;
+            await Dispatcher.UIThread.InvokeAsync(async() =>
+            {
+                await Task.Delay(1500);
+                dialog.IsVisible = true;
+                VersionDialog.IsVisible = true;
+            });
+
+            InformationListBox.Items = InfoBarItems;
         }
     }
 
@@ -414,7 +412,7 @@ namespace WonderLab
     {
         public MainWindow() => InitializeComponent();
         public MainWindowViewModel ViewModel { get; protected set; }
-        private static List<InfoBarModel> InfoBarItems = new();
+        private static ObservableCollection<InfoBarModel> InfoBarItems = new();
         private static ListBox InformationListBox { get; set; }
         private static ContentDialog ContentDialogView { get; set; }
         public static MainWindow win { get; set; }
