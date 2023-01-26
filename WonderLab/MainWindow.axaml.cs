@@ -415,13 +415,6 @@ namespace WonderLab
             InformationListBox.Items = InfoBarItems;
         }
 
-        private async void MainWindow_PointerPressed(object? sender, PointerPressedEventArgs e)
-        {
-            DataObject data = new();
-            var res = await DragDrop.DoDragDrop(e, data, DragDropEffects.Copy);
-            Trace.WriteLine(res);
-        }
-
         void SetupDnd(string suffix, Action<DataObject> factory, DragDropEffects effects)
         {
             async void DoDrag(object? sender, Avalonia.Input.PointerPressedEventArgs e)

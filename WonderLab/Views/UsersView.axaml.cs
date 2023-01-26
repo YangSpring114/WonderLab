@@ -1,7 +1,9 @@
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Input.Platform;
 using Avalonia.Threading;
 using FluentAvalonia.UI.Controls;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,6 +26,8 @@ namespace WonderLab.Views
             this.DataContext = ViewModel;
             AuthenticatorTypeDialog.DataContext = ViewModel;
             LoginDialog.DataContext = ViewModel;
+            SetupDnd("Text", d => d.Set(DataFormats.Text,
+                $""), DragDropEffects.Copy | DragDropEffects.Move | DragDropEffects.Link);
         }
         public override void OnNavigatedTo()
         {
@@ -97,10 +101,75 @@ namespace WonderLab.Views
             ZoomOutAnimation animation = new(true);
             animation.RunAsync((Border)sender);
         }
+
+        void SetupDnd(string suffix, Action<DataObject> factory, DragDropEffects effects)
+        {
+            async void DoDrag(object? sender, Avalonia.Input.PointerPressedEventArgs e)
+            {
+                var dragData = new DataObject();
+                factory(dragData);
+
+                var result = await DragDrop.DoDragDrop(e, dragData, effects);
+                Trace.WriteLine($"[信息] DragDrop类型如下 {result}");
+            }
+
+            void DragOver(object? sender, DragEventArgs e)
+            {
+                if (e.Source is Control c && c.Name == "MoveTarget")
+                {
+                    e.DragEffects = e.DragEffects & (DragDropEffects.Move);
+                }
+                else
+                {
+                    e.DragEffects = e.DragEffects & (DragDropEffects.Copy);
+                }
+
+                // Only allow if the dragged data contains text or filenames.
+                if (!e.Data.Contains(DataFormats.Text)
+                    && !e.Data.Contains(DataFormats.FileNames)
+                    && !e.Data.Contains(CustomFormat))
+                    e.DragEffects = DragDropEffects.None;
+            }
+
+            void DragEnter(object? sender, DragEventArgs e)
+            {
+                if (e.Data.GetText().Contains("authlib-injector:yggdrasil-server")) {
+                    
+                }
+            }
+
+
+            void Drop(object? sender, DragEventArgs e)
+            {
+                if (e.Source is Control c && c.Name == "MoveTarget")
+                {
+                    e.DragEffects = e.DragEffects & (DragDropEffects.Move);
+                }
+                else
+                {
+                    e.DragEffects = e.DragEffects & (DragDropEffects.Copy);
+                    ViewModel.UrlTextBoxText = e.Data.GetText().Replace("authlib-injector:yggdrasil-server:", string.Empty).Replace("%2F", "/").Replace("%3A", ":");
+                }
+
+                if (e.Data.Contains(DataFormats.Text))
+                {
+                }
+                else if (e.Data.Contains(DataFormats.FileNames))
+                    Trace.WriteLine(string.Join(Environment.NewLine, e.Data.GetFileNames() ?? Array.Empty<string>()));
+                else if (e.Data.Contains(CustomFormat))
+                    Trace.WriteLine("Custom: " + e.Data.Get(CustomFormat));
+            }
+
+            YggUrl.PointerPressed += DoDrag;
+            YggUrl.AddHandler(DragDrop.DropEvent, Drop);
+            YggUrl.AddHandler(DragDrop.DragEnterEvent, DragEnter);
+            YggUrl.AddHandler(DragDrop.DragOverEvent, DragOver);
+        }
     }
 
     partial class UsersView
     {
+        private const string CustomFormat = "application/xxx-avalonia-controlcatalog-custom";
         public static UsersViewModel ViewModel { get; } = new();        
         protected static UsersView View { get; set; }
     }

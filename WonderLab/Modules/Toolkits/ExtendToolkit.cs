@@ -1,6 +1,7 @@
 using MinecraftLaunch.Modules.Models.Auth;
 using MinecraftLaunch.Modules.Models.Install;
 using MinecraftLaunch.Modules.Models.Launch;
+using Natsurainko.FluentCore.Class.Model.Install;
 using Natsurainko.FluentCore.Class.Model.Launch;
 using Natsurainko.FluentCore.Module.Launcher;
 using Newtonsoft.Json.Linq;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WonderLab.Modules.Models;
+using WonderLab.ViewModels;
 using GameCore = MinecraftLaunch.Modules.Models.Launch.GameCore;
 
 namespace WonderLab.Modules.Toolkits
@@ -137,6 +139,41 @@ namespace WonderLab.Modules.Toolkits
 
             Trace.WriteLine($"[信息] 账户类型为 {res}");
             return res;
+        }
+
+        public static string ToGameCoreTitle(this List<ModLoaderInformationViewData> datas)
+        {
+            ModLoaderInformationViewData om = null;
+            ModLoaderInformationViewData fm = null;
+            ModLoaderInformationViewData fam = null;
+            datas.ForEach(x =>
+            {
+                if (x.Data.LoaderType is ModLoaderType.Forge)
+                    fm = x;
+                else if (x.Data.LoaderType is ModLoaderType.Fabric)
+                    fam = x;
+                else if (x.Data.LoaderType is ModLoaderType.OptiFine)
+                    om = x;
+            });
+
+            if (fm is null && om is not null)
+            {
+                return $"{om.Data.McVersion}-{om.Data.LoaderName}_{om.Data.Version}";
+            }
+            else if (fm is not null && om is not null)
+            {
+                return $"{fm.Data.McVersion}-{fm.Data.LoaderName}{fm.Data.Version}-{om.Data.LoaderName}_{om.Data.Version}";
+            }
+            else if (om is null && fm is not null)
+            {
+                return $"{fm.Data.McVersion}-{fm.Data.LoaderName}_{fm.Data.Version}";
+            }
+            else if (fam is not null)
+            {
+                return $"{fam.Data.McVersion}-{fam.Data.LoaderName}_{fam.Data.Version}";
+            }
+
+            return string.Empty;
         }
     }
 }

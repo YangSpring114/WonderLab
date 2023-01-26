@@ -74,7 +74,7 @@
 					<StackPanel Name="InfoPanel">
 						<TextBox IsVisible="{Binding FirstBoxVisibility}"
                             Margin="0,0,0,15" Text="{Binding UrlTextBoxText}"
-                            Watermark="外置登录服务器地址："/>
+                            Watermark="外置登录服务器地址：" x:Name="YggUrl"/>						
 						<TextBox Text="{Binding TextBoxText}"
                             Watermark="用户名：" IsVisible="{Binding TextBoxVisibility}"/>
 						<TextBox Text="{Binding PasswordBoxText}"

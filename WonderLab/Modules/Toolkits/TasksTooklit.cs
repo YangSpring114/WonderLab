@@ -156,5 +156,58 @@ namespace WonderLab.Modules.Toolkits
             MainView.ViewModel.AllTaskCount++;
             control.IsEnabled = true;
         }
+
+        /// <summary>
+        /// 创建 启动脚本
+        /// </summary>
+        public async static void CreateLaunchScript(GameCore core)
+        {
+            var setting = new LaunchConfig();
+            var toolkit = new GameCoreToolkit(App.Data.FooterPath);
+            var IndependencyCoreData = JsonToolkit.GetEnableIndependencyCoreData(App.Data.FooterPath, core.Id!);
+            bool IsEnableIndependencyCore = false;
+
+            setting.JvmConfig = new(App.Data.JavaPath)
+            {
+                MaxMemory = App.Data.Max,
+                AdvancedArguments = new List<string>() { App.Data.Jvm },
+            };
+
+            setting.GameWindowConfig = new()
+            {
+                IsFullscreen = App.Data.IsFull,
+            };
+
+            if (IndependencyCoreData is not null && IndependencyCoreData.IsEnableIndependencyCore)
+            {
+                IsEnableIndependencyCore = IndependencyCoreData.Isolate;
+                setting.JvmConfig = new(App.Data.JavaPath)
+                {
+                    MaxMemory = App.Data.Max,
+                    AdvancedArguments = new List<string>() { IndependencyCoreData.Jvm },
+                };
+
+                setting.GameWindowConfig = new()
+                {
+                    IsFullscreen = IndependencyCoreData.IsFullWindows,
+                    Height = IndependencyCoreData.WindowHeight,
+                    Width = IndependencyCoreData.WindowWidth
+                };
+                Trace.WriteLine("[Launch] 已启用独立游戏核心设置");
+            }
+
+            setting.Account = App.Data.SelectedUser.ToAccount();
+            if (setting.Account.Type is AccountType.Yggdrasil)
+            {
+                if (!File.Exists(Path.Combine(PathConst.TempDirectory, "authlib-injector.jar")))
+                {
+                    await HttpToolkit.HttpDownloadAsync("https://bmclapi2.bangbang93.com/mirrors/authlib-injector/artifact/45/authlib-injector-1.1.45.jar",
+                        PathConst.TempDirectory, "authlib-injector.jar");
+                }
+                setting.JvmConfig.AdvancedArguments = new List<string>() { App.Data.SelectedUser.AIJvm };
+            }
+
+            ScriptToolkit.LaunchScriptBuildAsync("C:\\Users\\w\\Desktop\\test.bat", core, setting, true);
+        }
     }
 }

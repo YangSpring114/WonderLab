@@ -33,9 +33,10 @@
 									<Grid Margin="0 10 10 10" HorizontalAlignment="Left">
 										<Panel>
 											<Border HorizontalAlignment="Left" VerticalAlignment="Center" CornerRadius="4" Height="35" Width="35" Margin="0,0,10,0">
-												<Border.Background>
+												<!--<Border.Background>
 													<ImageBrush Source="{Binding HasModLoader,Mode=OneWay,Converter={StaticResource BitmapConverter}}"/>
-												</Border.Background>
+												</Border.Background>-->
+												<Image Source="{Binding HasModLoader,Mode=OneWay,Converter={StaticResource BitmapConverter}}" Stretch="UniformToFill"/>
 											</Border>
 											<Grid HorizontalAlignment="Left" VerticalAlignment="Center" Margin="42,0,0,0" Height="35">
 												<TextBlock TextTrimming="CharacterEllipsis" FontSize="16" FontWeight="Bold" FontFamily="DIN Pro" Text="{Binding Id,Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Top"/>

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentAvalonia.UI.Controls;
 using MinecraftLaunch.Modules.Models.Launch;
+using MinecraftLaunch.Modules.Toolkits;
 using Natsurainko.FluentCore.Module.Launcher;
 using PluginLoader;
 using WonderLab.Modules.Controls;
@@ -65,10 +67,21 @@ namespace WonderLab.PluginAPI
                 #endregion
 
                 #region 检查Java
+                string javapath = App.Data.JavaPath;
+                javapath = GetCorrectOfGameJava(App.Data.JavaList.AsParallel().Select(x => JavaToolkit.GetJavaInfo(x)), SelectedGameCore);
 
-                if (!File.Exists(App.Data.JavaPath))
-                {
-                    MainWindow.ShowInfoBarAsync("错误：", $"选择的Java不存在或已损坏！", InfoBarSeverity.Error);
+                if (App.Data.JavaList.Count <= 0) {
+                    MainWindow.ShowInfoBarAsync("错误", "没有任何 Java", InfoBarSeverity.Error);
+                    return false;
+                }
+
+                if (!App.Data.AutoSelectJava && (string.IsNullOrEmpty(App.Data.JavaPath) || !File.Exists(App.Data.JavaPath))) {                
+                    MainWindow.ShowInfoBarAsync("错误", "选择的 Java 不存在或已损坏", InfoBarSeverity.Error);
+                    return false;
+                }
+
+                if (App.Data.AutoSelectJava && string.IsNullOrEmpty(javapath)) {
+                    MainWindow.ShowInfoBarAsync("错误", "未能成功自动选择到合适的 Java 运行时，可能是您没有安装导致的", InfoBarSeverity.Error);
                     return false;
                 }
 
@@ -103,7 +116,7 @@ namespace WonderLab.PluginAPI
 
                 MainWindow.ShowInfoBarAsync("提示：", $"开始启动游戏核心：{SelectedGameCore.Id}，可前往任务中心查看详细信息", InfoBarSeverity.Informational, 5000, button);
 
-                LaunchItemView view = new(version, App.Data.SelectedUser);
+                LaunchItemView view = new(version, App.Data.SelectedUser, javapath);
 
                 if (TaskView.itemView.Count is not 0 && TaskView.task is not null)
                 {
@@ -123,6 +136,60 @@ namespace WonderLab.PluginAPI
         private void Button_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             Page.NavigatedToTaskView();
+        }
+
+        /// <summary>
+        /// 自动获取适合游戏版本的 Java 运行时
+        /// </summary>
+        /// <param name="Javas"></param>
+        /// <param name="gameCore"></param>
+        /// <returns></returns>
+        public string GetCorrectOfGameJava(IEnumerable<JavaInfo> Javas, GameCore gameCore)
+        {
+            string javaInfo = null;
+            foreach (JavaInfo Java in Javas)
+            {
+                if (Java.JavaSlugVersion == gameCore.JavaVersion && Java.JavaDirectoryPath.ToLower().Contains("jdk")
+                    && !Java.JavaDirectoryPath.ToLower().Contains("jre") && Java.Is64Bit)
+                {
+                    javaInfo = Java.JavaPath;
+                }
+            }
+
+            if (javaInfo is null)
+            {
+                foreach (var Java in Javas)
+                {
+                    if (Java.JavaSlugVersion == gameCore.JavaVersion && Java.Is64Bit && Java.JavaDirectoryPath.ToLower().Contains("jdk"))
+                    {
+                        javaInfo = Java.JavaPath;
+                    }
+                }
+            }
+
+            if (javaInfo == null)
+            {
+                foreach (JavaInfo Java2 in Javas)
+                {
+                    if (Java2.JavaSlugVersion == gameCore.JavaVersion && Java2.Is64Bit)
+                    {
+                        javaInfo = Java2.JavaPath;
+                    }
+                }
+            }
+
+            if (javaInfo == null)
+            {
+                foreach (JavaInfo Java2 in Javas)
+                {
+                    if (Java2.JavaSlugVersion == gameCore.JavaVersion)
+                    {
+                        javaInfo = Java2.JavaPath;
+                    }
+                }
+            }
+
+            return javaInfo;
         }
     }
 }

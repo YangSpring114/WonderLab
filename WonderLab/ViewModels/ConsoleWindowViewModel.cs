@@ -45,11 +45,13 @@ namespace WonderLab.ViewModels
             Process = process;
             Box = box;
             Process.ProcessOutput += Process_ProcessOutput;
-            outputs.ForEach(x =>
-            {
-                var output = GameLogAnalyzer.AnalyseAsync(x);
-                Outputs.Add(output.ToOutput());
-            });
+            if (outputs is not null && outputs.Count > 0) {
+                outputs.ForEach(x =>
+                {
+                    var output = GameLogAnalyzer.AnalyseAsync(x);
+                    Outputs.Add(output.ToOutput());
+                });
+            }
 
             LastOutput = Outputs.Last();
         }

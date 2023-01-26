@@ -53,7 +53,6 @@ namespace WonderLab.ViewModels
             ModLoaderInformationViewData om = null;
             ModLoaderInformationViewData fm = null;
             ModLoaderInformationViewData fam = null;
-            //TaskTitle = $"游戏核心 {"{mlimvd.Data.McVersion}-{mlimvd.Data.LoaderName}_{mlimvd.Data.Version}"} 安装任务";
             ids.ForEach(x =>
             {
                 if (x.Data.LoaderType is ModLoaderType.Forge)

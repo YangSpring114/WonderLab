@@ -4,8 +4,11 @@ using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Shapes;
 using Avalonia.Media;
+using FluentAvalonia.UI.Controls;
 using System;
+using System.Diagnostics;
 using System.Reactive.Disposables;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using WonderLab.Modules.Const;
 using Button = Avalonia.Controls.Button;
@@ -128,18 +131,45 @@ namespace WonderLab.Modules.Controls
         {
             base.OnApplyTemplate(e);
 
+            BugHelp = e.NameScope.Get<MenuFlyoutItem>("BugHelp");
+            GitHelp = e.NameScope.Get<MenuFlyoutItem>("GitHelp");
+            helpbutton = e.NameScope.Get<Button>("Help");
             closebutton = e.NameScope.Get<Button>("Close");
             maxbutton = e.NameScope.Get<Button>("Max");
             minibutton = e.NameScope.Get<Button>("Mini");
-            if (InfoConst.IsWindows)
+            if (InfoConst.IsWindows || InfoConst.IsLinux)
                 _RestoreButtonPath = e.NameScope.Get<Path>("RestoreButtonPath");
             closebutton.Click += Closebutton_Click;
             minibutton.Click += Minibutton_Click;
-            maxbutton.Click += Maxbutton_Click;
+            maxbutton.Click += Maxbutton_Click;            
             HostWindow.PropertyChanged += HostWindow_PropertyChanged;
+            BugHelp.Click += BugHelp_Click;
+            GitHelp.Click += GitHelp_Click;
             //closebutton.PointerPressed += (_, _) => OnClose();
             //minibutton.PointerPressed += (_, _) => OnMinimize();
             //maxbutton.PointerPressed += (_, _) => OnRestore();
+        }
+
+        private async void GitHelp_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            await Task.Run(() => {
+                using var res = Process.Start(new ProcessStartInfo("https://github.com/Blessing-Studio")
+                {
+                    UseShellExecute = true,
+                    Verb = "open"
+                });
+            });
+        }
+
+        private async void BugHelp_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            await Task.Run(() => {
+                using var res = Process.Start(new ProcessStartInfo("https://github.com/Blessing-Studio/WonderLab/issues")
+                {
+                    UseShellExecute = true,
+                    Verb = "open"
+                });
+            });
         }
 
         private void HostWindow_PropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
@@ -170,8 +200,10 @@ namespace WonderLab.Modules.Controls
 
     partial class TitleBar
     {
-        
+        private MenuFlyoutItem BugHelp;
+        private MenuFlyoutItem GitHelp;
         private Button closebutton;
+        private Button helpbutton;
         private Button maxbutton;
         private Button minibutton;
         private Path _RestoreButtonPath;

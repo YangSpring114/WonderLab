@@ -100,6 +100,7 @@
 			<c:HeightConverter x:Key="HeightConverter"/>
 			<c:LogBrushConverter x:Key="LogBrushConverter"/>
 			<c:PrefixConverter x:Key="PrefixConverter"/>
+			<c:ErrorLogConverter x:Key="ErrorLogConverter"/>
 			
 			<!--Double-->
 			<x:Double x:Key="InfoBarTitleFontSize">14</x:Double>
