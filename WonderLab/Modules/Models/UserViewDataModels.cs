@@ -1,10 +1,7 @@
 using Avalonia.Media.Imaging;
 using FluentAvalonia.UI.Controls;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using MinecaftOAuth.Authenticator;
 using Natsurainko.Toolkits.Network;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats.Bmp;
 using SixLabors.ImageSharp.Formats.Png;
 using System;
 using System.IO;
