@@ -129,7 +129,7 @@ namespace WonderLab
 
         public static string GetVersion()
         {
-            return "1.0.1.5";
+            return "1.0.1.6";
         }
 
         public static void AutoUpdata()
