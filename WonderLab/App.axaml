@@ -6,7 +6,7 @@
 			 xmlns:c="using:WonderLab.Views.Converters"
              x:Class="WonderLab.App">
     <Application.Styles>
-		<sty:FluentAvaloniaTheme RequestedTheme="Light"/>
+		<sty:FluentAvaloniaTheme RequestedTheme="Light"/>		
 		<!--<StyleInclude Source="/Modules/Language/Styles/CaptionButtonsStyle.axaml"/>-->
 		<StyleInclude Source="/Modules/Controls/Styles/ContentDialog.axaml" />
 		<StyleInclude Source="/Modules/Controls/Styles/FrameXStyle.axaml" />
@@ -17,6 +17,7 @@
 		<StyleInclude Source="avares://ControlX/OptionsDisplayItemStyles.axaml" />
 		<StyleInclude Source="/Modules/Controls/Styles/ScrollViewerStyle.axaml"/>
 		<StyleInclude Source="avares://WonderLab/Modules/Controls/Styles/TitleBarStyle.axaml"/>
+		<!--<ResourceInclude Source="/Resources/Strings/demo.axaml"/>-->
 		<!--<Style Selector="PopupRoot">
 			<Setter Property="CornerRadius" Value="6"/>
 			<Setter Property="TransparencyLevelHint" Value="AcrylicBlur" />
@@ -41,7 +42,9 @@
 	</Application.Styles>
 	<Application.Resources>
 		<ResourceDictionary>
-
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceInclude Source="/Resources/Strings/zh-cn.axaml"/>
+			</ResourceDictionary.MergedDictionaries>
 			<!--Font-->
 			<!--<FontFamily x:Key="TestFontFamily">avares://WonderLab/Resources/#butler</FontFamily>-->
 			<FontFamily x:Key="ChineseFontFamily">HarmonyOS Sans , Din Pro</FontFamily>

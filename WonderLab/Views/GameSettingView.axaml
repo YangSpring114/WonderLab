@@ -58,8 +58,11 @@
 							
 							<Grid Margin="0,25,0,0">
 								<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="添加 Java 运行时："/>
-								<Button Command="{Binding AddJavaAction}" Name="AddJava" Content="浏览" HorizontalAlignment="Right"/>
-								<Button Command="{Binding FindJavasAction}" Margin="0,0,60,0" Name="FindJava" Content="自动搜索" HorizontalAlignment="Right"/>
+								<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10">
+									<ProgressBar IsVisible="{Binding IsSearchJavaLoading}" Classes="Circle" Height="25" Width="25" IsIndeterminate="True"/>
+									<Button Command="{Binding FindJavasAction}" Name="FindJava" Content="自动搜索"/>
+									<Button Command="{Binding AddJavaAction}" Name="AddJava" Content="浏览"/>
+								</StackPanel>
 							</Grid>
 							
 							<Grid IsVisible="{Binding JavaRemoveVisible}" Margin="0,25,0,0">

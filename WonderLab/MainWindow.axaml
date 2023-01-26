@@ -13,8 +13,8 @@
 		TransparencyLevelHint="AcrylicBlur"
 		ExtendClientAreaToDecorationsHint="True"
 		ExtendClientAreaChromeHints="NoChrome"
-		MinWidth="500"		
-		MinHeight="300"
+		MinWidth="500"
+		MinHeight="300" DragDrop.AllowDrop="True"
 		Icon="resm:WonderLab.Resources.Icon.ico"
         Title="WonderLab">
 	<Window.Resources>
@@ -33,75 +33,6 @@
 			<!--<Image Opacity="0.22" Stretch="UniformToFill" Source="C:\Users\w\Desktop\xcmy.jpg"/>-->
 			<Panel Name="MainPanel"/>
 			<!--x:Name="InformationList"-->
-			<ListBox
-				x:Name="InformationList"
-				Items="{Binding InfoBarItems}"
-	            VerticalAlignment="Bottom"
-				Background="Transparent">
-				<ListBox.Styles>
-					<Style Selector="ListBoxItem">
-						<Setter Property="HorizontalContentAlignment" Value="Stretch" />
-						<Setter Property="BorderBrush" Value="Transparent" />
-						<Setter Property="BorderThickness" Value="0" />
-						<Setter Property="Background" Value="Transparent" />
-						<Setter Property="Margin" Value="0,0" />
-						<Setter Property="Template">
-							<Setter.Value>
-								<ControlTemplate TargetType="ListBoxItem">
-									<Grid>
-										<Border
-											Height="{TemplateBinding Height}"
-											Background="{TemplateBinding Background}"
-											BorderBrush="{TemplateBinding BorderBrush}"
-											BorderThickness="{TemplateBinding BorderThickness}"
-											CornerRadius="5">
-											<ContentPresenter
-												Height="{TemplateBinding Height}"
-												HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-												VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-										</Border>
-
-										<ui:InfoBar
-		                                 Title="{Binding Title}"
-		                                 Margin="15,0,15,15"
-		                                 VerticalAlignment="Bottom"
-										 Name="Info"
-										 FontFamily="Arial, Times New Roman, Comic Sans MS"
-		                                 IsOpen="True"
-		                                 IsClosable="True"
-										 CloseButtonClick="InfoBar_CloseButtonClick"
-										 Background="{DynamicResource SystemControlAcrylicElementBrush}"
-		                                 ActionButton="{Binding Button, Mode=OneWay}"
-		                                 Message="{Binding Description}"
-		                                 Severity="{Binding Severity}">
-											<ui:InfoBar.Transitions>
-												<Transitions>
-													<DoubleTransition Property="Opacity" Duration="0:0:0.35" Easing="CircularEaseOut"/>
-												</Transitions>
-											</ui:InfoBar.Transitions>
-										</ui:InfoBar>
-									</Grid>
-								</ControlTemplate>
-							</Setter.Value>
-						</Setter>
-					</Style>
-				</ListBox.Styles>
-				<ListBox.ItemTemplate>
-					<DataTemplate x:DataType="models:InfoBarModel">
-						<ui:InfoBar
-								Title="{Binding Title}"
-								Margin="15,0,15,15"
-								VerticalAlignment="Bottom"
-								IsOpen="True"
-								IsClosable="True"
-								FontFamily="Arial, Times New Roman, Comic Sans MS"
-								ActionButton="{Binding Button, Mode=OneWay}"
-								Message="{Binding Description}"
-								Background="{DynamicResource SystemControlAcrylicElementBrush}"
-								Severity="{Binding Severity}"/>
-					</DataTemplate>
-				</ListBox.ItemTemplate>
-			</ListBox>
 
 			<ui:ContentDialog Classes="WinUiPro" IsVisible="False"
 							  Name="dialog" CloseButtonText="了解" Title="{Binding Title}">
@@ -160,6 +91,89 @@
 				</ui:ContentDialog.Content>
 			</ui:ContentDialog>
 		</Panel>
+
+		<Grid IsVisible="False" IsHitTestVisible="False" Background="{DynamicResource ContentDialogSmokeFill}">
+			<StackPanel Margin="0 0 0 20" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="10">
+				<ui:SymbolIcon Symbol="CommentAdd" FontSize="80"/>
+				<TextBlock FontFamily="微软雅黑" Text="检测到文件已拖入"
+						   FontSize="26" FontWeight="Bold"/>
+			</StackPanel>
+
+			<Grid VerticalAlignment="Bottom" Height="110" Background="{DynamicResource ControlFillColorDefaultBrush}">
+
+			</Grid>
+		</Grid>
+
+		<ListBox ScrollViewer.VerticalScrollBarVisibility="Hidden"
+				x:Name="InformationList"
+				Items="{Binding InfoBarItems}"
+	            VerticalAlignment="Bottom"
+				Background="Transparent">
+			<ListBox.Styles>
+				<Style Selector="ListBoxItem">
+					<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+					<Setter Property="BorderBrush" Value="Transparent" />
+					<Setter Property="BorderThickness" Value="0" />
+					<Setter Property="Background" Value="Transparent" />
+					<Setter Property="Margin" Value="0,0" />
+					<Setter Property="Template">
+						<Setter.Value>
+							<ControlTemplate TargetType="ListBoxItem">
+								<Grid>
+									<Border
+										Height="{TemplateBinding Height}"
+										Background="{TemplateBinding Background}"
+										BorderBrush="{TemplateBinding BorderBrush}"
+										BorderThickness="{TemplateBinding BorderThickness}"
+										CornerRadius="5">
+										<ContentPresenter
+											Height="{TemplateBinding Height}"
+											HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+											VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+									</Border>
+
+									<ui:InfoBar
+									 Title="{Binding Title}"
+									 Margin="15,0,15,15"
+									 VerticalAlignment="Bottom"
+									 Name="Info"
+									 FontFamily="Arial, Times New Roman, Comic Sans MS"
+									 IsOpen="True"
+									 IsClosable="True"
+									 CloseButtonClick="InfoBar_CloseButtonClick"
+									 Background="{DynamicResource SystemControlAcrylicElementBrush}"
+									 ActionButton="{Binding Button, Mode=OneWay}"
+									 Message="{Binding Description}"
+									 Severity="{Binding Severity}">
+										<ui:InfoBar.Transitions>
+											<Transitions>
+												<DoubleTransition Property="Opacity" Duration="0:0:0.35" Easing="CircularEaseOut"/>
+											</Transitions>
+										</ui:InfoBar.Transitions>
+									</ui:InfoBar>
+								</Grid>
+							</ControlTemplate>
+						</Setter.Value>
+					</Setter>
+				</Style>
+			</ListBox.Styles>
+			<ListBox.ItemTemplate>
+				<DataTemplate x:DataType="models:InfoBarModel">
+					<ui:InfoBar
+							Title="{Binding Title}"
+							Margin="15,0,15,15"
+							VerticalAlignment="Bottom"
+							IsOpen="True"
+							IsClosable="True"
+							FontFamily="Arial, Times New Roman, Comic Sans MS"
+							ActionButton="{Binding Button, Mode=OneWay}"
+							Message="{Binding Description}"
+							Background="{DynamicResource SystemControlAcrylicElementBrush}"
+							Severity="{Binding Severity}"/>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+		
 		<wmc:TitleBar
 			x:Name="BarHost"
 			CloseButtonCommand="{Binding Colse}"
@@ -168,8 +182,7 @@
 			HorizontalAlignment="Right" 			
 			VerticalAlignment="Top"/>
 		<!--<Button Content="Run Animation" x:Name="Run"/>-->
-		
-		
+
 		<!--此代码已弃用-->
 		<Grid HorizontalAlignment="Stretch" IsVisible="False" VerticalAlignment="Bottom"
 			  Height="200" >

@@ -1,0 +1,16 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:s="clr-namespace:System;assembly=System.Runtime">
+	<!-- HomeView Text-->
+	<s:String x:Key="SelectGameCore">Selected Game Core</s:String>
+	<s:String x:Key="NotSelectedUser">User Not Selected</s:String>
+	<s:String x:Key="NotSelectedGameCore">Core Not Selected</s:String>
+	<s:String x:Key="Launch">Launch Minecraft</s:String>
+
+
+	<!--The User Type-->
+	<s:String x:Key="MicrosoftAccount">Microsoft Account</s:String>
+	<s:String x:Key="OfflineAccount">Offline Account</s:String>
+	<s:String x:Key="YggdrasilAccount">Yggdrasil Account</s:String>
+
+</ResourceDictionary>

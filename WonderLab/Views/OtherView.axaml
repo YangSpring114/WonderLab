@@ -28,7 +28,7 @@
 						</StackPanel>
 						<StackPanel Orientation="Horizontal" Spacing="50">
 							<TextBlock Text="实际版本号"/>
-							<TextBlock Text="Release 1.0.1.5"/>
+							<TextBlock Text="Release 1.0.1.6"/>
 						</StackPanel>
 						<StackPanel Orientation="Horizontal" Spacing="60">
 							<TextBlock Text="版权信息"/>

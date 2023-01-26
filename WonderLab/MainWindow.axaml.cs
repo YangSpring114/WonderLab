@@ -29,6 +29,10 @@ using PluginLoader;
 using WonderLab.PluginAPI;
 using System.Collections.ObjectModel;
 using Avalonia.Threading;
+using Avalonia.Input;
+using System.Diagnostics;
+using System.Reflection;
+using System.Linq;
 #pragma warning disable CS8618
 namespace WonderLab
 {
@@ -392,6 +396,11 @@ namespace WonderLab
             //Deactivated += MainWindow_Deactivated;
             Closed += MainWindow_Closed;
             d.Click += D_Click;
+            DragDrop.SetAllowDrop(this, true);
+            //this.PointerPressed += MainWindow_PointerPressed;
+            int textCount = 0;
+            //SetupDnd("Text", d => d.Set(DataFormats.Text,
+            //    $"Text was dragged {++textCount} times"), DragDropEffects.Copy | DragDropEffects.Move | DragDropEffects.Link);
         }
 
         private async void MainWindow_Initialized(object? sender, EventArgs e)
@@ -402,8 +411,77 @@ namespace WonderLab
                 dialog.IsVisible = true;
                 VersionDialog.IsVisible = true;
             });
-
+            
             InformationListBox.Items = InfoBarItems;
+        }
+
+        private async void MainWindow_PointerPressed(object? sender, PointerPressedEventArgs e)
+        {
+            DataObject data = new();
+            var res = await DragDrop.DoDragDrop(e, data, DragDropEffects.Copy);
+            Trace.WriteLine(res);
+        }
+
+        void SetupDnd(string suffix, Action<DataObject> factory, DragDropEffects effects)
+        {
+            async void DoDrag(object? sender, Avalonia.Input.PointerPressedEventArgs e)
+            {
+                var dragData = new DataObject();
+                factory(dragData);
+
+                var result = await DragDrop.DoDragDrop(e, dragData, effects);
+                Trace.WriteLine($"[信息] DragDrop类型如下 {result}");
+            }
+
+            void DragOver(object? sender, DragEventArgs e)
+            {
+                if (e.Source is Control c && c.Name == "MoveTarget")
+                {
+                    e.DragEffects = e.DragEffects & (DragDropEffects.Move);
+                }
+                else
+                {
+                    e.DragEffects = e.DragEffects & (DragDropEffects.Copy);
+                }
+
+                // Only allow if the dragged data contains text or filenames.
+                if (!e.Data.Contains(DataFormats.Text)
+                    && !e.Data.Contains(DataFormats.FileNames)
+                    && !e.Data.Contains(CustomFormat))
+                    e.DragEffects = DragDropEffects.None;
+            }
+
+            void DragEnter(object? sender, DragEventArgs e)
+            {
+                ShowInfoBarAsync("信息", "1数据已进入！");
+            }
+
+
+            void Drop(object? sender, DragEventArgs e)
+            {
+                if (e.Source is Control c && c.Name == "MoveTarget")
+                {
+                    e.DragEffects = e.DragEffects & (DragDropEffects.Move);
+                }
+                else
+                {
+                    e.DragEffects = e.DragEffects & (DragDropEffects.Copy);
+                }
+
+                if (e.Data.Contains(DataFormats.Text))
+                {
+                    Trace.WriteLine(e.Data.GetText().Replace("authlib-injector:yggdrasil-server:", String.Empty).Replace("%2F","/").Replace("%3A",":"));
+                }
+                else if (e.Data.Contains(DataFormats.FileNames))
+                    Trace.WriteLine(string.Join(Environment.NewLine, e.Data.GetFileNames() ?? Array.Empty<string>()));
+                else if (e.Data.Contains(CustomFormat))
+                    Trace.WriteLine("Custom: " + e.Data.Get(CustomFormat));
+            }
+
+            this.PointerPressed += DoDrag;
+            AddHandler(DragDrop.DropEvent, Drop);
+            AddHandler(DragDrop.DragEnterEvent, DragEnter);
+            AddHandler(DragDrop.DragOverEvent, DragOver);
         }
     }
 
@@ -413,6 +491,7 @@ namespace WonderLab
         public MainWindow() => InitializeComponent();
         public MainWindowViewModel ViewModel { get; protected set; }
         private static ObservableCollection<InfoBarModel> InfoBarItems = new();
+        private const string CustomFormat = "application/xxx-avalonia-controlcatalog-custom";
         private static ListBox InformationListBox { get; set; }
         private static ContentDialog ContentDialogView { get; set; }
         public static MainWindow win { get; set; }

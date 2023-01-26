@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WonderLab.Modules.Models;
+using WonderLab.Modules.Toolkits;
 
 namespace WonderLab.Views.Converters
 {
@@ -17,7 +18,7 @@ namespace WonderLab.Views.Converters
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if(value is null)
-                return "未选择任何档案";
+                return LanguageToolkit.GetText("NotSelectedUser");
 
             try
             {
@@ -25,7 +26,7 @@ namespace WonderLab.Views.Converters
             }
             catch { }
 
-            return "未选择任何档案";
+            return LanguageToolkit.GetText("NotSelectedUser");
         }
 
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>

@@ -1,0 +1,16 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:s="clr-namespace:System;assembly=System.Runtime">
+    <!-- HomeView Text-->
+	<s:String x:Key="SelectGameCore">选择游戏核心</s:String>
+	<s:String x:Key="NotSelectedUser">未选择任何档案</s:String>
+	<s:String x:Key="NotSelectedGameCore">未选择任何游戏核心</s:String>
+	<s:String x:Key="Launch">启动游戏</s:String>
+	
+	
+	<!--The User Type-->
+	<s:String x:Key="MicrosoftAccount">微软账户</s:String>
+	<s:String x:Key="OfflineAccount">离线账户</s:String>
+	<s:String x:Key="YggdrasilAccount">第三方账户</s:String>
+	
+</ResourceDictionary>

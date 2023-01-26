@@ -27,7 +27,7 @@
 						<Setter Property="Template">
 							<Setter.Value>
 								<ControlTemplate TargetType="ListBoxItem">
-									<card:OptionsDisplayItem Icon="Pause" Header="{Binding DisplayName}" Description="{Binding FileName}">
+									<card:OptionsDisplayItem Icon="Pause" Header="{Binding Id}" Description="{Binding FileName}">
 										<card:OptionsDisplayItem.ActionButton>
 											<ToggleSwitch Command="{Binding ModStateChange}" MaxWidth="0" MinWidth="55" Margin="0,0,-20,0" HorizontalAlignment="Right" IsChecked="{Binding IsEnabled}" OnContent="" OffContent="" IsTabStop="False"/>
 										</card:OptionsDisplayItem.ActionButton>

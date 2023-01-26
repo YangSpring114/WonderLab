@@ -32,7 +32,9 @@
 				<Button Command="{Binding LaunchAsync}" IsEnabled="{Binding Enabled}" Classes="accent" Name="launchbutton" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" PointerEnter="Launchbutton_PointerEnter" PointerLeave="Launchbutton_PointerLeave">
 					<Button.Content>
 						<Grid>
-							<TextBlock Foreground="White" FontFamily="HarmonyOS Sans" Margin="0,0,0,15" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" TextTrimming="CharacterEllipsis" Text="启动游戏"/>
+							<TextBlock Foreground="White" FontFamily="HarmonyOS Sans" Margin="0,0,0,15" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
+									   TextTrimming="CharacterEllipsis"
+									   Text="{DynamicResource Launch}"/>
 							<TextBlock MaxWidth="150" TextTrimming="CharacterEllipsis" Foreground="White" FontFamily="DIN Pro" Name="versioninfo" Margin="0,25,0,0" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding SelectedGameCore,Mode=OneWay,Converter={StaticResource GameCoreNameConverter}}"/>
 						</Grid>
 					</Button.Content>
@@ -65,7 +67,7 @@
 				</Button>
 			</Grid>
 			
-			<ComboBox PlaceholderText="选择游戏核心"
+			<ComboBox PlaceholderText="{DynamicResource SelectGameCore}"
 					  SelectedItem="{Binding SelectedGameCore}"
 					  Items="{Binding GameCores}" 
 					  VerticalContentAlignment="Center"

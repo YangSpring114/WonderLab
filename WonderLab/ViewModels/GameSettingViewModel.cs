@@ -132,6 +132,12 @@ namespace WonderLab.ViewModels
             }
         }
 
+        public bool IsSearchJavaLoading
+        {
+            get => _IsSearchJavaLoading;
+            set => RaiseAndSetIfChanged(ref _IsSearchJavaLoading, value);
+        }
+
         public int SelectedLang
         {
             get => _SelectedLang;
@@ -150,6 +156,7 @@ namespace WonderLab.ViewModels
         public bool _JavaRemoveVisible = true;
         public bool _IsFullWindow = App.Data.IsFull;
         public bool _IsOlate = App.Data.Isolate;
+        public bool _IsSearchJavaLoading = false;
         public string _CurrentGameFolder = App.Data.SelectedGameFooter;
         public string _CurrentJava = App.Data.JavaPath;
         public string _Jvm = App.Data.Jvm;
@@ -251,6 +258,7 @@ namespace WonderLab.ViewModels
 
         public void FindJavas()
         {
+            IsSearchJavaLoading = true;
             BackgroundWorker worker = new();
             worker.DoWork += (_, _) =>
             {
@@ -287,11 +295,12 @@ namespace WonderLab.ViewModels
                     }
 
                     Javas.AddRange(App.Data.JavaList.Distinct());
+                    IsSearchJavaLoading = false;
                     if (Javas.Count > 0)
                     {
                         JavaRemoveVisible = true;
                         CurrentJava = Javas[0];
-                        MainWindow.ShowInfoBarAsync("成功", "已将搜索到的Java加入至列表", FluentAvalonia.UI.Controls.InfoBarSeverity.Success);
+                        MainWindow.ShowInfoBarAsync("成功", $"已将搜索到的Java加入至列表，总计 {Javas.Count} 个", FluentAvalonia.UI.Controls.InfoBarSeverity.Success);
                         JsonToolkit.JsonWrite();
                     }
                 }

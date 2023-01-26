@@ -123,5 +123,20 @@ namespace WonderLab.Modules.Toolkits
                 Time = response.Time,
             };
         }
+
+        public static string ToUserTypeText(this string raw)
+        {
+            string res = string.Empty;
+            if (raw.Contains("微软")) {
+                res = LanguageToolkit.GetText("MicrosoftAccount");
+            } else if (raw.Contains("离线")) {
+                res = LanguageToolkit.GetText("OfflineAccount");
+            } else if (raw.Contains("第三方")) {
+                res = LanguageToolkit.GetText("YggdrasilAccount");
+            }
+
+            Trace.WriteLine($"[信息] 账户类型为 {res}");
+            return res;
+        }
     }
 }

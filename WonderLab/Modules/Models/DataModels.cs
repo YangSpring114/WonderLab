@@ -26,10 +26,11 @@ namespace WonderLab.Modules.Models
         public string NativesFolderPath { get; set; } = string.Empty;
         public string JavaPath { get; set; } = string.Empty;
         public string Jvm { get; set; } = string.Empty;
+        public string LanguageTag { get; set; } = "zh-cn";
         public bool IsFull { get; set; } = false;
         public bool Isolate { get; set; } = false;
         public List<string> JavaList { get; set; } = new();
-        public List<string> GameFooterList { get; set; } = new();
+        public List<string> GameFooterList { get; set; } = new() { Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".minecraft") };
         public List<UserDataModels> UserList { get; set; } = new();
     }    
 }

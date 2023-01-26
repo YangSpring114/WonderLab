@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WonderLab.Modules.Models;
+using WonderLab.Modules.Toolkits;
 
 namespace WonderLab.Views.Converters
 {
@@ -22,7 +23,11 @@ namespace WonderLab.Views.Converters
 
             try
             {
-                return ((UserDataModels)value).UserType;
+                var res = (((UserDataModels)value).UserType.ToUserTypeText());
+
+                if (!string.IsNullOrEmpty(res)) {
+                    return res;
+                }
             }
             catch { }
 
