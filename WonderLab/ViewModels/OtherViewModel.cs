@@ -5,6 +5,7 @@ using FluentAvalonia.UI.Controls;
 using static WonderLab.MainWindow;
 using PluginLoader;
 using WonderLab.PluginAPI;
+using WonderLab.Modules.Const;
 
 namespace WonderLab.ViewModels
 {
@@ -24,9 +25,9 @@ namespace WonderLab.ViewModels
                     Release? release = GithubLib.GithubLib.GetRepoLatestRelease(releaseUrl);
                     if (release != null)
                     {
-                        if (release.name != GetVersion())
+                        if (release.name != "")
                         {
-                            ShowInfoBarAsync("自动更新", "发现新版本" + release.name + "  当前版本" + GetVersion() + "  ", InfoBarSeverity.Informational, 7000);
+                            ShowInfoBarAsync("自动更新", "发现新版本" + release.name + "  当前版本" + InfoConst.LauncherVersion + "  ", InfoBarSeverity.Informational, 7000);
                         }
                     }
                 });
@@ -53,11 +54,13 @@ namespace WonderLab.ViewModels
             get => _IsCheckVersion;
             set => RaiseAndSetIfChanged(ref _IsCheckVersion, value);
         }
+
+        public string CurrentVersion => $"当前版本号：Alpha {Version}";
     }
 
     partial class OtherViewModel
     {
-        public string _Version = MainWindow.GetVersion(); 
+        public string _Version = InfoConst.LauncherVersion; 
         public string _ButtonContent = "检查更新";
         public bool _IsCheckVersion = false;
     }

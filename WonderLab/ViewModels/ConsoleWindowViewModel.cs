@@ -63,8 +63,6 @@ namespace WonderLab.ViewModels
             
             Trace.WriteLine($"[调试] Outputs的索引为 {LastOutput.Log}");
             await Dispatcher.UIThread.InvokeAsync(() => Box.ScrollToEnd());
-            //await Dispatcher.UIThread.InvokeAsync(() =>
-
         }
 
         public async void ShowLogTypeBar()

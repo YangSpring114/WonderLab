@@ -137,94 +137,96 @@
 					<Setter Property="Template">
 						<Setter.Value>
 							<ControlTemplate TargetType="ListBoxItem">
-								<Grid>
-									<Border Height="{TemplateBinding Height}"
-											Background="{DynamicResource ContentDialogBackground}"
-										BorderBrush="{TemplateBinding BorderBrush}"
-										BorderThickness="{TemplateBinding BorderThickness}"
-										CornerRadius="8">
-										<ContentPresenter
-											Height="{TemplateBinding Height}"
-											HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-											VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-									</Border>
+								<Border BoxShadow="0 8 32 0 #66000000">
+									<Grid>
+										<Border Height="{TemplateBinding Height}"
+												Background="{DynamicResource ContentDialogBackground}"
+											BorderBrush="{TemplateBinding BorderBrush}"
+											BorderThickness="{TemplateBinding BorderThickness}"
+											CornerRadius="8">
+											<ContentPresenter
+												Height="{TemplateBinding Height}"
+												HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+												VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+										</Border>
 
-									<Border Name="BackBorder"
-											HorizontalAlignment="Stretch"
-											VerticalAlignment="Stretch"
-											CornerRadius="8"
-											Height="60">
-										<Border.ContextMenu>
-											<ContextMenu>
-												<MenuItem Header="刷新"/>
-												<MenuItem Header="删除" Icon="Delete"/>
-											</ContextMenu>
-										</Border.ContextMenu>
-									</Border>
+										<Border Name="BackBorder"
+												HorizontalAlignment="Stretch"
+												VerticalAlignment="Stretch"
+												CornerRadius="8"
+												Height="60">
+											<Border.ContextMenu>
+												<ContextMenu>
+													<MenuItem Header="刷新"/>
+													<MenuItem Header="删除" Icon="Delete"/>
+												</ContextMenu>
+											</Border.ContextMenu>
+										</Border>
 
-									<Border Name="OpBorder"
-				                            HorizontalAlignment="Stretch"
-				                            VerticalAlignment="Stretch"
-				                            CornerRadius="8"
-				                            Height="60"
-				                            IsVisible="{TemplateBinding IsVisible}"/>
+										<Border Name="OpBorder"
+												HorizontalAlignment="Stretch"
+												VerticalAlignment="Stretch"
+												CornerRadius="8"
+												Height="60"
+												IsVisible="{TemplateBinding IsVisible}"/>
 
-									<Border PointerEnter="BorderImagePointerEnter"
-	                                     	VerticalAlignment="Top" ClipToBounds="True"
-										    PointerPressed="UserSettingOpenPointerPressed"
-	                                     	PointerLeave="BorderImagePointerLeave" IsVisible="True"
-	                                     	HorizontalAlignment="Stretch" Height="200"
-											Width="200"
-	                                     	CornerRadius="6 6 0 0">
-										<Border.Background>
-											<ImageBrush Stretch="UniformToFill" Source="{Binding Icon,Mode=OneWay}"/>
-										</Border.Background>
-										<ProgressBar IsIndeterminate="True" 
-													 HorizontalAlignment="Center"
-													 VerticalAlignment="Center"
-													 Height="50" Width="50"
-													 Classes="Circle" Margin="0 5 0 0"
-													 IsVisible="{Binding Loading}" IsHitTestVisible="False"/>
-									</Border>
-									
-									<!--{DynamicResource ContentDialogBackground} PointerPressed="UserSettingOpenAction"-->
-									<Border Name="UserInfoBorder"
-										    CornerRadius="0 0 6 6"
-											VerticalAlignment="Bottom"
-											Height="70" HorizontalAlignment="Stretch"
-											Background="{DynamicResource ContentDialogBackground}">
-										<Border.Transitions>
-											<Transitions>
-												<DoubleTransition Property="Height" Duration="0:0:0.45" Easing="ExponentialEaseOut"/>
-											</Transitions>
-										</Border.Transitions>
-										<Panel>
-											<Panel Margin="10 0 10 0" VerticalAlignment="Top" x:Name="UserInfo">
-												<TextBlock Margin="0,15,10,0" Name="UserName" TextTrimming="CharacterEllipsis" FontSize="20" FontFamily="Din" Text="{Binding Name,Mode=OneWay}" FontWeight="Bold"/>
-												<TextBlock Margin="0,38,10,0" TextTrimming="CharacterEllipsis" FontSize="14" Opacity="0.65" FontFamily="Din Pro" Text="{Binding Type,Mode=OneWay}" />
-												<TextBlock Margin="0,56,10,0" TextTrimming="CharacterEllipsis" FontSize="12" Opacity="0.65" FontFamily="Din Pro"/>
-												<!--Text="{Binding AuthState,Mode=OneWay}"-->
+										<Border PointerEnter="BorderImagePointerEnter"
+												VerticalAlignment="Top" ClipToBounds="True"
+												PointerPressed="UserSettingOpenPointerPressed"
+												PointerLeave="BorderImagePointerLeave" IsVisible="True"
+												HorizontalAlignment="Stretch" Height="200"
+												Width="200"
+												CornerRadius="6 6 0 0">
+											<Border.Background>
+												<ImageBrush Stretch="UniformToFill" Source="{Binding Icon,Mode=OneWay}"/>
+											</Border.Background>
+											<ProgressBar IsIndeterminate="True"
+														 HorizontalAlignment="Center"
+														 VerticalAlignment="Center"
+														 Height="50" Width="50"
+														 Classes="Circle" Margin="0 5 0 0"
+														 IsVisible="{Binding Loading}" IsHitTestVisible="False"/>
+										</Border>
+
+										<!--{DynamicResource ContentDialogBackground} PointerPressed="UserSettingOpenAction"-->
+										<Border Name="UserInfoBorder"
+												CornerRadius="0 0 6 6"
+												VerticalAlignment="Bottom"
+												Height="70" HorizontalAlignment="Stretch"
+												Background="{DynamicResource ContentDialogBackground}">
+											<Border.Transitions>
+												<Transitions>
+													<DoubleTransition Property="Height" Duration="0:0:0.45" Easing="ExponentialEaseOut"/>
+												</Transitions>
+											</Border.Transitions>
+											<Panel>
+												<Panel Margin="10 0 10 0" VerticalAlignment="Top" x:Name="UserInfo">
+													<TextBlock Margin="0,15,10,0" Name="UserName" TextTrimming="CharacterEllipsis" FontSize="20" FontFamily="Din" Text="{Binding Name,Mode=OneWay}" FontWeight="Bold"/>
+													<TextBlock Margin="0,38,10,0" TextTrimming="CharacterEllipsis" FontSize="14" Opacity="0.65" FontFamily="Din Pro" Text="{Binding Type,Mode=OneWay}" />
+													<TextBlock Margin="0,56,10,0" TextTrimming="CharacterEllipsis" FontSize="12" Opacity="0.65" FontFamily="Din Pro"/>
+													<!--Text="{Binding AuthState,Mode=OneWay}"-->
+												</Panel>
 											</Panel>
-										</Panel>									
-									</Border>
+										</Border>
 
-									<Button HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 120 15 0" Width="40" Height="40" Classes="accent" CornerRadius="114514">
-										<ui:SymbolIcon FontSize="18" Symbol="Sync"/>
-									</Button>
+										<Button HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 120 15 0" Width="40" Height="40" Classes="accent" CornerRadius="114514">
+											<ui:SymbolIcon FontSize="18" Symbol="Sync"/>
+										</Button>
 
-									<Button Click="DeleteButtonClick" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-										<Button.Styles>
-											<Style Selector="Button">
-												<Setter Property="Margin" Value="0 0 5 5"/>
-												<Setter Property="Template">
-													<ControlTemplate>
-														<ui:SymbolIcon FontSize="25" Foreground="Crimson" Symbol="Delete"/>
-													</ControlTemplate>
-												</Setter>
-											</Style>
-										</Button.Styles>
-									</Button>
-								</Grid>
+										<Button Click="DeleteButtonClick" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+											<Button.Styles>
+												<Style Selector="Button">
+													<Setter Property="Margin" Value="0 0 5 5"/>
+													<Setter Property="Template">
+														<ControlTemplate>
+															<ui:SymbolIcon FontSize="25" Foreground="Crimson" Symbol="Delete"/>
+														</ControlTemplate>
+													</Setter>
+												</Style>
+											</Button.Styles>
+										</Button>
+									</Grid>
+								</Border>
 							</ControlTemplate>
 						</Setter.Value>
 					</Setter>

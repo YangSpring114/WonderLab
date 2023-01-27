@@ -69,7 +69,7 @@
 			
 			<ComboBox PlaceholderText="{DynamicResource SelectGameCore}"
 					  SelectedItem="{Binding SelectedGameCore}"
-					  Items="{Binding GameCores}" 
+					  Items="{Binding GameCores}"
 					  VerticalContentAlignment="Center"
 					  Name="version" HorizontalAlignment="Stretch"
 					  VerticalAlignment="Stretch">
@@ -77,7 +77,10 @@
 					<DataTemplate>
 						<Grid HorizontalAlignment="Left">
 							<Panel> 
-								<Border HorizontalAlignment="Left" VerticalAlignment="Center" CornerRadius="4" Height="35" Width="35" Margin="0,0,10,0">
+								<Border HorizontalAlignment="Left" 
+										VerticalAlignment="Center" 
+										CornerRadius="4" Height="35" Width="35" 
+										Margin="0,0,10,0">
 									<Border.Background>
 										<ImageBrush Source="{Binding HasModLoader,Mode=OneWay,Converter={StaticResource BitmapConverter}}"/>
 									</Border.Background>

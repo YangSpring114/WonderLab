@@ -28,8 +28,7 @@ namespace WonderLab.Modules.Controls
             AvaloniaProperty.Register<TitleBar, ICommand>(nameof(MiniButtonCommand));
 
         public static readonly StyledProperty<object> ContentProperty =
-            ContentControl.ContentProperty.AddOwner<TitleBar>();
-
+            ContentControl.ContentProperty.AddOwner<TitleBar>();        
     }
 
     partial class TitleBar
@@ -80,7 +79,7 @@ namespace WonderLab.Modules.Controls
                         PseudoClasses.Set(":minimized", x == WindowState.Minimized);
                         PseudoClasses.Set(":normal", x == WindowState.Normal);
                         PseudoClasses.Set(":maximized", x == WindowState.Maximized);
-                        PseudoClasses.Set(":fullscreen", x == WindowState.FullScreen);
+                        PseudoClasses.Set(":fullscreen", x == WindowState.Maximized);
                     })
                 };
             }
@@ -99,19 +98,14 @@ namespace WonderLab.Modules.Controls
 
         public virtual void OnClose()
         {
-            if (InfoConst.IsWindows || InfoConst.IsLinux)
-                HostWindow?.Close();
-            else if (InfoConst.IsMacOS)
-                HostWindow?.Hide();
+            HostWindow?.Close();           
         }
 
         public virtual void OnRestore()
         {
             if (HostWindow != null)
             {
-                if (InfoConst.IsWindows || InfoConst.IsLinux)
-                    HostWindow.WindowState = HostWindow.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
-                else if (InfoConst.IsMacOS) HostWindow.WindowState = WindowState.FullScreen;
+                HostWindow.WindowState = HostWindow.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
             }
 
             if (HostWindow.WindowState is WindowState.Maximized)
@@ -121,8 +115,7 @@ namespace WonderLab.Modules.Controls
 
         public virtual void OnMinimize()
         {
-            if (HostWindow != null)
-            {
+            if (HostWindow != null) {            
                 HostWindow.WindowState = WindowState.Minimized;
             }
         }
@@ -174,7 +167,7 @@ namespace WonderLab.Modules.Controls
 
         private void HostWindow_PropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
         {
-            if (e.Property.Name is "WindowState" && InfoConst.IsWindows)
+            if (e.Property.Name is "WindowState")
             {
                 if (((WindowState)e.NewValue) is WindowState.Maximized)
                     _RestoreButtonPath.Data = StreamGeometry.Parse("M2048 410h-410v-410h-1638v1638h410v410h1638v-1638zM1434 1434h-1229v-1229h1229v1229zM1843 1843h-1229v-205h1024v-1024h205v1229z");

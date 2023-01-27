@@ -23,7 +23,7 @@ namespace WonderLab.Modules.Toolkits
             LogToolkit.WriteLine("检查更新步骤1 -获取Json -OK");
             var model = (await res.Content.ReadAsStringAsync()).ToJsonEntity<UpdateInfo>();
             LogToolkit.WriteLine($"Json里的版本为 {model.Version} 启动器实际版本为 {model.Version}");
-            if (MainWindow.GetVersion().Replace("Build ", string.Empty) == model.Version)
+            if ("".Replace("Build ", string.Empty) == model.Version)
                 return new(false,model);
 
             return new(true, model);

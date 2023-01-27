@@ -24,14 +24,32 @@
 					</Grid>
 				</Grid>
 				
-				<Grid IsVisible="{Binding IsWindowsLoadOk}" Name="Close" Margin="0,30,0,0">
+				<Grid IsVisible="{Binding IsWindowsLoadOk}" Name="Close" Margin="0,25,0,0">
 					<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="强制结束游戏："/>
                     <Button Command="{Binding GameKillAction}" Content="强制结束" Name="closegame" HorizontalAlignment="Right"/>
 				</Grid>
 				
-				<Grid Name="gameout" IsVisible="{Binding IsClose}" Margin="0,30,0,0">
+				<Grid Name="gameout" IsVisible="{Binding IsClose}" Margin="0,25,0,0">
 					<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="游戏崩溃："/>
 					<TextBlock Text="{Binding ExitCode}" Name="exitcode" HorizontalAlignment="Right"/>
+				</Grid>
+
+				<Grid IsVisible="False" Margin="0,25,0,0">
+					<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="导致游戏崩溃可能的原因："/>
+					<Button Command="{Binding GameKillAction}" Content="崩溃信息" HorizontalAlignment="Right">
+						<Button.Flyout>
+							<Flyout>
+								<StackPanel Spacing="10">
+									<TextBlock FontFamily="微软雅黑" FontWeight="Bold" Text="详细信息" FontSize="18"/>
+
+									<StackPanel Spacing="5">
+										<TextBlock FontFamily="微软雅黑" Text="原因：玩家手动触发调试崩溃" FontSize="14"/>
+										<TextBlock TextWrapping="WrapWithOverflow" MaxWidth="425" FontFamily="微软雅黑" Text="可能的解决方案：显然您的游戏没有任何问题，这是你自身的问题。" FontSize="14"/>
+									</StackPanel>
+								</StackPanel>
+							</Flyout>
+						</Button.Flyout>
+					</Button>							
 				</Grid>
 			</StackPanel>
 		</cx:OptionsDisplayItem.Content>

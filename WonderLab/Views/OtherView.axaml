@@ -9,7 +9,7 @@
              x:Class="WonderLab.Views.OtherView">
 	<ScrollViewer>
 		<StackPanel>
-			<card:OptionsDisplayItem Expands="True" Margin="10,20,10,0" Header="WonderLab" Description="当前版本号：Release 1.0.1.5">
+			<card:OptionsDisplayItem Expands="True" Margin="10,20,10,0" Header="WonderLab" Description="{Binding CurrentVersion}">
 				<!--<card:OptionsDisplayItem.Icon>
 					<ui:SymbolIcon Symbol="AlignLeftFilled"/>
 				</card:OptionsDisplayItem.Icon>-->
@@ -24,16 +24,24 @@
 					<StackPanel Orientation="Vertical" Spacing="10">
 						<StackPanel Orientation="Horizontal" Spacing="50">
 							<TextBlock Text="构建版本号"/>
-							<TextBlock Text="{Binding Version}"/>
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="Build "/>
+								<TextBlock Text="{Binding Version}"/>
+							</StackPanel>
 						</StackPanel>
 						<StackPanel Orientation="Horizontal" Spacing="50">
 							<TextBlock Text="实际版本号"/>
-							<TextBlock Text="Release 1.0.1.6"/>
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="Alpha "/>
+								<TextBlock Text="{Binding Version}"/>
+							</StackPanel>
 						</StackPanel>
 						<StackPanel Orientation="Horizontal" Spacing="60">
 							<TextBlock Text="版权信息"/>
 							<TextBlock Text="© Blessing Studios(2021-2023) 保留所有权利"/>
 						</StackPanel>
+						
+						<Button  Content="查看此构建版本所更新的内容"/>
 					</StackPanel>
 				</card:OptionsDisplayItem.Content>
 			</card:OptionsDisplayItem>

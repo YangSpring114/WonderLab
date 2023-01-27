@@ -42,8 +42,7 @@ namespace WonderLab
         {
             if (!InfoConst.IsWindows11)
             {
-#pragma warning disable CS8602 // 解引用可能出现空引用。
-                if (AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().RequestedTheme is "Dark")
+                if (AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>()!.RequestedTheme is "Dark")
                 {
                     AcrylicBorder.Material = new ExperimentalAcrylicMaterial()
                     {
@@ -63,7 +62,6 @@ namespace WonderLab
                         MaterialOpacity = 0.65,
                     };
                 }
-#pragma warning restore CS8602 // 解引用可能出现空引用。
             }
         }
 
@@ -131,11 +129,6 @@ namespace WonderLab
 
         private void MainWindow_Closed(object? sender, System.EventArgs e) => JsonToolkit.JsonWrite();
 
-        public static string GetVersion()
-        {
-            return "1.0.1.6";
-        }
-
         public static void AutoUpdata()
         {
             try
@@ -145,7 +138,7 @@ namespace WonderLab
                 Release? release = GithubLib.GithubLib.GetRepoLatestRelease(releaseUrl);
                 if (release != null)
                 {
-                    if (release.name != GetVersion())
+                    if (release.name != "")
                     {
                         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                         {
@@ -154,11 +147,11 @@ namespace WonderLab
                                 Content = "点击下载",
                             };
                             button.Click += Button_Click;
-                            ShowInfoBarAsync("自动更新", "发现新版本" + release.name + "  当前版本" + GetVersion() + "  ", InfoBarSeverity.Informational, 7000, button);
+                            ShowInfoBarAsync("自动更新", "发现新版本" + release.name + "  当前版本" + "" + "  ", InfoBarSeverity.Informational, 7000, button);
                         }
                         else
                         {
-                            ShowInfoBarAsync("自动更新", "发现新版本" + release.name + "  当前版本" + GetVersion() + "  ", InfoBarSeverity.Informational, 7000);
+                            ShowInfoBarAsync("自动更新", "发现新版本" + release.name + "  当前版本" + "" + "  ", InfoBarSeverity.Informational, 7000);
                         }
                     }
 
@@ -296,7 +289,6 @@ namespace WonderLab
                     width = 400;
                 }
             }
-            //AutoUpdata();
         }
 
         private void OnRequestedThemeChanged(FluentAvaloniaTheme sender, RequestedThemeChangedEventArgs args)
@@ -326,24 +318,6 @@ namespace WonderLab
             }
         }
         
-        private void MainWindow_Deactivated(object? sender, EventArgs e)
-        {
-#pragma warning disable CS8602 // 解引用可能出现空引用。
-            AcrylicBorder.Material = new ExperimentalAcrylicMaterial()
-            {
-                BackgroundSource = AcrylicBackgroundSource.Digger,
-                TintColor = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().RequestedTheme is "Dark" ? Colors.Black : Colors.White,
-                TintOpacity = 1,
-                MaterialOpacity = 1,
-            };
-#pragma warning restore CS8602 // 解引用可能出现空引用。
-        }
-
-        private void MainWindow_Activated(object? sender, EventArgs e)
-        {
-            AcrylicColorChange();
-        }
-
         public void CancelButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             VersionDialog.Hide();
@@ -380,6 +354,7 @@ namespace WonderLab
         public void InitializeComponent()
         {
             InitializeComponent(true);
+            CloseFileDialogButton.Click += CloseFileDialogButton_Click;
             Initialized += MainWindow_Initialized;
             TipClose();
             BarHost.Attach(this);
@@ -392,15 +367,27 @@ namespace WonderLab
             ViewModel = new MainWindowViewModel(this);
             DataContext = ViewModel;
             MainPanel.Children.Add(new MainView());
-            //this.Activated += MainWindow_Activated;
-            //Deactivated += MainWindow_Deactivated;
             Closed += MainWindow_Closed;
             d.Click += D_Click;
             DragDrop.SetAllowDrop(this, true);
+
+            if (InfoConst.IsMacOS) {            
+
+            }
+
+            if (InfoConst.IsLinux) {
+                SystemDecorations = SystemDecorations.BorderOnly;
+            }
+
             //this.PointerPressed += MainWindow_PointerPressed;
             int textCount = 0;
             //SetupDnd("Text", d => d.Set(DataFormats.Text,
-            //    $"Text was dragged {++textCount} times"), DragDropEffects.Copy | DragDropEffects.Move | DragDropEffects.Link);
+            //   $"Text was dragged {++textCount} times"), DragDropEffects.Copy | DragDropEffects.Move | DragDropEffects.Link);
+        }
+
+        private void CloseFileDialogButton_Click(object? sender, RoutedEventArgs e)
+        {
+            CloseAnimaction();
         }
 
         private async void MainWindow_Initialized(object? sender, EventArgs e)
@@ -446,9 +433,12 @@ namespace WonderLab
 
             void DragEnter(object? sender, DragEventArgs e)
             {
-                ShowInfoBarAsync("信息", "1数据已进入！");
             }
 
+            void DragLeave(object? sender, DragEventArgs e)
+            {
+                ShowInfoBarAsync("信息", "1数据已离开！");
+            }
 
             void Drop(object? sender, DragEventArgs e)
             {
@@ -461,6 +451,11 @@ namespace WonderLab
                     e.DragEffects = e.DragEffects & (DragDropEffects.Copy);
                 }
 
+                if (e.Data.Contains(DataFormats.FileNames))
+                {
+                    RunAnimaction();
+                }
+
                 if (e.Data.Contains(DataFormats.Text))
                 {
                     Trace.WriteLine(e.Data.GetText().Replace("authlib-injector:yggdrasil-server:", String.Empty).Replace("%2F","/").Replace("%3A",":"));
@@ -471,10 +466,30 @@ namespace WonderLab
                     Trace.WriteLine("Custom: " + e.Data.Get(CustomFormat));
             }
 
-            this.PointerPressed += DoDrag;
+            DropPanel.PointerPressed += DoDrag;
             AddHandler(DragDrop.DropEvent, Drop);
             AddHandler(DragDrop.DragEnterEvent, DragEnter);
+            AddHandler(DragDrop.DragLeaveEvent, DragLeave);
             AddHandler(DragDrop.DragOverEvent, DragOver);
+        }
+
+        async void RunAnimaction()
+        {
+            FileDialog.IsVisible = true;
+            FileDialog.IsHitTestVisible = true;
+            FileDialogSelecter.Height = 140;
+            await Task.Delay(200);
+            FileDialogTip.Opacity = 1;
+        }
+
+        async void CloseAnimaction()
+        {
+            FileDialogTip.Opacity = 0;
+            await Task.Delay(200);
+            FileDialogSelecter.Height = 0;
+            await Task.Delay(250);
+            FileDialog.IsVisible = false;
+            FileDialog.IsHitTestVisible = false;
         }
     }
 
