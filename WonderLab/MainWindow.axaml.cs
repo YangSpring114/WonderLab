@@ -371,15 +371,17 @@ namespace WonderLab
             d.Click += D_Click;
             DragDrop.SetAllowDrop(this, true);
 
-            if (InfoConst.IsMacOS) {            
-
+            if (InfoConst.IsMacOS) {
+                BarHost.IsVisible= false;
+                ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.OSXThickTitleBar;
+                ExtendClientAreaToDecorationsHint = false;
             }
 
             if (InfoConst.IsLinux) {
+                ExtendClientAreaTitleBarHeightHint = 0;
                 SystemDecorations = SystemDecorations.BorderOnly;
             }
 
-            //this.PointerPressed += MainWindow_PointerPressed;
             int textCount = 0;
             //SetupDnd("Text", d => d.Set(DataFormats.Text,
             //   $"Text was dragged {++textCount} times"), DragDropEffects.Copy | DragDropEffects.Move | DragDropEffects.Link);
