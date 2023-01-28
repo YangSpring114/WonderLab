@@ -18,6 +18,9 @@ using MenuFlyout = FluentAvalonia.UI.Controls.MenuFlyout;
 using System.Threading.Tasks;
 using System.Linq;
 using System.ComponentModel;
+using WonderLab.PluginAPI;
+using PluginLoader;
+using MinecraftLaunch.Modules.Toolkits;
 
 namespace WonderLab.Views
 {
@@ -90,6 +93,26 @@ namespace WonderLab.Views
                 });
             } finally {
                 GC.Collect();
+            }
+        }
+        //Fix #31
+        public void DeleteGameCore(object? sender, Avalonia.Interactivity.RoutedEventArgs e2)
+        {
+            var e = new GameDeleteEvent(ViewModel.CurrentGameCore);
+            if (Event.CallEvent(e))
+            {
+                if (!e.IsCanceled)
+                {
+                    MainWindow.ShowInfoBarAsync("成功", $"已将游戏核心 {ViewModel.CurrentGameCore.Id} 删除！", InfoBarSeverity.Success);
+                }
+                else
+                {
+                    MainWindow.ShowInfoBarAsync("提示", $"游戏核心删除被插件取消！", InfoBarSeverity.Informational);
+                }
+            }
+            else
+            {
+                MainWindow.ShowInfoBarAsync("错误", $"在删除游戏核心时发生了错误！", InfoBarSeverity.Error);
             }
         }
 

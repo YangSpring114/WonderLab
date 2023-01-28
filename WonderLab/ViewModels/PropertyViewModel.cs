@@ -6,6 +6,7 @@ using MinecraftLaunch.Modules.Toolkits;
 using Natsurainko.FluentCore.Class.Model.Install;
 using Natsurainko.FluentCore.Class.Model.Launch;
 using Natsurainko.FluentCore.Module.Downloader;
+using PluginLoader;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WonderLab.Modules.Base;
 using WonderLab.Modules.Toolkits;
+using WonderLab.PluginAPI;
 using WonderLab.Views;
 
 namespace WonderLab.ViewModels
@@ -146,13 +148,23 @@ namespace WonderLab.ViewModels
         /// </summary>
         public void DeleteGameCore()
         {
-            GameCoreToolkit gameCoreLocator = new(GamePath);
-            gameCoreLocator.Delete(GameCore.Id);
-            GameView.ViewModel.GameSearchAsync();
-            MainView.mv.FrameView.Navigate(typeof(GameView));
-            MainWindow.ShowInfoBarAsync("成功", $"已将游戏核心 {GameCore.Id} 删除！", FluentAvalonia.UI.Controls.InfoBarSeverity.Success);
+            var e = new GameDeleteEvent(GameCoreToolkit.GetGameCore(GameCore.Root.FullName, GameCore.Id));
+            if (Event.CallEvent(e))
+            {
+                if (!e.IsCanceled)
+                {
+                    MainWindow.ShowInfoBarAsync("成功", $"已将游戏核心 {GameCore.Id} 删除！", FluentAvalonia.UI.Controls.InfoBarSeverity.Success);
+                }
+                else
+                {
+                    MainWindow.ShowInfoBarAsync("提示", $"游戏核心删除被插件取消！", FluentAvalonia.UI.Controls.InfoBarSeverity.Informational);
+                }
+            }
+            else
+            {
+                MainWindow.ShowInfoBarAsync("错误", $"在删除游戏核心时发生了错误！", FluentAvalonia.UI.Controls.InfoBarSeverity.Error);
+            }
         }
-
         public string GetLibraryCount(GameCore id)
         {
             GameCore = id;

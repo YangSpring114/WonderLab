@@ -91,8 +91,8 @@
 															<ui:SymbolIcon Foreground="#55AAFF" Symbol="Rename" />
 														</ui:MenuFlyoutItem.Icon>
 													</ui:MenuFlyoutItem>
-
-													<ui:MenuFlyoutItem FontSize="12" Text="删除该核心">
+													<!--Fix #31-->
+													<ui:MenuFlyoutItem FontSize="12" Click="DeleteGameCore" Text="删除该核心">
 														<ui:MenuFlyoutItem.Icon>
 															<ui:SymbolIcon Foreground="#F44B56" Symbol="Delete" />
 														</ui:MenuFlyoutItem.Icon>
