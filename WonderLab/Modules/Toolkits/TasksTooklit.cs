@@ -102,25 +102,32 @@ namespace WonderLab.Modules.Toolkits
         /// </summary>
         /// <param name="curseForgeModpack"></param>
         /// <param name="control"></param>
-        public static void CreateModDownloadTask(CurseForgeModel curseForgeModpack, Control control)
+        public static void CreateModDownloadTask(CurseForgeModel curseForgeModpack, Control control,string save = "")
         {
             control.IsEnabled = false;
 
+            FileInfo info = null;
+            string filename = curseForgeModpack.CurrentFileInfo.FileName;
             if (string.IsNullOrEmpty(App.Data.FooterPath))
                 return;
 
             var folder = App.CurrentGameCore != null
                 ? PathConst.GetVersionModsFolder(App.Data.FooterPath, App.CurrentGameCore.Id)
                 : Path.Combine(App.Data.FooterPath, "mods");
-            Debug.WriteLine(folder);
+
+            if (!string.IsNullOrEmpty(save)) {
+                info = new FileInfo(save);
+                folder = info.Directory.FullName;
+                filename = info.Name;
+            }
+
             var downloaderProcess = new HttpDownloadRequest
             {
                 Directory = new DirectoryInfo(folder),
-                FileName = curseForgeModpack.CurrentFileInfo.FileName,
+                FileName = filename,
                 Url = curseForgeModpack.CurrentFileInfo.DownloadUrl
             };
 
-            //CacheResources.DownloaderProcesses.Insert(0, downloaderProcessViewData);
             DownItemView downItemView1 = new(downloaderProcess);
             TaskView.Add(downItemView1);
 

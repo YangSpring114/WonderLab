@@ -76,7 +76,7 @@
                         Content="模组"
                         Tag="ModPropertyView" />
 					<ui:NavigationViewItem
-                        Content="资源包" IsVisible="False" 
+                        Content="资源包" Tag="ResourceView"
                         IsEnabled="True" />
 				</ui:NavigationView.MenuItems>
 				<cx:FrameX x:Name="contentFrame" />

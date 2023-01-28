@@ -36,10 +36,10 @@ namespace WonderLab.Modules.Toolkits
             if (CurrentLanguage.TryGetValue(key, out temp)) {
                 return CurrentLanguage[key]?.ToString() ?? "Not Found";
             }
-
+            
             return "Not Found";
         }
-
+        
         public const string LanguageDir = "avares://WonderLab/Resources/Strings/";
         public static ResourceDictionary CurrentLanguage { get; set; } = (ResourceDictionary)AvaloniaXamlLoader.Load(new($"{LanguageDir}{App.Data.LanguageTag}.axaml"));
     }

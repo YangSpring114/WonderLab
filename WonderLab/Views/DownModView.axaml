@@ -162,12 +162,24 @@
                                                                         </DataTemplate>
                                                                     </ComboBox.ItemTemplate>
                                                                 </ComboBox>
-                                                                <Button Classes="accent"
-                                                                    HorizontalAlignment="Stretch"
-                                                                    Content="添加到下载任务"
-                                                                    Foreground="White" Click="InstallClick"
-                                                                    IsEnabled="{Binding DownloadButtonEnable}"
-                                                                    Tag="{Binding CurrentFileInfo, Mode=OneWay}" />
+																<Grid HorizontalAlignment="Stretch">
+																	<Grid.ColumnDefinitions>
+																		<ColumnDefinition Width="1*"/>
+																		<ColumnDefinition Width="0.10*" MinWidth="10" MaxWidth="10"/>
+																		<ColumnDefinition Width="1*" MaxWidth="30"/>
+																	</Grid.ColumnDefinitions>
+																	<Button Classes="accent" HorizontalAlignment="Stretch"                                                            
+	                                                                        Content="添加到下载任务"
+	                                                                        Foreground="White" Click="InstallClick"
+	                                                                        IsEnabled="{Binding DownloadButtonEnable}"
+	                                                                        Tag="{Binding CurrentFileInfo, Mode=OneWay}" />
+
+																	<Button Click="SaveInstallClick" Width="30" Padding="0"
+																			IsEnabled="{Binding DownloadButtonEnable}"
+																			VerticalAlignment="Stretch" Grid.Column="2" HorizontalAlignment="Right">
+																		<ui:SymbolIcon Symbol="SaveLocal"/>
+																	</Button>
+																</Grid>
                                                             </StackPanel>
                                                         </Flyout>
                                                     </Button.Flyout>													

@@ -27,17 +27,31 @@
 						<Setter Property="Template">
 							<Setter.Value>
 								<ControlTemplate TargetType="ListBoxItem">
-									<card:OptionsDisplayItem Icon="Pause" Header="{Binding Id}" Description="{Binding FileName}">
+									<card:OptionsDisplayItem Header="{Binding Id}" Description="{Binding FileName}">
+										<card:OptionsDisplayItem.Icon>
+											<ui:PathIcon Data="M737.148 541.92h-256.85V286.073c0-17.673-14.327-32-32-32h-288.85c-17.673 0-32 14.327-32 32v576.698c0 17.673 14.327 32 32 32h577.7c17.673 0 32-14.327 32-32V573.92c0-17.673-14.327-32-32-32z m-320.85-223.847V541.92h-224.85V318.073h224.85z m-224.85 288.85h224.85v223.848h-224.85V606.923z m513.7 223.848h-224.85V605.92h224.85v224.851z"/>
+										</card:OptionsDisplayItem.Icon>
 										<card:OptionsDisplayItem.ActionButton>
-											<ToggleSwitch Command="{Binding ModStateChange}" MaxWidth="0" MinWidth="55" Margin="0,0,-20,0" HorizontalAlignment="Right" IsChecked="{Binding IsEnabled}" OnContent="" OffContent="" IsTabStop="False"/>
+											<StackPanel Orientation="Horizontal" Spacing="10">
+												<Button Background="Transparent" BorderBrush="Transparent" Name="delete" IsVisible="False"
+														Height="30" Width="30" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="2">
+													<ui:SymbolIcon Symbol="Delete"/>
+												</Button>
+												<ToggleSwitch Command="{Binding ModStateChange}" MaxWidth="0" MinWidth="55" Margin="0,0,-20,0" HorizontalAlignment="Right" IsChecked="{Binding IsEnabled}" OnContent="" OffContent="" IsTabStop="False"/>
+											</StackPanel>
 										</card:OptionsDisplayItem.ActionButton>
 									</card:OptionsDisplayItem>
 								</ControlTemplate>
 							</Setter.Value>
 						</Setter>
 					</Style>
-					<Style Selector="ListBoxItem /template/ ToggleSwitch#check:pointerover">
-						<Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+
+					<Style Selector="ListBoxItem /template/ Button#delete">
+						<Setter Property="IsVisible" Value="False"/>
+					</Style>
+
+					<Style Selector="ListBoxItem:pointerover /template/ Button#delete">
+						<Setter Property="IsVisible" Value="True"/>
 					</Style>
 				</ListBox.Styles>
 			</ListBox>

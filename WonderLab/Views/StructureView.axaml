@@ -1,0 +1,43 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls" Margin="0,80,0,0"
+             x:Class="WonderLab.Views.StructureView">
+	<ScrollViewer>
+		<StackPanel Spacing="10" Margin="10">
+			<ui:InfoBar Title="信息" IsOpen="True"
+						IsClosable="False" x:Name="InfoBar"
+						Message="WonderLab 会记录当前版本的代码改动，并将改动的内容显示到此页面"/>
+
+			<Grid>
+				<Button
+                    Padding="4"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch"
+                    Background="Transparent"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    IsEnabled="False"/>
+				<StackPanel Margin="10 0 10 0">
+					<TextBlock Text="{Binding StructureVersion}" FontFamily="微软雅黑"
+							   FontSize="18" FontWeight="Bold" Margin="10 10 10 0"
+							   Foreground="{Binding ElementName=InfoBar,Source=Foreground}"/>
+
+					<ui:MenuFlyoutSeparator Margin="10 5 10 10"/>
+
+					<TextBlock Foreground="{Binding ElementName=InfoBar,Source=Foreground}" TextTrimming="CharacterEllipsis"
+							   Margin="10 0 10 10" Text="{Binding StructureInfo}" FontFamily="微软雅黑"/>
+
+					<StackPanel Margin="10 0 10 10" Orientation="Horizontal" Spacing="3">
+						<TextBlock FontSize="12" Text="{Binding Publisher}" Opacity="0.7" FontFamily="微软雅黑"/>
+						<TextBlock FontSize="12" Text="{Binding StructureId}" Opacity="0.7" FontFamily="微软雅黑"/>
+					</StackPanel>
+				</StackPanel>
+			</Grid>
+		</StackPanel>
+	</ScrollViewer>
+</UserControl>

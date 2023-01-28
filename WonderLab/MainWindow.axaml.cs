@@ -383,8 +383,8 @@ namespace WonderLab
             }
 
             int textCount = 0;
-            //SetupDnd("Text", d => d.Set(DataFormats.Text,
-            //   $"Text was dragged {++textCount} times"), DragDropEffects.Copy | DragDropEffects.Move | DragDropEffects.Link);
+            SetupDnd("Text", d => d.Set(DataFormats.Text,
+               $"Text was dragged {++textCount} times"), DragDropEffects.Copy | DragDropEffects.Move | DragDropEffects.Link);
         }
 
         private void CloseFileDialogButton_Click(object? sender, RoutedEventArgs e)
@@ -433,15 +433,6 @@ namespace WonderLab
                     e.DragEffects = DragDropEffects.None;
             }
 
-            void DragEnter(object? sender, DragEventArgs e)
-            {
-            }
-
-            void DragLeave(object? sender, DragEventArgs e)
-            {
-                ShowInfoBarAsync("信息", "1数据已离开！");
-            }
-
             void Drop(object? sender, DragEventArgs e)
             {
                 if (e.Source is Control c && c.Name == "MoveTarget")
@@ -455,6 +446,7 @@ namespace WonderLab
 
                 if (e.Data.Contains(DataFormats.FileNames))
                 {
+                    FileNames = e.Data.GetFileNames()!.ToList() ?? new();
                     RunAnimaction();
                 }
 
@@ -470,28 +462,26 @@ namespace WonderLab
 
             DropPanel.PointerPressed += DoDrag;
             AddHandler(DragDrop.DropEvent, Drop);
-            AddHandler(DragDrop.DragEnterEvent, DragEnter);
-            AddHandler(DragDrop.DragLeaveEvent, DragLeave);
             AddHandler(DragDrop.DragOverEvent, DragOver);
         }
 
-        async void RunAnimaction()
+        public async void RunAnimaction()
         {
-            FileDialog.IsVisible = true;
-            FileDialog.IsHitTestVisible = true;
+            FileDialogBackground.Opacity = 1;
+            FileDialogLayout.IsHitTestVisible = true;
             FileDialogSelecter.Height = 140;
-            await Task.Delay(200);
+            await Task.Delay(50);
             FileDialogTip.Opacity = 1;
         }
 
-        async void CloseAnimaction()
+        public async void CloseAnimaction()
         {
             FileDialogTip.Opacity = 0;
-            await Task.Delay(200);
+            FileDialogBackground.Opacity = 0;
+            await Task.Delay(50);
             FileDialogSelecter.Height = 0;
-            await Task.Delay(250);
-            FileDialog.IsVisible = false;
-            FileDialog.IsHitTestVisible = false;
+            await Task.Delay(50);
+            FileDialogLayout.IsHitTestVisible = false;
         }
     }
 
@@ -500,6 +490,7 @@ namespace WonderLab
     {
         public MainWindow() => InitializeComponent();
         public MainWindowViewModel ViewModel { get; protected set; }
+        public List<string> FileNames { get; protected set; }
         private static ObservableCollection<InfoBarModel> InfoBarItems = new();
         private const string CustomFormat = "application/xxx-avalonia-controlcatalog-custom";
         private static ListBox InformationListBox { get; set; }

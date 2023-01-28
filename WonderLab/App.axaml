@@ -44,9 +44,12 @@
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceInclude Source="/Resources/Strings/zh-cn.axaml"/>
+				<ResourceDictionary>
+				</ResourceDictionary>
 			</ResourceDictionary.MergedDictionaries>
 			<!--Font-->
-			<!--<FontFamily x:Key="TestFontFamily">avares://WonderLab/Resources/#butler</FontFamily>-->
+			<FontFamily x:Key="Test">avares://WonderLab/Resources/#HarmonyOS Sans</FontFamily>
+			<FontFamily x:Key="TestFontFamily">avares://WonderLab//Resources/#butler</FontFamily>
 			<FontFamily x:Key="ChineseFontFamily">HarmonyOS Sans , Din Pro</FontFamily>
 			<FontFamily x:Key="ChineseFontFamily1">DINPro-Bold</FontFamily>
 			<FontWeight x:Key="InfoBarTitleFontWeight">SemiBold</FontWeight>

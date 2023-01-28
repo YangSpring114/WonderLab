@@ -67,7 +67,7 @@
 				</ListBox.ItemsPanel>
 				<ListBox.Styles>
 					<Style Selector="ListBoxItem">
-						<Setter Property="Background" Value="Beige"/>
+						<Setter Property="Margin" Value="0,0" />
 						<Setter Property="MinHeight" Value="20"/>
 						<Setter Property="Padding" Value="0"/>
 						<Setter Property="Template">

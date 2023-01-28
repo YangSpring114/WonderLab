@@ -10,7 +10,6 @@
     <ProjectReference Include="..\ControlX\ControlX.csproj" />
     <ProjectReference Include="..\GithubLib\GithubLib.csproj" />
     <ProjectReference Include="..\PluginLoader\PluginLoader.csproj" />
-    <ProjectReference Include="..\Updata\Updata.csproj" />
     <ProjectReference Include="..\WonderLab.Desktop\WonderLab.Desktop.csproj" />
     <ProjectReference Include="..\WonderLab\WonderLabX.csproj" />
   </ItemGroup>

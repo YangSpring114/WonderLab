@@ -29,6 +29,11 @@ namespace WonderLab.Modules.Toolkits
             return new(true, model);
         }
 
+        public static void UpdateDownloadAsync()
+        {
+
+        }
+
         /// <summary>
         /// 获取正版皮肤 Url
         /// </summary>
@@ -46,8 +51,6 @@ namespace WonderLab.Modules.Toolkits
             var url = skinjson.ToJsonEntity<SkinMoreInfo>().Textures.Skin.Url;
             Trace.WriteLine($"[信息] 皮肤的链接如下：{url}");
             return url;
-            //JObject jobject = new(json);
-            //var base64 = (jobject["properties"] as JArray)[0]["value"];
         }
     }
 

@@ -41,7 +41,7 @@
 							<TextBlock Text="© Blessing Studios(2021-2023) 保留所有权利"/>
 						</StackPanel>
 						
-						<Button  Content="查看此构建版本所更新的内容"/>
+						<Button Command="{Binding NavigatedToStructureView}" Content="查看此版本的更新日志"/>
 					</StackPanel>
 				</card:OptionsDisplayItem.Content>
 			</card:OptionsDisplayItem>

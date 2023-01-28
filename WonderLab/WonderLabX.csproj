@@ -109,10 +109,6 @@
 	  <ProjectReference Include="..\ControlX\ControlX.csproj" />
 	  <ProjectReference Include="..\GithubLib\GithubLib.csproj" />
 	  <ProjectReference Include="..\PluginLoader\PluginLoader.csproj" />
-	  <ProjectReference Include="..\Updata\Updata.csproj">
-	    <Private>False</Private>
-	    <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
-	  </ProjectReference>
 	</ItemGroup>	
 	
 	<PropertyGroup>

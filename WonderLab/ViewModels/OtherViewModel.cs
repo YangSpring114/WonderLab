@@ -6,6 +6,7 @@ using static WonderLab.MainWindow;
 using PluginLoader;
 using WonderLab.PluginAPI;
 using WonderLab.Modules.Const;
+using WonderLab.Modules.Controls;
 
 namespace WonderLab.ViewModels
 {
@@ -33,6 +34,11 @@ namespace WonderLab.ViewModels
                 });
             }
             catch { }
+        }
+
+        public void NavigatedToStructureView()
+        {
+            Page.NavigatedToStructureView();
         }
     }
 
