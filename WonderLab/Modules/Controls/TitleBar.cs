@@ -4,8 +4,11 @@ using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Shapes;
 using Avalonia.Media;
+using FluentAvalonia.UI.Controls;
 using System;
+using System.Diagnostics;
 using System.Reactive.Disposables;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using WonderLab.Modules.Const;
 using Button = Avalonia.Controls.Button;
@@ -25,8 +28,7 @@ namespace WonderLab.Modules.Controls
             AvaloniaProperty.Register<TitleBar, ICommand>(nameof(MiniButtonCommand));
 
         public static readonly StyledProperty<object> ContentProperty =
-            ContentControl.ContentProperty.AddOwner<TitleBar>();
-
+            ContentControl.ContentProperty.AddOwner<TitleBar>();        
     }
 
     partial class TitleBar
@@ -77,7 +79,7 @@ namespace WonderLab.Modules.Controls
                         PseudoClasses.Set(":minimized", x == WindowState.Minimized);
                         PseudoClasses.Set(":normal", x == WindowState.Normal);
                         PseudoClasses.Set(":maximized", x == WindowState.Maximized);
-                        PseudoClasses.Set(":fullscreen", x == WindowState.FullScreen);
+                        PseudoClasses.Set(":fullscreen", x == WindowState.Maximized);
                     })
                 };
             }
@@ -96,19 +98,14 @@ namespace WonderLab.Modules.Controls
 
         public virtual void OnClose()
         {
-            if (InfoConst.IsWindows || InfoConst.IsLinux)
-                HostWindow?.Close();
-            else if (InfoConst.IsMacOS)
-                HostWindow?.Hide();
+            HostWindow?.Close();           
         }
 
         public virtual void OnRestore()
         {
             if (HostWindow != null)
             {
-                if (InfoConst.IsWindows || InfoConst.IsLinux)
-                    HostWindow.WindowState = HostWindow.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
-                else if (InfoConst.IsMacOS) HostWindow.WindowState = WindowState.FullScreen;
+                HostWindow.WindowState = HostWindow.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
             }
 
             if (HostWindow.WindowState is WindowState.Maximized)
@@ -118,8 +115,7 @@ namespace WonderLab.Modules.Controls
 
         public virtual void OnMinimize()
         {
-            if (HostWindow != null)
-            {
+            if (HostWindow != null) {            
                 HostWindow.WindowState = WindowState.Minimized;
             }
         }
@@ -128,23 +124,50 @@ namespace WonderLab.Modules.Controls
         {
             base.OnApplyTemplate(e);
 
+            BugHelp = e.NameScope.Get<MenuFlyoutItem>("BugHelp");
+            GitHelp = e.NameScope.Get<MenuFlyoutItem>("GitHelp");
+            helpbutton = e.NameScope.Get<Button>("Help");
             closebutton = e.NameScope.Get<Button>("Close");
             maxbutton = e.NameScope.Get<Button>("Max");
             minibutton = e.NameScope.Get<Button>("Mini");
-            if (InfoConst.IsWindows)
+            if (InfoConst.IsWindows || InfoConst.IsLinux)
                 _RestoreButtonPath = e.NameScope.Get<Path>("RestoreButtonPath");
             closebutton.Click += Closebutton_Click;
             minibutton.Click += Minibutton_Click;
-            maxbutton.Click += Maxbutton_Click;
+            maxbutton.Click += Maxbutton_Click;            
             HostWindow.PropertyChanged += HostWindow_PropertyChanged;
+            BugHelp.Click += BugHelp_Click;
+            GitHelp.Click += GitHelp_Click;
             //closebutton.PointerPressed += (_, _) => OnClose();
             //minibutton.PointerPressed += (_, _) => OnMinimize();
             //maxbutton.PointerPressed += (_, _) => OnRestore();
         }
 
+        private async void GitHelp_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            await Task.Run(() => {
+                using var res = Process.Start(new ProcessStartInfo("https://github.com/Blessing-Studio")
+                {
+                    UseShellExecute = true,
+                    Verb = "open"
+                });
+            });
+        }
+
+        private async void BugHelp_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            await Task.Run(() => {
+                using var res = Process.Start(new ProcessStartInfo("https://github.com/Blessing-Studio/WonderLab/issues")
+                {
+                    UseShellExecute = true,
+                    Verb = "open"
+                });
+            });
+        }
+
         private void HostWindow_PropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
         {
-            if (e.Property.Name is "WindowState" && InfoConst.IsWindows)
+            if (e.Property.Name is "WindowState")
             {
                 if (((WindowState)e.NewValue) is WindowState.Maximized)
                     _RestoreButtonPath.Data = StreamGeometry.Parse("M2048 410h-410v-410h-1638v1638h410v410h1638v-1638zM1434 1434h-1229v-1229h1229v1229zM1843 1843h-1229v-205h1024v-1024h205v1229z");
@@ -170,8 +193,10 @@ namespace WonderLab.Modules.Controls
 
     partial class TitleBar
     {
-        
+        private MenuFlyoutItem BugHelp;
+        private MenuFlyoutItem GitHelp;
         private Button closebutton;
+        private Button helpbutton;
         private Button maxbutton;
         private Button minibutton;
         private Path _RestoreButtonPath;

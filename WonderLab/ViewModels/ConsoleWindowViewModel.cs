@@ -45,11 +45,13 @@ namespace WonderLab.ViewModels
             Process = process;
             Box = box;
             Process.ProcessOutput += Process_ProcessOutput;
-            outputs.ForEach(x =>
-            {
-                var output = GameLogAnalyzer.AnalyseAsync(x);
-                Outputs.Add(output.ToOutput());
-            });
+            if (outputs is not null && outputs.Count > 0) {
+                outputs.ForEach(x =>
+                {
+                    var output = GameLogAnalyzer.AnalyseAsync(x);
+                    Outputs.Add(output.ToOutput());
+                });
+            }
 
             LastOutput = Outputs.Last();
         }
@@ -61,8 +63,6 @@ namespace WonderLab.ViewModels
             
             Trace.WriteLine($"[调试] Outputs的索引为 {LastOutput.Log}");
             await Dispatcher.UIThread.InvokeAsync(() => Box.ScrollToEnd());
-            //await Dispatcher.UIThread.InvokeAsync(() =>
-
         }
 
         public async void ShowLogTypeBar()

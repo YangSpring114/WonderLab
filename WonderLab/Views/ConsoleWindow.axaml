@@ -56,7 +56,7 @@
 
 		<!--Center-->
 		<ScrollViewer x:Name="ss" Margin="10 45 0 50">
-			<ListBox x:Name="LogList" Padding="0"
+			<ListBox x:Name="LogList" Padding="0" AutoScrollToSelectedItem="True"
 					 Items="{Binding Outputs}" SelectedItem="{Binding LastOutput}"
 					 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
 					 ScrollViewer.VerticalScrollBarVisibility="Disabled">

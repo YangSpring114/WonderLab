@@ -14,6 +14,8 @@ namespace WonderLab.Modules.Const
 
         public const string ClientId = "9fd44410-8ed7-4eb3-a160-9f1cc62c824c";
 
+        public const string LauncherVersion = "1.0.1.7";
+
         public static bool IsMacOS => RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
 
         public static bool IsWindows11 => (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && Environment.OSVersion.Version.Build >= 22000);

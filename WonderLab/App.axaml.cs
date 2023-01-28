@@ -77,6 +77,18 @@ namespace WonderLab
                         await fileStream.WriteAsync(bytes, 0, num);
 
                     fileStream.Flush();
+                    fileStream.Close();
+
+                    if (InfoConst.IsLinux)
+                    {
+                        var info = new ProcessStartInfo($"chmod 777 {PathConst.DownloaderPath}")
+                        {
+                            FileName = "/bin/bash",
+                            RedirectStandardOutput = true
+                        };
+
+                        using var process = Process.Start(info);
+                    }
                 }
 
                 if (Data is not null)
@@ -90,12 +102,11 @@ namespace WonderLab
                         Data.GameFooterList = Data.GameFooterList.Distinct().ToList();
 
                     //GameCore
-                    if (!string.IsNullOrEmpty(Data.FooterPath) && !string.IsNullOrEmpty(Data.SelectedGameCore))
-                    {
-                        foreach (var i in GameCoreToolkit.GetGameCores(Data.FooterPath))
-                        {
-                            if (Data.SelectedGameCore.Equals(i.Id))
+                    if (!string.IsNullOrEmpty(Data.FooterPath) && !string.IsNullOrEmpty(Data.SelectedGameCore)) {                    
+                        foreach (var i in GameCoreToolkit.GetGameCores(Data.FooterPath)) {
+                            if (Data.SelectedGameCore.Equals(i.Id)) {
                                 break;
+                            }
                         }
                     }
                     else Data.SelectedGameCore = string.Empty;

@@ -12,7 +12,7 @@
 		Background="Transparent"
 		TransparencyLevelHint="AcrylicBlur"
 		ExtendClientAreaToDecorationsHint="True"
-		ExtendClientAreaChromeHints="NoChrome"
+		ExtendClientAreaChromeHints="NoChrome"	
 		MinWidth="500"
 		MinHeight="300" DragDrop.AllowDrop="True"
 		Icon="resm:WonderLab.Resources.Icon.ico"
@@ -29,10 +29,11 @@
 					</ExperimentalAcrylicBorder.Material>
 				</ExperimentalAcrylicBorder>
 			</Panel>
-			<!--C:\Users\w\Desktop\总整包\素材库\图片素材\杂项\20.png-->
+
 			<!--<Image Opacity="0.22" Stretch="UniformToFill" Source="C:\Users\w\Desktop\xcmy.jpg"/>-->
+			<Panel x:Name="DropPanel"/>
+			
 			<Panel Name="MainPanel"/>
-			<!--x:Name="InformationList"-->
 
 			<ui:ContentDialog Classes="WinUiPro" IsVisible="False"
 							  Name="dialog" CloseButtonText="了解" Title="{Binding Title}">
@@ -92,16 +93,44 @@
 			</ui:ContentDialog>
 		</Panel>
 
-		<Grid IsVisible="False" IsHitTestVisible="False" Background="{DynamicResource ContentDialogSmokeFill}">
-			<StackPanel Margin="0 0 0 20" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="10">
-				<ui:SymbolIcon Symbol="CommentAdd" FontSize="80"/>
+		<Grid x:Name="FileDialog" IsVisible="False" IsHitTestVisible="False" Background="{DynamicResource ContentDialogSmokeFill}">
+			<Grid.RowDefinitions>
+				<!--<RowDefinition Height="30"/>-->
+				<RowDefinition Height="1*"/>
+				<RowDefinition Height="0.10*" MaxHeight="10"/>
+				<RowDefinition Height="1*"/>
+			</Grid.RowDefinitions>
+			<StackPanel x:Name="FileDialogTip" VerticalAlignment="Bottom" Opacity="0" HorizontalAlignment="Center" Spacing="10">
+				<StackPanel.Transitions>
+					<Transitions>
+						<DoubleTransition Duration="0:0:0.3" Property="Opacity" Easing="CircularEaseInOut"/>
+					</Transitions>
+				</StackPanel.Transitions>
+				<ui:SymbolIcon Foreground="White" Symbol="CommentAdd" FontSize="100"/>
 				<TextBlock FontFamily="微软雅黑" Text="检测到文件已拖入"
-						   FontSize="26" FontWeight="Bold"/>
+						   FontSize="30" FontWeight="Bold" Foreground="White"/>
 			</StackPanel>
 
-			<Grid VerticalAlignment="Bottom" Height="110" Background="{DynamicResource ControlFillColorDefaultBrush}">
+			<Border BoxShadow="0 8 32 0 #66000000"
+					x:Name="FileDialogSelecter" Grid.Row="2" Height="0"
+					VerticalAlignment="Bottom" Background="{DynamicResource ContentDialogBackground}">
+				<Border.Transitions>
+					<Transitions>
+						<DoubleTransition Duration="0:0:0.3" Property="Height" Easing="CircularEaseOut"/>
+					</Transitions>
+				</Border.Transitions>
 
-			</Grid>
+				<StackPanel VerticalAlignment="Center" Spacing="10" HorizontalAlignment="Center">
+					<TextBlock HorizontalAlignment="Center" Text="请选择您要安装的文件类型"/>
+					<StackPanel Spacing="10" Orientation="Horizontal">
+						<Button Content="材质包"/>
+						<Button Content="光影包"/>
+						<Button Content="模组包"/>
+						<Button Content="地图"/>
+					</StackPanel>
+					<Button HorizontalAlignment="Center" Content="取消安装" x:Name="CloseFileDialogButton" Background="Red" Foreground="White"/>
+				</StackPanel>
+			</Border>
 		</Grid>
 
 		<ListBox ScrollViewer.VerticalScrollBarVisibility="Hidden"

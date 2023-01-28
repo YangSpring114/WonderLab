@@ -78,7 +78,7 @@
 							<Grid Margin="0,15,0,0">
 								<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="自动选择 Java 运行时："/>
 								<Grid HorizontalAlignment="Right" Width="550">
-									<ToggleSwitch IsEnabled="False" MaxWidth="0" MinWidth="75" HorizontalAlignment="Right" OnContent="开" OffContent="关" IsTabStop="False"/>
+									<ToggleSwitch IsChecked="{Binding AutoSelectJava}" IsEnabled="True" MaxWidth="0" MinWidth="75" HorizontalAlignment="Right" OnContent="开" OffContent="关" IsTabStop="False"/>
 								</Grid>
 							</Grid>
 						</StackPanel>

@@ -19,6 +19,8 @@ body:
         required: true
       - label: 查看 [Releases](https://github.com/Blessing-Studio/WonderLab/releases) 中最新版是否已修复你所遇到的问题
         required: true
+      - label: 查看 [Actions](https://github.com/Blessing-Studio/WonderLab/Actions) 中最新Dev版是否已修复你所遇到的问题
+        required: true
 
   - type: textarea
     id: issue-description
@@ -60,6 +62,7 @@ body:
       description: |
         选择你正在使用的操作系统
       options:
+        - '全平台'
         - Windows
         - Linux
         - Mac
@@ -75,7 +78,7 @@ body:
       description: |
         **"最新版" 不是版本号，请填写一个确切的版本号！**
       #如果你不太确定，可以截图 "" 的输出内容并截图，记得截全。
-      placeholder: '1.0.1.0'
+      placeholder: '1.0.1.x'
 
   - type: textarea
     id: other-plugin

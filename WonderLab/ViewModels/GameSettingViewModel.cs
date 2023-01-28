@@ -138,6 +138,12 @@ namespace WonderLab.ViewModels
             set => RaiseAndSetIfChanged(ref _IsSearchJavaLoading, value);
         }
 
+        public bool AutoSelectJava
+        {
+            get => _AutoSelectJava;
+            set { RaiseAndSetIfChanged(ref _AutoSelectJava, value); App.Data.AutoSelectJava = value; }
+        }
+
         public int SelectedLang
         {
             get => _SelectedLang;
@@ -153,6 +159,7 @@ namespace WonderLab.ViewModels
     {
         public string _MaxMemory = App.Data.Max.ToString();
         public bool _GameRemoveVisible = true;
+        public bool _AutoSelectJava = App.Data.AutoSelectJava;
         public bool _JavaRemoveVisible = true;
         public bool _IsFullWindow = App.Data.IsFull;
         public bool _IsOlate = App.Data.Isolate;
@@ -330,6 +337,7 @@ namespace WonderLab.ViewModels
         {
             App.Data.GameFooterList.Remove(App.Data.SelectedGameFooter);
             GameFolders.Remove(CurrentGameFolder);
+            GameView.ViewModel.FodlerList.Remove(CurrentGameFolder);
             CurrentGameFolder = App.Data.GameFooterList.Any() ? App.Data.GameFooterList[0] : null!;
             GameRemoveVisible = CurrentGameFolder is null ? false : true;
             //App.Data.GameFooterList.Remove(App.Data.SelectedGameFooter);

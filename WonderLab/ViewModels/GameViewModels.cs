@@ -233,8 +233,7 @@ namespace WonderLab.ViewModels
         {
             var e = new GameLaunchAsyncEvent(core);
             Event.CallEvent(e);
-            if (e.IsCanceled)
-            {
+            if (e.IsCanceled) {            
                 MainWindow.ShowInfoBarAsync("提示：", $"游戏启动任务被取消", InfoBarSeverity.Informational);
             }
         }

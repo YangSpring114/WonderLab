@@ -29,6 +29,7 @@ namespace WonderLab.Modules.Models
         public string LanguageTag { get; set; } = "zh-cn";
         public bool IsFull { get; set; } = false;
         public bool Isolate { get; set; } = false;
+        public bool AutoSelectJava { get; set; } = true;
         public List<string> JavaList { get; set; } = new();
         public List<string> GameFooterList { get; set; } = new() { Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".minecraft") };
         public List<UserDataModels> UserList { get; set; } = new();

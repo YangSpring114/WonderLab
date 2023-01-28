@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Microsoft.CodeAnalysis;
 using MinecraftLaunch.Launch;
+using MinecraftLaunch.Modules.Analyzers;
 using MinecraftLaunch.Modules.Enum;
 using MinecraftLaunch.Modules.Installer;
 using MinecraftLaunch.Modules.Interface;
@@ -22,6 +23,7 @@ using WonderLab.Modules.Const;
 using WonderLab.Modules.Enum;
 using WonderLab.Modules.Toolkits;
 using WonderLab.Views;
+using JavaToolkit = MinecraftLaunch.Modules.Toolkits.JavaToolkit;
 
 namespace WonderLab.ViewModels
 {
@@ -53,8 +55,10 @@ namespace WonderLab.ViewModels
         /// </summary>
         public void GameKillAction()
         {
-            if (!GameProcess.HasExited)
+            if (!GameProcess.HasExited) {           
                 GameProcess.Kill();
+                IsTaskKill = true;
+            }
         }
 
         /// <summary>
@@ -88,11 +92,13 @@ namespace WonderLab.ViewModels
                     //setting.JvmConfig.AdvancedArguments = new List<string>() { viewModel.Account.AIJvm };
                 }
 
-                setting.JvmConfig = new(App.Data.JavaPath)
+                setting.JvmConfig = new(JavaPath)
                 {
                     MaxMemory = App.Data.Max,
                     AdvancedArguments = new List<string>() { App.Data.Jvm },
                 };
+
+                Trace.WriteLine($"[信息] 使用的 Java 路径为 {setting.JvmConfig.JavaPath}");
 
                 setting.GameWindowConfig = new()
                 {
@@ -104,7 +110,7 @@ namespace WonderLab.ViewModels
                 if (IndependencyCoreData is not null && IndependencyCoreData.IsEnableIndependencyCore)
                 {
                     IsEnableIndependencyCore = IndependencyCoreData.Isolate;
-                    setting.JvmConfig = new(App.Data.JavaPath)
+                    setting.JvmConfig = new(JavaPath)
                     {
                         MaxMemory = App.Data.Max,
                         AdvancedArguments = new List<string>() { IndependencyCoreData.Jvm },
@@ -132,20 +138,19 @@ namespace WonderLab.ViewModels
                     res.ProcessOutput += ProcessOutputAction;
                     GameProcess = res.Process;
                     State = "游戏运行中";
+                    TimerMargin = new(0, 25, 0, 0);
                     IsCanGoToConsole = true;
                     IsLaunchOk = true;
+                    GameRunTimer = new(1000);
+                    GameRunTimer.Start();
+                    GameRunTimer.Elapsed += GameRunTimerElapsed;
                     await Task.Run(GameProcess.WaitForInputIdle);
-                    TimerMargin = new(0, 25, 0, 0);
                     IsWindowsLoadOk = true;
                 }
                 else if (res.State is LaunchState.Failed)
                 {
                     LaunchFailedAction(LaunchFailedType.LaunchFailed, res.Exception);
                 }
-
-                GameRunTimer = new(1000);
-                GameRunTimer.Start();
-                GameRunTimer.Elapsed += GameRunTimerElapsed;
             };
             worker.RunWorkerAsync();
         }
@@ -207,9 +212,14 @@ namespace WonderLab.ViewModels
             IsClose = true;
             IsWindowsLoadOk = false;
             ExitCode = $"退出码为 {e.ExitCode}";
-            if (e.Crashed)
+            if (e.Crashed && (IsTaskKill is false && (ConsoleWindow is not null && ConsoleWindow.IsKill is false)))
             {
+                GameCrashAnalyzer analyzer = new(Outputs);
+                var res = analyzer.AnalyseAsync();
 
+                foreach (var i in res ?? new()) {                
+                    Trace.WriteLine($"[信息] 导致崩溃的可能的原因 {i.Key}");
+                }
             }
         }
 
@@ -227,18 +237,21 @@ namespace WonderLab.ViewModels
         /// </summary>
         public void CreateOutputWindowAction()
         {
-            ConsoleWindow window = new();
-            window.ShowAsync(Outputs ?? new(), GameCore, LaunchResponse);
+            ConsoleWindow = new();
+            ConsoleWindow.ShowAsync(Outputs ?? new(), GameCore, LaunchResponse);
         }
     }
 
     partial class LaunchItemViewModel
     {
-        public LaunchItemViewModel(GameCore core,Account account)
+        ConsoleWindow ConsoleWindow;
+        public LaunchItemViewModel(GameCore core,Account account,string javapath)
         {
             GameCore = core;
             Account = account;
+            JavaPath = javapath;
         }
+        public string JavaPath = string.Empty;
         public Timer GameRunTimer = null;
         public DateTime LaunchTime;
         public GameCore GameCore = null;
@@ -251,6 +264,7 @@ namespace WonderLab.ViewModels
         private string _Title = string.Empty;
         private string _ExitCode = string.Empty;
         private bool _IsLaunchOk = false;
+        private bool IsTaskKill = false;
         private bool _IsClose = false;
         private bool _IsWindowsLoadOk = false;
         private bool _IsCanGoToConsole = false;

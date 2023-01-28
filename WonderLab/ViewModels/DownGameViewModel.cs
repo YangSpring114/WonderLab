@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using WonderLab.Modules.Base;
 using WonderLab.Modules.Controls;
 using WonderLab.Modules.Enum;
+using WonderLab.Modules.Toolkits;
 using WonderLab.PluginAPI;
 using WonderLab.Views;
 
@@ -262,7 +263,7 @@ namespace WonderLab.ViewModels
 
             if (DownloadCoreType is not "未选择额外安装组件" && DownloadCoreType is not "未选择任何版本")
             {
-                if (string.IsNullOrEmpty(App.Data.JavaPath))
+                if (string.IsNullOrEmpty(App.Data.JavaPath) && !ModLoaders.Where(x=> x.Data.LoaderType is not ModLoaderType.Fabric).Any())
                 {
                     MainWindow.ShowInfoBarAsync("错误", "未选择 Java 运行时，无法安装", InfoBarSeverity.Error);
                     return;
@@ -277,10 +278,8 @@ namespace WonderLab.ViewModels
                 var e = new ModLoadersDownloadEvent(ModLoaders);
                 Event.CallEvent(e);
                 if (e.IsCanceled)
-                {
-                    MainWindow.ShowInfoBarAsync("提示：", $"Mod加载器下载任务被取消", InfoBarSeverity.Informational);
-                }
-                isinstall = true;
+                    MainWindow.ShowInfoBarAsync("提示：", $"Mod加载器下载任务被取消", InfoBarSeverity.Informational);                                    
+                    isinstall = true;
             }
 
             var button = new HyperlinkButton()
@@ -300,10 +299,10 @@ namespace WonderLab.ViewModels
                 }
                 else
                 {
-                    MainWindow.ShowInfoBarAsync("提示", $"开始安装游戏核心：{DownloadCore}，可前往任务中心查看进度", InfoBarSeverity.Informational, 5000, button);
-
+                    MainWindow.ShowInfoBarAsync("提示", $"开始安装游戏核心 \"{DownloadCore}\" ，转到 祝福终端>任务中心 查看进度", InfoBarSeverity.Informational, button: button);
                 }
             }
+            else MainWindow.ShowInfoBarAsync("提示", $"开始安装游戏核心 \"{ModLoaders.ToGameCoreTitle()}\" ，转到 祝福终端>任务中心 查看进度", InfoBarSeverity.Informational, button: button);
             Page.NavigatedToDownView();
         }
         public async void Change()

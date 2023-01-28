@@ -31,8 +31,7 @@ namespace WonderLab.Views
 
         private void AppTitleBar_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
         {
-            if (MainWindow.win.WindowState is not WindowState.FullScreen)
-                MainWindow.win.BeginMoveDrag(e);
+            MainWindow.win.BeginMoveDrag(e);
         }
 
         private void InitializeComponent()

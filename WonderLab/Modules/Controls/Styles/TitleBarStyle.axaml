@@ -1,5 +1,6 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:ui="using:FluentAvalonia.UI.Controls"
 		xmlns:ws="using:WonderLab.Modules.Controls">
     <Design.PreviewWith>
         <Border Padding="20">
@@ -72,14 +73,26 @@
 		<Setter Property="Template">
 			<ControlTemplate>
 				<StackPanel Orientation="Horizontal">
-					<Button x:Name="Mini" Height="30" Command="{TemplateBinding MiniButtonCommand}" Classes="Transparent">
+					<Button x:Name="Help" Height="30" Classes="Transparent" ToolTip.Tip="帮助">
+						<Viewbox Width="21" Margin="2">
+							<ui:SymbolIcon FontSize="35" Symbol="Help" Foreground="{TemplateBinding Foreground}"/>
+						</Viewbox>
+						<Button.Flyout>
+							<ui:MenuFlyout Placement="BottomEdgeAlignedLeft">
+								<ui:MenuFlyoutItem x:Name="BugHelp" Text="Bug 反馈"/>
+								<ui:MenuFlyoutItem x:Name="GitHelp" Text="GitHub"/>
+							</ui:MenuFlyout>
+						</Button.Flyout>
+					</Button>
+					<Button x:Name="Mini" Height="30" Command="{TemplateBinding MiniButtonCommand}" 
+							ToolTip.Tip="最小化" Classes="Transparent">
 						<Viewbox Width="11" Margin="2">
 							<Path Stretch="UniformToFill"
 								  Fill="{TemplateBinding Foreground}"
 								  Data="M2048 1229v-205h-2048v205h2048z" />
 						</Viewbox>
 					</Button>
-					<Button Height="30" x:Name="Max" Classes="Transparent">
+					<Button Height="30" x:Name="Max" Classes="Transparent" ToolTip.Tip="最大化">
 						<Viewbox Width="11" Margin="2">
 							<Viewbox.RenderTransform>
 								<RotateTransform Angle="-90" />
@@ -90,7 +103,7 @@
 								  Data="M2048 2048v-2048h-2048v2048h2048zM1843 1843h-1638v-1638h1638v1638z"/>
 						</Viewbox>
 					</Button>
-					<Button Height="30" x:Name="Close" Classes="CloseButton">
+					<Button Height="30" x:Name="Close" Classes="CloseButton" ToolTip.Tip="关闭 WonderLab">
 						<Viewbox Width="11" Margin="2">
 							<Path Stretch="UniformToFill"
 								  Fill="{TemplateBinding Foreground}"
