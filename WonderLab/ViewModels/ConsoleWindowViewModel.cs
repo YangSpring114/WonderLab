@@ -52,8 +52,9 @@ namespace WonderLab.ViewModels
                     Outputs.Add(output.ToOutput());
                 });
             }
-
-            LastOutput = Outputs.Last();
+            if(Outputs != null && Outputs.Count != 0){
+                LastOutput = Outputs.Last();
+            }
         }
 
         private async void Process_ProcessOutput(object? sender, MinecraftLaunch.Modules.Interface.IProcessOutput e)
