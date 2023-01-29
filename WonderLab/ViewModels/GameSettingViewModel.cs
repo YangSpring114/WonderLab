@@ -284,6 +284,9 @@ namespace WonderLab.ViewModels
                         
                         foreach (var j in res)
                             App.Data.JavaList.Add(j.JavaPath);
+                        //Fix #36
+                        var tmp = App.Data.JavaList.Distinct();
+                        App.Data.JavaList = new List<string>(tmp);
                     }
                     else if (InfoConst.IsLinux)
                     {
