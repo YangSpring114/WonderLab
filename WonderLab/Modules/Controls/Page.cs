@@ -103,7 +103,6 @@ namespace WonderLab.Modules.Controls
         #region SettingsView
         public static void NavigatedToGameSettingView()
         {
-            //MainView.mv.FrameView.Navigate(typeof(SettingView));
             foreach (NavigationViewItem i in SettingView.sv.RootNavigationView.MenuItems)
             {
                 i.IsSelected = false;
@@ -115,6 +114,11 @@ namespace WonderLab.Modules.Controls
             }
             GameSettingView gsv = new();
             SettingView.sv.FrameView.Navigate(gsv.GetType());
+        }
+
+        public static void NavigatedToStructureView()
+        {
+            MainView.mv.FrameView.Navigate(typeof(StructureView));
         }
         #endregion
     }

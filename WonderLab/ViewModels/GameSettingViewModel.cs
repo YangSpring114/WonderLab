@@ -103,7 +103,9 @@ namespace WonderLab.ViewModels
             {
                 if (RaiseAndSetIfChanged(ref _MaxMemory, value))
                 {
-                    App.Data.Max = int.Parse(value);
+                    if(!string.IsNullOrEmpty(value)) {
+                        App.Data.Max = int.Parse(value);
+                    }
                 }
             }
         }
@@ -302,9 +304,11 @@ namespace WonderLab.ViewModels
                     }
 
                     Javas.AddRange(App.Data.JavaList.Distinct());
+                    Javas = Javas.Distinct().BuildObservableCollection();
                     IsSearchJavaLoading = false;
                     if (Javas.Count > 0)
                     {
+                        CurrentJava = string.Empty;
                         JavaRemoveVisible = true;
                         CurrentJava = Javas[0];
                         MainWindow.ShowInfoBarAsync("成功", $"已将搜索到的Java加入至列表，总计 {Javas.Count} 个", FluentAvalonia.UI.Controls.InfoBarSeverity.Success);

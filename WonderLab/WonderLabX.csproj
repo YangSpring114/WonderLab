@@ -15,19 +15,8 @@
 		<UseAppHost>true</UseAppHost>
 	</PropertyGroup>
   <ItemGroup>
+	<AvaloniaResources Include="Resources\**"/>
     <None Remove=".gitignore" />
-    <None Remove="Resources\fabric.png" />
-    <None Remove="Resources\forge.png" />
-    <None Remove="Resources\HarmonyOS_Sans_Black.ttf" />
-    <None Remove="Resources\HarmonyOS_Sans_Bold.ttf" />
-    <None Remove="Resources\HarmonyOS_Sans_Light.ttf" />
-    <None Remove="Resources\Icon.ico" />
-    <None Remove="Resources\ModData.json" />
-    <None Remove="Resources\normal.png" />
-    <None Remove="Resources\sdf.png" />
-    <None Remove="Resources\WonderLab.Desktop-Linux" />
-    <None Remove="Resources\WonderLab.Desktop-Mac" />
-    <None Remove="Resources\WonderLab.Desktop.exe" />
     <None Remove="半圆.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -49,7 +38,7 @@
 	If you will publish your application in self-contained mode with p:PublishTrimmed=true and it will use Fluent theme Default theme will be trimmed from the output and vice versa.
 	https://github.com/AvaloniaUI/Avalonia/issues/5593 -->
     <TrimmableAssembly Include="Avalonia.Themes.Fluent" />
-    <TrimmableAssembly Include="Avalonia.Themes.Default" />
+    <!--<TrimmableAssembly Include="Avalonia.Themes.Default" />-->
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.10.18" />
@@ -109,10 +98,6 @@
 	  <ProjectReference Include="..\ControlX\ControlX.csproj" />
 	  <ProjectReference Include="..\GithubLib\GithubLib.csproj" />
 	  <ProjectReference Include="..\PluginLoader\PluginLoader.csproj" />
-	  <ProjectReference Include="..\Updata\Updata.csproj">
-	    <Private>False</Private>
-	    <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
-	  </ProjectReference>
 	</ItemGroup>	
 	
 	<PropertyGroup>

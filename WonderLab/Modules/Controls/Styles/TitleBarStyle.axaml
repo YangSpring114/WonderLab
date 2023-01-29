@@ -75,7 +75,7 @@
 				<StackPanel Orientation="Horizontal">
 					<Button x:Name="Help" Height="30" Classes="Transparent" ToolTip.Tip="帮助">
 						<Viewbox Width="21" Margin="2">
-							<ui:SymbolIcon FontSize="35" Symbol="Help" Foreground="{TemplateBinding Foreground}"/>
+							<ui:SymbolIcon FontSize="35" Symbol="CommentMultiple" Foreground="{TemplateBinding Foreground}"/>
 						</Viewbox>
 						<Button.Flyout>
 							<ui:MenuFlyout Placement="BottomEdgeAlignedLeft">

@@ -176,19 +176,18 @@ namespace WonderLab.ViewModels
             //}
         }
 
-        public void ChangeGameCoreName()
+        public void ChangeGameCoreName(GameCore core)
         {
-            var oldname = CurrentGameCore.Id;
             var game = new GameCoreToolkit(App.Data.FooterPath);
             if ("".Equals(NewGameCoreName))
             {
                 MainWindow.ShowInfoBarAsync("错误", $"游戏核心名不能为空值！", InfoBarSeverity.Error);
                 return;
             }
-            var res = game.GameCoreNameChange(oldname, NewGameCoreName);
+            var res = game.GameCoreNameChange(core.Id, NewGameCoreName);
             if (NewGameCoreName.Equals(res.Id))
             {
-                MainWindow.ShowInfoBarAsync("成功", $"游戏核心 {oldname} 的名字已更改为 {NewGameCoreName}", InfoBarSeverity.Success);
+                MainWindow.ShowInfoBarAsync("成功", $"游戏核心 {core.Id} 的名字已更改为 {NewGameCoreName}", InfoBarSeverity.Success);
                 GameSearchAsync();
                 NewGameCoreName = string.Empty;
             }

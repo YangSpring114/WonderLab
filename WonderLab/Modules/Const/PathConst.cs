@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using WonderLab.Modules.Toolkits;
 
 namespace WonderLab.Modules.Const
 {
@@ -38,5 +39,64 @@ namespace WonderLab.Modules.Const
         public static string GetAssetIndexFolder(string root) => $"{root}{X}assets{X}indexes";
 
         public static string GetLogConfigsFolder(string root) => $"{GetAssetsFolder(root)}{X}log_configs";
+
+        public static string GetModsFolder(string root,string id) {
+            var IndependencyCoreData = JsonToolkit.GetEnableIndependencyCoreData(App.Data.FooterPath, id);
+
+            if (IndependencyCoreData is not null && IndependencyCoreData.IsEnableIndependencyCore && IndependencyCoreData.Isolate) {
+                return Path.Combine(root, "versions", id, "mods");
+            }
+
+            if (App.Data.Isolate) {            
+                return Path.Combine(root, "versions", id, "mods");
+            }
+
+            return Path.Combine(root,"mods");
+        }
+
+        public static string GetResourcePacksFolder(string root,string id) {
+            var IndependencyCoreData = JsonToolkit.GetEnableIndependencyCoreData(App.Data.FooterPath, id);
+
+            if (IndependencyCoreData is not null && IndependencyCoreData.IsEnableIndependencyCore && IndependencyCoreData.Isolate) {
+                return Path.Combine(root, "versions", id, "resourcepacks");
+            }
+
+            if (App.Data.Isolate) {
+                return Path.Combine(root, "versions", id, "resourcepacks");
+            }
+
+            return Path.Combine(root, "resourcepacks");
+        }
+
+        public static string GetShaderPacksFolder(string root,string id) {
+            var IndependencyCoreData = JsonToolkit.GetEnableIndependencyCoreData(App.Data.FooterPath, id);
+
+            if (IndependencyCoreData is not null && IndependencyCoreData.IsEnableIndependencyCore && IndependencyCoreData.Isolate) {
+                return Path.Combine(root, "versions", id, "shaderpacks");
+            }
+
+            if (App.Data.Isolate) {           
+                return Path.Combine(root, "versions", id, "shaderpacks");
+            }
+
+            return Path.Combine(root, "shaderpacks");
+        }
+
+        public static string GetOptions(string root, string id)
+        {
+            var IndependencyCoreData = JsonToolkit.GetEnableIndependencyCoreData(App.Data.FooterPath, id);
+
+            if (IndependencyCoreData is not null && IndependencyCoreData.IsEnableIndependencyCore && IndependencyCoreData.Isolate)
+            {
+                return Path.Combine(root, "versions", id, "options.txt");
+            }
+
+            if (App.Data.Isolate)
+            {
+                return Path.Combine(root, "versions", id, "options.txt");
+            }
+
+            return Path.Combine(root, "options.txt");
+        }
     }
 }

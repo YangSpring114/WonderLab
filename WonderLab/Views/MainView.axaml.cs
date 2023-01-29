@@ -53,7 +53,7 @@ namespace WonderLab.Views
         private void RootNavigationView_PaneOpened(NavigationView sender, EventArgs args) =>
             UpdateAppTitleMargin();
 
-        private async void FrameView_Navigated(object sender, FluentAvalonia.UI.Navigation.NavigationEventArgs e)
+        private void FrameView_Navigated(object sender, FluentAvalonia.UI.Navigation.NavigationEventArgs e)
         {            
             try {
                 foreach (NavigationViewItem item in RootMenuItems) {                

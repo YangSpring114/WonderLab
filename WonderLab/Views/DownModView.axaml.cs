@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using MinecraftLaunch.Modules.Toolkits;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 using WonderLab.Modules.Controls;
 using WonderLab.Modules.Models;
 using WonderLab.Modules.Toolkits;
@@ -42,6 +43,24 @@ namespace WonderLab.Views
             //{
             //    MainWindow.ShowInfoBarAsync("Debug - 警告：", "选择的游戏核心未安装模组加载器", FluentAvalonia.UI.Controls.InfoBarSeverity.Warning);
             //}
+        }
+
+        public async void SaveInstallClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            var mod = ((CurseForgeModel)((Button)sender!).DataContext!);
+            SaveFileDialog dialog = new();
+            dialog.Title = "请选择要保存的位置";
+            dialog.Filters = new() { new() { Name = "模组文件", Extensions = new() { "jar" } } };
+            dialog.InitialFileName = mod.CurrentFileInfo.FileName;
+
+            if (!string.IsNullOrEmpty(mod.ChineseName) && Regex.IsMatch(mod.ChineseName, @"[\u4e00-\u9fa5]")) {
+                dialog.InitialFileName = $"[{mod.ChineseName.Split("(").FirstOrDefault().Trim()}] {mod.CurrentFileInfo.FileName}";
+            }
+            var res = await dialog.ShowAsync(MainWindow.win);
+
+            if (!string.IsNullOrEmpty(res)) {
+                TasksTooklit.CreateModDownloadTask(mod, (sender as Control)!, res);
+            }
         }
 
         private void CancelButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e) {        

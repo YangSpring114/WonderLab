@@ -40,7 +40,7 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        Padding="12"
+                        Padding="{TemplateBinding Padding}"
                         CornerRadius="{TemplateBinding CornerRadius}">
                         <Grid ColumnDefinitions="Auto,*,Auto,Auto" RowDefinitions="Auto,Auto,Auto">
                             <Viewbox Name="IconHost"
@@ -93,7 +93,7 @@
                                       BorderBrush="{TemplateBinding BorderBrush}"
                                       BorderThickness="1 0 1 1"
                                       Grid.ColumnSpan="4"
-                                      Padding="12"/>
+                                      Padding="{TemplateBinding Padding}"/>
                 </StackPanel>
 
             </ControlTemplate>

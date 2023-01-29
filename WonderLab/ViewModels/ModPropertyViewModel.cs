@@ -44,7 +44,7 @@ namespace WonderLab.ViewModels
             List<ModDataModel> temp = new();
             ModPacks = null;
             var orgin = (await Toolkit.LoadAllAsync()).ToList();
-            foreach (var mod in orgin)
+            foreach (var mod in orgin.AsParallel())
                 temp.Add(new(mod));
 
             await Dispatcher.UIThread.InvokeAsync(() =>
@@ -59,34 +59,9 @@ namespace WonderLab.ViewModels
 
     partial class ModPropertyViewModel
     {
-        public ModPropertyViewModel()
-        {
-            var res = JsonToolkit.GetEnableIndependencyCoreData(App.Data.FooterPath, SelectedGameCore.ToNatsurainkoGameCore());
-            bool isolate = App.Data.Isolate;
-            if (res != null && res.IsEnableIndependencyCore)
-            {
-                isolate = res.Isolate;
-                if (res.Isolate)
-                {
-                    Isolate = false;
-                }
-            }
-            else
-            {
-                Isolate = App.Data.Isolate ? false : true;
-            }
-
-            Toolkit = new(SelectedGameCore, false, isolate, App.Data.FooterPath);
-            ModDataModel.SetToolkit(Toolkit);
-            LoadModList();
-        }
-    }
-
-    partial class ModPropertyViewModel
-    {
         public static GameCore SelectedGameCore { get; set; }
         public List<ModDataModel> _ModPacks;
-        public bool _HasMod = true;
+        public bool _HasMod = false;
         public bool _Isolate = false;
         public ModPackToolkit Toolkit;
     }

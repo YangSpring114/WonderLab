@@ -60,14 +60,9 @@
 					 Items="{Binding Outputs}" SelectedItem="{Binding LastOutput}"
 					 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
 					 ScrollViewer.VerticalScrollBarVisibility="Disabled">
-				<ListBox.ItemsPanel>
-					<ItemsPanelTemplate>
-						<StackPanel Spacing="0"/>
-					</ItemsPanelTemplate>
-				</ListBox.ItemsPanel>
 				<ListBox.Styles>
 					<Style Selector="ListBoxItem">
-						<Setter Property="Background" Value="Beige"/>
+						<Setter Property="Margin" Value="0,0" />
 						<Setter Property="MinHeight" Value="20"/>
 						<Setter Property="Padding" Value="0"/>
 						<Setter Property="Template">
@@ -82,35 +77,35 @@
 									<Grid HorizontalAlignment="Left">
 										<Border Height="{Binding ElementName=Log,Path=Height,Converter={StaticResource HeightConverter}}" Background="{Binding LogLevel,Converter={StaticResource LogBrushConverter}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="4"/>
 									</Grid>
-									<WrapPanel Orientation="Horizontal" Margin="10 0 0 0" VerticalAlignment="Stretch" HorizontalAlignment="Left">
+									<DockPanel Margin="10 0 0 0" VerticalAlignment="Stretch" HorizontalAlignment="Left">
 										<TextBlock Text="[" IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"
-		                                           TextAlignment="Left"
+		                                           TextAlignment="Left" HorizontalAlignment="Left" DockPanel.Dock="Left"
 		                                           Name="Log" TextWrapping="Wrap"
 		                                           FontFamily="Din Pro"/>
 
-										<TextBlock Text="{Binding Time}" Foreground="{DynamicResource SystemAccentColorLight1}"
+										<TextBlock Text="{Binding Time}" Foreground="{DynamicResource SystemAccentColorLight1}" HorizontalAlignment="Left" DockPanel.Dock="Left"
 												   TextWrapping="Wrap" TextAlignment="Left" IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"
 												   FontFamily="Din Pro"/>
 
 										<TextBlock Text="] " IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"
-		                                           TextAlignment="Left" TextWrapping="Wrap"
+		                                           TextAlignment="Left" TextWrapping="Wrap" HorizontalAlignment="Left" DockPanel.Dock="Left"
 		                                           FontFamily="Din Pro"/>
 
 										<TextBlock Text="[" IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"
 		                                           TextAlignment="Left"
-		                                           TextWrapping="Wrap"
+		                                           TextWrapping="Wrap" HorizontalAlignment="Left" DockPanel.Dock="Left"
 		                                           FontFamily="Din Pro"/>
 
 										<TextBlock Text="{Binding Source}" Foreground="{DynamicResource SystemAccentColorDark1}"
 		                                           TextWrapping="Wrap" TextAlignment="Left" IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"
-		                                           FontFamily="Din Pro"/>
+											   FontFamily="Din Pro" HorizontalAlignment="Left" DockPanel.Dock="Left"/>
 
 										<TextBlock Text="/" TextWrapping="Wrap" 
 												   TextAlignment="Left" 
-												   FontFamily="Din Pro" 
+												   FontFamily="Din Pro"  HorizontalAlignment="Left" DockPanel.Dock="Left"
 												   IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"/>
 
-										<TextBlock Text="{Binding LogType}"
+										<TextBlock Text="{Binding LogType}" HorizontalAlignment="Left" DockPanel.Dock="Left"
 												   IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"
 												   Foreground="{DynamicResource SystemAccentColorLight3}"
 												   TextWrapping="Wrap" TextAlignment="Left"
@@ -118,15 +113,19 @@
 
 										<TextBlock Text="] " IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"
 		                                           TextAlignment="Left" TextWrapping="Wrap"
-		                                           FontFamily="Din Pro"/>
+		                                           FontFamily="Din Pro" HorizontalAlignment="Left" DockPanel.Dock="Left"/>
 
-										<TextBlock Text="{Binding Log}"
+										<TextBlock Text="{Binding Log}" HorizontalAlignment="Left" DockPanel.Dock="Right"
 		                                           TextAlignment="Left" TextWrapping="WrapWithOverflow"
 		                                           FontFamily="Din Pro"/>
-									</WrapPanel>
+									</DockPanel>
 								</Grid>
 							</ControlTemplate>
 						</Setter>
+					</Style>
+
+					<Style Selector="ListBoxItem /template/ Grid#Layout">
+						<Setter Property="Background" Value="Transparent" />
 					</Style>
 
 					<Style Selector="ListBoxItem:pointerover /template/ Grid#Layout">
@@ -149,7 +148,7 @@
 		<!--Botton-->
 		<Border Height="50" VerticalAlignment="Bottom" Background="{DynamicResource ControlFillColorDefaultBrush}"/>
 		<CheckBox x:Name="IsTopmost" HorizontalAlignment="Left" Margin="10 0 -15 10" VerticalAlignment="Bottom" Content="窗口置顶"/>
-		<CheckBox x:Name="IsAuto" HorizontalAlignment="Left" Margin="110 0 -15 10" VerticalAlignment="Bottom" Content="拖动锁定"/>
+		<CheckBox IsVisible="False" x:Name="IsAuto" HorizontalAlignment="Left" Margin="110 0 -15 10" VerticalAlignment="Bottom" Content="拖动锁定"/>
 		<Button x:Name="CloseButton" Command="{Binding KillGame}" Content="结束游戏" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 10" Classes="accent"/>
 		<!--<Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 100 10" Command="{Binding DebugAction}" Classes="accent" Content="DeBug"/>-->
 	</Grid>

@@ -20,6 +20,7 @@ using System.Linq;
 using System.ComponentModel;
 using WonderLab.PluginAPI;
 using PluginLoader;
+using Avalonia.Media;
 using MinecraftLaunch.Modules.Toolkits;
 
 namespace WonderLab.Views
@@ -44,7 +45,7 @@ namespace WonderLab.Views
         }
 
         public override void OnNavigatedTo()
-        {
+        {             
             BackgroundWorker worker = new();
             worker.DoWork += (_, _) =>
             {
@@ -73,10 +74,12 @@ namespace WonderLab.Views
 
         private async void ButtonClick2(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            if (ViewModel.CurrentGameCore is not null)
-                await ChangeNameDialog.ShowAsync();
-            else
-                MainWindow.ShowInfoBarAsync("提示：","未选择任何游戏核心！", InfoBarSeverity.Error);
+            Temp = (((MenuFlyoutItem)sender!).DataContext as GameCore);
+        }
+
+        private async void ButtonClick4(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            GameCoreToolkit.Delete((((MenuFlyoutItem)sender!).DataContext as GameCore).Root.FullName, (((MenuFlyoutItem)sender!).DataContext as GameCore).Id);
         }
 
         private async void ButtonClick3(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -125,8 +128,11 @@ namespace WonderLab.Views
 
         private void ChangeGameCoreNameClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            ViewModel.ChangeGameCoreName();
+            ViewModel.ChangeGameCoreName(Temp);
             ChangeNameDialog.Hide();
         }
+
+        GameCore Temp = null;
     }
 }
+//(((MenuFlyoutItem)sender!).DataContext as GameCore)

@@ -126,6 +126,7 @@
 												<ColumnDefinition Width="Auto" />
 											</Grid.ColumnDefinitions>
 										</Grid>
+
 										<Border HorizontalAlignment="Left" Height="35" Width="35" Margin="20,10" CornerRadius="5">
 											<Border.Background>
 												<ImageBrush Source="{Binding HasModLoader,Mode=OneWay,Converter={StaticResource BitmapConverter}}"/>
@@ -134,7 +135,7 @@
 										<Panel Margin="65,0,0,0" Grid.Column="1">
 											<TextBlock TextTrimming="CharacterEllipsis" Margin="0,15,10,0" FontSize="15" FontFamily="Din" Text="{Binding Id,Mode=OneWay}" />
 											<TextBlock Margin="0,34,10,0" TextTrimming="CharacterEllipsis" FontSize="12" Opacity="0.65" FontFamily="Din Pro" Text="{Binding Type,Mode=OneWay}" />
-										</Panel>
+										</Panel>																			
 									</Grid>
 								</Grid>
 							</ControlTemplate>
