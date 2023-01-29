@@ -139,6 +139,7 @@ namespace WonderLab.ViewModels
                         string ag = $"-javaagent:{p}={x.YggdrasilServerUrl}";
                         Debug.WriteLine(ag);
                         var str = x.YggdrasilServerUrl.Replace("/api/yggdrasil", string.Empty);
+                        DeviceTips = "";
                         var user = new UserDataModels()
                         {
                             UserAccessToken = x.AccessToken,
@@ -163,6 +164,7 @@ namespace WonderLab.ViewModels
             {
                 OfflineAuthenticator offlineAuthenticator = new(TextBoxText);
                 var v = await offlineAuthenticator.AuthAsync();
+                DeviceTips = "";
                 var user = new UserDataModels()
                 {
                     UserAccessToken = v.AccessToken,

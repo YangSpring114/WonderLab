@@ -131,36 +131,44 @@ namespace WonderLab
 
         public static void AutoUpdata()
         {
-            try
+
+            if (!InfoConst.IsDevelopVersion)
             {
-                Event.CallEvent(new UpdataCheckEvent());
-                string releaseUrl = GithubLib.GithubLib.GetRepoLatestReleaseUrl("Blessing-Studio", "WonderLab");
-                Release? release = GithubLib.GithubLib.GetRepoLatestRelease(releaseUrl);
-                if (release != null)
+                try
                 {
-                    if (release.name != "")
+                    Event.CallEvent(new UpdataCheckEvent());
+                    string releaseUrl = GithubLib.GithubLib.GetRepoLatestReleaseUrl("Blessing-Studio", "WonderLab");
+                    Release? release = GithubLib.GithubLib.GetRepoLatestRelease(releaseUrl);
+                    if (release != null)
                     {
-                        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                        if (release.name != "")
                         {
-                            var button = new HyperlinkButton()
+                            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                             {
-                                Content = "点击下载",
-                            };
-                            button.Click += Button_Click;
-                            ShowInfoBarAsync("自动更新", "发现新版本" + release.name + "  当前版本" + "" + "  ", InfoBarSeverity.Informational, 7000, button);
+                                var button = new HyperlinkButton()
+                                {
+                                    Content = "点击下载",
+                                };
+                                button.Click += Button_Click;
+                                ShowInfoBarAsync("自动更新", "发现新版本" + release.name + "  当前版本" + "" + "  ", InfoBarSeverity.Informational, 7000, button);
+                            }
+                            else
+                            {
+                                ShowInfoBarAsync("自动更新", "发现新版本" + release.name + "  当前版本" + "" + "  ", InfoBarSeverity.Informational, 7000);
+                            }
                         }
-                        else
-                        {
-                            ShowInfoBarAsync("自动更新", "发现新版本" + release.name + "  当前版本" + "" + "  ", InfoBarSeverity.Informational, 7000);
-                        }
+
                     }
-
                 }
-            }
-            finally
-            {
+                finally
+                {
 
-            };
+                };
+            }
+            else
+            {
+                ShowInfoBarAsync("提示", "当前版本为Dev版本 自动更新已关闭", InfoBarSeverity.Informational);
+            }
         }
 
         public static void Button_Click(object? sender, RoutedEventArgs e)
@@ -289,6 +297,7 @@ namespace WonderLab
                     width = 400;
                 }
             }
+            AutoUpdata();
         }
 
         private void OnRequestedThemeChanged(FluentAvaloniaTheme sender, RequestedThemeChangedEventArgs args)

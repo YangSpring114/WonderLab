@@ -13,26 +13,33 @@ namespace WonderLab.ViewModels
     {
         public async Task Check()
         {
-            Event.CallEvent(new UpdataCheckEvent());
-            try
+            if (!InfoConst.IsDevelopVersion)
             {
-                await Task.Run(async () =>
+                Event.CallEvent(new UpdataCheckEvent());
+                try
                 {
-                    IsCheckVersion = true;
-                    await Task.Delay(2000);
-                    IsCheckVersion = false;
-                    string releaseUrl = GithubLib.GithubLib.GetRepoLatestReleaseUrl("Blessing-Studio", "WonderLab");
-                    Release? release = GithubLib.GithubLib.GetRepoLatestRelease(releaseUrl);
-                    if (release != null)
+                    await Task.Run(async () =>
                     {
-                        if (release.name != "")
+                        IsCheckVersion = true;
+                        await Task.Delay(2000);
+                        IsCheckVersion = false;
+                        string releaseUrl = GithubLib.GithubLib.GetRepoLatestReleaseUrl("Blessing-Studio", "WonderLab");
+                        Release? release = GithubLib.GithubLib.GetRepoLatestRelease(releaseUrl);
+                        if (release != null)
                         {
-                            ShowInfoBarAsync("自动更新", "发现新版本" + release.name + "  当前版本" + InfoConst.LauncherVersion + "  ", InfoBarSeverity.Informational, 7000);
+                            if (release.name != "")
+                            {
+                                ShowInfoBarAsync("自动更新", "发现新版本" + release.name + "  当前版本" + InfoConst.LauncherVersion + "  ", InfoBarSeverity.Informational);
+                            }
                         }
-                    }
-                });
+                    });
+                }
+                catch { }
             }
-            catch { }
+            else
+            {
+                ShowInfoBarAsync("提示", "当前版本为Dev版本 自动更新已关闭", InfoBarSeverity.Informational);
+            }
         }
     }
 
