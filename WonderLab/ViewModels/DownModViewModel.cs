@@ -75,11 +75,13 @@ namespace WonderLab.ViewModels
             var searchFilter = res is null ? SearchFilter : res.CurseForgeId;
             var mods = await curseForgeModpackFinder.SearchModpackAsync(searchFilter, this.ToModLoaderType(), SelectVersionFilter, SelectCategoriesFilter.Value.Value);
             Dispatcher.UIThread.Post(() => ModList = mods.Select(x => new CurseForgeModel(x)).ToList());
+
             Dispatcher.UIThread.Post(() =>
             {
                 IsModsLoadOK = true;
                 IsLoaded = false;
             });
+
             await Task.Delay(1000);
             Dispatcher.UIThread.Post(async () => await Task.Run(() => ModList.ForEach(x => x.IsLoadOK = true)));            
         }

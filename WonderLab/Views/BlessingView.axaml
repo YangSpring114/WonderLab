@@ -16,8 +16,8 @@
 			Name="RootNavigationView"
 			IsSettingsVisible="False">
 			<ui:NavigationView.MenuItems>
-				<ui:NavigationViewItem Name="home" Tag="NewsView" SelectsOnInvoked="True" Icon="Message" Content="新闻"/>
 				<ui:NavigationViewItem Name="down" Tag="DownView" Icon="Download" Content="下载"/>
+				<ui:NavigationViewItem Name="home" Tag="NewsView" SelectsOnInvoked="True" Icon="Message" Content="新闻"/>
 				<ui:NavigationViewItem Name="tasks" Tag="TaskView" Content="任务中心">
 					<ui:NavigationViewItem.Icon>
 						<ui:IconSourceElement IconSource="{StaticResource LaunchSettingIcon}" />

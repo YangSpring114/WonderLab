@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -147,6 +148,12 @@ namespace WonderLab.PluginAPI
         public string GetCorrectOfGameJava(IEnumerable<JavaInfo> Javas, GameCore gameCore)
         {
             string javaInfo = null;
+
+            if (Javas is null || gameCore is null)
+            {
+                return App.Data.JavaPath;
+            }
+            
             foreach (JavaInfo Java in Javas)
             {
                 if (Java.JavaSlugVersion == gameCore.JavaVersion && Java.JavaDirectoryPath.ToLower().Contains("jdk")

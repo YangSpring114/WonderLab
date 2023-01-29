@@ -14,34 +14,33 @@ namespace WonderLab.Modules.Toolkits
 {
     public static class JavaToolkit
     {
-        [SupportedOSPlatform("windows")]
-        public static JavaInfo? GetJavaInfo(string javaDirectorypath)
+        public static JavaInfo GetJavaInfo(string javapath)
         {
-            int? num = null;
-            string text = null;
-            string text2 = "java version \"\\s*(?<version>\\S+)\\s*\"";
-            ProcessStartInfo startInfo = new ProcessStartInfo
+            FileInfo fileInfo = new FileInfo(javapath);
+            try
             {
-                Arguments = "-version",
-                FileName = Path.Combine(javaDirectorypath, "java.exe"),
-                UseShellExecute = false,
-                CreateNoWindow = true,
-                RedirectStandardError = true,
-                RedirectStandardOutput = true
-            };
-            using Process process = new Process
-            {
-                StartInfo = startInfo
-            };
-            process.Start();
-            process.WaitForExit(8000);
-            StreamReader standardError = process.StandardError;
-            bool is64Bit = false;
-            while (standardError.Peek() != -1)
-            {
-                string? text3 = standardError.ReadLine();
-                if (text3 != null)
+                int? num = null;
+                string text = null;
+                string text2 = "java version \"\\s*(?<version>\\S+)\\s*\"";
+                using Process process = new Process
                 {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        Arguments = "-version",
+                        FileName = fileInfo.FullName,
+                        UseShellExecute = false,
+                        CreateNoWindow = true,
+                        RedirectStandardError = true,
+                        RedirectStandardOutput = true
+                    }
+                };
+                process.Start();
+                process.WaitForExit(8000);
+                StreamReader standardError = process.StandardError;
+                bool is64Bit = false;
+                while (standardError.Peek() != -1)
+                {
+                    string text3 = standardError.ReadLine();
                     if (text3.Contains("java version"))
                     {
                         text = new Regex(text2).Match(text3).Groups["version"].Value;
@@ -56,25 +55,26 @@ namespace WonderLab.Modules.Toolkits
                         is64Bit = true;
                     }
                 }
+
+                string[] array = text.Split(".");
+                if (array.Length != 0)
+                {
+                    num = ((int.Parse(array[0]) == 1) ? new int?(int.Parse(array[1])) : new int?(int.Parse(array[0])));
+                }
+
+                return new JavaInfo
+                {
+                    Is64Bit = is64Bit,
+                    JavaDirectoryPath = fileInfo.Directory!.FullName,
+                    JavaSlugVersion = Convert.ToInt32(num),
+                    JavaVersion = text,
+                    JavaPath = fileInfo.FullName
+                };
             }
-            if (text == null)
+            catch (Exception)
             {
                 return null;
             }
-            string[] array = text.Split(".");
-            if (array.Length != 0)
-            {
-                num = int.Parse(array[0]) == 1 ? new int?(int.Parse(array[1])) : new int?(int.Parse(array[0]));
-            }
-
-            return new JavaInfo
-            {
-                Is64Bit = is64Bit,
-                JavaDirectoryPath = javaDirectorypath.EndsWith('\\') ? javaDirectorypath : javaDirectorypath + "\\",
-                JavaSlugVersion = Convert.ToInt32(num),
-                JavaVersion = text,
-                JavaPath = Path.Combine(javaDirectorypath, "javaw.exe")
-            };
         }
 
         [SupportedOSPlatform("windows")]

@@ -44,16 +44,16 @@ namespace WonderLab.ViewModels
             ShowLogTypeBar();
             Process = process;
             Box = box;
-            Process.ProcessOutput += Process_ProcessOutput;
-            if (outputs is not null && outputs.Count > 0) {
-                outputs.ForEach(x =>
+            if (outputs is not null && outputs.Count > 1) {
+                outputs.AsParallel().ToList().ForEach(x =>
                 {
                     var output = GameLogAnalyzer.AnalyseAsync(x);
                     Outputs.Add(output.ToOutput());
                 });
-            }
 
-            LastOutput = Outputs.Last();
+                LastOutput = Outputs.Last();
+            }
+            Process.ProcessOutput += Process_ProcessOutput;
         }
 
         private async void Process_ProcessOutput(object? sender, MinecraftLaunch.Modules.Interface.IProcessOutput e)

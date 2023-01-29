@@ -114,7 +114,7 @@ namespace WonderLab.Views
         {
             if (((NavigationViewItem)e.InvokedItemContainer).Tag.ToString() == "BlessingView")
             {
-                NavigatedToNewsView();
+                NavigatedToDownView();
                 return;
             }
 
