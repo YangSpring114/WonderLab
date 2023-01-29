@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PluginLoader
 {
-    [PluginHandle("EmptyPlugin","一个用于标识的插件类","0", "{3406A8A8-D4DB-4E32-9DEC-2ED5349A75C4}")]
+    [PluginHandler("EmptyPlugin","一个用于标识的插件类","0", "{3406A8A8-D4DB-4E32-9DEC-2ED5349A75C4}")]
     public class EmptyPlugin : Plugin
     {
         public string? Flag { get; set; }
@@ -15,12 +15,12 @@ namespace PluginLoader
             this.Flag = Flag;
         }
 
-        public override void onPluginLoad()
+        public void OnPluginLoad()
         {
 
         }
 
-        public override void onPluginUnLoad()
+        public void OnPluginUnLoad()
         {
 
         }

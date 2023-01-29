@@ -5,24 +5,37 @@ namespace PluginLoader
     /// </summary>
     public class PluginInfo
     {
+        /// <summary>
+        /// 插件图标
+        /// </summary>
+        public string? Icon;
+        /// <summary>
+        /// 插件Guid
+        /// </summary>
         public string Guid;
+        /// <summary>
+        /// 插件名
+        /// </summary>
         public string Name;
+        /// <summary>
+        /// 插件描述
+        /// </summary>
         public string? Description;
-        public static implicit operator PluginInfo(Plugin plugin)
-        {
-            PluginInfo pluginInfo = new PluginInfo();
-            if (plugin is EmptyPlugin)
-            {
-                pluginInfo.Guid = ((EmptyPlugin)plugin).Flag;
-            }
-            else
-            {
-                pluginInfo = PluginLoader.GetPluginInfo(plugin);
-            }
-            return pluginInfo;
-        }
+        /// <summary>
+        /// 插件版本
+        /// </summary>
         public string? Version;
+        /// <summary>
+        /// 插件路径
+        /// </summary>
         public string Path;
-        public Type? MainType;
+        /// <summary>
+        /// 插件主类
+        /// </summary>
+        public Type MainType;
+        public PluginInfo()
+        {
+
+        }
     }
 }

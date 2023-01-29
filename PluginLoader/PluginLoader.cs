@@ -31,46 +31,53 @@ namespace PluginLoader
         /// </returns>
         public static PluginInfo? GetPluginInfo(Type type)
         {
-            Attribute? attribute = Attribute.GetCustomAttribute(type, typeof(PluginHandle));
-            PluginHandle handle;
+            Attribute? attribute = Attribute.GetCustomAttribute(type, typeof(PluginHandler));
+            PluginHandler handler;
             if (attribute != null)
             {
-                handle = (PluginHandle)attribute;
+                handler = (PluginHandler)attribute;
             }
             else { return null; }
-            if (handle != null)
+            if (handler != null)
             {
                 PluginInfo info = new PluginInfo();
-                info.Name = handle.Name;
-                info.Description = handle.Description;
-                info.Version = handle.Version;
-                info.Guid = handle.Guid;
+                info.Name = handler.Name;
+                info.Description = handler.Description;
+                info.Version = handler.Version;
+                info.Guid = handler.Guid;
                 info.MainType = GetMainPluginType(type.Assembly.Location);
                 info.Path = type.Assembly.Location;
+                info.Icon = handler.Icon;
                 return info;
             }
             return null;
 
         }
+        /// <summary>
+        /// 获取插件信息
+        /// </summary>
+        /// <param name="Plugin">插件实例</param>
+        /// <returns>插件信息</returns>
         public static PluginInfo? GetPluginInfo(Plugin Plugin)
         {
             Type type = Plugin.GetType();
-            Attribute? attribute = Attribute.GetCustomAttribute(type, typeof(PluginHandle));
-            PluginHandle handle;
+            Attribute? attribute = Attribute.GetCustomAttribute(type, typeof(PluginHandler));
+            PluginHandler handler;
             if (attribute != null)
             {
-                handle = (PluginHandle)attribute;
+                handler = (PluginHandler)attribute;
             }
             else { return null; }
-            if (handle != null)
+            if (handler != null)
             {
                 PluginInfo info = new PluginInfo();
-                info.Name = handle.Name;
-                info.Description = handle.Description;
-                info.Version = handle.Version;
-                info.Guid = handle.Guid;
+                info.Name = handler.Name;
+                info.Description = handler.Description;
+                info.Version = handler.Version;
+                info.Guid = handler.Guid;
                 info.MainType = GetMainPluginType(type.Assembly.Location);
                 info.Path = type.Assembly.Location;
+                info.Icon = handler.Icon;
                 return info;
             }
             return null;
@@ -86,7 +93,7 @@ namespace PluginLoader
         {
             Type type = GetMainPluginType(Path);
             Type[] types = GetPluginTypes(Path);
-            PluginInfo? plugin = (PluginInfo)(Plugin)Activator.CreateInstance(type, Array.Empty<object>());
+            PluginInfo? plugin = ((Plugin)Activator.CreateInstance(type, Array.Empty<object>())).GetPluginInfo();
             if (plugin == null)
             {
                 return;
@@ -103,7 +110,7 @@ namespace PluginLoader
                 Attribute[] att = t.GetCustomAttributes().ToArray();
                 foreach (Attribute attr in att)
                 {
-                    if (attr.GetType().Name == "ListenerHandle")
+                    if (attr is ListenerHandler)
                     {
                         var tmp = Activator.CreateInstance(t, new object[] { });
                         if (tmp != null)
@@ -111,7 +118,7 @@ namespace PluginLoader
                             ((Listener)tmp).Register();
                         }
                     }
-                    if (attr.GetType().Name == "RunnableHandle")
+                    if (attr is RunnableHandler)
                     {
                         var tmp = Activator.CreateInstance(t, new object[] { });
                         if (tmp != null)
@@ -125,7 +132,7 @@ namespace PluginLoader
             {
                 try
                 {
-                    MethodInfo method = type.GetMethod("onPluginLoad");
+                    MethodInfo method = type.GetMethod("OnPluginLoad");
                     object obj = Activator.CreateInstance(type);
                     method.Invoke(obj, new object[] { });
                     PluginInfo pluginInfo = GetPluginInfo(type);
@@ -141,29 +148,35 @@ namespace PluginLoader
             }
 
         }
-        [Obsolete]
-        public static void Load(PluginInfo pluginInfo)
-        {
-            if (pluginInfo != null)
-            {
-                Load(pluginInfo.Path);
-            }
-        }
+        /// <summary>
+        /// 通关插件名获取插件实例
+        /// </summary>
+        /// <param name="pluginName">插件名</param>
+        /// <returns>插件实例</returns>
         public static Plugin? GetPlugin(string pluginName)
         {
             foreach (Plugin plugin in Plugins)
             {
-                if (((PluginInfo)plugin).Name == pluginName)
+                if (plugin.GetPluginInfo().Name == pluginName)
                 {
                     return plugin;
                 }
             }
             return null;
         }
+        /// <summary>
+        /// 获取所有加载的插件
+        /// </summary>
+        /// <returns>加载的插件</returns>
         public static Plugin[] GetPlugins()
         {
             return Plugins.ToArray();
         }
+        /// <summary>
+        /// 获取插件主类
+        /// </summary>
+        /// <param name="Path">插件路径</param>
+        /// <returns>主类</returns>
         public static Type GetMainPluginType(string Path)
         {
             Assembly dllFromPlugin = Assembly.LoadFile(Path);
@@ -187,7 +200,7 @@ namespace PluginLoader
                     Attribute[] att = t.GetCustomAttributes().ToArray();
                     foreach (Attribute attr in att)
                     {
-                        if (attr.GetType().Name == "PluginHandle")
+                        if (attr is PluginHandler)
                         {
                             IsPlugin = true;
                             MainClassLocation = t.FullName;
@@ -225,7 +238,7 @@ namespace PluginLoader
                     {
                         try
                         {
-                            MethodInfo method = type.GetMethod("onPluginUnLoad");
+                            MethodInfo method = type.GetMethod("OnPluginUnLoad");
                             object obj = GetPlugin(PluginInfos[i].Name);
                             method.Invoke(obj, new object[] { });
                         }
@@ -258,27 +271,23 @@ namespace PluginLoader
                 }
             }
         }
-        public static void UnLoad(PluginInfo pluginInfo)
-        {
-            if (pluginInfo != null)
-            {
-                UnLoad(pluginInfo.Path);
-            }
-        }
-        public static void UnLoad(string pluginName, Plugin? plugin = null)
+        /// <summary>
+        /// 卸载插件
+        /// </summary>
+        /// <param name="plugin">插件实例</param>
+        public static void UnLoad(Plugin plugin)
         {
             for (int i = 0; i < PluginInfos.Count; i++)
             {
-                if (PluginInfos[i].Name == pluginName)
+                if (PluginInfos[i].Guid == plugin.GetPluginInfo().Guid)
                 {
                     Type type = PluginInfos[i].MainType;
                     if (type != null)
                     {
                         try
                         {
-                            MethodInfo method = type.GetMethod("onPluginUnLoad");
-                            object obj = GetPlugin(pluginName);
-                            method.Invoke(obj, new object[] { });
+                            MethodInfo method = type.GetMethod("OnPluginUnLoad");
+                            method.Invoke(plugin, new object[] { });
                         }
                         catch (Exception) { }
                     }
@@ -289,7 +298,6 @@ namespace PluginLoader
                     {
                         if (Event.Listeners[j].PluginInfo.Guid == PluginInfos[i].Guid)
                         {
-
                             Event.Listeners.RemoveAt(j);
                             j--;
                         }
@@ -303,8 +311,9 @@ namespace PluginLoader
                             j--;
                         }
                     }
-                    Plugins.Remove(GetPlugin(pluginName));
-                    PluginInfos.RemoveAt(i); return;
+                    Plugins.Remove(plugin);
+                    PluginInfos.RemoveAt(i);
+                    return;
                 }
             }
         }
@@ -328,7 +337,7 @@ namespace PluginLoader
                     bool isEnable = true;
                     try
                     {
-                        isEnable = configManager.GetBool(((PluginInfo)((Plugin)Activator.CreateInstance(GetMainPluginType(getSubPath(PluginDir.FullName, "Plugin.dll")), new object[] { }))).Guid);
+                        isEnable = configManager.GetBool(((Plugin)Activator.CreateInstance(GetMainPluginType(getSubPath(PluginDir.FullName, "Plugin.dll")), Array.Empty<object>())).GetPluginInfo().Guid);
                     }
                     catch { }
                     if (isEnable)
@@ -338,35 +347,54 @@ namespace PluginLoader
                 }
             }
         }
-        public static void SetDisenable(string PluginGuid)
+        /// <summary>
+        /// 禁用插件
+        /// </summary>
+        /// <param name="PluginGuid">插件Guid</param>
+        public static void SetDisable(string PluginGuid)
         {
             ConfigManager configManager = new ConfigManager(getSubPath(PluginPath, "Plugins.json"));
             configManager.SetBool(PluginGuid, false);
             configManager.SaveConfig();
         }
+        /// <summary>
+        /// 启用插件
+        /// </summary>
+        /// <param name="PluginGuid">插件Guid</param>
         public static void SetEnable(string PluginGuid)
         {
             ConfigManager configManager = new ConfigManager(getSubPath(PluginPath, "Plugins.json"));
             configManager.SetBool(PluginGuid, false);
             configManager.SaveConfig();
         }
-        public static void SetDisenable(Plugin plugin)
+        /// <summary>
+        /// 禁用插件
+        /// </summary>
+        /// <param name="plugin">插件类</param>
+        public static void SetDisable(Plugin plugin)
         {
             ConfigManager configManager = new ConfigManager(getSubPath(PluginPath, "Plugins.json"));
-            configManager.SetBool(((PluginInfo)plugin).Guid, false);
+            configManager.SetBool(plugin.GetPluginInfo().Guid, false);
             configManager.SaveConfig();
         }
+        /// <summary>
+        /// 启用插件
+        /// </summary>
+        /// <param name="plugin">插件类</param>
         public static void SetEnable(Plugin plugin)
         {
             ConfigManager configManager = new ConfigManager(getSubPath(PluginPath, "Plugins.json"));
-            configManager.SetBool(((PluginInfo)plugin).Guid, false);
+            configManager.SetBool(plugin.GetPluginInfo().Guid, false);
             configManager.SaveConfig();
         }
+        /// <summary>
+        /// 卸载所有插件
+        /// </summary>
         public static void UnloadAll()
         {
-            foreach (PluginInfo pluginInfo in PluginInfos.ToArray())
+            foreach (Plugin plugin in Plugins.ToArray())
             {
-                UnLoad(pluginInfo);
+                UnLoad(plugin);
             }
         }
     }

@@ -19,6 +19,7 @@ namespace WonderLab
         [STAThread]
         public static void Main(string[] args)
         {
+            PluginLoader.PluginLoader.LoadAllFromPlugin();
             try
             {
                 AppBuilder builder = BuildAvaloniaApp();
@@ -32,7 +33,7 @@ namespace WonderLab
                 File.WriteAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop),$"±¿¿£»’÷æ-{ex.GetType().Name}.txt"), ex.ToString());
             }
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            PluginLoader.PluginLoader.LoadAllFromPlugin();
+            PluginLoader.PluginLoader.UnloadAll();
         }
 
         // Avalonia configuration, don't remove; also used by visual designer.

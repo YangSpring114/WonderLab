@@ -49,10 +49,10 @@ namespace PluginLoader
                     bool IsEventMethod = false;
                     foreach (Attribute attribute in method.GetCustomAttributes())
                     {
-                        if (attribute is EventHandle)
+                        if (attribute is EventHandler)
                         {
                             IsEventMethod = true;
-                            if (((EventHandle)attribute).IgnoreCancelled & cancel)
+                            if (((EventHandler)attribute).IgnoreCancelled & cancel)
                             {
                                 IsContinue = true;
                             }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace PluginLoader
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class RunnableHandle : Attribute
+    public class RunnableHandler : Attribute
     {
 
     }
