@@ -1,19 +1,12 @@
-using Avalonia.Controls;
 using FluentAvalonia.UI.Controls;
-using FluentAvalonia.UI.Media.Animation;
-using MinecraftLaunch.Modules.Models.Launch;
 using MinecraftLaunch.Modules.Toolkits;
-using Natsurainko.FluentCore.Class.Model.Launch;
 using Natsurainko.FluentCore.Module.Launcher;
 using PluginLoader;
-using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using WonderLab.Modules.Base;
 using WonderLab.Modules.Controls;
@@ -28,9 +21,6 @@ namespace WonderLab.ViewModels
     public partial class GameViewModels : ViewModelBase
     {
         public string TipsLink => "转到 祝福终端 或点击 安装新的游戏核心 按钮以安装新的游戏核心";
-
-        public ListBox CoresList { get; set; }
-
         public ObservableCollection<GameCore> GameCores
         {
             get => _gameCores;

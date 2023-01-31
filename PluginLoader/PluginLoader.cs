@@ -78,6 +78,7 @@ namespace PluginLoader
                 info.MainType = GetMainPluginType(type.Assembly.Location);
                 info.Path = type.Assembly.Location;
                 info.Icon = handler.Icon;
+                info.Author = handler.Author;
                 return info;
             }
             return null;
