@@ -1,17 +1,42 @@
+using Avalonia.Controls;
+using FluentAvalonia.UI.Controls;
 using MinecraftLaunch.Modules.Installer;
 using MinecraftLaunch.Modules.Models.Download;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using WonderLab.Modules.Base;
+using WonderLab.Modules.Toolkits;
 
 namespace WonderLab.ViewModels
 {
     ///Binding
     public partial class DownSettingViewModel : ViewModelBase
     {
+        private string _DownloadPath = App.Data.CustomDownloadPath;
+        public string DownloadPath
+        {
+            get {
+                if (Directory.Exists(_DownloadPath))
+                {
+                    return _DownloadPath;
+                }
+                else
+                {
+                    App.Data.CustomDownloadPath = Environment.CurrentDirectory;
+                    return Environment.CurrentDirectory;
+                }
+            }
+            set
+            {
+                RaiseAndSetIfChanged(ref _DownloadPath, value);
+            }
+        }
+
         public List<string> DownloadAPI => new() { "MCBBS (国内镜像源，速度最快)", "BmclAPI (国内镜像源，速度适中)", "Mojang (官方源，速度最慢)" };
 
         public int SelectDownloadAPI
@@ -37,6 +62,7 @@ namespace WonderLab.ViewModels
                     }
             }
         }
+        
 
         public int Max
         {

@@ -37,7 +37,8 @@ using System.Linq;
 namespace WonderLab
 {
     public partial class MainWindow : Window
-    {        
+    {
+        public static MainWindow window;
         public void AcrylicColorChange()
         {
             if (!InfoConst.IsWindows11)

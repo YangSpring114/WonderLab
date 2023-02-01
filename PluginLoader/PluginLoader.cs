@@ -101,7 +101,7 @@ namespace PluginLoader
             }
             foreach (PluginInfo i in PluginInfos)
             {
-                if (i.Guid == plugin.Guid)
+                if (i.Guid == plugin.Guid || i.Name == plugin.Name)
                 {
                     return;
                 }

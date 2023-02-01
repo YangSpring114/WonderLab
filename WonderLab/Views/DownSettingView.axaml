@@ -53,6 +53,26 @@
 						</StackPanel>
 					</card:OptionsDisplayItem.Content>
 				</card:OptionsDisplayItem>
+				<card:OptionsDisplayItem Margin="0 15 0 0"
+	                      IsExpanded="True" Name="CustomDownloadSetting"
+	                      Expands="True" Header="自定义下载设置"
+	                      Description="自定义下载的配置">
+					<card:OptionsDisplayItem.Content>
+						<StackPanel>
+							<Grid>
+								<StackPanel>
+								<TextBlock Text="自定义下载保存路径 "/>
+								<TextBox Text="{Binding DownloadPath}" IsReadOnly="True"/>
+								<Button Click="OpenFolderDialog">
+									<Button.Content>
+										<TextBlock Text="浏览"></TextBlock>
+									</Button.Content>
+								</Button>
+									</StackPanel>
+							</Grid>
+						</StackPanel>
+					</card:OptionsDisplayItem.Content>
+				</card:OptionsDisplayItem>
 			</StackPanel>
 		</ScrollViewer>
 	</Panel>

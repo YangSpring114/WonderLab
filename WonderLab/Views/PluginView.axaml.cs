@@ -10,10 +10,12 @@ namespace WonderLab.Views
     public partial class PluginView : Page
     {
         public static PluginViewModel ViewModel { get; } = new();
+        public static PluginView pluginView;
         public PluginView()
         {
-            InitializeComponent();
             DataContext = ViewModel;
+            pluginView = this;
+            InitializeComponent();
         }
     }
 }

@@ -14,6 +14,7 @@ namespace WonderLab.Modules.Models
     /// </summary>
     public class DataModels
     {
+        public string CustomDownloadPath = Environment.CurrentDirectory;
         public int Max { get; set; } = 1024;
         public int SelectedJava { get; set; } = 0;
         public int SelectedLang { get; set; } = 0;

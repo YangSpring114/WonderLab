@@ -10,98 +10,115 @@
 			 xmlns:ui="using:FluentAvalonia.UI.Controls"
              x:Class="WonderLab.Views.PluginView">
 	<Grid>
-			<StackPanel VerticalAlignment="Center" IsVisible="{Binding UnHasPlugin}">
-				<TextBlock Grid.Row="1"
-						HorizontalAlignment ="Center"
-						FontSize="32"
-						FontWeight="Bold"
-						Text="没有加载任何插件">
-				</TextBlock>
-				<TextBlock Grid.Row="2"
-						HorizontalAlignment ="Center"
-						FontSize="16"
-						FontWeight="Bold"
-						Text="打开启动器目录下的Plugins文件夹放入插件">
-				</TextBlock>
-			</StackPanel>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<StackPanel VerticalAlignment="Center" IsVisible="{Binding UnHasPlugin}">
+			<TextBlock Grid.Row="1"
+					HorizontalAlignment ="Center"
+					FontSize="32"
+					FontWeight="Bold"
+					Text="没有加载任何插件">
+			</TextBlock>
+			<TextBlock Grid.Row="2"
+					HorizontalAlignment ="Center"
+					FontSize="16"
+					FontWeight="Bold"
+					Text="打开启动器目录下的Plugins文件夹放入插件">
+			</TextBlock>
+		</StackPanel>
 		<ScrollViewer>
 			<StackPanel>
-		<ListBox
-		x:Name="PluginList"
-		Grid.Row="1"
-		Margin="10,70,10,20"
-		Padding="40,0"
-		IsVisible="{Binding HasPlugin}"
-		Items="{Binding Plugins}">
-			<ListBox.ItemsPanel>
-				<ItemsPanelTemplate>
-					<WrapPanel Orientation="Horizontal"/>
-				</ItemsPanelTemplate>
-			</ListBox.ItemsPanel>
-			<ListBox.Styles>
-				<Style Selector="ListBoxItem">
-					<Setter Property="HorizontalContentAlignment" Value="Stretch" />
-					<Setter Property="BorderBrush" Value="Transparent" />
-					<Setter Property="BorderThickness" Value="0" />
-					<Setter Property="Width" Value="900"/>
-					<Setter Property="CornerRadius" Value="8"/>
-					<Setter Property="Height" Value="200"/>
-					<Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}"/>
-					<Setter Property="Margin" Value="6,6" />
-					<Setter Property="Template">
-						<Setter.Value>
-							<ControlTemplate TargetType="ListBoxItem">
-									<Grid>
-										<card:OptionsDisplayItem Expands="True" Margin="10,20,10,0" Header="{Binding Name}" Description="{Binding Description}">
-											<!--<card:OptionsDisplayItem.Icon>
-					<ui:SymbolIcon Symbol="AlignLeftFilled"/>
-				</card:OptionsDisplayItem.Icon>-->
-											<card:OptionsDisplayItem.ActionButton>
-												<StackPanel Orientation="Horizontal" Spacing="15">
-												</StackPanel>
-											</card:OptionsDisplayItem.ActionButton>
-											<card:OptionsDisplayItem.Content>
-												<StackPanel Orientation="Vertical" Spacing="10">
-													<StackPanel Orientation="Horizontal" Spacing="50">
-														<TextBlock Text="版本 "/>
-														<StackPanel Orientation="Horizontal">
-															<TextBlock Text="{Binding Version}"/>
-														</StackPanel>
-													</StackPanel>
-													<StackPanel Orientation="Horizontal" Spacing="53">
-														<TextBlock Text="Guid"/>
-														<StackPanel Orientation="Horizontal">
-															<TextBlock Text="{Binding Guid}"/>
-														</StackPanel>
-													</StackPanel>
-													<StackPanel Orientation="Horizontal" Spacing="50">
-														<TextBlock Text="作者 "/>
-														<TextBlock Text="{Binding Author}"/>
-													</StackPanel>
-												</StackPanel>
-											</card:OptionsDisplayItem.Content>
-										</card:OptionsDisplayItem>
-									</Grid>
-							</ControlTemplate>
-						</Setter.Value>
-					</Setter>
-				</Style>
+				<ListBox
+				x:Name="PluginList"
+				Grid.Row="1"
+				Margin="10,90,10,20"
+				Padding="40,0"
+				IsVisible="{Binding HasPlugin}"
+				AutoScrollToSelectedItem="True"
+				Items="{Binding Plugins}">
+					<ListBox.ItemsPanel>
+						<ItemsPanelTemplate>
+							<WrapPanel Orientation="Vertical"/>
+						</ItemsPanelTemplate>
+					</ListBox.ItemsPanel>
+					<ListBox.Styles>
+						<Style Selector="ListBoxItem">
+							<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+							<Setter Property="BorderBrush" Value="Transparent" />
+							<Setter Property="BorderThickness" Value="0" />
+							<Setter Property="Width" Value="{Binding Width,Mode=OneWay}"/>
+							<Setter Property="CornerRadius" Value="8"/>
+							<Setter Property="Height" Value="90"/>
+							<Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}"/>
+							<Setter Property="Margin" Value="6,6" />
+							<Setter Property="Template">
+								<Setter.Value>
+									<ControlTemplate TargetType="ListBoxItem">
+										<Grid>
+											<Panel>
+												<Border>
+													<Border.Styles>
+														<Style Selector="Border">
+															<Setter Property="CornerRadius" Value="8"/>
+															<Setter Property="Height" Value="90"/>
+															<Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}"/>
+															<Setter Property="BorderThickness" Value="0"/>
+															<Setter Property="BorderBrush" Value="Azure"/>
+															<Setter Property="Width" Value="{Binding Width,Mode=OneWay}"/>
+														</Style>
+														<Style Selector="Border:pointerover">
+															<Setter Property="BorderThickness" Value="0.8"/>
+														</Style>
+													</Border.Styles>
 
-				<!--<Style Selector="ListBoxItem:pressed /template/ TextBlock#UserName">
+													<Border.Transitions>
+														<Transitions>
+															<ThicknessTransition Property="BorderThickness" Duration="0:0:0.1"/>
+														</Transitions>
+													</Border.Transitions>
+
+													<Panel>
+														<Border ClipToBounds="True"
+														IsVisible="True"
+														HorizontalAlignment ="Left" Height="64"
+														Width="64"
+														CornerRadius="6 6 6 6"
+																Margin="8">
+															<Border.Background>
+																<ImageBrush Stretch="UniformToFill" Source="{Binding Icon,Mode=OneWay}"/>
+															</Border.Background>
+														</Border>
+														<StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="90 10 0 0">
+															<TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold" FontFamily="Din"/>
+															<TextBlock FontSize="12.5" Text="{Binding Description}" Opacity="0.65"/>
+															<TextBlock FontSize="12.5" Text="{Binding Version}" Opacity="0.65"/>
+														</StackPanel>
+													</Panel>
+												</Border>
+											</Panel>
+										</Grid>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</Style>
+
+						<!--<Style Selector="ListBoxItem:pressed /template/ TextBlock#UserName">
 					<Setter Property="Text" Value="NB" />
 				</Style>-->
 
-				<Style Selector="ListBoxItem:selected /template/ Border#BackBorder">
-					<Setter Property="Background" Value="{DynamicResource SystemAccentColorDark1}" />
-				</Style>
+						<Style Selector="ListBoxItem:selected /template/ Border#BackBorder">
+							<Setter Property="Background" Value="{DynamicResource SystemAccentColorDark1}" />
+						</Style>
 
-				<Style Selector="ListBoxItem:selected /template/ Border#BackBorder:pointerover">
-					<Setter Property="Background" Value="{DynamicResource SystemAccentColorDark2}" />
-				</Style>
+						<Style Selector="ListBoxItem:selected /template/ Border#BackBorder:pointerover">
+							<Setter Property="Background" Value="{DynamicResource SystemAccentColorDark2}" />
+						</Style>
 
-			</ListBox.Styles>
-		</ListBox>
-				</StackPanel>
-			</ScrollViewer>
+					</ListBox.Styles>
+				</ListBox>
+			</StackPanel>
+		</ScrollViewer>
 	</Grid>
 </UserControl>

@@ -16,6 +16,18 @@ namespace WonderLab.ViewModels
 {
     public partial class DownViewModel : ViewModelBase
     {
+        private string _DownloadUrl = "下载链接";
+        public string DownloadUrl
+        {
+            get => _DownloadUrl;
+            set { RaiseAndSetIfChanged(ref _DownloadUrl, value); }
+        }
+        private string _FileName = "保存的文件名";
+        public string FileName
+        {
+            get => _FileName;
+            set { RaiseAndSetIfChanged(ref _FileName, value); }
+        }
         public void NavigationToDownGameCore()
         {            
             _ = MainView.mv.FrameView.Navigate(typeof(DownGameView));
@@ -24,11 +36,6 @@ namespace WonderLab.ViewModels
         public void NavigationToDownMod()
         {
             _ = MainView.mv.FrameView.Navigate(typeof(DownModView));
-        }
-
-        public void NavigationToDownJava()
-        {
-
         }
 
         public void NavigationToDown()
