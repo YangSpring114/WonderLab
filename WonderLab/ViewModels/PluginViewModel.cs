@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
+using System.Threading;
 using Avalonia.Media.Imaging;
 using PluginLoader;
 using ReactiveUI;
@@ -30,7 +31,7 @@ namespace WonderLab.ViewModels
                 }
                 using Stream stream = new MemoryStream();
                 Image image = new Image<Rgba32>(64, 64);
-                if(icon != null)
+                if (icon != null)
                 {
                     image = Image.Load(icon);
                 }

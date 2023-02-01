@@ -61,14 +61,14 @@
 						<StackPanel>
 							<Grid>
 								<StackPanel>
-								<TextBlock Text="自定义下载保存路径 "/>
-								<TextBox Text="{Binding DownloadPath}" IsReadOnly="True"/>
-								<Button Click="OpenFolderDialog">
-									<Button.Content>
-										<TextBlock Text="浏览"></TextBlock>
-									</Button.Content>
-								</Button>
-									</StackPanel>
+									<TextBlock Text="自定义下载保存路径 "/>
+									<TextBox Text="{Binding DownloadPath}" IsReadOnly="True"/>
+									<Button Click="OpenFolderDialog">
+										<Button.Content>
+											<TextBlock Text="浏览"></TextBlock>
+										</Button.Content>
+									</Button>
+								</StackPanel>
 							</Grid>
 						</StackPanel>
 					</card:OptionsDisplayItem.Content>

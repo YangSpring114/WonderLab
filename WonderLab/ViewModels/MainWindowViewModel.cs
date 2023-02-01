@@ -159,5 +159,15 @@ namespace WonderLab.ViewModels
                 MainWindow.win.CloseAnimaction();
             }
         }
+        private int _Width = 1000;
+        private int _Height = 600;
+        public int Width
+        {
+            get => _Width;
+        }
+        public int Height
+        {
+            get => _Height;
+        }
     }
 }

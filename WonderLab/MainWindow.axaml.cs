@@ -38,7 +38,6 @@ namespace WonderLab
 {
     public partial class MainWindow : Window
     {
-        public static MainWindow window;
         public void AcrylicColorChange()
         {
             if (!InfoConst.IsWindows11)
@@ -128,7 +127,11 @@ namespace WonderLab
             }
         }
 
-        private void MainWindow_Closed(object? sender, System.EventArgs e) => JsonToolkit.JsonWrite();
+        private void MainWindow_Closed(object? sender, System.EventArgs e)
+        {
+            JsonToolkit.JsonWrite();
+            PluginItemViewModel.stop = true;
+        }
 
         public static void AutoUpdata()
         {

@@ -33,7 +33,7 @@
 				<ListBox
 				x:Name="PluginList"
 				Grid.Row="1"
-				Margin="10,90,10,20"
+				Margin="0,90,10,20"
 				Padding="40,0"
 				IsVisible="{Binding HasPlugin}"
 				AutoScrollToSelectedItem="True"
@@ -52,7 +52,7 @@
 							<Setter Property="CornerRadius" Value="8"/>
 							<Setter Property="Height" Value="90"/>
 							<Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}"/>
-							<Setter Property="Margin" Value="6,6" />
+							<Setter Property="Margin" Value="20,6" />
 							<Setter Property="Template">
 								<Setter.Value>
 									<ControlTemplate TargetType="ListBoxItem">
