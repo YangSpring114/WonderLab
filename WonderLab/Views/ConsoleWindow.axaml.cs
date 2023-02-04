@@ -29,24 +29,22 @@ namespace WonderLab.Views
         public ConsoleWindow(JavaClientLaunchResponse lr,string gameId)
         {
             InitializeComponent();
-            //Title = $"游戏实时日志输出窗口 - {gameId}";
-            ////ViewModel = new(lr);            
-            //CloseButton.Click += CloseButton_Click;
-            //ViewModel = new ConsoleWindowViewModel(lr);
-            //ss.ScrollChanged += Ss_ScrollChanged;
-            //lr.ProcessOutput += Lr_MinecraftProcessOutput;
-            //lr.Exited += Lr_Exited;
-            //DataContext = ViewModel;
-            //LogList.DataContext = ViewModel;
         }
 
         public void ShowAsync<TOutputs>(TOutputs log, GameCore id, JavaClientLaunchResponse response) where TOutputs: List<string> {
             Title = $"游戏实时日志输出窗口 - {id.Id}";
             CloseButton.Click += CloseButton_Click;
+            ss.PointerWheelChanged += Ss_PointerWheelChanged;
+            LogList.PointerWheelChanged += Ss_PointerWheelChanged;
 
             ViewModel = new(log, response, ss);
             DataContext = ViewModel;
             Show();
+        }
+
+        private void Ss_PointerWheelChanged(object? sender, Avalonia.Input.PointerWheelEventArgs e)
+        {
+            ss.ScrollToEnd();
         }
 
         private async void CloseButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

@@ -24,33 +24,30 @@ namespace WonderLab.Modules.Toolkits
         {
             try
             {
+                int secondTolast = 0;
                 int lastVersion = 0;
                 string url = string.Empty;
-                //var res1 = await HttpWrapper.HttpGetAsync("https://gitee.com/api/v5/repos/baka_hs/wonder-lab/releases/latest");
-                //LogToolkit.WriteLine("检查更新步骤1 -获取Json -OK");
-                //var model = (await res1.Content.ReadAsStringAsync()).ToJsonEntity<UpdateInfo>();
-                //LogToolkit.WriteLine($"Json里的版本为 {model.TagName} 启动器实际版本为 {InfoConst.LauncherVersion}");
-                //if ("".Replace("Build ", string.Empty) == model.Version)
-                //    return new(false,model);
-
-                //return new(true, model);
 
                 if (App.Data.CurrentBranch is 0) {
                     var res = await HttpWrapper.HttpGetAsync(API.Replace("<id>", "f08e3a0d2d8f47d6b5aee68ec2499a21"));
                     var content = await res.Content.ReadAsStringAsync();
                     lastVersion = Convert.ToInt32(content.Split('|').Last().Split('.').Last());
+                    secondTolast= Convert.ToInt32(content.Split("|").Last().Split('.')[2]);
                     url = content.Split('|')[3].Trim();
                 } else {                    
                     var res = await HttpWrapper.HttpGetAsync(API.Replace("<id>", "d743cd5cbfaf46dea31e0730c5af0e85"));
                     var content = await res.Content.ReadAsStringAsync();
+                    secondTolast = Convert.ToInt32(content.Split("|").Last().Split('.')[2]);
                     lastVersion = Convert.ToInt32(content.Split('|').Last().Split('.').Last());
                     url = content.Split('|')[3].Trim();
                 }
                 
                 Trace.WriteLine($"[信息] 发行分支为 {App.Data.CurrentBranch}");
+                Trace.WriteLine($"[信息] 倒数第二个版本为 {secondTolast}");
                 Trace.WriteLine($"[信息] 尾版本为 {lastVersion}");
                 
-                if (Convert.ToInt32(InfoConst.LauncherVersion.Split('.').Last()) < lastVersion) {
+                if (Convert.ToInt32(InfoConst.LauncherVersion.Split('.').Last()) < lastVersion ||
+                    Convert.ToInt32(InfoConst.LauncherVersion.Split('.')[2]) < secondTolast) {
                     return new(true, url);
                 } else {
                     return new(false, string.Empty);

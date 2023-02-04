@@ -219,6 +219,7 @@ namespace WonderLab.ViewModels
                         }
                     }
                     TempList = GameCores.ToList();
+                    SelectedGameCoreList();
                     IsGameListLoadOk = false;
                 });
             }
@@ -236,7 +237,7 @@ namespace WonderLab.ViewModels
             CurrentGameCoreType = DefaultCurrentGameCoreType;
         }
 
-        void SelectedGameCoreList()
+        public void SelectedGameCoreList()
         {
             GameCores = TempList.BuildObservableCollection();
             GameCores = GameCores.Where(x =>
@@ -259,26 +260,6 @@ namespace WonderLab.ViewModels
 
                 return false;
             }).BuildObservableCollection();
-        }
-
-        public void SelectedRelease()
-        {
-            SelectedGameCoreList();
-            //Kill();
-            //GameCores = TempList.BuildObservableCollection();
-            //GameCores = GameCores.Where(x => x.Type.Contains("正式版")).BuildObservableCollection();
-        }
-        public void SelectedSnapshot()
-        {
-            SelectedGameCoreList();
-            //GameCores = TempList.BuildObservableCollection();
-            //GameCores = GameCores.Where(x => x.Type.Contains("快照版")).BuildObservableCollection();
-        }
-        public void SelectedOldData()
-        {
-            SelectedGameCoreList();
-            //GameCores = TempList.BuildObservableCollection();
-            //GameCores = GameCores.Where(x => x.Type.Contains("远古版")).BuildObservableCollection();
         }
         public void InstallAsync()
         {

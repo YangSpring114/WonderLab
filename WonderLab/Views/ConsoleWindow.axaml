@@ -62,7 +62,7 @@
 					 ScrollViewer.VerticalScrollBarVisibility="Disabled">
 				<ListBox.Styles>
 					<Style Selector="ListBoxItem">
-						<Setter Property="Margin" Value="0,0" />
+						<Setter Property="Margin" Value="0" />
 						<Setter Property="MinHeight" Value="20"/>
 						<Setter Property="Padding" Value="0"/>
 						<Setter Property="Template">
@@ -75,8 +75,11 @@
 									</Grid.Transitions>
 									<!--<Border Opacity="0.25" Background="Red"/>-->
 									<Grid HorizontalAlignment="Left">
-										<Border Height="{Binding ElementName=Log,Path=Height,Converter={StaticResource HeightConverter}}" Background="{Binding LogLevel,Converter={StaticResource LogBrushConverter}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="4"/>
+										<Border Background="{Binding LogLevel,Converter={StaticResource LogBrushConverter}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="4"/>
 									</Grid>
+									
+									<Border Opacity="0.1" x:Name="LogBack" Background="{Binding LogLevel,Converter={StaticResource LogBrushConverter}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+									
 									<DockPanel Margin="10 0 0 0" VerticalAlignment="Stretch" HorizontalAlignment="Left">
 										<TextBlock Text="[" IsVisible="{Binding LogLevel,Converter={StaticResource PrefixConverter}}"
 		                                           TextAlignment="Left" HorizontalAlignment="Left" DockPanel.Dock="Left"

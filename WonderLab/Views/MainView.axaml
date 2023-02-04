@@ -31,7 +31,7 @@
 				<ui:NavigationViewItem Tag="UsersView" Icon="People" Content="账户中心"/>
 			</ui:NavigationView.MenuItems>
 			<ui:NavigationView.FooterMenuItems>
-				<ui:NavigationViewItem Tag="PluginView" Icon="Settings" Content="插件"></ui:NavigationViewItem>
+				<!--<ui:NavigationViewItem Tag="PluginView" Icon="Settings" Content="插件"></ui:NavigationViewItem>-->
 				<ui:NavigationViewItem Tag="SettingView" Icon="Settings" Content="设置"></ui:NavigationViewItem>
 			</ui:NavigationView.FooterMenuItems>
 			<ui:NavigationView.Content>

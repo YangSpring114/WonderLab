@@ -134,10 +134,11 @@
 					<Setter Property="Height" Value="270"/>
 					<Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}"/>
 					<Setter Property="Margin" Value="6,6" />
+					<Setter Property="Padding" Value="5"/>
 					<Setter Property="Template">
 						<Setter.Value>
 							<ControlTemplate TargetType="ListBoxItem">
-								<Border BoxShadow="0 8 32 0 #66000000">
+								<Border Background="Black" Padding="{TemplateBinding Padding}" BoxShadow="0 8 32 0 #66000000">
 									<Grid>
 										<Border Height="{TemplateBinding Height}"
 												Background="{DynamicResource ContentDialogBackground}"

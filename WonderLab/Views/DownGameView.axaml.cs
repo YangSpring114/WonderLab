@@ -35,8 +35,7 @@ namespace WonderLab.Views
             {
                 await Dispatcher.UIThread.InvokeAsync(() =>
                 {
-                    ViewModel.SelectedOldData();
-                    ViewModel.SelectedRelease();
+                    ViewModel.SelectedGameCoreList();
                 });
             }
         }

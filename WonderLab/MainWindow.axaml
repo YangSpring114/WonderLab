@@ -69,6 +69,7 @@
 							HorizontalAlignment="Right"
 							VerticalAlignment="Center"
 							Orientation="Horizontal">
+				
 							<Button Name="OkButton" Margin="15 0 0 0"
 	                                Width="75" Command="{Binding Install}"
 	                                Foreground="White" IsVisible="{Binding IsStart}"
@@ -77,8 +78,7 @@
 							</Button>
 							<Button Click="UpdateCancelButtonClick"
 								Width="75"
-								Margin="15,0,0,0"
-								Foreground="White">
+								Margin="15,0,0,0">
 								<TextBlock Text="取消" />
 							</Button>
 						</StackPanel>
