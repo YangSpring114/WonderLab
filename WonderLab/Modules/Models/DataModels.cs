@@ -14,15 +14,16 @@ namespace WonderLab.Modules.Models
     /// </summary>
     public class DataModels
     {
-        public string CustomDownloadPath = Environment.CurrentDirectory;
         public int Max { get; set; } = 1024;
         public int SelectedJava { get; set; } = 0;
         public int SelectedLang { get; set; } = 0;
+        public int CurrentBranch { get; set; } = 0;
         public int SelectedAPI { get; set; } = 0;
         public int MaxThreadCount { get; set; } = 0;
         public string SelectedGameFooter { get; set; } = string.Empty;
         public string? SelectedGameCore { get; set; } = null;
         public UserDataModels? SelectedUser { get; set; } = null;
+        public string CustomDownloadPath = Environment.CurrentDirectory;
         public string FooterPath { get; set; } = $"{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".minecraft")}";
         public string NativesFolderPath { get; set; } = string.Empty;
         public string JavaPath { get; set; } = string.Empty;

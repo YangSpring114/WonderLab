@@ -8,18 +8,18 @@
              x:Class="WonderLab.Views.DownSettingView">
 	<Panel>
 		<ScrollViewer>
-			<StackPanel Margin="20,20,20,0">
+			<StackPanel Spacing="15" Margin="20,20,20,20">
 				<card:OptionsDisplayItem
 					IsExpanded="True" Name="downsetting"
 					Expands="True" Header="下载设置"
 					Description="启动器下载和补全时的配置">
 					<card:OptionsDisplayItem.Content>
-						<StackPanel>
+						<StackPanel Spacing="20">
 							<Grid>
 								<TextBlock Name="test" VerticalAlignment="Center" Text="当前下载源："/>
 								<ComboBox SelectedIndex="{Binding SelectDownloadAPI}" Items="{Binding DownloadAPI}" FontFamily="Din Pro" Name="sourcelist" HorizontalAlignment="Right"/>
 							</Grid>
-							<Grid Margin="0,25,0,0">
+							<Grid>
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition MaxWidth="80" Width="1*" />
 									<ColumnDefinition Width="0.01*" MinWidth="20"/>
@@ -36,19 +36,20 @@
 									<Slider Grid.Column="0" SmallChange="1" LargeChange="1" x:Name="MaxSlider" Value="{Binding Max}" Minimum="1" Maximum="512" HorizontalAlignment="Stretch"/>
 								</Grid>
 							</Grid>
-							<ui:InfoBar Title="小贴士：" Message="最大线程数能提升下载速度，但会显著影响启动器性能" Margin="0 20 0 0" IsOpen="True" IsClosable="False"/>
+							<ui:InfoBar Title="小贴士：" Message="最大线程数能提升下载速度，但会显著影响启动器性能" IsOpen="True" IsClosable="False"/>
 						</StackPanel>
 					</card:OptionsDisplayItem.Content>
 				</card:OptionsDisplayItem>
 
-				<card:OptionsDisplayItem Margin="0 15 0 0"
+				<card:OptionsDisplayItem
 	                      IsExpanded="True" Name="updataSetting"
-	                      Expands="True" Header="自动更新设置"
-	                      Description="启动器自动更新的配置">
+	                      Expands="True" Header="更新设置"
+	                      Description="在此配置启动器的发行分支，在更新时会按你选的分支进行更新">
 					<card:OptionsDisplayItem.Content>
-						<StackPanel>
+						<StackPanel Spacing="20">
 							<Grid>
-								<TextBlock VerticalAlignment="Center" Text="当前下载源：github"/>
+								<TextBlock Text="选择发行分支：" VerticalAlignment="Center"/>
+								<ComboBox SelectedIndex="{Binding CurrentBranch}" HorizontalAlignment="Right" Items="{Binding Branchs}"/>
 							</Grid>
 						</StackPanel>
 					</card:OptionsDisplayItem.Content>

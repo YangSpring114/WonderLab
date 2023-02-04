@@ -10,12 +10,13 @@
     <RootNamespace>WonderLab</RootNamespace>
     <AssemblyName>WonderLab</AssemblyName>
     <SignAssembly>True</SignAssembly>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 	<PropertyGroup>
 		<UseAppHost>true</UseAppHost>
 	</PropertyGroup>
   <ItemGroup>
-	<AvaloniaResources Include="Resources\**"/>
+	<AvaloniaResources Include="Resources\**" />
     <None Remove=".gitignore" />
     <None Remove="半圆.ico" />
   </ItemGroup>

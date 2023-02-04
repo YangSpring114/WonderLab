@@ -67,8 +67,10 @@ namespace WonderLab
 
         public void EnableMica()
         {
-            if (InfoConst.IsWindows11)
+            if (InfoConst.IsWindows11) {
+                AcrylicBorder.IsVisible = false;
                 TransparencyLevelHint = WindowTransparencyLevel.Mica;
+            }
         }
 
         public static void ShowInfoBarAsync(string title, string message = "", InfoBarSeverity severity = InfoBarSeverity.Informational, int delay = 5000, IControl? button = null) =>
@@ -301,7 +303,7 @@ namespace WonderLab
                     width = 400;
                 }
             }
-            AutoUpdata();
+            //AutoUpdata();
         }
 
         private void OnRequestedThemeChanged(FluentAvaloniaTheme sender, RequestedThemeChangedEventArgs args)
@@ -331,12 +333,17 @@ namespace WonderLab
             }
         }
         
-        public void CancelButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        public void UpdateCancelButtonClick(object? sender, RoutedEventArgs e)
+        {
+            UpdateDialog.Hide();
+        }
+
+        public void CancelButtonClick(object? sender, RoutedEventArgs e)
         {
             VersionDialog.Hide();
         }
 
-        public void StartVersionOlateClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        public void StartVersionOlateClick(object? sender, RoutedEventArgs e)
         {
             App.Data.Isolate = true;
             VersionDialog.Hide();
@@ -347,7 +354,7 @@ namespace WonderLab
             await ContentDialogView.ShowAsync();
         }
 
-        private void D_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        private void D_Click(object? sender, RoutedEventArgs e)
         {
             TipClose();
         }
@@ -368,7 +375,6 @@ namespace WonderLab
         {
             InitializeComponent(true);
             CloseFileDialogButton.Click += CloseFileDialogButton_Click;
-            Initialized += MainWindow_Initialized;
             TipClose();
             BarHost.Attach(this);
             win = this;
@@ -407,14 +413,19 @@ namespace WonderLab
 
         private async void MainWindow_Initialized(object? sender, EventArgs e)
         {
+            UpdateInfo = await WebToolkit.VersionCheckAsync();
             await Dispatcher.UIThread.InvokeAsync(async() =>
             {
-                await Task.Delay(1500);
+                await Task.Delay(500);
+                UpdateDialog.IsVisible = true;
                 dialog.IsVisible = true;
                 VersionDialog.IsVisible = true;
             });
-            
-            InformationListBox.Items = InfoBarItems;
+
+            //InformationListBox.Items = InfoBarItems;
+            if (UpdateInfo.Key) {
+                await UpdateDialog.ShowAsync();
+            }
         }
 
         void SetupDnd(string suffix, Action<DataObject> factory, DragDropEffects effects)
@@ -502,6 +513,7 @@ namespace WonderLab
     partial class MainWindow
     {
         public MainWindow() => InitializeComponent();
+        public KeyValuePair<bool, string> UpdateInfo;
         public MainWindowViewModel ViewModel { get; protected set; }
         public List<string> FileNames { get; protected set; }
         private static ObservableCollection<InfoBarModel> InfoBarItems = new();

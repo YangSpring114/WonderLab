@@ -8,25 +8,51 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using WonderLab.Modules.Const;
 
 namespace WonderLab.Modules.Toolkits
 {
     public class WebToolkit
     {
+        const string API = "http://api.2018k.cn/checkVersion?id={id}";
+
         /// <summary>
         /// 版本更新检查方法
         /// </summary>
         /// <returns></returns>
-        public static async ValueTask<KeyValuePair<bool,UpdateInfo>> VersionCheckAsync()
+        public static async ValueTask<KeyValuePair<bool, string>> VersionCheckAsync()
         {
-            var res = await HttpWrapper.HttpGetAsync("https://api.github.com/repos/Blessing-Studio/WonderLab/releases/latest");
-            LogToolkit.WriteLine("检查更新步骤1 -获取Json -OK");
-            var model = (await res.Content.ReadAsStringAsync()).ToJsonEntity<UpdateInfo>();
-            LogToolkit.WriteLine($"Json里的版本为 {model.Version} 启动器实际版本为 {model.Version}");
-            if ("".Replace("Build ", string.Empty) == model.Version)
-                return new(false,model);
+            int lastVersion = 0;
+            string url = string.Empty;
+            //var res = await HttpWrapper.HttpGetAsync("https://api.github.com/repos/Blessing-Studio/WonderLab/releases/latest");
+            //LogToolkit.WriteLine("检查更新步骤1 -获取Json -OK");
+            //var model = (await res.Content.ReadAsStringAsync()).ToJsonEntity<UpdateInfo>();
+            //LogToolkit.WriteLine($"Json里的版本为 {model.Version} 启动器实际版本为 {model.Version}");
+            //if ("".Replace("Build ", string.Empty) == model.Version)
+            //    return new(false,model);
 
-            return new(true, model);
+            //return new(true, model);
+
+            if (App.Data.CurrentBranch is 0) {
+                var res = await HttpWrapper.HttpGetAsync(API.Replace("{id}", "f08e3a0d2d8f47d6b5aee68ec2499a21"));
+                var content = await res.Content.ReadAsStringAsync();
+                lastVersion = Convert.ToInt32(content.Split('|').Last().Split('.').Last());
+                url = content.Split('|')[3].Trim();
+            } else {                    
+                var res = await HttpWrapper.HttpGetAsync(API.Replace("{id}", "d743cd5cbfaf46dea31e0730c5af0e85"));
+                var content = await res.Content.ReadAsStringAsync();
+                lastVersion = Convert.ToInt32(content.Split('|').Last().Split('.').Last());
+                url = content.Split('|')[3].Trim();
+            }
+
+            Trace.WriteLine($"[信息] 发行分支为 {App.Data.CurrentBranch}");
+            Trace.WriteLine($"[信息] 尾版本为 {lastVersion}");
+
+            if (Convert.ToInt32(InfoConst.LauncherVersion.Split('.').Last()) < lastVersion) {
+                return new(true, url);
+            } else {
+                return new(false, string.Empty);
+            }
         }
 
         public static void UpdateDownloadAsync()

@@ -187,7 +187,7 @@ namespace PluginLoader
             {
                 string name = System.IO.Path.GetDirectoryName(Path);
                 ResourceManager resourceManager = new ResourceManager(name + ".Properties.Resources", dllFromPlugin);
-                MainClassLocation = resourceManager.GetString("MainClass");
+                MainClassLocation = resourceManager.GetString("MainClass")!;
             }
             catch { }
             if (MainClassLocation != null)

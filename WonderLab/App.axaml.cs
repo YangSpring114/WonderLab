@@ -51,7 +51,7 @@ namespace WonderLab
         /// <summary>
         /// 预启动数据检查
         /// </summary>
-        public async void CheckAsync()
+        public void CheckAsync()
         {
             ///Modules/Controls/zh-cn.axaml
             BackgroundWorker worker = new();

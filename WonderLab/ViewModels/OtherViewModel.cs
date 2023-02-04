@@ -68,7 +68,8 @@ namespace WonderLab.ViewModels
             set => RaiseAndSetIfChanged(ref _IsCheckVersion, value);
         }
 
-        public string CurrentVersion => $"当前版本号：Alpha {Version}";
+        public string CurrentVersion => $"当前版本号：{VersionPrefix}{Version}"; 
+        public string VersionPrefix => $"Lsaac "; 
     }
 
     partial class OtherViewModel

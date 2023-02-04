@@ -16,17 +16,10 @@ namespace WonderLab.ViewModels
         public string StructureInfo => string.Join("\n", StructureInfoList);
         public List<string> StructureInfoList => new()
         {            
-            "添加了此页面",
-            "添加了游戏崩溃探测器，但是你们还看不到",
-            "添加了材质包管理页面",
-            "添加了模组自定义路径安装功能",
-            "实装了自动选取适合游戏的 Java 运行时",
-            "实装了拖拽安装游戏组件的功能",
-            "修改了本地模组列表样式",
-            "修改了新闻列表加载逻辑",
-            "修改了本地模组列表加载逻辑",
-            "修复了游戏列表内无法删除游戏核心的 Bug",
-            "综合 Bug 修复",
+            "完善了自动更新（目前仅限 Windows）",
+            "修复了自动找 Java 出现重复 Java 的情况",
+            "修复了一处 UI 显示问题",
+            "修复了一处可能导致启动器崩溃的 Bug",
             "优化了启动器性能",
         };
     }

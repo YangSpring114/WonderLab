@@ -14,7 +14,7 @@ namespace WonderLab.Modules.Const
 
         public const string ClientId = "9fd44410-8ed7-4eb3-a160-9f1cc62c824c";
 
-        public const string LauncherVersion = "1.0.1.7";
+        public const string LauncherVersion = "1.0.1.8";
         public const bool IsDevelopVersion = true;
 
         public static bool IsMacOS => RuntimeInformation.IsOSPlatform(OSPlatform.OSX);

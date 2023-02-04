@@ -32,7 +32,7 @@
 						<StackPanel Orientation="Horizontal" Spacing="50">
 							<TextBlock Text="实际版本号"/>
 							<StackPanel Orientation="Horizontal">
-								<TextBlock Text="Alpha "/>
+								<TextBlock Text="{Binding VersionPrefix}"/>
 								<TextBlock Text="{Binding Version}"/>
 							</StackPanel>
 						</StackPanel>

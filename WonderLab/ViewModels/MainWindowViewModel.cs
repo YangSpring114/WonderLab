@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using FluentAvalonia.UI.Controls;
+using Natsurainko.Toolkits.Network;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using WonderLab.Modules.Base;
 using WonderLab.Modules.Const;
 using WonderLab.Modules.Controls;
@@ -15,7 +17,7 @@ using WonderLab.Modules.Models;
 
 namespace WonderLab.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    public partial class MainWindowViewModel : ViewModelBase
     {
         public ObservableCollection<InfoBarModel> InfoBarItems
         {
@@ -23,7 +25,35 @@ namespace WonderLab.ViewModels
             set => RaiseAndSetIfChanged(ref _InfoBarItems, value);
         }
 
-        private ObservableCollection<InfoBarModel> _InfoBarItems = new();
+        public bool IsStartInstall
+        {
+            get => _IsStartInstall;
+            set => RaiseAndSetIfChanged(ref _IsStartInstall, value);
+        }
+
+        public bool IsStart
+        {
+            get => _IsStart;
+            set => RaiseAndSetIfChanged(ref _IsStart, value);
+        }
+
+        public float Progress
+        {
+            get => _Progress;
+            set => RaiseAndSetIfChanged(ref _Progress, value);
+        }
+
+        public string StringProgress
+        {
+            get => _StringProgress;
+            set => RaiseAndSetIfChanged(ref _StringProgress, value);
+        }
+
+        public string Time
+        {
+            get => _Time;
+            set => RaiseAndSetIfChanged(ref _Time, value);
+        }
 
         public static MainWindowViewModel ViewModel;
 
@@ -169,5 +199,70 @@ namespace WonderLab.ViewModels
         {
             get => _Height;
         }
+
+        public async void Install()
+        {
+            IsStart = false;
+            IsStartInstall= true;
+            InstallTime = DateTime.Now;
+            Timer timer = new(1000);
+            timer.Elapsed += TimerElapsed;
+            timer.Start();
+            await Task.Delay(500);
+
+            var res = await HttpWrapper.HttpDownloadAsync(MainWindow.win.UpdateInfo.Value, Environment.CurrentDirectory, (x, e) =>
+            {
+                StringProgress = $"{Math.Round(x * 100, 2)}%";
+                Progress = x;
+            }, "WonderLab.update");
+
+            if (res.HttpStatusCode is System.Net.HttpStatusCode.OK) {
+                StringProgress = "100%";
+                Progress = 1f;
+                timer.Stop();
+
+                //安装更新
+                int currentPID = Process.GetCurrentProcess().Id;
+                string name = Process.GetCurrentProcess().ProcessName;
+                string filename = $"{name}.dll";
+
+                string psCommand =
+                            $"Stop-Process -Id {currentPID} -Force;" +
+                            $"Wait-Process -Id {currentPID} -ErrorAction SilentlyContinue;" +
+                            "Start-Sleep -Milliseconds 500;" +
+                            $"Remove-Item {filename} -Force;" +
+                            $"Rename-Item WonderLab.update {filename};" +
+                            $"Start-Process {name}.exe -Args updated;";
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = "powershell.exe",
+                        Arguments = psCommand,
+                        WorkingDirectory = Directory.GetCurrentDirectory(),
+                        UseShellExecute = true,
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                    });
+                }
+                catch (Exception ex)
+                {}                
+            }
+        }
+
+        private void TimerElapsed(object? sender, ElapsedEventArgs e)
+        {
+            Time = (DateTime.Now - InstallTime).ToString(@"hh\:mm\:ss");
+        }
+    }
+
+    partial class MainWindowViewModel
+    {
+        private ObservableCollection<InfoBarModel> _InfoBarItems = new();
+        public DateTime InstallTime;
+        public bool _IsStart = true;
+        public bool _IsStartInstall = false;
+        public float _Progress = 0f;
+        public string _StringProgress = "0%";
+        public string _Time = "00:00:00";
     }
 }

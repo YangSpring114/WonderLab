@@ -69,9 +69,11 @@ namespace WonderLab.ViewModels
             UserInfo = App.Data.SelectedUser;
         }
 
-        public void LaunchAsync()
+        public async void LaunchAsync()
         {
-            Enabled = false;
+            await MainWindow.win.UpdateDialog.ShowAsync();
+            return;
+            Enabled = false;            
             var e = new GameLaunchAsyncEvent(SelectedGameCore);
             Event.CallEvent(e);
             if (e.IsCanceled)
