@@ -7,6 +7,7 @@ using FluentAvalonia.Core.ApplicationModel;
 using FluentAvalonia.UI.Controls;
 using System;
 using System.Collections;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
 using System.Threading.Tasks;

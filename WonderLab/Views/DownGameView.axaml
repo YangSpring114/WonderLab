@@ -49,9 +49,9 @@
 				 
 				
 				<StackPanel Orientation="Horizontal" Margin="20,5,0,0">
-					<CheckBox IsChecked="{Binding Normal}" Command="{Binding SelectedRelease}" FontFamily="Din Pro" Name="Normal" Content="只显示正式版"/>
-					<CheckBox IsChecked="{Binding New}" Command="{Binding SelectedSnapshot}" FontFamily="Din Pro" Name="New" Content="只显示快照版"/>
-					<CheckBox IsChecked="{Binding Old}" Command="{Binding SelectedOldData}" FontFamily="Din Pro" Name="Old" Content="只显示远古版"/>
+					<CheckBox IsChecked="{Binding Normal}" Command="{Binding SelectedRelease}" FontFamily="Din Pro" Name="Normal" Content="显示正式版"/>
+					<CheckBox IsChecked="{Binding New}" Command="{Binding SelectedSnapshot}" FontFamily="Din Pro" Name="New" Content="显示快照版"/>
+					<CheckBox IsChecked="{Binding Old}" Command="{Binding SelectedOldData}" FontFamily="Din Pro" Name="Old" Content="显示远古版"/>
 				</StackPanel>
 				<Border Margin="20,5,20,5" Height="50" CornerRadius="4" Background="{DynamicResource ControlFillColorDefaultBrush}">
 					<Panel>
@@ -130,6 +130,7 @@
 						</Button>
 					</cx:OptionsDisplayItem.ActionButton>
 				</cx:OptionsDisplayItem>
+				
 				<cx:OptionsDisplayItem IsEnabled="{Binding CurrentFabricDescription,Converter={StaticResource LoaderEnabledConverter}}"
 									   IsExpanded="False" Description="{Binding CurrentFabricDescription}" Header="Fabric"
 									   Expands="{Binding CurrentFabricDescription,Converter={StaticResource LoaderEnabledConverter}}" IsVisible="{Binding ElementName=HasModLoader,Path=IsChecked}" Margin="20,0,20,10">
@@ -193,6 +194,7 @@
 						</Button>
 					</cx:OptionsDisplayItem.ActionButton>
 				</cx:OptionsDisplayItem>
+				
 				<cx:OptionsDisplayItem IsEnabled="{Binding CurrentOpitfineDescription,Converter={StaticResource LoaderEnabledConverter}}"
 									   IsExpanded="False" Description="{Binding CurrentOpitfineDescription}" Header="Optifine"
 									   Expands="{Binding CurrentOpitfineDescription,Converter={StaticResource LoaderEnabledConverter}}"

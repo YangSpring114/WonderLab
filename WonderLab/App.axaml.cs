@@ -162,7 +162,7 @@ namespace WonderLab
         }
         public override void RegisterServices()
         {            
-            //AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(new CustomFontManagerImpl());
+            //AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant();
             base.RegisterServices();
         }
     }
@@ -174,7 +174,7 @@ namespace WonderLab
 
         //Load font resources in the project, you can load multiple font resources
         private readonly Typeface _defaultTypeface =
-            new Typeface("resm:WonderLab.Resources.HarmonyOS#HarmonyOS Sans");
+            new Typeface("avares://FluentAvalonia/Fonts/#Symbols");
 
         public CustomFontManagerImpl()
         {
@@ -220,11 +220,11 @@ namespace WonderLab
         public IGlyphTypefaceImpl CreateGlyphTypeface(Typeface typeface)
         {
             SKTypeface skTypeface;
-
+            Trace.WriteLine(_defaultTypeface.FontFamily.Name);
             switch (typeface.FontFamily.Name)
             {
                 case FontFamily.DefaultFontFamilyName:
-                case "微软雅黑":  //font family name
+                case "Symbols":  //font family name
                     skTypeface = SKTypeface.FromFamilyName(_defaultTypeface.FontFamily.Name); break;
                 default:
                     skTypeface = SKTypeface.FromFamilyName(typeface.FontFamily.Name,

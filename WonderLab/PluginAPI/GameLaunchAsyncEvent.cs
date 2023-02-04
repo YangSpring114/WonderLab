@@ -12,7 +12,9 @@ using MinecraftLaunch.Modules.Toolkits;
 using Natsurainko.FluentCore.Module.Launcher;
 using PluginLoader;
 using WonderLab.Modules.Controls;
+using WonderLab.Modules.Toolkits;
 using WonderLab.Views;
+using JavaToolkit = WonderLab.Modules.Toolkits.JavaToolkit;
 
 namespace WonderLab.PluginAPI
 {
@@ -107,6 +109,7 @@ namespace WonderLab.PluginAPI
                 #endregion
 
                 #region 启动
+                OptionsToolkit.GameLangChange(SelectedGameCore.Id, App.Data.SelectedLang);
 
                 var button = new HyperlinkButton()
                 {
@@ -119,17 +122,7 @@ namespace WonderLab.PluginAPI
 
                 LaunchItemView view = new(version, App.Data.SelectedUser, javapath);
 
-                if (TaskView.itemView.Count is not 0 && TaskView.task is not null)
-                {
-                    TaskView.task.infopanel.Children.Add(view);
-                    TaskView.task.nullText.IsVisible = false;
-                }
-                else if (TaskView.itemView.Count is not 0 && TaskView.task is null)
-                    TaskView.itemView.Add(view);
-                else if (TaskView.itemView.Count is 0 && TaskView.task is null)
-                    TaskView.itemView.Add(view);
-                else if (TaskView.itemView.Count is 0 && TaskView.task is not null)
-                    TaskView.task.AddItem(view);
+                TaskView.Add(view);
                 #endregion
             }
             return true;

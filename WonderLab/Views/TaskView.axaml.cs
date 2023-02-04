@@ -42,8 +42,7 @@ namespace WonderLab.Views
         /// <param name="view"></param>
         public static void Add(ITask view)
         {
-            if (itemView.Count is not 0 && task is not null)
-            {
+            if (itemView.Count is not 0 && task is not null) {           
                 task.infopanel.Children.Add(view);
                 task.nullText.IsVisible = false;
             }

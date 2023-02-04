@@ -9,6 +9,7 @@ using System.Runtime.Versioning;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using WonderLab.Modules.Const;
 
 namespace WonderLab.Modules.Toolkits
 {
@@ -27,7 +28,7 @@ namespace WonderLab.Modules.Toolkits
                     StartInfo = new ProcessStartInfo
                     {
                         Arguments = "-version",
-                        FileName = fileInfo.FullName,
+                        FileName = InfoConst.IsWindows && fileInfo.Name.EndsWith(".exe") ? Path.Combine(fileInfo.Directory!.FullName,"java.exe") : fileInfo.FullName,
                         UseShellExecute = false,
                         CreateNoWindow = true,
                         RedirectStandardError = true,
@@ -40,7 +41,7 @@ namespace WonderLab.Modules.Toolkits
                 bool is64Bit = false;
                 while (standardError.Peek() != -1)
                 {
-                    string text3 = standardError.ReadLine();
+                    string text3 = standardError.ReadLine()!;
                     if (text3.Contains("java version"))
                     {
                         text = new Regex(text2).Match(text3).Groups["version"].Value;
@@ -55,6 +56,44 @@ namespace WonderLab.Modules.Toolkits
                         is64Bit = true;
                     }
                 }
+
+
+                if (string.IsNullOrEmpty(text)) {
+                    using Process process2 = new Process
+                    {
+                        StartInfo = new ProcessStartInfo
+                        {
+                            Arguments = "-XshowSettings:properties -version",
+                            FileName = InfoConst.IsWindows && fileInfo.Name.EndsWith(".exe") ? Path.Combine(fileInfo.Directory!.FullName, "java.exe") : fileInfo.FullName,
+                            UseShellExecute = false,
+                            CreateNoWindow = true,
+                            RedirectStandardError = true,
+                            RedirectStandardOutput = true
+                        }
+                    };
+
+                    process2.Start();
+                    process2.WaitForExit(8000);
+                    StreamReader standardError1 = process2.StandardError;
+                    while (standardError.Peek() != -1)
+                    {
+                        string text3 = standardError.ReadLine()!;
+                        if (text3.Contains("java version"))
+                        {
+                            text = new Regex(text2).Match(text3).Groups["version"].Value;
+                        }
+                        else if (text3.Contains("openjdk version"))
+                        {
+                            text2 = text2.Replace("java", "openjdk");
+                            text = new Regex(text2).Match(text3).Groups["version"].Value;
+                        }
+                        else if (text3.Contains("64-Bit"))
+                        {
+                            is64Bit = true;
+                        }
+                    }
+                }
+
 
                 string[] array = text.Split(".");
                 if (array.Length != 0)
@@ -73,7 +112,10 @@ namespace WonderLab.Modules.Toolkits
             }
             catch (Exception)
             {
-                return null;
+                return new JavaInfo
+                {
+
+                };
             }
         }
 

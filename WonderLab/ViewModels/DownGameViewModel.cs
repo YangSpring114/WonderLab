@@ -7,10 +7,12 @@ using MinecraftLaunch.Modules.Models.Launch;
 using Natsurainko.FluentCore.Class.Model.Install;
 using Natsurainko.FluentCore.Class.Model.Install.Vanilla;
 using Natsurainko.FluentCore.Module.Installer;
+using Newtonsoft.Json.Linq;
 using PluginLoader;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -50,22 +52,50 @@ namespace WonderLab.ViewModels
         public bool IsForgeListLoadOk { get => _IsForgeListLoadOk; set => RaiseAndSetIfChanged(ref _IsForgeListLoadOk, value); }
         public bool IsFabricListLoadOk { get => _IsFabricListLoadOk; set => RaiseAndSetIfChanged(ref _IsFabricListLoadOk, value); }
         public bool IsOptiFineListLoadOk { get => _IsOptiFineListLoadOk; set => RaiseAndSetIfChanged(ref _IsOptiFineListLoadOk, value); }
-        public List<GameCore> GameCores { get => _GameCores; set => RaiseAndSetIfChanged(ref _GameCores, value); }
+        public ObservableCollection<GameCore> GameCores { get => _GameCores; set => RaiseAndSetIfChanged(ref _GameCores, value); }
         public List<ModLoaderInformationViewData> Forges { get => _Forges; set => RaiseAndSetIfChanged(ref _Forges, value); }
         public List<ModLoaderInformationViewData> Fabrics { get => _Fabrics; set => RaiseAndSetIfChanged(ref _Fabrics, value); }
         public List<ModLoaderInformationViewData> OptiFines { get => _OptiFines; set => RaiseAndSetIfChanged(ref _OptiFines, value); }
         public GameCore SelectedGameCore 
         {
             get => _SelectedGameCore;
-            set 
-            {
-                if (RaiseAndSetIfChanged(ref _SelectedGameCore, value) && value is not null)
+            set => RaiseAndSetIfChanged(ref _SelectedGameCore, value);
+        }
+        public ModLoaderInformationViewData SelectForge
+        {
+            get => _Forge;
+            set => RaiseAndSetIfChanged(ref _Forge, value);
+        }
+        public ModLoaderInformationViewData SelectFabric
+        {
+            get => _Fabric;
+            set => RaiseAndSetIfChanged(ref _Fabric, value);
+        }
+        public ModLoaderInformationViewData SelectOptiFine
+        {
+            get => _OptiFine;
+            set => RaiseAndSetIfChanged(ref _OptiFine, value);
+        }
+    }
+    //Method
+    partial class DownGameViewModel
+    {
+        public DownGameViewModel()
+        {
+            PropertyChanged += DownGameViewModel_PropertyChanged;
+            LoadVersionList();
+        }
+
+        private void DownGameViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName is "SelectedGameCore") {
+                if (SelectedGameCore is not null)
                 {
                     HasGameCore = true;
                     IsExpand = false;
-                    CurrentGameCore = value.Id;
-                    CurrentGameCoreType = value.Type;
-                    DownloadCore = value.Id;
+                    CurrentGameCore = SelectedGameCore.Id;
+                    CurrentGameCoreType = SelectedGameCore.Type;
+                    DownloadCore = SelectedGameCore.Id;
                     Clear();
                     Change();
                 }
@@ -75,87 +105,65 @@ namespace WonderLab.ViewModels
                     HasGameCore = false;
                 }
             }
-        }
-        public ModLoaderInformationViewData SelectForge
-        {
-            get => _Forge;
-            set
-            {
-                if (RaiseAndSetIfChanged(ref _Forge, value) && value is not null)
+            else if (e.PropertyName is "SelectForge") {
+                if (SelectForge is not null)
                 {
                     CanFabricInstall = false;
-                    ModLoaders.Add(value);
+                    ModLoaders.Add(SelectForge);
                     if (OldForge is not null)
                         ModLoaders.Remove(OldForge);
-                    OldForge = value;
+                    OldForge = SelectForge;
                     ForgeRemoveVisible = true;
-                    if(SelectOptiFine is not null)
+                    if (SelectOptiFine is not null)
                         CurrentFabricDescription = "此加载器与 Forge 和 Opitfine 不兼容";
-                    else if (Fabrics is not null && Fabrics.Count >= 0) CurrentFabricDescription = "此加载器与 Forge 不兼容";                    
-                    CurrentForgeDescription = value.Data.Version;
+                    else if (Fabrics is not null && Fabrics.Count >= 0) CurrentFabricDescription = "此加载器与 Forge 不兼容";
+                    CurrentForgeDescription = SelectForge.Data.Version;
                     DownloadCoreType = $"当前选中的加载器：{string.Join(",", ModLoaders.Select(x => x.Data.LoaderName + "_" + x.Data.Main.Version))}";
                 }
             }
-        }
-        public ModLoaderInformationViewData SelectFabric
-        {
-            get => _Fabric;
-            set
-            {
-                if (RaiseAndSetIfChanged(ref _Fabric, value) && value is not null)
+            else if (e.PropertyName is "SelectFabric") {
+                if (SelectFabric is not null)
                 {
-                    if (value.Data.CanSelected is 0 || value.Data.CanSelected is 2)
+                    if (SelectFabric.Data.CanSelected is 0 || SelectFabric.Data.CanSelected is 2)
                     {
                         CanForgeInstall = false;
                         CanOptiFineInstall = false;
-                        ModLoaders.Add(value);
+                        ModLoaders.Add(SelectFabric);
                         if (OldFabric is not null)
                             ModLoaders.Remove(OldFabric);
-                        OldFabric = value;
+                        OldFabric = SelectFabric;
                         FabricRemoveVisible = true;
                         if (Forges.Count >= 0)
                         {
                             CurrentForgeDescription = "此加载器与 Fabric 不兼容";
                         }
-                        else if(OptiFines.Count >= 0)
+                        else if (OptiFines.Count >= 0)
                         {
                             CurrentOpitfineDescription = "此加载器与 Fabric 不兼容";
                         }
-                        CurrentFabricDescription = value.Data.Version;
+                        CurrentFabricDescription = SelectFabric.Data.Version;
                         DownloadCoreType = $"当前选中的加载器：{string.Join(",", ModLoaders.Select(x => x.Data.LoaderName + "_" + x.Data.Main.Version))}";
                     }
                 }
             }
-        }
-        public ModLoaderInformationViewData SelectOptiFine
-        {
-            get => _OptiFine;
-            set
-            {
-                if (RaiseAndSetIfChanged(ref _OptiFine, value) && value is not null)
+            else if (e.PropertyName is "SelectOptiFine") {
+                if (SelectOptiFine is not null)
                 {
                     CanFabricInstall = false;
-                    ModLoaders.Add(value);
+                    ModLoaders.Add(SelectOptiFine);
                     if (OldOptifine is not null)
                         ModLoaders.Remove(OldOptifine);
-                    OldOptifine = value;
+                    OldOptifine = SelectOptiFine;
                     OptifineRemoveVisible = true;
                     if (SelectForge is not null)
                         CurrentFabricDescription = "此加载器与 Forge 和 Opitfine 不兼容";
                     else if (Fabrics.Count >= 0) CurrentFabricDescription = "此加载器与 OptiFine 不兼容";
-                    CurrentOpitfineDescription = value.Data.Version;
+                    CurrentOpitfineDescription = SelectOptiFine.Data.Version;
                     DownloadCoreType = $"当前选中的加载器：{string.Join(",", ModLoaders.Select(x => x.Data.LoaderName + "_" + x.Data.Main.Version))}";
                 }
             }
         }
-    }
-    //Method
-    partial class DownGameViewModel
-    {
-        public DownGameViewModel()
-        {
-            LoadVersionList();
-        }
+
         public void Button_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             BlessingView.IsTask = true;
@@ -171,7 +179,7 @@ namespace WonderLab.ViewModels
                 CoreManifest core = null;
                 try
                 {
-                    GameCoreInstaller.GetGameCoresAsync();
+                    //await GameCoreInstaller.GetGameCoresAsync();
                     core = await MinecraftVanlliaInstaller.GetCoreManifest();
                 }
                 catch (Exception ex)
@@ -188,29 +196,29 @@ namespace WonderLab.ViewModels
             {
                 await Task.Run(() =>
                 {
-                    foreach (var i in v1.Cores)
+                    foreach (var i in v1.Cores.AsParallel())
                     {
                         GameCore tm = new();
                         if (i.Type is "release")
                         {
                             tm.Type = $"正式版 {i.Id}";
                             tm.Id = i.Id;
-                            Release.Add(tm);
+                            GameCores.Add(tm);
                         }
                         else if (i.Type is "snapshot")
                         {
                             tm.Type = $"快照版 {i.Id}";
                             tm.Id = i.Id;
-                            Snapshot.Add(tm);
+                            GameCores.Add(tm);
                         }
                         else if (i.Type is "old_alpha")
                         {
                             tm.Type = $"远古版 {i.Id}";
                             tm.Id = i.Id;
-                            OldData.Add(tm);
+                            GameCores.Add(tm);
                         }
                     }
-                    GameCores = Release;
+                    TempList = GameCores.ToList();
                     IsGameListLoadOk = false;
                 });
             }
@@ -227,23 +235,50 @@ namespace WonderLab.ViewModels
             CurrentGameCore = DefaultCurrentGameCore;
             CurrentGameCoreType = DefaultCurrentGameCoreType;
         }
+
+        void SelectedGameCoreList()
+        {
+            GameCores = TempList.BuildObservableCollection();
+            GameCores = GameCores.Where(x =>
+            {
+                if (Normal && x.Type.Contains("正式版")) {
+                    return true;
+                }
+
+                if (New && x.Type.Contains("快照版")) {
+                    return true;
+                }
+
+                if (Old && x.Type.Contains("远古版")) {
+                    return true;
+                }
+
+                if (!Normal && !Old && !New) {
+                    return true;
+                }
+
+                return false;
+            }).BuildObservableCollection();
+        }
+
         public void SelectedRelease()
         {
-            Kill();
-            GameCores = Release;
-            Normal = true;
+            SelectedGameCoreList();
+            //Kill();
+            //GameCores = TempList.BuildObservableCollection();
+            //GameCores = GameCores.Where(x => x.Type.Contains("正式版")).BuildObservableCollection();
         }
         public void SelectedSnapshot()
         {
-            Kill();
-            GameCores = Snapshot;
-            New = true;
+            SelectedGameCoreList();
+            //GameCores = TempList.BuildObservableCollection();
+            //GameCores = GameCores.Where(x => x.Type.Contains("快照版")).BuildObservableCollection();
         }
         public void SelectedOldData()
         {
-            Kill();
-            GameCores = OldData;
-            Old = true;
+            SelectedGameCoreList();
+            //GameCores = TempList.BuildObservableCollection();
+            //GameCores = GameCores.Where(x => x.Type.Contains("远古版")).BuildObservableCollection();
         }
         public void InstallAsync()
         {
@@ -501,11 +536,11 @@ namespace WonderLab.ViewModels
         public string _DownloadCoreType = DefaultInstall;
         public GameCoresEntity CoreManifest;
         public GameCore _SelectedGameCore  = null;
-        public List<GameCore>? _GameCores = new();
+        public ObservableCollection<GameCore>? _GameCores = new();
         public List<ModLoaderInformationViewData> ModLoaders = new();
-        public List<GameCore> Release = new();
-        public List<GameCore> OldData = new();
-        public List<GameCore> Snapshot = new();
+        public List<GameCore> TempList = new();
+        //public List<GameCore> OldData = new();
+        //public List<GameCore> Snapshot = new();
         public List<ModLoaderInformationViewData> _Forges;
         public List<ModLoaderInformationViewData> _Fabrics;
         public List<ModLoaderInformationViewData> _OptiFines;

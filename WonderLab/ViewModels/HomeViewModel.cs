@@ -71,8 +71,6 @@ namespace WonderLab.ViewModels
 
         public async void LaunchAsync()
         {
-            await MainWindow.win.UpdateDialog.ShowAsync();
-            return;
             Enabled = false;            
             var e = new GameLaunchAsyncEvent(SelectedGameCore);
             Event.CallEvent(e);

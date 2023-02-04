@@ -33,6 +33,7 @@ using Avalonia.Input;
 using System.Diagnostics;
 using System.Reflection;
 using System.Linq;
+using Avalonia.Controls.Notifications;
 #pragma warning disable CS8618
 namespace WonderLab
 {
@@ -132,7 +133,6 @@ namespace WonderLab
         private void MainWindow_Closed(object? sender, System.EventArgs e)
         {
             JsonToolkit.JsonWrite();
-            PluginItemViewModel.stop = true;
         }
 
         public static void AutoUpdata()

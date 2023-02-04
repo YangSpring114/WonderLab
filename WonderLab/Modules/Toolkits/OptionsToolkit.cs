@@ -15,7 +15,7 @@ namespace WonderLab.Modules.Toolkits
         /// 游戏语言切换
         /// </summary>
         /// <returns></returns>
-        public static async ValueTask GameLangChange(int index = 1)
+        public static async void GameLangChange(string id,int index = 0)
         {
             string langtype = "en_us";
 
@@ -24,41 +24,25 @@ namespace WonderLab.Modules.Toolkits
             else if (index is 2) langtype = "ja_jp";
             else if (index is 3) langtype = "ko_kr";
             //ja_jp
-            string path = IsEnableIndependencyCore ? Path.Combine(PathConst.GetVersionFolder(App.Data.FooterPath, App.Data.SelectedGameCore!), "options.txt") :
-                Path.Combine(App.Data.FooterPath, "options.txt");
+            string path = PathConst.GetOptions(App.Data.FooterPath, id);
 
             if (!File.Exists(path))
             {
-                File.WriteAllText(path, langtype);
+                await File.WriteAllTextAsync(path, $"lang:{langtype}");
                 return;
             }
 
             var allText = await File.ReadAllTextAsync(path);
 
-            foreach (var i in allText.Split("\r\n"))
+            foreach (var i in allText.Split("\r\n").AsParallel())
             {
                 if (i.Contains("lang:"))
                 {
                     LogToolkit.WriteLine("发现语言节点！");
                     allText = allText.Replace(i, $"lang:{langtype}");
                     LogToolkit.WriteLine(allText);
-                    File.WriteAllText(path, allText);
+                    await File.WriteAllTextAsync(path, allText);
                     return;
-                }
-            }
-        }
-
-        public static bool IsEnableIndependencyCore
-        {
-            get
-            {
-                if (JsonToolkit.GetEnableIndependencyCoreData(App.Data.FooterPath, App.Data.SelectedGameCore).IsEnableIndependencyCore)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
                 }
             }
         }

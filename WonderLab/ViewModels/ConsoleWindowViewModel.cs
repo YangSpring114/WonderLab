@@ -50,9 +50,11 @@ namespace WonderLab.ViewModels
                     var output = GameLogAnalyzer.AnalyseAsync(x);
                     Outputs.Add(output.ToOutput());
                 });
+
+                LastOutput = Outputs.Last();
             }
 
-            LastOutput = Outputs.Last();
+            Process.ProcessOutput += Process_ProcessOutput;
         }
 
         private async void Process_ProcessOutput(object? sender, MinecraftLaunch.Modules.Interface.IProcessOutput e)
