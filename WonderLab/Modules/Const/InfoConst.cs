@@ -17,7 +17,7 @@ namespace WonderLab.Modules.Const
 
         public const string ClientId = "9fd44410-8ed7-4eb3-a160-9f1cc62c824c";
 
-        public const string LauncherVersion = "1.0.2.0";
+        public const string LauncherVersion = "1.0.2.1";
 
         public const bool IsDevelopVersion = true;
 

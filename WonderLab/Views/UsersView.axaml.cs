@@ -22,16 +22,24 @@ namespace WonderLab.Views
         public UsersView()
         {
             InitializeComponent(true);
-            View = this;
-            this.DataContext = ViewModel;
-            AuthenticatorTypeDialog.DataContext = ViewModel;
-            LoginDialog.DataContext = ViewModel;
-            SetupDnd("Text", d => d.Set(DataFormats.Text,
-                $""), DragDropEffects.Copy | DragDropEffects.Move | DragDropEffects.Link);
         }
+
+        private async void UsersView_Initialized(object? sender, EventArgs e)
+        {
+            await Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                View = this;
+                this.DataContext = ViewModel;
+                AuthenticatorTypeDialog.DataContext = ViewModel;
+                LoginDialog.DataContext = ViewModel;
+                SetupDnd("Text", d => d.Set(DataFormats.Text,
+                         $""), DragDropEffects.Copy | DragDropEffects.Move | DragDropEffects.Link);
+            });
+        }
+
         public override void OnNavigatedTo()
         {
-            //ViewModel.CurrentUser = ViewModel.Users.GetUserInIndex(App.Data.SelectedUser.UserName);
+            //ViewModel.CurrentUser = ViewModel.Users[ViewModel.Users.IndexOf(new(App.Data.SelectedUser!))];
             //MainWindow.win.TipShow();ShowUserInfoDialogClick
         }
 

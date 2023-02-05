@@ -2,6 +2,7 @@ using FluentAvalonia.UI.Controls;
 using MinecaftOAuth.Authenticator;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -39,7 +40,7 @@ namespace WonderLab.ViewModels
             "离线验证"
         };
 
-        public List<UserModels> Users { get => _Users; set => RaiseAndSetIfChanged(ref _Users, value); }
+        public ObservableCollection<UserModels> Users { get => _Users; set => RaiseAndSetIfChanged(ref _Users, value); }
 
         public UserModels CurrentUser { get => _CurrentUser; set { if (RaiseAndSetIfChanged(ref _CurrentUser, value) && _CurrentUser is not null) App.Data.SelectedUser = _CurrentUser.ToUserDataModel(); } }
         
@@ -103,7 +104,7 @@ namespace WonderLab.ViewModels
 
                     App.Data.UserList.Add(user);
                     MainWindow.ShowInfoBarAsync("添加账户成功：", $"{user.UserType} {user.UserName} 欢迎回来,{user.UserName}", InfoBarSeverity.Success);
-                    GetSaveUserInfo();
+                    Users.Add(new(user));
                     UsersView.CloseDialog();
                 }
                 catch (Exception ex)
@@ -182,6 +183,7 @@ namespace WonderLab.ViewModels
 
         public void StringsRefresh()
         {
+            IsCilpboardButtonVisibility = false;
             SelectedAuthenticator = "微软验证";
             UrlTextBoxText = "";
             TextBoxText = "";
@@ -190,12 +192,16 @@ namespace WonderLab.ViewModels
             DeviceTips = "";
         }
 
-        public async void GetSaveUserInfo()
+        public void GetSaveUserInfo()
         {
             BackgroundWorker worker = new();
             worker.DoWork += (_, _) =>
             {
-                Users = new(App.Data.UserList.Select(x => new UserModels(x)));
+                App.Data.UserList.ForEach(async x =>
+                {
+                    Users.Add(new(x));
+                    await Task.Delay(1000);
+                });
             };
 
             worker.RunWorkerAsync();
@@ -224,7 +230,7 @@ namespace WonderLab.ViewModels
         public string _DeviceTips = string.Empty;
         public string _DeviceCode = string.Empty;
         public string _LoginDialogTitle = string.Empty; 
-        public List<UserModels> _Users = new();
+        public ObservableCollection<UserModels> _Users = new();
         public UserModels _CurrentUser = new(App.Data.SelectedUser);
         //public string _PasswordBoxText = string.Empty;
     }

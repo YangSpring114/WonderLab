@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	         xmlns:ui="using:FluentAvalonia.UI.Controls"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:cx="using:WonderLab.Modules.Controls"
+			 xmlns:cx="using:WonderLab.Modules.Controls" Initialized="MainView_Initialized"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="WonderLab.Views.MainView">
 	<UserControl.Resources>

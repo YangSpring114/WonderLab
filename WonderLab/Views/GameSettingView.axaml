@@ -72,7 +72,7 @@
 							
 							<Grid Margin="0,25,0,10">
 								<TextBlock FontFamily="Din Pro" VerticalAlignment="Center" Text="游戏运行内存修改："/>
-                                <TextBox Text="{Binding MaxMemory}" Name="max" MinWidth="150" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                <TextBox Classes="clearButton" Text="{Binding MaxMemory}" Name="max" MinWidth="150" VerticalAlignment="Center" HorizontalAlignment="Right"/>
 							</Grid>
 							
 							<Grid Margin="0,15,0,0">

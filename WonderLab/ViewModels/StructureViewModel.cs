@@ -16,10 +16,7 @@ namespace WonderLab.ViewModels
         public string StructureInfo => string.Join("\n", StructureInfoList);
         public List<string> StructureInfoList => new()
         {            
-            "添加了开始动画",
-            "添加了一些 UI 细节",
-            "优化了启动器性能",
-            "修复了几处导致崩溃的 Bug"
+            "修复了一处 UI 显示 Bug（应该）"
         };
     }
 }

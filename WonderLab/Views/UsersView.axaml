@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls" Initialized="UsersView_Initialized"
              x:Class="WonderLab.Views.UsersView">
 	<Grid Margin="0,100,0,0">
 		
@@ -74,13 +74,18 @@
 					<StackPanel Name="InfoPanel">
 						<TextBox IsVisible="{Binding FirstBoxVisibility}"
                             Margin="0,0,0,15" Text="{Binding UrlTextBoxText}"
-                            Watermark="外置登录服务器地址：" x:Name="YggUrl"/>						
+                            Watermark="外置登录服务器地址" x:Name="YggUrl" Classes="clearButton"/>						
 						<TextBox Text="{Binding TextBoxText}"
-                            Watermark="用户名：" IsVisible="{Binding TextBoxVisibility}"/>
+                            Watermark="用户名" IsVisible="{Binding TextBoxVisibility}"
+								 Classes="clearButton"/>
 						<TextBox Text="{Binding PasswordBoxText}"
 							PasswordChar="*" IsVisible="{Binding PasswordBoxVisibility}"
                             Margin="0,15,0,0"
-                            Watermark="密码："/>
+                            Watermark="密码" Classes="revealPasswordButton">
+							<TextBox.ContextFlyout>
+							
+							</TextBox.ContextFlyout>
+						</TextBox>
 						<TextBlock Text="{Binding DeviceInfo}" Margin="0,0,0,8" FontSize="18" Opacity="0.85" Name="dcheader"/>
 						<TextBlock Text="{Binding DeviceTips}" TextWrapping="Wrap" FontSize="12" Opacity="0.65" Name="dcInfo"/>
 						<TextBlock Margin="0,5,0,0" TextWrapping="Wrap" FontSize="12" Opacity="0.65" Name="dcstate"/>

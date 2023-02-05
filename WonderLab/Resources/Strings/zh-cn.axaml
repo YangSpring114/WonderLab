@@ -13,4 +13,11 @@
 	<s:String x:Key="OfflineAccount">离线账户</s:String>
 	<s:String x:Key="YggdrasilAccount">第三方账户</s:String>
 	
+	<!--The ContentMenu Buttons Text-->
+	<s:String x:Key="Cut">剪贴</s:String>
+	<s:String x:Key="Copy">复制</s:String>
+	<s:String x:Key="Paste">粘贴</s:String>
+	<s:String x:Key="Redo">恢复</s:String>
+	<s:String x:Key="Undo">撤销</s:String>
+	<s:String x:Key="SelectAll">全选</s:String>
 </ResourceDictionary>

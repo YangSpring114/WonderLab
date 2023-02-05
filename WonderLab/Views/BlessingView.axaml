@@ -4,7 +4,7 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="WonderLab.Views.BlessingView">
+             x:Class="WonderLab.Views.BlessingView" Initialized="BlessingView_Initialized">
 	<UserControl.Resources>
 		<ui:PathIconSource x:Key="LaunchSettingIcon" Data="M260.41609691 907.70315886L389.81797199 500.33717006l-126.90269724-0.83305931 145.78537428-382.92958316H723.04168471l-113.85143517 277.68642726h153.00522143L260.41609691 907.70315886z m103.02166452-477.06528206l121.34896869 0.83305929-69.42160681 218.26153182 182.16229631-186.32759267h-91.35883461l113.85143519-277.68642727H456.46271455l-93.02495312 244.91942883z"/>
 	</UserControl.Resources>

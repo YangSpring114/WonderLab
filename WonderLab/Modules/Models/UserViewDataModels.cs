@@ -132,10 +132,7 @@ namespace WonderLab.Modules.Models
                     {
                         var al = AvaloniaLocator.Current.GetService<IAssetLoader>();
                         using var stream = al.Open(new Uri("resm:WonderLab.Resources.sdf.png"));
-                        using var savestream = new MemoryStream();
-                        BitmapToolkit.ResizeImage((Image<Rgba32>)Image.Load(stream), 512, 512).Save(savestream, new PngEncoder());
-                        savestream.Position = 0;
-                        Icon = new Bitmap(savestream);
+                        Icon = new Bitmap(stream as MemoryStream);
                     }
                     else if (Type.Contains("微软"))
                     {

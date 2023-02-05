@@ -6,6 +6,7 @@ using Avalonia.Styling;
 using Avalonia.Threading;
 using FluentAvalonia.Core.ApplicationModel;
 using FluentAvalonia.UI.Controls;
+using FluentAvalonia.UI.Media.Animation;
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -31,6 +32,11 @@ namespace WonderLab.Views
             DataContext = ViewModel;
         }
 
+        private void MainView_Initialized(object? sender, EventArgs e)
+        {
+            FrameView.Navigate(typeof(HomeView));
+        }
+
         private void AppTitleBar_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
         {
             MainWindow.win.BeginMoveDrag(e);
@@ -46,7 +52,25 @@ namespace WonderLab.Views
             RootNavigationView.PaneOpened += RootNavigationView_PaneOpened;
             RootNavigationView.PaneClosed += RootNavigationView_PaneClosed;
             FrameView.Navigated += FrameView_Navigated;
-            Load();
+        }
+
+        private async void FrameView_Navigated(object sender, FluentAvalonia.UI.Navigation.NavigationEventArgs e)
+        {
+            try
+            {
+                foreach (NavigationViewItem item in RootMenuItems)
+                {
+                    if ((string)item.Tag! == e.SourcePageType.Name)
+                    {
+                        item.IsSelected = true;
+                    }
+                }
+                await Dispatcher.UIThread.InvokeAsync(() => FrameView.NavigateTo((Page)e.Content));
+            }
+            catch (Exception ex)
+            {
+                MainWindow.ShowInfoBarAsync("错误", ex.ToString(), InfoBarSeverity.Error);
+            }
         }
 
         private void RootNavigationView_PaneClosed(NavigationView sender, EventArgs args) =>
@@ -55,18 +79,13 @@ namespace WonderLab.Views
         private void RootNavigationView_PaneOpened(NavigationView sender, EventArgs args) =>
             UpdateAppTitleMargin();
 
-        private async void FrameView_Navigated(object sender, FluentAvalonia.UI.Navigation.NavigationEventArgs e)
-        {            
-            try {
-                foreach (NavigationViewItem item in RootMenuItems) {                
-                    if ((string)item.Tag == e.SourcePageType.Name) {                    
-                        item.IsSelected = true;
-                    }
-                }
-                await Dispatcher.UIThread.InvokeAsync(() => FrameView.NavigateTo((Page)e.Content));
-            }
-            catch (Exception ex) {
-                Trace.WriteLine(ex.ToString());
+        private void RootNavigationView_ItemInvoked(object? sender, NavigationViewItemInvokedEventArgs e)
+        {
+            RootNavigationView.IsBackEnabled = true;
+            var res = FrameView.Navigate(e.IsSettingsInvoked ? typeof(SettingView) : (Type.GetType($"WonderLab.Views.{((NavigationViewItem)e.InvokedItemContainer).Tag ??= string.Empty}")) ?? typeof(HomeView));
+
+            if (!res) {
+                MainWindow.ShowInfoBarAsync("错误", "giao", InfoBarSeverity.Error);
             }
         }
 
@@ -94,34 +113,14 @@ namespace WonderLab.Views
             else FrameView.Margin = new Thickness(0, -80, 0, 0);
         }
 
-        public void Load()
-        {
-            //home.IsSelected = true;
-            FrameView.Navigate(typeof(HomeView), new FluentAvalonia.UI.Media.Animation.DrillInNavigationTransitionInfo());
-        }
-
         private void RootNavigationView_BackRequested(object? sender, NavigationViewBackRequestedEventArgs e)
         {
-            Trace.WriteLine($"[信息] 剩余可返回的页面 {FrameView.BackStack.Count}");
-
             if (FrameView.BackStack.Count > 0) {
-                FrameView.GoBack();
+                FrameView.GoBack(new EntranceNavigationTransitionInfo());
                 if (FrameView.BackStack.Count == 0) {
                     RootNavigationView.IsBackEnabled = false;
                 }
             }
-        }
-
-        private void RootNavigationView_ItemInvoked(object? sender, NavigationViewItemInvokedEventArgs e)
-        {
-            if (((NavigationViewItem)e.InvokedItemContainer).Tag.ToString() == "BlessingView")
-            {
-                NavigatedToDownView();
-                return;
-            }
-
-            RootNavigationView.IsBackEnabled = true;
-            FrameView.Navigate((Page)FrameView.Content, e.IsSettingsInvoked ? typeof(SettingView) : (Type.GetType($"WonderLab.Views.{((NavigationViewItem)e.InvokedItemContainer).Tag ??= string.Empty}")) ?? typeof(HomeView), null, null);
         }
     }
 
