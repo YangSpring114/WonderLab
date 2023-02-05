@@ -4,277 +4,304 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:ui="using:FluentAvalonia.UI.Controls"
-             x:Class="WonderLab.Views.ResourceView">	
-	<Grid Margin="10">
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="1*"/>
-			<ColumnDefinition Width="0.10" MaxWidth="15" MinWidth="15"/>
-			<ColumnDefinition Width="1*"/>
-		</Grid.ColumnDefinitions>
-		<Grid VerticalAlignment="Stretch"
-				   HorizontalAlignment="Stretch">
-			<Button
-	           Padding="4"
-	           HorizontalAlignment="Stretch"
-	           VerticalAlignment="Stretch"
-	           HorizontalContentAlignment="Stretch"
-	           VerticalContentAlignment="Stretch"
-	           Background="Transparent"
-	           BorderThickness="1"
-	           CornerRadius="4"
-	           IsEnabled="False"/>
+             x:Class="WonderLab.Views.ResourceView">
+	<Grid>
+		<DockPanel>
+			<ui:InfoBar IsClosable="False" IsOpen="{Binding IsIndependency}"
+				Margin="0 -2.5 0 7.5" Title="警告：" DockPanel.Dock="Top"
+				Message="未开启版本隔离，此处显示的可能是多个游戏核心共用的资源包" Severity="Warning"/>
 
-			<Grid>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="25"/>
-					<RowDefinition Height="5"/>
-					<RowDefinition Height="1*"/>
-				</Grid.RowDefinitions>
-				<StackPanel Spacing="2" Margin="10 8 10 0" Grid.Row="0">
-					<TextBlock Text="禁用的资源包列表"/>
-					<ui:MenuFlyoutSeparator/>
-				</StackPanel>
-				
-				<ListBox HorizontalAlignment="Stretch"
-		             VerticalAlignment="Stretch"
-		             Background="Transparent" Grid.Row="2"
-					 Items="{Binding DisbaledResourcePacks}">
-					<ListBox.Styles>
-						<Styles>
-							<Style Selector="ListBoxItem">
-								<Setter Property="HorizontalContentAlignment" Value="Stretch" />
-								<Setter Property="BorderBrush" Value="Transparent" />
-								<Setter Property="Height" Value="60"/>
-								<Setter Property="Margin" Value="0,0" />
-								<Setter Property="Template">
-									<Setter.Value>
-										<ControlTemplate TargetType="ListBoxItem">
-											<Grid>
+			<Grid IsVisible="{Binding ResourcePackListVisible}" Margin="10" DockPanel.Dock="Top">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="1*"/>
+					<ColumnDefinition Width="0.10" MaxWidth="15" MinWidth="15"/>
+					<ColumnDefinition Width="1*"/>
+				</Grid.ColumnDefinitions>
+				<Grid VerticalAlignment="Stretch"
+						   HorizontalAlignment="Stretch">
+					<Button
+					   Padding="4"
+					   HorizontalAlignment="Stretch"
+					   VerticalAlignment="Stretch"
+					   HorizontalContentAlignment="Stretch"
+					   VerticalContentAlignment="Stretch"
+					   Background="Transparent"
+					   BorderThickness="1"
+					   CornerRadius="4"
+					   IsEnabled="False"/>
 
-												<Border Name="BackgroundElement"
-														RenderTransform="scaleY(-1)"/>
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="25"/>
+							<RowDefinition Height="5"/>
+							<RowDefinition Height="1*"/>
+						</Grid.RowDefinitions>
+						<StackPanel Spacing="2" Margin="10 8 10 0" Grid.Row="0">
+							<TextBlock Text="禁用的资源包列表"/>
+							<ui:MenuFlyoutSeparator/>
+						</StackPanel>
 
-												<Border Name="SelectBorderElement"
-														RenderTransform="scaleY(-1)"
-														BorderBrush="{DynamicResource ButtonBorderBrush}"/>
+						<ListBox HorizontalAlignment="Stretch"
+							 VerticalAlignment="Stretch"
+							 Background="Transparent" Grid.Row="2"
+							 Items="{Binding DisbaledResourcePacks}">
+							<ListBox.Styles>
+								<Styles>
+									<Style Selector="ListBoxItem">
+										<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+										<Setter Property="BorderBrush" Value="Transparent" />
+										<Setter Property="Height" Value="60"/>
+										<Setter Property="Margin" Value="0,0" />
+										<Setter Property="Template">
+											<Setter.Value>
+												<ControlTemplate TargetType="ListBoxItem">
+													<Grid>
 
-												<!--The gamecore info on the control top-->
-												<Grid Grid.Row="2">
-													<Grid.ColumnDefinitions>
-														<ColumnDefinition Width="1*" />
-														<ColumnDefinition Width="0.10*" MaxWidth="15"/>
-														<ColumnDefinition Width="Auto"/>
-													</Grid.ColumnDefinitions>
-													<Grid HorizontalAlignment="Stretch">
-														<Grid Margin="0,0,-60,0">
+														<Border Name="BackgroundElement"
+																RenderTransform="scaleY(-1)"/>
+
+														<Border Name="SelectBorderElement"
+																RenderTransform="scaleY(-1)"
+																BorderBrush="{DynamicResource ButtonBorderBrush}"/>
+
+														<!--The gamecore info on the control top-->
+														<Grid Grid.Row="2">
 															<Grid.ColumnDefinitions>
-																<ColumnDefinition Width="Auto" />
 																<ColumnDefinition Width="1*" />
-																<ColumnDefinition Width="Auto" />
+																<ColumnDefinition Width="0.10*" MaxWidth="15"/>
+																<ColumnDefinition Width="Auto"/>
 															</Grid.ColumnDefinitions>
-														</Grid>
+															<Grid HorizontalAlignment="Stretch">
+																<Grid Margin="0,0,-60,0">
+																	<Grid.ColumnDefinitions>
+																		<ColumnDefinition Width="Auto" />
+																		<ColumnDefinition Width="1*" />
+																		<ColumnDefinition Width="Auto" />
+																	</Grid.ColumnDefinitions>
+																</Grid>
 
-														<Panel HorizontalAlignment="Left" Height="50" Width="50" Margin="10,10">
-															<Border BoxShadow="0 2 4 0 #66000000" CornerRadius="3">
-																<Border.Background>
-																	<ImageBrush Stretch="UniformToFill" Source="{Binding PackLogo}"/>
-																</Border.Background>
-															</Border>
+																<Panel HorizontalAlignment="Left" Height="50" Width="50" Margin="10,10">
+																	<Border BoxShadow="0 2 4 0 #66000000" CornerRadius="3">
+																		<Border.Background>
+																			<ImageBrush Stretch="UniformToFill" Source="{Binding PackLogo}"/>
+																		</Border.Background>
+																	</Border>
 
-															<Border CornerRadius="3" Name="ImageBackground"/>
+																	<Border CornerRadius="3" Name="ImageBackground"/>
 
-															<Button VerticalAlignment="Center" Click="EnableButtonClick"
-																	HorizontalAlignment="Center" Padding="2" Name="EnableButton"
-																	Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
-																<Viewbox Width="12">
-																	<ui:PathIcon Data="M558.933333 490.666667L384 665.6l59.733333 59.733333 234.666667-234.666666L443.733333 256 384 315.733333l174.933333 174.933334z"/>
-																</Viewbox>
-															</Button>
-														</Panel>
+																	<Button VerticalAlignment="Center" Click="EnableButtonClick"
+																			HorizontalAlignment="Center" Padding="2" Name="EnableButton"
+																			Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
+																		<Viewbox Width="12">
+																			<ui:PathIcon Data="M558.933333 490.666667L384 665.6l59.733333 59.733333 234.666667-234.666666L443.733333 256 384 315.733333l174.933333 174.933334z"/>
+																		</Viewbox>
+																	</Button>
+																</Panel>
 
-														<Panel Margin="65,-5,0,0" Grid.Column="1">
-															<TextBlock TextTrimming="CharacterEllipsis" Margin="0,15,10,0" FontSize="15" FontFamily="Din" Text="{Binding Data.Id}" />
-															<TextBlock Margin="0,34,10,0" TextTrimming="CharacterEllipsis" FontSize="12" Opacity="0.65" FontFamily="Din Pro" Text="{Binding Data.Description}" />
-														</Panel>
-													</Grid>
-												</Grid>
-											</Grid>
-										</ControlTemplate>
-									</Setter.Value>
-								</Setter>
-							</Style>
-
-							<Style Selector="ListBoxItem /template/ Button#EnableButton">
-								<Setter Property="IsVisible" Value="False"/>
-							</Style>
-
-							<Style Selector="ListBoxItem /template/ Border#BackgroundElement">
-								<Setter Property="Background" Value="Transparent"/>
-							</Style>
-
-							<Style Selector="ListBoxItem /template/ Border#ImageBackground">
-								<Setter Property="Background" Value="Transparent"/>
-								<Setter Property="Opacity" Value="0"/>
-							</Style>
-
-							<Style Selector="ListBoxItem:pointerover /template/ Border#BackgroundElement">
-								<Setter Property="Background" Value="{DynamicResource ButtonBackground}"/>
-							</Style>
-
-							<Style Selector="ListBoxItem:pointerover /template/ Border#ImageBackground">
-								<Setter Property="Background" Value="{DynamicResource SystemAccentColorDark2}"/>
-								<Setter Property="Opacity" Value="0.45"/>
-							</Style>
-
-							<Style Selector="ListBoxItem:pointerover /template/ Button#EnableButton">
-								<Setter Property="IsVisible" Value="True"/>
-							</Style>
-						</Styles>
-					</ListBox.Styles>
-				</ListBox>
-			</Grid>
-		</Grid>
-
-		<Grid HorizontalAlignment="Stretch"
-				   VerticalAlignment="Stretch"
-				   Grid.Column="2">
-			<Button
-	           Padding="4"
-	           HorizontalAlignment="Stretch"
-	           VerticalAlignment="Stretch"
-	           HorizontalContentAlignment="Stretch"
-	           VerticalContentAlignment="Stretch"
-	           Background="Transparent"
-	           BorderThickness="1"
-	           CornerRadius="4"
-	           IsEnabled="False"/>
-
-			<Grid>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="25"/>
-					<RowDefinition Height="5"/>
-					<RowDefinition Height="1*"/>
-				</Grid.RowDefinitions>
-				<StackPanel Spacing="2" Margin="10 8 10 0" Grid.Row="0">
-					<TextBlock Text="启用的资源包列表"/>
-					<ui:MenuFlyoutSeparator/>
-				</StackPanel>
-				<ListBox HorizontalAlignment="Stretch"
-					 VerticalAlignment="Stretch"
-					 Background="Transparent" Grid.Row="2"
-					 Items="{Binding EnabledResourcePacks}">
-					<ListBox.Styles>
-						<Styles>
-							<Style Selector="ListBoxItem">
-								<Setter Property="HorizontalContentAlignment" Value="Stretch" />
-								<Setter Property="BorderBrush" Value="Transparent" />
-								<Setter Property="Height" Value="60"/>
-								<Setter Property="Margin" Value="0,0" />
-								<Setter Property="Template">
-									<Setter.Value>
-										<ControlTemplate TargetType="ListBoxItem">
-											<Grid>
-
-												<Border Name="BackgroundElement"
-														RenderTransform="scaleY(-1)"/>
-
-												<Border Name="SelectBorderElement"
-														RenderTransform="scaleY(-1)"
-														BorderBrush="{DynamicResource ButtonBorderBrush}"/>
-
-												<!--The gamecore info on the control top-->
-												<Grid Grid.Row="2">
-													<Grid.ColumnDefinitions>
-														<ColumnDefinition Width="1*" />
-														<ColumnDefinition Width="0.10*" MaxWidth="15"/>
-														<ColumnDefinition Width="Auto"/>
-													</Grid.ColumnDefinitions>
-													<Grid HorizontalAlignment="Stretch">
-														<Grid Margin="0,0,-60,0">
-															<Grid.ColumnDefinitions>
-																<ColumnDefinition Width="Auto" />
-																<ColumnDefinition Width="1*" />
-																<ColumnDefinition Width="Auto" />
-															</Grid.ColumnDefinitions>
-														</Grid>
-
-														<Panel HorizontalAlignment="Left" Height="50" Width="50" Margin="10,10">
-															<Border BoxShadow="0 2 4 0 #66000000" CornerRadius="3">
-																<Border.Background>
-																	<ImageBrush Stretch="UniformToFill" Source="{Binding PackLogo}"/>
-																</Border.Background>
-															</Border>
-
-															<Border CornerRadius="3" Name="ImageBackground"/>
-
-															<Grid Name="Buttons">
-																<Button VerticalAlignment="Top" Click="MoveUpButtonClick" Margin="0 3 0 0"
-																		HorizontalAlignment="Center" Padding="0" Name="MoveUpButton"
-																		Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
-																	<Viewbox Width="14">
-																		<ui:PathIcon Data="M512 341.333334 256 597.333334 315.733334 657.066666 512 460.8 708.266666 657.066666 768 597.333334 512 341.333334Z"/>
-																	</Viewbox>
-																</Button>
-
-																<Button VerticalAlignment="Bottom" Click="MoveDownButtonClick" Margin="0 0 0 3"
-																		HorizontalAlignment="Center" Padding="0" Name="MoveDownButton"
-																		Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
-																	<Viewbox Width="14">
-																		<ui:PathIcon Data="M708.266666 366.932292 512 563.198958 315.733334 366.932292 256 426.665625 512 682.665625 768 426.665625 708.266666 366.932292Z"/>
-																	</Viewbox>
-																</Button>
-
-																<Button VerticalAlignment="Center" Click="DisbaledButtonClick" Margin="-25 0 0 0"
-																		HorizontalAlignment="Center" Padding="0" Name="EnableButton"
-																		Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
-																	<Viewbox Width="12">
-																		<ui:PathIcon Data="M503.466667 490.666667l174.933333 174.933333-59.733333 59.733333L384 490.666667 618.666667 256l59.733333 59.733333-174.933333 174.933334z"/>
-																	</Viewbox>
-																</Button>
+																<Panel Margin="65,-5,0,0" Grid.Column="1">
+																	<TextBlock TextTrimming="CharacterEllipsis" Margin="0,15,10,0" FontSize="15" FontFamily="Din" Text="{Binding Data.Id}" />
+																	<TextBlock Margin="0,34,10,0" TextTrimming="CharacterEllipsis" FontSize="12" Opacity="0.65" FontFamily="Din Pro" Text="{Binding Data.Description}" />
+																</Panel>
 															</Grid>
-														</Panel>
-
-														<Panel Margin="65,-5,0,0" Grid.Column="1">
-															<TextBlock TextTrimming="CharacterEllipsis" Margin="0,15,10,0" FontSize="15" FontFamily="Din" Text="{Binding Data.Id}" />
-															<TextBlock Margin="0,34,10,0" TextTrimming="CharacterEllipsis" FontSize="12" Opacity="0.65" FontFamily="Din Pro" Text="{Binding Data.Description}" />
-														</Panel>
+														</Grid>
 													</Grid>
-												</Grid>
-											</Grid>
-										</ControlTemplate>
-									</Setter.Value>
-								</Setter>
-							</Style>
+												</ControlTemplate>
+											</Setter.Value>
+										</Setter>
+									</Style>
 
-							<Style Selector="ListBoxItem /template/ Grid#Buttons">
-								<Setter Property="IsVisible" Value="False"/>
-							</Style>
+									<Style Selector="ListBoxItem /template/ Button#EnableButton">
+										<Setter Property="IsVisible" Value="False"/>
+									</Style>
 
-							<Style Selector="ListBoxItem /template/ Border#BackgroundElement">
-								<Setter Property="Background" Value="Transparent"/>
-							</Style>
+									<Style Selector="ListBoxItem /template/ Border#BackgroundElement">
+										<Setter Property="Background" Value="Transparent"/>
+									</Style>
 
-							<Style Selector="ListBoxItem /template/ Border#ImageBackground">
-								<Setter Property="Background" Value="Transparent"/>
-								<Setter Property="Opacity" Value="0"/>
-							</Style>
+									<Style Selector="ListBoxItem /template/ Border#ImageBackground">
+										<Setter Property="Background" Value="Transparent"/>
+										<Setter Property="Opacity" Value="0"/>
+									</Style>
 
-							<Style Selector="ListBoxItem:pointerover /template/ Border#BackgroundElement">
-								<Setter Property="Background" Value="{DynamicResource ButtonBackground}"/>
-							</Style>
+									<Style Selector="ListBoxItem:pointerover /template/ Border#BackgroundElement">
+										<Setter Property="Background" Value="{DynamicResource ButtonBackground}"/>
+									</Style>
 
-							<Style Selector="ListBoxItem:pointerover /template/ Border#ImageBackground">
-								<Setter Property="Background" Value="{DynamicResource SystemAccentColorDark2}"/>
-								<Setter Property="Opacity" Value="0.45"/>
-							</Style>
+									<Style Selector="ListBoxItem:pointerover /template/ Border#ImageBackground">
+										<Setter Property="Background" Value="{DynamicResource SystemAccentColorDark2}"/>
+										<Setter Property="Opacity" Value="0.45"/>
+									</Style>
 
-							<Style Selector="ListBoxItem:pointerover /template/ Grid#Buttons">
-								<Setter Property="IsVisible" Value="True"/>
-							</Style>
-						</Styles>
-					</ListBox.Styles>
-				</ListBox>
+									<Style Selector="ListBoxItem:pointerover /template/ Button#EnableButton">
+										<Setter Property="IsVisible" Value="True"/>
+									</Style>
+								</Styles>
+							</ListBox.Styles>
+						</ListBox>
+					</Grid>
+				</Grid>
+
+				<Grid HorizontalAlignment="Stretch"
+						   VerticalAlignment="Stretch"
+						   Grid.Column="2">
+					<Button
+					   Padding="4"
+					   HorizontalAlignment="Stretch"
+					   VerticalAlignment="Stretch"
+					   HorizontalContentAlignment="Stretch"
+					   VerticalContentAlignment="Stretch"
+					   Background="Transparent"
+					   BorderThickness="1"
+					   CornerRadius="4"
+					   IsEnabled="False"/>
+
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="25"/>
+							<RowDefinition Height="5"/>
+							<RowDefinition Height="1*"/>
+						</Grid.RowDefinitions>
+						<StackPanel Spacing="2" Margin="10 8 10 0" Grid.Row="0">
+							<TextBlock Text="启用的资源包列表"/>
+							<ui:MenuFlyoutSeparator/>
+						</StackPanel>
+						<ListBox HorizontalAlignment="Stretch"
+							 VerticalAlignment="Stretch"
+							 Background="Transparent" Grid.Row="2"
+							 Items="{Binding EnabledResourcePacks}">
+							<ListBox.Styles>
+								<Styles>
+									<Style Selector="ListBoxItem">
+										<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+										<Setter Property="BorderBrush" Value="Transparent" />
+										<Setter Property="Height" Value="60"/>
+										<Setter Property="Margin" Value="0,0" />
+										<Setter Property="Template">
+											<Setter.Value>
+												<ControlTemplate TargetType="ListBoxItem">
+													<Grid>
+
+														<Border Name="BackgroundElement"
+																RenderTransform="scaleY(-1)"/>
+
+														<Border Name="SelectBorderElement"
+																RenderTransform="scaleY(-1)"
+																BorderBrush="{DynamicResource ButtonBorderBrush}"/>
+
+														<!--The gamecore info on the control top-->
+														<Grid Grid.Row="2">
+															<Grid.ColumnDefinitions>
+																<ColumnDefinition Width="1*" />
+																<ColumnDefinition Width="0.10*" MaxWidth="15"/>
+																<ColumnDefinition Width="Auto"/>
+															</Grid.ColumnDefinitions>
+															<Grid HorizontalAlignment="Stretch">
+																<Grid Margin="0,0,-60,0">
+																	<Grid.ColumnDefinitions>
+																		<ColumnDefinition Width="Auto" />
+																		<ColumnDefinition Width="1*" />
+																		<ColumnDefinition Width="Auto" />
+																	</Grid.ColumnDefinitions>
+																</Grid>
+
+																<Panel HorizontalAlignment="Left" Height="50" Width="50" Margin="10,10">
+																	<Border BoxShadow="0 2 4 0 #66000000" CornerRadius="3">
+																		<Border.Background>
+																			<ImageBrush Stretch="UniformToFill" Source="{Binding PackLogo}"/>
+																		</Border.Background>
+																	</Border>
+
+																	<Border CornerRadius="3" Name="ImageBackground"/>
+
+																	<Grid Name="Buttons">
+																		<Button VerticalAlignment="Top" Click="MoveUpButtonClick" Margin="0 3 0 0"
+																				HorizontalAlignment="Center" Padding="0" Name="MoveUpButton"
+																				Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
+																			<Viewbox Width="14">
+																				<ui:PathIcon Data="M512 341.333334 256 597.333334 315.733334 657.066666 512 460.8 708.266666 657.066666 768 597.333334 512 341.333334Z"/>
+																			</Viewbox>
+																		</Button>
+
+																		<Button VerticalAlignment="Bottom" Click="MoveDownButtonClick" Margin="0 0 0 3"
+																				HorizontalAlignment="Center" Padding="0" Name="MoveDownButton"
+																				Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
+																			<Viewbox Width="14">
+																				<ui:PathIcon Data="M708.266666 366.932292 512 563.198958 315.733334 366.932292 256 426.665625 512 682.665625 768 426.665625 708.266666 366.932292Z"/>
+																			</Viewbox>
+																		</Button>
+
+																		<Button VerticalAlignment="Center" Click="DisbaledButtonClick" Margin="-25 0 0 0"
+																				HorizontalAlignment="Center" Padding="0" Name="EnableButton"
+																				Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
+																			<Viewbox Width="12">
+																				<ui:PathIcon Data="M503.466667 490.666667l174.933333 174.933333-59.733333 59.733333L384 490.666667 618.666667 256l59.733333 59.733333-174.933333 174.933334z"/>
+																			</Viewbox>
+																		</Button>
+																	</Grid>
+																</Panel>
+
+																<Panel Margin="65,-5,0,0" Grid.Column="1">
+																	<TextBlock TextTrimming="CharacterEllipsis" Margin="0,15,10,0" FontSize="15" FontFamily="Din" Text="{Binding Data.Id}" />
+																	<TextBlock Margin="0,34,10,0" TextTrimming="CharacterEllipsis" FontSize="12" Opacity="0.65" FontFamily="Din Pro" Text="{Binding Data.Description}" />
+																</Panel>
+															</Grid>
+														</Grid>
+													</Grid>
+												</ControlTemplate>
+											</Setter.Value>
+										</Setter>
+									</Style>
+
+									<Style Selector="ListBoxItem /template/ Grid#Buttons">
+										<Setter Property="IsVisible" Value="False"/>
+									</Style>
+
+									<Style Selector="ListBoxItem /template/ Border#BackgroundElement">
+										<Setter Property="Background" Value="Transparent"/>
+									</Style>
+
+									<Style Selector="ListBoxItem /template/ Border#ImageBackground">
+										<Setter Property="Background" Value="Transparent"/>
+										<Setter Property="Opacity" Value="0"/>
+									</Style>
+
+									<Style Selector="ListBoxItem:pointerover /template/ Border#BackgroundElement">
+										<Setter Property="Background" Value="{DynamicResource ButtonBackground}"/>
+									</Style>
+
+									<Style Selector="ListBoxItem:pointerover /template/ Border#ImageBackground">
+										<Setter Property="Background" Value="{DynamicResource SystemAccentColorDark2}"/>
+										<Setter Property="Opacity" Value="0.45"/>
+									</Style>
+
+									<Style Selector="ListBoxItem:pointerover /template/ Grid#Buttons">
+										<Setter Property="IsVisible" Value="True"/>
+									</Style>
+								</Styles>
+							</ListBox.Styles>
+						</ListBox>
+					</Grid>
+				</Grid>
 			</Grid>
-		</Grid>
+		</DockPanel>
+
+		<StackPanel
+	         Margin="0,0,0,100"
+	         HorizontalAlignment="Center"
+	         VerticalAlignment="Center"
+	         IsVisible="{Binding HasResourcePack}">
+			<TextBlock FontFamily="微软雅黑"
+                HorizontalAlignment="Center"
+                FontSize="28"
+                FontWeight="Bold"
+				Opacity="0.65"
+                Text="还没有任何已安装的资源包" />
+			<ui:HyperlinkButton FontFamily="微软雅黑"
+                Margin="0,5,0,0"
+                HorizontalAlignment="Center"
+                Content="转到 祝福终端>下载 以安装新的资源包"
+                FontWeight="Bold"
+                Opacity="0.75" />
+		</StackPanel>
 	</Grid>
 </UserControl>

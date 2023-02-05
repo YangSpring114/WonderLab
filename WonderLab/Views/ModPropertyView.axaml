@@ -57,19 +57,18 @@
 			</ListBox>
 
 		</DockPanel>
-		<StackPanel
+		<StackPanel 
 	        Margin="0,0,0,100"
 	        HorizontalAlignment="Center"
 	        VerticalAlignment="Center"
 	        IsVisible="{Binding HasMod}">
-			<TextBlock
+			<TextBlock FontFamily="微软雅黑"
                 HorizontalAlignment="Center"
                 FontSize="28"
                 FontWeight="Bold"
-                Foreground="White"
 				Opacity="0.65"
                 Text="还没有任何已安装的模组" />
-			<ui:HyperlinkButton
+			<ui:HyperlinkButton FontFamily="微软雅黑"
                 Margin="0,5,0,0" Click="Hyperlink_Click"
                 HorizontalAlignment="Center"
                 Content="转到 祝福终端>下载 以安装新的模组"

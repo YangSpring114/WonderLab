@@ -15,6 +15,7 @@ using WonderLab.Modules.Models;
 using WonderLab.Modules.Toolkits;
 using WonderLab.Views;
 using Avalonia.Media.Imaging;
+using WonderLab.Modules.Const;
 
 namespace WonderLab.ViewModels
 {
@@ -31,6 +32,24 @@ namespace WonderLab.ViewModels
             get => _EnabledResourcePacks;
             set => RaiseAndSetIfChanged(ref _EnabledResourcePacks, value);
         }
+
+        public bool HasResourcePack
+        {
+            get => _HasResourcePack;
+            set => RaiseAndSetIfChanged(ref _HasResourcePack, value);
+        }
+
+        public bool IsIndependency
+        {
+            get => _IsIndependency;
+            set => RaiseAndSetIfChanged(ref _IsIndependency, value);
+        }
+
+        public bool ResourcePackListVisible
+        {
+            get => _ResourcePackListVisible;
+            set => RaiseAndSetIfChanged(ref _ResourcePackListVisible, value);
+        }
     }
 
     partial class ResourceViewModel
@@ -40,31 +59,28 @@ namespace WonderLab.ViewModels
         /// </summary>
         public async void LoadAllPacksAction()
         {
-            var res = JsonToolkit.GetEnableIndependencyCoreData(App.Data.FooterPath, PropertyView.GameCore.ToNatsurainkoGameCore());
-            bool isolate = App.Data.Isolate;
-            if (res != null && res.IsEnableIndependencyCore)
+            try
             {
-                isolate = res.Isolate;
+                bool isIndependency = InfoConst.IsEnableIndependencyCore(PropertyView.GameCore.Id!);
+                
+                IsIndependency = isIndependency ? false : true;
+                ResourcePackToolkit toolkit = new(PropertyView.GameCore, false, isIndependency, App.Data.FooterPath);
+                var AllPack = await toolkit.LoadAllAsync();
+                
+                EnabledResourcePacks = AllPack.Where(x => x.IsEnabled).Select(x => x.CreateViewData<ResourcePack, ResourcePackViewData<ResourcePack>>()).BuildObservableCollection() ?? new();
+                DisbaledResourcePacks = AllPack.Where(x => !x.IsEnabled).Select(x => x.CreateViewData<ResourcePack, ResourcePackViewData<ResourcePack>>()).BuildObservableCollection() ?? new();
+                
+                foreach (var i in EnabledResourcePacks) {
+                    i.PackLogo = GetImage(i.Data.Path);
+                }
+                
+                foreach (var i in DisbaledResourcePacks) {
+                    i.PackLogo = GetImage(i.Data.Path);
+                }                
             }
-
-            if (!isolate)
+            catch (Exception)
             {
-                //ViewModel.Isolate = true;
-            }
-            //else ViewModel.Isolate = false;
 
-            ResourcePackToolkit toolkit = new(PropertyView.GameCore, false, isolate, App.Data.FooterPath);
-            var AllPack = await toolkit.LoadAllAsync();
-
-            EnabledResourcePacks = AllPack.Where(x => x.IsEnabled).Select(x => x.CreateViewData<ResourcePack, ResourcePackViewData<ResourcePack>>()).BuildObservableCollection();
-            DisbaledResourcePacks = AllPack.Where(x => !x.IsEnabled).Select(x => x.CreateViewData<ResourcePack, ResourcePackViewData<ResourcePack>>()).BuildObservableCollection();
-
-            foreach (var i in EnabledResourcePacks) {
-                i.PackLogo = GetImage(i.Data.Path);
-            }
-
-            foreach (var i in DisbaledResourcePacks) {
-                i.PackLogo = GetImage(i.Data.Path);
             }
         }
 
@@ -100,12 +116,22 @@ namespace WonderLab.ViewModels
         private void ResourceViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             Trace.WriteLine($"[信息] 改变的属性名：{e.PropertyName}");
+            
+            if (e.PropertyName is "EnabledResourcePacks" || e.PropertyName is "DisbaledResourcePacks") {
+                HasResourcePack = EnabledResourcePacks is not null && DisbaledResourcePacks is not null &&
+                    ((EnabledResourcePacks.Count > 0) || (DisbaledResourcePacks.Count > 0)) ? false : true;
+
+                ResourcePackListVisible = HasResourcePack ? false : true;   
+            }
         }
     }
 
     partial class ResourceViewModel
     {
-        public ResourceViewModel() => PropertyChanged += ResourceViewModel_PropertyChanged;        
+        public ResourceViewModel() => PropertyChanged += ResourceViewModel_PropertyChanged;
+        public bool _HasResourcePack = false;
+        public bool _ResourcePackListVisible = false;
+        public bool _IsIndependency = InfoConst.IsEnableIndependencyCore(PropertyView.GameCore.Id!);
         public ObservableCollection<ResourcePackViewData<ResourcePack>> _DisbaledResourcePacks = null;
         public ObservableCollection<ResourcePackViewData<ResourcePack>> _EnabledResourcePacks = null;
     }

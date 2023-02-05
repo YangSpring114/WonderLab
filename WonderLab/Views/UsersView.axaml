@@ -243,7 +243,7 @@
 											<ProgressBar IsIndeterminate="True" 
 														 HorizontalAlignment="Center"
 														 VerticalAlignment="Center"
-														 Height="50" Width="50"
+														 Height="30" Width="30"
 														 Classes="Circle" Margin="0 5 0 0"
 														 IsVisible="{Binding Loading}" IsHitTestVisible="False"/>
 										</Border>

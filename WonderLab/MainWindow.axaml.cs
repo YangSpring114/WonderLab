@@ -424,9 +424,6 @@ namespace WonderLab
             });
 
             //InformationListBox.Items = InfoBarItems;
-            if (UpdateInfo.Key) {
-                await UpdateDialog.ShowAsync();
-            }
         }
 
         void SetupDnd(string suffix, Action<DataObject> factory, DragDropEffects effects)
@@ -514,6 +511,10 @@ namespace WonderLab
             await Task.Delay(2500);
             cover.Opacity= 0;
             cover.IsHitTestVisible= false;
+
+            if (UpdateInfo.Key) {           
+                await UpdateDialog.ShowAsync();
+            }
         }
     }
 

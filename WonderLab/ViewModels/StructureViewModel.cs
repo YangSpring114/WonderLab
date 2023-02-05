@@ -16,9 +16,10 @@ namespace WonderLab.ViewModels
         public string StructureInfo => string.Join("\n", StructureInfoList);
         public List<string> StructureInfoList => new()
         {            
-            "修复了自动更新的问题",
-            "测试了账户管理（千万别用）",
-            "综合 Bug 修复"
+            "添加了开始动画",
+            "添加了一些 UI 细节",
+            "优化了启动器性能",
+            "修复了几处导致崩溃的 Bug"
         };
     }
 }

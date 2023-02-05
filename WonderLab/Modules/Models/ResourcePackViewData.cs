@@ -14,8 +14,8 @@ namespace WonderLab.Modules.Models
     public class ResourcePackViewData<T> : ViewDataBase<T>
     {
         public ResourcePackViewData(T data) : base(data)
-        {          
-        }
+        {    }       
+       
 
         public Bitmap PackLogo
         {
@@ -23,6 +23,6 @@ namespace WonderLab.Modules.Models
             set => RaiseAndSetIfChanged(ref _, value);
         }
 
-        public Bitmap _ = BitmapToolkit.GetAssetsImage("resm:WonderLab.Resources.normal.png") as Bitmap;
+        public Bitmap _ = (BitmapToolkit.GetAssetsImage("resm:WonderLab.Resources.normal.png")! as Bitmap)!;
     }
 }
