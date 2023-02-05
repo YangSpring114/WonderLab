@@ -69,7 +69,7 @@ namespace WonderLab.ViewModels
         }
 
         public string CurrentVersion => $"当前版本号：{VersionPrefix}{Version}"; 
-        public string VersionPrefix => $"Lsaac "; 
+        public string VersionPrefix => $"Albert "; 
     }
 
     partial class OtherViewModel

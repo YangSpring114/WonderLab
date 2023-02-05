@@ -1,0 +1,25 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+			<Grid>
+				<!--人棍部分-->
+				<StackPanel>
+					<!--head-->
+					<Image Source="C:\Users\w\Desktop\Picture\bin\Debug\net6.0\2head.png"/>
+					
+					<!--body-->
+					<Image Source="C:\Users\w\Desktop\Picture\bin\Debug\net6.0\Body.png"/>
+					
+					<!--leg-->
+					<StackPanel Orientation="Horizontal">
+						<Image Source="C:\Users\w\Desktop\Picture\bin\Debug\net6.0\RightLeg.png"/>
+						<Image Source="C:\Users\w\Desktop\Picture\bin\Debug\net6.0\LeftLeg.png"/>
+					</StackPanel>
+				</StackPanel>
+			</Grid>
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Add Styles Here -->	
+</Styles>
