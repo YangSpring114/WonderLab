@@ -3,6 +3,7 @@ using Avalonia.Animation;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
+using Avalonia.Threading;
 using FluentAvalonia.Core.ApplicationModel;
 using FluentAvalonia.UI.Controls;
 using System;
@@ -54,7 +55,7 @@ namespace WonderLab.Views
         private void RootNavigationView_PaneOpened(NavigationView sender, EventArgs args) =>
             UpdateAppTitleMargin();
 
-        private void FrameView_Navigated(object sender, FluentAvalonia.UI.Navigation.NavigationEventArgs e)
+        private async void FrameView_Navigated(object sender, FluentAvalonia.UI.Navigation.NavigationEventArgs e)
         {            
             try {
                 foreach (NavigationViewItem item in RootMenuItems) {                
@@ -62,7 +63,7 @@ namespace WonderLab.Views
                         item.IsSelected = true;
                     }
                 }
-                FrameView.NavigateTo((Page)e.Content);
+                await Dispatcher.UIThread.InvokeAsync(() => FrameView.NavigateTo((Page)e.Content));
             }
             catch (Exception ex) {
                 Trace.WriteLine(ex.ToString());

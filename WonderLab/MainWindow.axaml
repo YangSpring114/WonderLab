@@ -263,7 +263,16 @@
 				</DataTemplate>
 			</ListBox.ItemTemplate>
 		</ListBox>
-		
+
+		<Border x:Name="cover" Opacity="1" Background="{DynamicResource SystemAccentColor}">
+			<Border.Transitions>
+				<Transitions>
+					<DoubleTransition Duration="0:0:0.2" Easing="CubicEaseOut" Property="Opacity"/>
+				</Transitions>
+			</Border.Transitions>
+			<Image Height="150" HorizontalAlignment="Center" VerticalAlignment="Center" Source="resm:WonderLab.Resources.Icon.ico"/>
+		</Border>
+
 		<wmc:TitleBar
 			x:Name="BarHost"
 			CloseButtonCommand="{Binding Colse}"

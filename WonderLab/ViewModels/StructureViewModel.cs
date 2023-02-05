@@ -16,11 +16,9 @@ namespace WonderLab.ViewModels
         public string StructureInfo => string.Join("\n", StructureInfoList);
         public List<string> StructureInfoList => new()
         {            
-            "完善了自动更新（目前仅限 Windows）",
-            "修复了自动找 Java 出现重复 Java 的情况",
-            "修复了一处 UI 显示问题",
-            "修复了一处可能导致启动器崩溃的 Bug",
-            "优化了启动器性能",
+            "修复了自动更新的问题",
+            "测试了账户管理（千万别用）",
+            "综合 Bug 修复"
         };
     }
 }

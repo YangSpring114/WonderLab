@@ -75,7 +75,7 @@
 						<TextBox IsVisible="{Binding FirstBoxVisibility}"
                             Margin="0,0,0,15" Text="{Binding UrlTextBoxText}"
                             Watermark="外置登录服务器地址：" x:Name="YggUrl"/>						
-						<TextBox Text="{Binding TextBoxText}" MaxLength="16"
+						<TextBox Text="{Binding TextBoxText}"
                             Watermark="用户名：" IsVisible="{Binding TextBoxVisibility}"/>
 						<TextBox Text="{Binding PasswordBoxText}"
 							PasswordChar="*" IsVisible="{Binding PasswordBoxVisibility}"
@@ -112,6 +112,76 @@
 			</Grid>
 		</ui:ContentDialog>
 
+		<ui:ContentDialog x:Name="UserInfoDialog" Classes="WinUiPro">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="1*" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				
+				<TextBlock
+                    Grid.Row="0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="18"
+                    FontWeight="Bold"
+                    Text="Starcloudsea 的账户信息" />
+
+				<Grid HorizontalAlignment="Stretch" Margin="0 10 0 0" Grid.Row="1">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition MinWidth="10" MaxWidth="10" />
+						<ColumnDefinition Width="1*" />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+					
+					<Image MaxWidth="100" Grid.Column="0" Stretch="UniformToFill" Source="resm:WonderLab.Resources.xcmy.jpg"/>
+
+					<Grid HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="2">
+
+						<StackPanel Margin="0 0 0 10" Spacing="10" Width="350">
+							<TextBox HorizontalAlignment="Stretch" Watermark="请输入您的游戏名"/>
+
+							<DockPanel Width="350">
+								<Button DockPanel.Dock="Right" Width="40" VerticalAlignment="Stretch" HorizontalAlignment="Left" Classes="accent">
+									<ui:SymbolIcon Symbol="Add"/>
+								</Button>
+
+								<TextBox DockPanel.Dock="Left" Margin="0 0 10 0" Width="300" Watermark="请输入您的角色皮肤路径"/>
+							</DockPanel>
+							
+						</StackPanel>
+						
+						<StackPanel
+                            	Margin="0,10,0,0"
+                            	HorizontalAlignment="Right"
+                            	VerticalAlignment="Bottom"
+                            	Orientation="Horizontal">
+							
+							<Button
+	                                Width="100" Click="CancelButtonClick1"
+	                                Margin="0,0,15,0" Background="Red">
+								<TextBlock Text="删除此档案" />
+							</Button>
+
+							<Button Width="75"
+								Classes="accent" IsVisible="{Binding TextBoxVisibility}"
+								Foreground="White">
+								<TextBlock Text="确定" />
+							</Button>
+							
+							<Button
+								Width="75" Click="CancelButtonClick1"
+								Margin="15,0,0,0">
+								<TextBlock Text="取消" />
+							</Button>
+						</StackPanel>
+					</Grid>
+				</Grid>
+			</Grid>
+		</ui:ContentDialog>
+		
      	<ListBox
 	        x:Name="UsersList"
 	        Grid.Row="1"
@@ -129,19 +199,18 @@
 					<Setter Property="HorizontalContentAlignment" Value="Stretch" />
 					<Setter Property="BorderBrush" Value="Transparent" />
 					<Setter Property="BorderThickness" Value="0" />
-					<Setter Property="Width" Value="200"/>
+					<Setter Property="Width" Value="270"/>
 					<Setter Property="CornerRadius" Value="8"/>
-					<Setter Property="Height" Value="270"/>
+					<Setter Property="Height" Value="80"/>
 					<Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}"/>
 					<Setter Property="Margin" Value="6,6" />
 					<Setter Property="Padding" Value="5"/>
 					<Setter Property="Template">
 						<Setter.Value>
 							<ControlTemplate TargetType="ListBoxItem">
-								<Border Background="Black" Padding="{TemplateBinding Padding}" BoxShadow="0 8 32 0 #66000000">
+								<Border Padding="{TemplateBinding Padding}" BoxShadow="0 2 4 0 #66000000">
 									<Grid>
 										<Border Height="{TemplateBinding Height}"
-												Background="{DynamicResource ContentDialogBackground}"
 											BorderBrush="{TemplateBinding BorderBrush}"
 											BorderThickness="{TemplateBinding BorderThickness}"
 											CornerRadius="8">
@@ -151,11 +220,11 @@
 												VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
 										</Border>
 
-										<Border Name="BackBorder"
+										<Border Name="BackBorder" BoxShadow="0 1 1 0 #66000000"
 												HorizontalAlignment="Stretch"
 												VerticalAlignment="Stretch"
 												CornerRadius="8"
-												Height="60">
+												Height="75">
 											<Border.ContextMenu>
 												<ContextMenu>
 													<MenuItem Header="刷新"/>
@@ -164,24 +233,14 @@
 											</Border.ContextMenu>
 										</Border>
 
-										<Border Name="OpBorder"
-												HorizontalAlignment="Stretch"
-												VerticalAlignment="Stretch"
-												CornerRadius="8"
-												Height="60"
-												IsVisible="{TemplateBinding IsVisible}"/>
-
-										<Border PointerEnter="BorderImagePointerEnter"
-												VerticalAlignment="Top" ClipToBounds="True"
-												PointerPressed="UserSettingOpenPointerPressed"
-												PointerLeave="BorderImagePointerLeave" IsVisible="True"
-												HorizontalAlignment="Stretch" Height="200"
-												Width="200"
-												CornerRadius="6 6 0 0">
+										<Border VerticalAlignment="Center" ClipToBounds="True" IsVisible="True"
+												HorizontalAlignment="Left" Height="60" Name="Image"
+												Width="60" Margin="20 0 0 0" BoxShadow="0 2 4 0 #66000000"
+												CornerRadius="114514">
 											<Border.Background>
 												<ImageBrush Stretch="UniformToFill" Source="{Binding Icon,Mode=OneWay}"/>
 											</Border.Background>
-											<ProgressBar IsIndeterminate="True"
+											<ProgressBar IsIndeterminate="True" 
 														 HorizontalAlignment="Center"
 														 VerticalAlignment="Center"
 														 Height="50" Width="50"
@@ -189,32 +248,28 @@
 														 IsVisible="{Binding Loading}" IsHitTestVisible="False"/>
 										</Border>
 
-										<!--{DynamicResource ContentDialogBackground} PointerPressed="UserSettingOpenAction"-->
-										<Border Name="UserInfoBorder"
-												CornerRadius="0 0 6 6"
-												VerticalAlignment="Bottom"
-												Height="70" HorizontalAlignment="Stretch"
-												Background="{DynamicResource ContentDialogBackground}">
-											<Border.Transitions>
-												<Transitions>
-													<DoubleTransition Property="Height" Duration="0:0:0.45" Easing="ExponentialEaseOut"/>
-												</Transitions>
-											</Border.Transitions>
-											<Panel>
-												<Panel Margin="10 0 10 0" VerticalAlignment="Top" x:Name="UserInfo">
-													<TextBlock Margin="0,15,10,0" Name="UserName" TextTrimming="CharacterEllipsis" FontSize="20" FontFamily="Din" Text="{Binding Name,Mode=OneWay}" FontWeight="Bold"/>
-													<TextBlock Margin="0,38,10,0" TextTrimming="CharacterEllipsis" FontSize="14" Opacity="0.65" FontFamily="Din Pro" Text="{Binding Type,Mode=OneWay}" />
-													<TextBlock Margin="0,56,10,0" TextTrimming="CharacterEllipsis" FontSize="12" Opacity="0.65" FontFamily="Din Pro"/>
-													<!--Text="{Binding AuthState,Mode=OneWay}"-->
-												</Panel>
+										<Panel>
+											<Panel Margin="90 0 10 0" VerticalAlignment="Center" x:Name="UserInfo">
+												<TextBlock Margin="0,0,10,0" Name="UserName" TextTrimming="CharacterEllipsis" FontSize="20" FontFamily="Din" Text="{Binding Name,Mode=OneWay}" FontWeight="Bold"/>
+												<TextBlock Margin="0,23,10,0" TextTrimming="CharacterEllipsis" FontSize="14" Opacity="0.65" FontFamily="Din Pro" Text="{Binding Type,Mode=OneWay}" />
 											</Panel>
-										</Border>
+										</Panel>
+										
 
-										<Button HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 120 15 0" Width="40" Height="40" Classes="accent" CornerRadius="114514">
-											<ui:SymbolIcon FontSize="18" Symbol="Sync"/>
+										<Button Name="UserSettingButton" HorizontalAlignment="Left"
+												VerticalAlignment="Center" Margin="20 0 0 0" Width="60" Height="60" 
+												CornerRadius="114514" Padding="0" Click="ShowUserInfoDialogClick">
+											<ui:SymbolIcon HorizontalAlignment="Center"
+														   VerticalAlignment="Center" FontSize="25" Symbol="Setting"/>
+
+											<Button.Transitions>
+												<Transitions>
+													<DoubleTransition Duration="0:0:0.2" Property="Opacity" Easing="CubicEaseOut"/>
+												</Transitions>
+											</Button.Transitions>
 										</Button>
 
-										<Button Click="DeleteButtonClick" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+										<Button IsVisible="False" Click="DeleteButtonClick" HorizontalAlignment="Right" VerticalAlignment="Bottom">
 											<Button.Styles>
 												<Style Selector="Button">
 													<Setter Property="Margin" Value="0 0 5 5"/>
@@ -226,6 +281,17 @@
 												</Style>
 											</Button.Styles>
 										</Button>
+
+										<Border Width="5" CornerRadius="114514"
+												HorizontalAlignment="Left"
+												VerticalAlignment="Center" Name="State"
+												Background="{DynamicResource AccentButtonBackground}">
+											<Border.Transitions>
+												<Transitions>
+													<DoubleTransition Duration="0:0:0.1" Property="Height" Easing="CubicEaseOut"/>
+												</Transitions>
+											</Border.Transitions>
+										</Border>
 									</Grid>
 								</Border>
 							</ControlTemplate>
@@ -237,14 +303,29 @@
 					<Setter Property="Text" Value="NB" />
 				</Style>-->
 				
-				<Style Selector="ListBoxItem:selected /template/ Border#BackBorder">
-					<Setter Property="Background" Value="{DynamicResource SystemAccentColorDark1}" />
+				<Style Selector="ListBoxItem /template/ Border#BackBorder">
+					<Setter Property="Background" Value="{DynamicResource ContentDialogBackground}" />
 				</Style>
 
-				<Style Selector="ListBoxItem:selected /template/ Border#BackBorder:pointerover">
-					<Setter Property="Background" Value="{DynamicResource SystemAccentColorDark2}" />
+				<Style Selector="ListBoxItem /template/ Border#State">
+					<Setter Property="Height" Value="0" />
 				</Style>
 
+				<Style Selector="ListBoxItem:selected /template/ Border#State">
+					<Setter Property="Height" Value="30" />
+				</Style>
+
+				<Style Selector="ListBoxItem:selected:pressed /template/ Border#State">
+					<Setter Property="Height" Value="15" />
+				</Style>
+
+				<Style Selector="ListBoxItem /template/ Button#UserSettingButton">
+					<Setter Property="Opacity" Value="0" />
+				</Style>
+
+				<Style Selector="ListBoxItem /template/ Button#UserSettingButton:pointerover">
+					<Setter Property="Opacity" Value="1" />
+				</Style>
 			</ListBox.Styles>
 		</ListBox>
 		<Label FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="30,10" Content="账户中心"/>

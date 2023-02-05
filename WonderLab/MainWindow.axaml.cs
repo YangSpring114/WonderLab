@@ -373,13 +373,12 @@ namespace WonderLab
 
         public void InitializeComponent()
         {
-            InitializeComponent(true);
+            InitializeComponent(true);            
             CloseFileDialogButton.Click += CloseFileDialogButton_Click;
             TipClose();
             BarHost.Attach(this);
             win = this;
             MainWindowViewModel.TitleBar = BarHost;
-            //InformationListBox = InformationList;
             ContentDialogView = VersionDialog;
             AcrylicColorChange();
             EnableMica();
@@ -404,6 +403,8 @@ namespace WonderLab
             int textCount = 0;
             SetupDnd("Text", d => d.Set(DataFormats.Text,
                $"Text was dragged {++textCount} times"), DragDropEffects.Copy | DragDropEffects.Move | DragDropEffects.Link);
+
+            AppRunAnimaction();
         }
 
         private void CloseFileDialogButton_Click(object? sender, RoutedEventArgs e)
@@ -506,6 +507,13 @@ namespace WonderLab
             FileDialogSelecter.Height = 0;
             await Task.Delay(50);
             FileDialogLayout.IsHitTestVisible = false;
+        }
+
+        public async void AppRunAnimaction()
+        {
+            await Task.Delay(2500);
+            cover.Opacity= 0;
+            cover.IsHitTestVisible= false;
         }
     }
 

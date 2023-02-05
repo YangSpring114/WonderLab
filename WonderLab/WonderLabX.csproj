@@ -17,7 +17,9 @@
 	</PropertyGroup>
   <ItemGroup>
 	<AvaloniaResources Include="Resources\**" />
+	<AvaloniaResources Remove="Resources\xcmy.jpg" />
     <None Remove=".gitignore" />
+    <None Remove="Resources\xcmy.jpg" />
     <None Remove="半圆.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +91,7 @@
     </EmbeddedResource>
   </ItemGroup>
 	<ItemGroup>
+		<EmbeddedResource Include="Resources\xcmy.jpg" />
 		<Content Include="wonderlab.png" CopyToPublishDirectory="PreserveNewest">
 			<LinuxPath>/usr/share/icons/wonderlab.png</LinuxPath>
 		</Content>

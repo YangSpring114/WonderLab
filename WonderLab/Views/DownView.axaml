@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:local="using:FluentAvaloniaSamples.Controls"
-			 xmlns:card="using:ControlX"
+			 xmlns:card="using:ControlX" Initialized="DownView_Initialized"
 			 xmlns:ui="using:FluentAvalonia.UI.Controls"
              x:Class="WonderLab.Views.DownView">
 	<UserControl.Resources>
@@ -159,7 +159,8 @@
 				</local:OptionsDisplayItem.Icon>
 			</local:OptionsDisplayItem>
 			
-			<local:OptionsDisplayItem Name="JavaInstall" Header="安装新的 Java 运行时" Icon="Save" Margin="0,10,0,0" Padding="10"
+			<local:OptionsDisplayItem Name="JavaInstall" Header="安装新的 Java 运行时"
+									  Icon="Save" Margin="0,10,0,0" Padding="10"
 					  Description="安装新的 Java 运行时，它将被安装至主磁盘目录"
 					  Navigates="True">
 				<local:OptionsDisplayItem.Icon>
@@ -168,7 +169,7 @@
 			</local:OptionsDisplayItem>
 			
 			<local:OptionsDisplayItem Name="CustomDownload" Header="自定义下载" Margin="0,10,0,0" Padding="10"
-			  Description="如名，一个简单的下载器"
+			  Description="如名，一个简单的下载器" IsVisible="False"
 			 IsEnabled="True" Background="{DynamicResource ControlFillColorTertiaryBrush}"
 			  Navigates="True">
 				<local:OptionsDisplayItem.Icon>

@@ -32,7 +32,7 @@ namespace WonderLab.Views
         public override void OnNavigatedTo()
         {
             //ViewModel.CurrentUser = ViewModel.Users.GetUserInIndex(App.Data.SelectedUser.UserName);
-            //MainWindow.win.TipShow();
+            //MainWindow.win.TipShow();ShowUserInfoDialogClick
         }
 
         public static async void ShowLoginDialog()
@@ -49,6 +49,8 @@ namespace WonderLab.Views
         }
 
         private async void StartButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => await AuthenticatorTypeDialog.ShowAsync();
+
+        private async void ShowUserInfoDialogClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => await UserInfoDialog.ShowAsync();
 
         private void CancelButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => AuthenticatorTypeDialog.Hide();
 

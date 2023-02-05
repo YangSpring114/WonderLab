@@ -7,6 +7,7 @@ using Natsurainko.Toolkits.Network.Model;
 using PluginLoader;
 using System;
 using System.Threading.Tasks;
+using WonderLab.Modules.Const;
 using WonderLab.Modules.Controls;
 using WonderLab.Modules.Toolkits;
 using WonderLab.PluginAPI;
@@ -24,8 +25,11 @@ namespace WonderLab.Views
 
         private void InitializeComponent()
         {
-            InitializeComponent(true);
-            Initialized += DownView_Initialized;
+            InitializeComponent(true);           
+            if (!InfoConst.IsWindows) {
+                JavaInstall.IsVisible = false;
+            }
+
             DataContext = ViewModel;
             JavaInstallDialog.DataContext = ViewModel;
             JavaInstall.PointerPressed += JavaInstall_PointerPressed;
@@ -39,7 +43,11 @@ namespace WonderLab.Views
             JavaInstallDialog.IsVisible = true;
         }
 
-        private async void JavaInstall_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e) => await JavaInstallDialog.ShowAsync();
+        private async void JavaInstall_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e) {
+            if (InfoConst.IsWindows) {
+                await JavaInstallDialog.ShowAsync();
+            }
+        }
 
         private void JavaCancelButton_Click(object sender, RoutedEventArgs e)
         {
