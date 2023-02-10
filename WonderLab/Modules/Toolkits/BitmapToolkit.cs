@@ -61,19 +61,6 @@ namespace WonderLab.Modules.Toolkits
         }
 
         /// <summary>
-        /// 裁剪皮肤图片左手
-        /// </summary>
-        /// <typeparam name="TPixel"></typeparam>
-        /// <param name="skin"></param>
-        /// <returns></returns>
-        public static Image<TPixel> CropLeftHandImage<TPixel>(Image<TPixel> skin) where TPixel : unmanaged, IPixel<TPixel>
-        {
-            Image<TPixel> Arm = CopyImage(skin);
-            Arm.Mutate(x => x.Crop(Rectangle.FromLTRB(35, 52, 39, 64)));
-            return ResizeImage(Arm, 20, 60);
-        }
-
-        /// <summary>
         /// 裁剪皮肤图片右手
         /// </summary>
         /// <typeparam name="TPixel"></typeparam>
@@ -82,21 +69,21 @@ namespace WonderLab.Modules.Toolkits
         public static Image<TPixel> CropRightHandImage<TPixel>(Image<TPixel> skin) where TPixel : unmanaged, IPixel<TPixel>
         {
             Image<TPixel> Arm = CopyImage(skin);
-            Arm.Mutate(x => x.Crop(Rectangle.FromLTRB(44, 20, 48, 32)));
+            Arm.Mutate(x => x.Crop(Rectangle.FromLTRB(35, 52, 39, 64)));
             return ResizeImage(Arm, 20, 60);
         }
 
         /// <summary>
-        /// 裁剪皮肤图片左腿
+        /// 裁剪皮肤图片左手
         /// </summary>
         /// <typeparam name="TPixel"></typeparam>
         /// <param name="skin"></param>
         /// <returns></returns>
-        public static Image<TPixel> CropLeftLegImage<TPixel>(Image<TPixel> skin) where TPixel : unmanaged, IPixel<TPixel>
+        public static Image<TPixel> CropLeftHandImage<TPixel>(Image<TPixel> skin) where TPixel : unmanaged, IPixel<TPixel>
         {
-            Image<TPixel> Leg = CopyImage(skin);
-            Leg.Mutate(x => x.Crop(Rectangle.FromLTRB(20, 52, 24, 64)));
-            return ResizeImage(Leg, 20, 60);
+            Image<TPixel> Arm = CopyImage(skin);
+            Arm.Mutate(x => x.Crop(Rectangle.FromLTRB(44, 20, 48, 32)));
+            return ResizeImage(Arm, 20, 60);
         }
 
         /// <summary>
@@ -106,6 +93,19 @@ namespace WonderLab.Modules.Toolkits
         /// <param name="skin"></param>
         /// <returns></returns>
         public static Image<TPixel> CropRightLegImage<TPixel>(Image<TPixel> skin) where TPixel : unmanaged, IPixel<TPixel>
+        {
+            Image<TPixel> Leg = CopyImage(skin);
+            Leg.Mutate(x => x.Crop(Rectangle.FromLTRB(20, 52, 24, 64)));
+            return ResizeImage(Leg, 20, 60);
+        }
+
+        /// <summary>
+        /// 裁剪皮肤图片左腿
+        /// </summary>
+        /// <typeparam name="TPixel"></typeparam>
+        /// <param name="skin"></param>
+        /// <returns></returns>
+        public static Image<TPixel> CropLeftLegImage<TPixel>(Image<TPixel> skin) where TPixel : unmanaged, IPixel<TPixel>
         {
             Image<TPixel> Leg = CopyImage(skin);
             Leg.Mutate(x => x.Crop(Rectangle.FromLTRB(4, 20, 8, 32)));

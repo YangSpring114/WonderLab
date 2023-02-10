@@ -54,32 +54,46 @@ namespace WonderLab.Views
         private async void StartButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => await AuthenticatorTypeDialog.ShowAsync();
 
         private async void ShowUserInfoDialogClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e) {
-            var Skin = ((sender as Button).DataContext as UserModels).SkinBytes;
+            var Skin = ((sender as Button)!.DataContext as UserModels)!.SkinBytes;
+            var Data = ((sender as Button)!.DataContext as UserModels)!;
 
-            #region head
-            var head = (await BitmapToolkit.CropSkinHeadImage(Skin));
-            this.head.Background = new ImageBrush(BitmapToolkit.ResizeImage(head, 40, 40).ToBitmap());
+            try
+            {
+                if (Data.Type.Contains("微软"))
+                {
+                    #region head
+                    var head = (await BitmapToolkit.CropSkinHeadImage(Skin));
+                    this.head.Background = new ImageBrush(BitmapToolkit.ResizeImage(head, 40, 40).ToBitmap());
 
-            #endregion
+                    #endregion
 
-            #region center
-            var body = BitmapToolkit.CropSkinBodyImage(Skin.ToImage());
-            this.body.Background = new ImageBrush(body.ToBitmap());
+                    #region center
+                    var body = BitmapToolkit.CropSkinBodyImage(Skin.ToImage());
+                    this.body.Background = new ImageBrush(body.ToBitmap());
 
-            var leftarm = BitmapToolkit.CropLeftHandImage(Skin.ToImage());
-            this.LeftArm.Background = new ImageBrush(leftarm.ToBitmap());
+                    var leftarm = BitmapToolkit.CropLeftHandImage(Skin.ToImage());
+                    this.LeftArm.Background = new ImageBrush(leftarm.ToBitmap());
 
-            var rightarm = BitmapToolkit.CropRightHandImage(Skin.ToImage());
-            this.rightarm.Background = new ImageBrush(rightarm.ToBitmap());
-            #endregion
+                    var rightarm = BitmapToolkit.CropRightHandImage(Skin.ToImage());
+                    this.rightarm.Background = new ImageBrush(rightarm.ToBitmap());
+                    #endregion
 
-            #region down
-            var leftLeg = BitmapToolkit.CropLeftLegImage(Skin.ToImage());
-            this.leftleg.Background = new ImageBrush(leftLeg.ToBitmap());
+                    #region down
+                    var leftLeg = BitmapToolkit.CropLeftLegImage(Skin.ToImage());
+                    this.leftleg.Background = new ImageBrush(leftLeg.ToBitmap());
 
-            var rightleg = BitmapToolkit.CropRightLegImage(Skin.ToImage());
-            this.rightleg.Background = new ImageBrush(rightleg.ToBitmap());
-            #endregion
+                    var rightleg = BitmapToolkit.CropRightLegImage(Skin.ToImage());
+                    this.rightleg.Background = new ImageBrush(rightleg.ToBitmap());
+                    #endregion
+                } else {
+                    this.head.Background = new ImageBrush(Data.Icon);
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+
             await UserInfoDialog.ShowAsync();            
         }
 
