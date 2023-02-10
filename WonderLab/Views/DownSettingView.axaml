@@ -66,64 +66,62 @@
 										HorizontalAlignment="Center"
 										DockPanel.Dock="Top"/>
 
-								<ScrollViewer Margin="10" DockPanel.Dock="Bottom"
-											  VerticalContentAlignment="Top">
-									<ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-		                                     ScrollViewer.VerticalScrollBarVisibility="Disabled">
-										<ListBox.Styles>
-											<Styles>
-												<Style Selector="ListBoxItem">
-													<Setter Property="HorizontalContentAlignment" Value="Stretch" />
-													<Setter Property="BorderBrush" Value="Transparent" />
-													<Setter Property="Height" Value="40"/>
-													<Setter Property="Margin" Value="0,3" />
-													<Setter Property="Template">
-														<ControlTemplate>
+								<ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+								         ScrollViewer.VerticalScrollBarVisibility="Disabled"
+										 Margin="10" DockPanel.Dock="Bottom"
+										 VerticalAlignment="Top">
+									<ListBox.Styles>
+										<Styles>
+											<Style Selector="ListBoxItem">
+												<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+												<Setter Property="BorderBrush" Value="Transparent" />
+												<Setter Property="Height" Value="40"/>
+												<Setter Property="Margin" Value="0,3" />
+												<Setter Property="Template">
+													<ControlTemplate>
+														<Grid>
+															<Border Name="BorderElement"
+																	Background="{DynamicResource ButtonBackground}"
+																	RenderTransform="scaleY(-1)"
+																	CornerRadius="{DynamicResource ControlCornerRadius}"
+																	IsHitTestVisible="False"/>
+
+															<Border Name="SelectBorderBackgroundElement"
+																	RenderTransform="scaleY(-1)"
+																	CornerRadius="{DynamicResource ControlCornerRadius}"/>
+
+															<Border Name="SelectBorderElement"
+																	RenderTransform="scaleY(-1)"
+																	CornerRadius="{DynamicResource ControlCornerRadius}"
+																	BorderBrush="{DynamicResource ButtonBorderBrush}"/>
+
 															<Grid>
-																<Border Name="BorderElement"
-		                                                                Background="{DynamicResource ButtonBackground}"
-		                                                                RenderTransform="scaleY(-1)"
-		                                                                CornerRadius="{DynamicResource ControlCornerRadius}"
-		                                                                IsHitTestVisible="False"/>
+																<Grid.ColumnDefinitions>
+																	<ColumnDefinition Width="1*" />
+																	<ColumnDefinition Width="1*" MaxWidth="8"/>
+																	<ColumnDefinition Width="Auto" />
+																</Grid.ColumnDefinitions>
+																<ui:SymbolIcon VerticalAlignment="Center"
+																			   Symbol="Checkmark" Grid.Column="2"
+																			   HorizontalAlignment="Right"
+																			   Margin="0 0 15 0"/>
 
-																<Border Name="SelectBorderBackgroundElement"
-																		RenderTransform="scaleY(-1)"
-																		CornerRadius="{DynamicResource ControlCornerRadius}"/>
-
-																<Border Name="SelectBorderElement"
-																		RenderTransform="scaleY(-1)"
-																		CornerRadius="{DynamicResource ControlCornerRadius}"
-																		BorderBrush="{DynamicResource ButtonBorderBrush}"/>
-
-																<Grid>
-																	<Grid.ColumnDefinitions>
-																		<ColumnDefinition Width="1*" />
-																		<ColumnDefinition Width="1*" MaxWidth="8"/>
-																		<ColumnDefinition Width="Auto" />
-																	</Grid.ColumnDefinitions>
-																	<ui:SymbolIcon VerticalAlignment="Center"
-			                                                                       Symbol="Checkmark" Grid.Column="2"
-			                                                                       HorizontalAlignment="Right"
-			                                                                       Margin="0 0 15 0"/>
-																	
-																	<TextBlock FontWeight="Bold" TextTrimming="CharacterEllipsis"
-																			   Text="download.mcbbs.net"
-																			   HorizontalAlignment="Left"
-																			   VerticalAlignment="Center"
-																			   Margin="15 0 0 0"/>
-																</Grid>
+																<TextBlock FontWeight="Bold" TextTrimming="CharacterEllipsis"
+																		   Text="download.mcbbs.net"
+																		   HorizontalAlignment="Left"
+																		   VerticalAlignment="Center"
+																		   Margin="15 0 0 0"/>
 															</Grid>
-														</ControlTemplate>
-													</Setter>
-												</Style>
-											</Styles>
-										</ListBox.Styles>
-
-										<ListBoxItem/>
-										<ListBoxItem/>
-										<ListBoxItem/>
-									</ListBox>
-								</ScrollViewer>
+														</Grid>
+													</ControlTemplate>
+												</Setter>
+											</Style>
+										</Styles>
+									</ListBox.Styles>
+									<ListBoxItem/>
+									<ListBoxItem/>
+									<ListBoxItem/>
+								</ListBox>
 							</DockPanel>
 						</StackPanel>
 					</card:OptionsDisplayItem.Content>

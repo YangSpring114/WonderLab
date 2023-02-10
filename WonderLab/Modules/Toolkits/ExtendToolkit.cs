@@ -1,16 +1,17 @@
+using Avalonia.Media.Imaging;
 using MinecraftLaunch.Modules.Models.Auth;
-using MinecraftLaunch.Modules.Models.Install;
 using MinecraftLaunch.Modules.Models.Launch;
 using Natsurainko.FluentCore.Class.Model.Install;
-using Natsurainko.FluentCore.Class.Model.Launch;
 using Natsurainko.FluentCore.Module.Launcher;
-using Newtonsoft.Json.Linq;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Png;
+using SixLabors.ImageSharp.PixelFormats;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WonderLab.Modules.Models;
 using WonderLab.ViewModels;
 using GameCore = MinecraftLaunch.Modules.Models.Launch.GameCore;
@@ -174,6 +175,19 @@ namespace WonderLab.Modules.Toolkits
             }
 
             return string.Empty;
+        }
+
+        public static Bitmap ToBitmap<TPixel>(this Image<TPixel> raw) where TPixel : unmanaged, IPixel<TPixel>
+        {
+            using var stream = new MemoryStream();
+            raw.Save(stream, new PngEncoder());
+            stream.Position = 0;
+            return new Bitmap(stream);
+        }
+
+        public static Image<Rgba32> ToImage(this byte[] raw)
+        {
+            return (Image<Rgba32>)Image.Load(raw);
         }
     }
 }

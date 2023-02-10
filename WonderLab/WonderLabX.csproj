@@ -28,7 +28,6 @@
 	<EmbeddedResource Include="Resources\normal.png" />
     <EmbeddedResource Include="Resources\sdf.png" />
     <EmbeddedResource Include="Resources\WonderLab.Desktop-Linux" />
-    <EmbeddedResource Include="Resources\WonderLab.Desktop-Mac" />
     <EmbeddedResource Include="Resources\WonderLab.Desktop.exe" />
     <EmbeddedResource Include="Resources\Icon.ico" />
     <EmbeddedResource Include="半圆.ico" />

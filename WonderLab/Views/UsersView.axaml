@@ -142,9 +142,48 @@
 						<ColumnDefinition Width="Auto" />
 					</Grid.ColumnDefinitions>
 
-					<wc:FrontalSkinX Grid.Column="0" Margin="0 100 0 0"/>
-					<!--<Image MaxWidth="100" Grid.Column="0" Stretch="UniformToFill" Source="resm:WonderLab.Resources.xcmy.jpg"/>-->
+					<!--<wc:FrontalSkinX x:Name="FrontalSkinView" Grid.Column="0"/>-->
+					<StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Stretch">
+						<!--head-->
+						<Border x:Name="head" Height="40" Width="40" BoxShadow="0 8 32 0 #66000000" HorizontalAlignment="Center">
+						</Border>
 
+						<StackPanel Orientation="Horizontal">
+
+							<!--左手 RenderTransform="rotate(4deg)"-->
+							<Border Name="LeftArm"
+									VerticalAlignment="Top"
+									RenderTransformOrigin="0,0"
+									RenderTransform="rotate(4deg)" Margin="0 -1.4514 0 0"
+									Height="60" Width="20" BoxShadow="0 8 32 0 #66000000">
+							</Border>
+
+							<!--人棍部分-->
+							<StackPanel HorizontalAlignment="Center">
+								<!--body-->
+								<Border x:Name="body" Height="60" Width="40" BoxShadow="0 8 32 0 #66000000">
+								</Border>
+
+								<!--leg-->
+								<StackPanel  HorizontalAlignment="Center" Orientation="Horizontal">
+									<Border x:Name="leftleg" Height="60" Width="20" BoxShadow="0 8 32 0 #66000000">
+									</Border>
+
+									<Border x:Name="rightleg" Height="60" Width="20" BoxShadow="0 8 32 0 #66000000">
+									</Border>
+								</StackPanel>
+							</StackPanel>
+
+							<!--右手-->
+							<Border RenderTransformOrigin="0,0" RenderTransform="rotate(-4deg)" x:Name="rightarm"
+									Height="60" Width="20" BoxShadow="0 8 32 0 #66000000" VerticalAlignment="Top">
+
+							</Border>
+
+						</StackPanel>
+					</StackPanel>
+					
+					
 					<Grid HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="2">
 
 						<StackPanel Margin="0 0 0 10" Spacing="10" Width="350">

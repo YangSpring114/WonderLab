@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Input.Platform;
+using Avalonia.Media;
 using Avalonia.Threading;
 using FluentAvalonia.UI.Controls;
 using System;
@@ -52,7 +53,35 @@ namespace WonderLab.Views
 
         private async void StartButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => await AuthenticatorTypeDialog.ShowAsync();
 
-        private async void ShowUserInfoDialogClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => await UserInfoDialog.ShowAsync();
+        private async void ShowUserInfoDialogClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e) {
+            var Skin = ((sender as Button).DataContext as UserModels).SkinBytes;
+
+            #region head
+            var head = (await BitmapToolkit.CropSkinHeadImage(Skin));
+            this.head.Background = new ImageBrush(BitmapToolkit.ResizeImage(head, 40, 40).ToBitmap());
+
+            #endregion
+
+            #region center
+            var body = BitmapToolkit.CropSkinBodyImage(Skin.ToImage());
+            this.body.Background = new ImageBrush(body.ToBitmap());
+
+            var leftarm = BitmapToolkit.CropLeftHandImage(Skin.ToImage());
+            this.LeftArm.Background = new ImageBrush(leftarm.ToBitmap());
+
+            var rightarm = BitmapToolkit.CropRightHandImage(Skin.ToImage());
+            this.rightarm.Background = new ImageBrush(rightarm.ToBitmap());
+            #endregion
+
+            #region down
+            var leftLeg = BitmapToolkit.CropLeftLegImage(Skin.ToImage());
+            this.leftleg.Background = new ImageBrush(leftLeg.ToBitmap());
+
+            var rightleg = BitmapToolkit.CropRightLegImage(Skin.ToImage());
+            this.rightleg.Background = new ImageBrush(rightleg.ToBitmap());
+            #endregion
+            await UserInfoDialog.ShowAsync();            
+        }
 
         private void CancelButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => AuthenticatorTypeDialog.Hide();
 
@@ -175,6 +204,6 @@ namespace WonderLab.Views
     {
         private const string CustomFormat = "application/xxx-avalonia-controlcatalog-custom";
         public static UsersViewModel ViewModel { get; } = new();        
-        protected static UsersView View { get; set; }
+        public static UsersView View { get; set; }
     }
 }

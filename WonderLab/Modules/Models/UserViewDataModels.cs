@@ -1,10 +1,12 @@
 using Avalonia;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
+using Avalonia.Styling;
 using FluentAvalonia.UI.Controls;
 using Flurl;
 using MinecaftOAuth.Authenticator;
 using Natsurainko.Toolkits.Network;
+using ReactiveUI.Fody.Helpers;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.PixelFormats;
@@ -16,6 +18,7 @@ using System.Threading.Tasks;
 using WonderLab.Modules.Base;
 using WonderLab.Modules.Const;
 using WonderLab.Modules.Toolkits;
+using WonderLab.Views;
 
 namespace WonderLab.Modules.Models
 {
@@ -67,6 +70,8 @@ namespace WonderLab.Modules.Models
             get => _load;
             set => RaiseAndSetIfChanged(ref _load, value);
         }
+
+        public byte[] SkinBytes { get; set; }
 
         public Bitmap? Icon
         {
@@ -131,23 +136,23 @@ namespace WonderLab.Modules.Models
                     if (Type.Contains("离线账户"))
                     {
                         var al = AvaloniaLocator.Current.GetService<IAssetLoader>();
-                        using var stream = al.Open(new Uri("resm:WonderLab.Resources.sdf.png"));
-                        Icon = new Bitmap(stream as MemoryStream);
+                        var stream = al.Open(new Uri("resm:WonderLab.Resources.sdf.png"));
+                        
+                        Icon = new Bitmap(stream);
                     }
                     else if (Type.Contains("微软"))
                     {
                         var url = await WebToolkit.GetUserSkinUrl(Uuid);
                         var btyes = await (await HttpWrapper.HttpGetAsync(url)).Content.ReadAsByteArrayAsync();
-                        var Image = await BitmapToolkit.CropSkinImage(btyes);
+                        SkinBytes= btyes;
+                        var Image = await BitmapToolkit.CropSkinHeadImage(btyes);
 
-                        using var stream = new MemoryStream();
-                        BitmapToolkit.ResizeImage(Image, 512, 512).Save(stream, new PngEncoder());
-                        stream.Position = 0;
-                        Icon = new Bitmap(stream);
+                        Icon = BitmapToolkit.ResizeImage(Image, 120, 120).ToBitmap();
                     }
                     else
                     {
                         var stream = await new HttpClient().GetByteArrayAsync(SkinLink);
+                        SkinBytes = stream;
                         using var savestream = new MemoryStream();
                         BitmapToolkit.ResizeImage((Image<Rgba32>)Image.Load(stream), 512, 512).Save(savestream, new PngEncoder());
                         savestream.Position = 0;
