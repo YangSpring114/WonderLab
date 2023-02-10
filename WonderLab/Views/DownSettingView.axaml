@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="650"
 			 xmlns:card="using:ControlX"
 			 xmlns:ui="using:FluentAvalonia.UI.Controls"
              x:Class="WonderLab.Views.DownSettingView">
@@ -54,23 +54,77 @@
 						</StackPanel>
 					</card:OptionsDisplayItem.Content>
 				</card:OptionsDisplayItem>
-				<card:OptionsDisplayItem Margin="0 15 0 0"
-	                      IsExpanded="True" Name="CustomDownloadSetting"
-	                      Expands="True" Header="自定义下载设置"
-	                      Description="自定义下载的配置">
+
+				<card:OptionsDisplayItem
+		                  IsExpanded="True"
+		                  Expands="True" Header="网络连接测试"
+		                  Description="此功能会对启动器会用到的 API 进行访问测试，终了后会显示延迟和状态信息，您可以根据这些信息排查简单的问题">
 					<card:OptionsDisplayItem.Content>
-						<StackPanel>
-							<Grid>
-								<StackPanel>
-									<TextBlock Text="自定义下载保存路径 "/>
-									<TextBox Text="{Binding DownloadPath}" IsReadOnly="True"/>
-									<Button Click="OpenFolderDialog">
-										<Button.Content>
-											<TextBlock Text="浏览"></TextBlock>
-										</Button.Content>
-									</Button>
-								</StackPanel>
-							</Grid>
+						<StackPanel Spacing="20">
+							<DockPanel>
+								<Button Classes="accent" Content="开始测试" 
+										HorizontalAlignment="Center"
+										DockPanel.Dock="Top"/>
+
+								<ScrollViewer Margin="10" DockPanel.Dock="Bottom"
+											  VerticalContentAlignment="Top">
+									<ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+		                                     ScrollViewer.VerticalScrollBarVisibility="Disabled">
+										<ListBox.Styles>
+											<Styles>
+												<Style Selector="ListBoxItem">
+													<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+													<Setter Property="BorderBrush" Value="Transparent" />
+													<Setter Property="Height" Value="40"/>
+													<Setter Property="Margin" Value="0,3" />
+													<Setter Property="Template">
+														<ControlTemplate>
+															<Grid>
+																<Border Name="BorderElement"
+		                                                                Background="{DynamicResource ButtonBackground}"
+		                                                                RenderTransform="scaleY(-1)"
+		                                                                CornerRadius="{DynamicResource ControlCornerRadius}"
+		                                                                IsHitTestVisible="False"/>
+
+																<Border Name="SelectBorderBackgroundElement"
+																		RenderTransform="scaleY(-1)"
+																		CornerRadius="{DynamicResource ControlCornerRadius}"/>
+
+																<Border Name="SelectBorderElement"
+																		RenderTransform="scaleY(-1)"
+																		CornerRadius="{DynamicResource ControlCornerRadius}"
+																		BorderBrush="{DynamicResource ButtonBorderBrush}"/>
+
+																<Grid>
+																	<Grid.ColumnDefinitions>
+																		<ColumnDefinition Width="1*" />
+																		<ColumnDefinition Width="1*" MaxWidth="8"/>
+																		<ColumnDefinition Width="Auto" />
+																	</Grid.ColumnDefinitions>
+																	<ui:SymbolIcon VerticalAlignment="Center"
+			                                                                       Symbol="Checkmark" Grid.Column="2"
+			                                                                       HorizontalAlignment="Right"
+			                                                                       Margin="0 0 15 0"/>
+																	
+																	<TextBlock FontWeight="Bold" TextTrimming="CharacterEllipsis"
+																			   Text="download.mcbbs.net"
+																			   HorizontalAlignment="Left"
+																			   VerticalAlignment="Center"
+																			   Margin="15 0 0 0"/>
+																</Grid>
+															</Grid>
+														</ControlTemplate>
+													</Setter>
+												</Style>
+											</Styles>
+										</ListBox.Styles>
+
+										<ListBoxItem/>
+										<ListBoxItem/>
+										<ListBoxItem/>
+									</ListBox>
+								</ScrollViewer>
+							</DockPanel>
 						</StackPanel>
 					</card:OptionsDisplayItem.Content>
 				</card:OptionsDisplayItem>

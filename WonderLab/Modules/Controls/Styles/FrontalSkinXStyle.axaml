@@ -1,25 +1,78 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:wc="using:WonderLab.Modules.Controls">
     <Design.PreviewWith>
-        <Border Padding="20">
-			<Grid>
-				<!--人棍部分-->
-				<StackPanel>
-					<!--head-->
-					<Image Source="C:\Users\w\Desktop\Picture\bin\Debug\net6.0\2head.png"/>
-					
-					<!--body-->
-					<Image Source="C:\Users\w\Desktop\Picture\bin\Debug\net6.0\Body.png"/>
-					
-					<!--leg-->
-					<StackPanel Orientation="Horizontal">
-						<Image Source="C:\Users\w\Desktop\Picture\bin\Debug\net6.0\RightLeg.png"/>
-						<Image Source="C:\Users\w\Desktop\Picture\bin\Debug\net6.0\LeftLeg.png"/>
-					</StackPanel>
-				</StackPanel>
-			</Grid>
-        </Border>
+		<Border Width="1000" Padding="20">
+			<StackPanel>
+				<wc:FrontalSkinX/>
+			</StackPanel>
+		</Border>
     </Design.PreviewWith>
 
-    <!-- Add Styles Here -->	
+    <!-- Add Styles Here -->
+	<Style Selector="wc|FrontalSkinX">
+		<Setter Property="HorizontalAlignment" Value="Stretch"/>
+		<Setter Property="VerticalAlignment" Value="Stretch"/>
+		<Setter Property="Template">
+			<ControlTemplate>
+				<StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch">
+					<!--head-->
+					<Border Height="40" Width="40" BoxShadow="0 8 32 0 #66000000" HorizontalAlignment="Center"
+							Background="{TemplateBinding HeadSource}">
+					</Border>
+ 
+					<StackPanel Orientation="Horizontal">
+
+						<!--左手 RenderTransform="rotate(4deg)"-->
+						<Border Name="LeftArm"
+							    VerticalAlignment="Top" 
+								RenderTransformOrigin="0,0"
+								RenderTransform="rotate(4deg)" Margin="0 -1.4514 0 0"
+								Height="60" Width="20" BoxShadow="0 8 32 0 #66000000" Background="{TemplateBinding LeftArmSource}">
+						</Border>
+
+						<!--人棍部分-->
+						<StackPanel HorizontalAlignment="Center">
+							<!--body-->
+							<Border Height="60" Width="40" BoxShadow="0 8 32 0 #66000000"
+		                            Background="{TemplateBinding BodySource}">
+							</Border>
+
+							<!--leg-->
+							<StackPanel  HorizontalAlignment="Center" Orientation="Horizontal">
+								<Border Height="60" Width="20" BoxShadow="0 8 32 0 #66000000"
+										Background="{TemplateBinding RightLegSource}">
+								</Border>
+
+								<Border Height="60" Width="20" BoxShadow="0 8 32 0 #66000000"
+										Background="{TemplateBinding LeftLegSource}">
+								</Border>
+							</StackPanel>
+						</StackPanel>
+
+						<!--右手-->
+						<Border RenderTransformOrigin="0,0" RenderTransform="rotate(-4deg)"
+								Height="60" Width="20" BoxShadow="0 8 32 0 #66000000" VerticalAlignment="Top"
+								Background="{TemplateBinding RightArmSource}">
+
+						</Border>
+
+					</StackPanel>
+				</StackPanel>
+			</ControlTemplate>
+		</Setter>
+	</Style>
+
+	<!--<Style Selector="wc|FrontalSkinX /template/ Border#LeftArm">
+		<Style.Animations>
+			<Animation IterationCount="INFINITE" Duration="0:0:1">
+				<KeyFrame Cue="0%">
+					<Setter Property="RenderTransform" Value="rotate(0deg)"/>
+				</KeyFrame>
+				<KeyFrame Cue="100%">
+					<Setter Property="RenderTransform" Value="rotate(45deg)"/>
+				</KeyFrame>
+			</Animation>
+		</Style.Animations>
+	</Style>-->
 </Styles>

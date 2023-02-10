@@ -37,10 +37,9 @@ namespace WonderLab
     {
         public App()
         {
-            //ServicePointManager.DefaultConnectionLimit = 512;
+            ServicePointManager.DefaultConnectionLimit = 512;
             InitializeModData();
             CheckAsync();
-            //Debug.WriteLine(Convert.ToDouble(double.NaN));
         }
 
         /// <summary>
@@ -160,9 +159,13 @@ namespace WonderLab
 
             base.OnFrameworkInitializationCompleted();
         }
+
         public override void RegisterServices()
-        {            
-            //AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant();
+        {
+            if (InfoConst.IsLinux) {
+                AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(new CustomFontManagerImpl());
+            }
+         
             base.RegisterServices();
         }
     }
@@ -174,7 +177,7 @@ namespace WonderLab
 
         //Load font resources in the project, you can load multiple font resources
         private readonly Typeface _defaultTypeface =
-            new Typeface("avares://FluentAvalonia/Fonts/#Symbols");
+            new Typeface("dejavu");
 
         public CustomFontManagerImpl()
         {
@@ -224,7 +227,7 @@ namespace WonderLab
             switch (typeface.FontFamily.Name)
             {
                 case FontFamily.DefaultFontFamilyName:
-                case "Symbols":  //font family name
+                case "dejavu":  //font family name
                     skTypeface = SKTypeface.FromFamilyName(_defaultTypeface.FontFamily.Name); break;
                 default:
                     skTypeface = SKTypeface.FromFamilyName(typeface.FontFamily.Name,

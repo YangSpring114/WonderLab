@@ -5,6 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"			 
      	     xmlns:ui="using:FluentAvalonia.UI.Controls"
 			 Background="Transparent"
+			 xmlns:wc="using:WonderLab.Modules.Controls"
 			 xmlns:super="using:WonderLab.Modules.Models"
 			 x:Class="WonderLab.Views.HomeView">
 	<Grid>
@@ -96,32 +97,6 @@
 			</ComboBox>			
 		</Grid>
         <!--RenderTransformOrigin="0,0"-->
-		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-			<!--head-->
-			<Image HorizontalAlignment="Center" Stretch="None" Source="C:\Users\w\Desktop\Picture\bin\Debug\net6.0\2head.png"/>
-
-			<StackPanel Orientation="Horizontal">
-
-				<!--左手-->
-				<Image VerticalAlignment="Top" Stretch="None" Source="C:\Users\w\Desktop\Picture\bin\Debug\net6.0\LeftArm.png"/>
-
-				<!--人棍部分-->
-				<StackPanel HorizontalAlignment="Center">
-					<!--body-->
-					<Image Stretch="None" Source="C:\Users\w\Desktop\Picture\bin\Debug\net6.0\Body.png"/>
-
-					<!--leg-->
-					<StackPanel  HorizontalAlignment="Center" Orientation="Horizontal">
-						<Image Stretch="None" Source="C:\Users\w\Desktop\Picture\bin\Debug\net6.0\RightLeg.png"/>
-						<Image Stretch="None" Source="C:\Users\w\Desktop\Picture\bin\Debug\net6.0\LeftLeg.png"/>
-					</StackPanel>
-				</StackPanel>
-
-				<!--右手-->
-				<Image VerticalAlignment="Top" HorizontalAlignment="Center" Stretch="None" Source="C:\Users\w\Desktop\Picture\bin\Debug\net6.0\RightArm.png"/>
-
-			</StackPanel>
-		</StackPanel>
 		<!--<Image Height="30" Width="30" Stretch="UniformToFill" Source="C:\Users\w\Desktop\32.jpg"/>-->
 	</Grid>
 </UserControl>

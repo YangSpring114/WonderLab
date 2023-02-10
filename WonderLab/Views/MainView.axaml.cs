@@ -65,7 +65,7 @@ namespace WonderLab.Views
                         item.IsSelected = true;
                     }
                 }
-                await Dispatcher.UIThread.InvokeAsync(() => FrameView.NavigateTo((Page)e.Content));
+                await Dispatcher.UIThread.InvokeAsync(() => ((Page)e.Content).OnNavigatedTo());
             }
             catch (Exception ex)
             {
@@ -81,8 +81,11 @@ namespace WonderLab.Views
 
         private void RootNavigationView_ItemInvoked(object? sender, NavigationViewItemInvokedEventArgs e)
         {
+            var info = new EntranceNavigationTransitionInfo();
+            info.FromVerticalOffset = 100;
             RootNavigationView.IsBackEnabled = true;
-            var res = FrameView.Navigate(e.IsSettingsInvoked ? typeof(SettingView) : (Type.GetType($"WonderLab.Views.{((NavigationViewItem)e.InvokedItemContainer).Tag ??= string.Empty}")) ?? typeof(HomeView));
+            var res = FrameView.Navigate(e.IsSettingsInvoked ? typeof(SettingView) : 
+                (Type.GetType($"WonderLab.Views.{((NavigationViewItem)e.InvokedItemContainer).Tag ??= string.Empty}")) ?? typeof(HomeView),null, info);
 
             if (!res) {
                 MainWindow.ShowInfoBarAsync("´íÎó", "giao", InfoBarSeverity.Error);

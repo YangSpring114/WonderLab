@@ -37,12 +37,6 @@ namespace WonderLab.Views
             });
         }
 
-        public override void OnNavigatedTo()
-        {
-            //ViewModel.CurrentUser = ViewModel.Users[ViewModel.Users.IndexOf(new(App.Data.SelectedUser!))];
-            //MainWindow.win.TipShow();ShowUserInfoDialogClick
-        }
-
         public static async void ShowLoginDialog()
         {
             View.AuthenticatorTypeDialog.Hide();

@@ -18,7 +18,8 @@
 		<StyleInclude Source="avares://ControlX/OptionsDisplayItemStyles.axaml" />
 		<StyleInclude Source="/Modules/Controls/Styles/ScrollViewerStyle.axaml"/>
 		<StyleInclude Source="avares://WonderLab/Modules/Controls/Styles/TitleBarStyle.axaml"/>
-
+		<StyleInclude Source="/Modules/Controls/Styles/FrontalSkinXStyle.axaml"/>
+		
 		<Style Selector="TextBox">
 			<Setter Property="ContextFlyout">
 				<wlc:TextCommandBarFlyout/>

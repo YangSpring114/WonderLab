@@ -57,7 +57,7 @@ namespace WonderLab.ViewModels
     //Methods
     partial class UsersViewModel
     {
-        public UsersViewModel() => GetSaveUserInfo();
+        //public UsersViewModel() => GetSaveUserInfo();
 
         public async ValueTask AuthAsync()
         {
@@ -199,8 +199,11 @@ namespace WonderLab.ViewModels
             {
                 App.Data.UserList.ForEach(async x =>
                 {
-                    Users.Add(new(x));
-                    await Task.Delay(1000);
+                    await Task.Run(async () =>
+                    {
+                        Users.Add(new(x));
+                        await Task.Delay(1000);
+                    });
                 });
             };
 

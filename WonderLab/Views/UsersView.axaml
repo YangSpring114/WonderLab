@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:wc="using:WonderLab.Modules.Controls"
 			 xmlns:ui="using:FluentAvalonia.UI.Controls" Initialized="UsersView_Initialized"
              x:Class="WonderLab.Views.UsersView">
 	<Grid Margin="0,100,0,0">
@@ -140,8 +141,9 @@
 						<ColumnDefinition Width="1*" />
 						<ColumnDefinition Width="Auto" />
 					</Grid.ColumnDefinitions>
-					
-					<Image MaxWidth="100" Grid.Column="0" Stretch="UniformToFill" Source="resm:WonderLab.Resources.xcmy.jpg"/>
+
+					<wc:FrontalSkinX Grid.Column="0" Margin="0 100 0 0"/>
+					<!--<Image MaxWidth="100" Grid.Column="0" Stretch="UniformToFill" Source="resm:WonderLab.Resources.xcmy.jpg"/>-->
 
 					<Grid HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="2">
 

@@ -39,7 +39,7 @@ namespace WonderLab.ViewModels
             }
             else
             {
-                ShowInfoBarAsync("提示", "当前版本为Dev版本 自动更新已关闭", InfoBarSeverity.Informational);
+                //ShowInfoBarAsync("提示", "当前版本为Dev版本 自动更新已关闭", InfoBarSeverity.Informational);
             }
         }
 
@@ -69,7 +69,7 @@ namespace WonderLab.ViewModels
         }
 
         public string CurrentVersion => $"当前版本号：{VersionPrefix}{Version}"; 
-        public string VersionPrefix => $"Albert "; 
+        public string VersionPrefix => $"Lsaac "; 
     }
 
     partial class OtherViewModel

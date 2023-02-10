@@ -24,7 +24,11 @@
 						<ui:IconSourceElement IconSource="{StaticResource LaunchSettingIcon}" />
 					</ui:NavigationViewItem.Icon>
 				</ui:NavigationViewItem>
-				<ui:NavigationViewItem Tag="DownSettingView" Icon="Download" Content="下载设置"/>
+				<ui:NavigationViewItem Tag="DownSettingView" Content="网络设置">
+					<ui:NavigationViewItem.Icon>
+						<ui:SymbolIcon Symbol="Wifi4Filled"/>
+					</ui:NavigationViewItem.Icon>
+				</ui:NavigationViewItem>
 
 				<!--<ui:NavigationViewItem Tag="ColorSettingView" Content="个性化">
 					<ui:NavigationViewItem.Icon>
@@ -33,7 +37,7 @@
 				</ui:NavigationViewItem>-->
 			</ui:NavigationView.MenuItems>
 			<ui:NavigationView.FooterMenuItems>
-				<ui:NavigationViewItem Tag="OtherView" Icon="Folder" Content="关于">
+				<ui:NavigationViewItem Tag="OtherView" Content="关于">
 					<ui:NavigationViewItem.Icon>
 						<ui:IconSourceElement IconSource="{StaticResource OtherIcon}" />
 					</ui:NavigationViewItem.Icon>

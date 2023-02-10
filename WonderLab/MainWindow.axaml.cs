@@ -508,6 +508,10 @@ namespace WonderLab
 
         public async void AppRunAnimaction()
         {
+            await Task.Run(() =>
+            {
+                UsersView.ViewModel.GetSaveUserInfo();
+            });
             await Task.Delay(2500);
             cover.Opacity= 0;
             cover.IsHitTestVisible= false;

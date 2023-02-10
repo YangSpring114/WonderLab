@@ -15,9 +15,11 @@ namespace WonderLab.ViewModels
         public string StructureId => $"构建Id {Guid.NewGuid()}";
         public string StructureInfo => string.Join("\n", StructureInfoList);
         public List<string> StructureInfoList => new()
-        {            
-            "优化了游戏下载速度",
-            "测试了整合包安装，可惜你们还看不到（悲"
+        {
+            "更改了一些字的文本以及图标",
+            "修复了切换页面时 UI 显示的问题（应该）",
+            "修复了 Linux 的字体报错问题（应该）",
+            "添加了网络测试选项的 UI 部分，目前功能处于残废状态",
         };
     }
 }
