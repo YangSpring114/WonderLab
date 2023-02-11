@@ -6,7 +6,16 @@
 	<s:String x:Key="NotSelectedUser">未选择任何档案</s:String>
 	<s:String x:Key="NotSelectedGameCore">未选择任何游戏核心</s:String>
 	<s:String x:Key="Launch">启动游戏</s:String>
-	
+
+	<!--DownView Text-->
+	<s:String x:Key="JavaRunTimeInstall">安装新的 Java 运行时</s:String>
+	<s:String x:Key="JavaRunTimeVersion">OpenJDK 版本</s:String>
+	<s:String x:Key="DownloadSource">下载源</s:String>
+	<s:String x:Key="InstallNewCore">安装新的核心</s:String>
+	<s:String x:Key="InstallNewCoreDescription">您可以在此页面安装新的游戏核心，核心将被安装至您选择的目录</s:String>
+	<s:String x:Key="DownloadMod">搜索、下载模组</s:String>
+	<s:String x:Key="DownloadModDescription">您可以在此页面搜索和下载模组，之后将由WonderLab自动安装至您选择的核心目录</s:String>
+	<s:String x:Key="JavaRunTimeInstallDescription">安装新的 Java 运行时，它将被安装至主磁盘目录（Windows）</s:String>
 	
 	<!--The User Type-->
 	<s:String x:Key="MicrosoftAccount">微软账户</s:String>
@@ -20,4 +29,16 @@
 	<s:String x:Key="Redo">恢复</s:String>
 	<s:String x:Key="Undo">撤销</s:String>
 	<s:String x:Key="SelectAll">全选</s:String>
+	
+	<!--Dialog Button Content-->
+	<s:String x:Key="Define">确定</s:String>
+	<s:String x:Key="Cancel">取消</s:String>
+
+	<!--InfoBar Type Text-->
+	<s:String x:Key="Info">信息</s:String>
+	<s:String x:Key="Error">错误</s:String>
+	<s:String x:Key="Success">成功</s:String>
+	<s:String x:Key="Warning">警告</s:String>
+	<s:String x:Key="CancelInstallJavaRunTime">已取消 Java 运行时安装</s:String>
+
 </ResourceDictionary>

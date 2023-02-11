@@ -35,7 +35,7 @@
 							VerticalAlignment="Center"
 							FontSize="18"
 							FontWeight="Bold"
-							Text="安装新的 Java 运行时" />
+							Text="{DynamicResource JavaRunTimeInstall}" />
 						<Grid Grid.Row="1" HorizontalAlignment="Stretch">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="1*" />
@@ -46,12 +46,12 @@
 									Margin="0,0,0,15"
 									HorizontalAlignment="Stretch"
 									Items="{Binding DownloadSources.Keys}"
-									PlaceholderText="OpenJDK 版本"
+									PlaceholderText="{DynamicResource JavaRunTimeVersion}"
 									SelectedItem="{Binding CurrentDownloadSource, Mode=TwoWay}" />
 								<ComboBox
 									HorizontalAlignment="Stretch"
 									Items="{Binding Urls}"
-									PlaceholderText="下载源"
+									PlaceholderText="{DynamicResource DownloadSource}"
 									SelectedItem="{Binding CurrentUrl, Mode=TwoWay}">
 									<ComboBox.ItemTemplate>
 										<DataTemplate>
@@ -77,13 +77,13 @@
 								Classes="accent"
 								Foreground="White"
 								IsEnabled="{Binding ConfirmEnabled, Mode=OneWay}">
-								<TextBlock Text="确定" />
+								<TextBlock Text="{DynamicResource Define}" />
 							</Button>
 							<Button
 								Width="75"
 								Margin="15,0,0,0"
 								Click="JavaCancelButton_Click">
-								<TextBlock Text="取消" />
+								<TextBlock Text="{DynamicResource Cancel}" />
 							</Button>
 						</StackPanel>
 					</Grid>
@@ -142,8 +142,8 @@
 				</ui:ContentDialog.Content>
 			</ui:ContentDialog>
 			
-			<local:OptionsDisplayItem Header="安装新的核心" Padding="12"
-									  Description="您可以在此页面安装新的游戏核心，核心将被安装至您选择的目录"
+			<local:OptionsDisplayItem Header="{DynamicResource InstallNewCore}" Padding="12"
+									  Description="{DynamicResource InstallNewCoreDescription}"
 									  Navigates="True"
 									  Name="coredown"
 									  NavigationCommand="{Binding NavigationToDownGameCore}">
@@ -152,16 +152,16 @@
 				</local:OptionsDisplayItem.Icon>
 			</local:OptionsDisplayItem>
 			
-			<local:OptionsDisplayItem NavigationCommand="{Binding NavigationToDownMod}" Header="搜索、下载模组" Margin="0,10,0,0" Navigates="True" Padding="10"
-							  Description="您可以在此页面搜索和下载模组，之后将由WonderLab自动安装至您选择的核心目录">
+			<local:OptionsDisplayItem NavigationCommand="{Binding NavigationToDownMod}" Header="{DynamicResource DownloadMod}" Margin="0,10,0,0" Navigates="True" Padding="10"
+							  Description="{DynamicResource DownloadModDescription}">
 				<local:OptionsDisplayItem.Icon>
 					<ui:IconSourceElement IconSource="{StaticResource GetModIcon}"/>
 				</local:OptionsDisplayItem.Icon>
 			</local:OptionsDisplayItem>
 			
-			<local:OptionsDisplayItem Name="JavaInstall" Header="安装新的 Java 运行时"
+			<local:OptionsDisplayItem Name="JavaInstall" Header="{DynamicResource JavaRunTimeInstall}"
 									  Icon="Save" Margin="0,10,0,0" Padding="10"
-					  Description="安装新的 Java 运行时，它将被安装至主磁盘目录"
+					  Description="{DynamicResource JavaRunTimeInstallDescription}"
 					  Navigates="True">
 				<local:OptionsDisplayItem.Icon>
 					<ui:IconSourceElement IconSource="{StaticResource JavaIcon}"/>

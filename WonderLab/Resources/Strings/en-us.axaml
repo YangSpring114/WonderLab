@@ -7,10 +7,29 @@
 	<s:String x:Key="NotSelectedGameCore">Core Not Selected</s:String>
 	<s:String x:Key="Launch">Launch Minecraft</s:String>
 
+    <!--DownView Text-->
+	<s:String x:Key="JavaRunTimeInstall">Install a new Java runtime</s:String>
+	<s:String x:Key="JavaRunTimeVersion">OpenJDK Version</s:String>
+	<s:String x:Key="DownloadSource">Download Source</s:String>
+	<s:String x:Key="InstallNewCore">Install a new core</s:String>
+	<s:String x:Key="InstallNewCoreDescription">You can install a new game core on this page, and the core will be installed in the directory of your choice</s:String>
+	<s:String x:Key="DownloadMod">Search and download Mods</s:String>
+	<s:String x:Key="DownloadModDescription">You can search and download modules on this page, and then WonderLab will automatically install them to the core directory of your choice</s:String>
+	<s:String x:Key="JavaRunTimeInstallDescription">When installing a new Java runtime, it will be installed to the main disk directory（Windows）</s:String>
 
 	<!--The User Type-->
 	<s:String x:Key="MicrosoftAccount">Microsoft Account</s:String>
 	<s:String x:Key="OfflineAccount">Offline Account</s:String>
 	<s:String x:Key="YggdrasilAccount">Yggdrasil Account</s:String>
 
+	<!--Dialog Button Content-->
+	<s:String x:Key="Define">OK</s:String>
+	<s:String x:Key="Cancel">Cancel</s:String>
+
+	<!--InfoBar Type Text-->
+	<s:String x:Key="Info">Info</s:String>
+	<s:String x:Key="Error">Error</s:String>
+	<s:String x:Key="Success">Success</s:String>
+	<s:String x:Key="Warning">Warning</s:String>
+	<s:String x:Key="CancelInstallJavaRunTime">The installation of the Java Runtime has been canceled</s:String>
 </ResourceDictionary>

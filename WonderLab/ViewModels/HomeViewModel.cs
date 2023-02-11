@@ -5,8 +5,11 @@ using MinecraftLaunch.Modules.Models.Launch;
 using MinecraftLaunch.Modules.Toolkits;
 using Natsurainko.FluentCore.Module.Launcher;
 using PluginLoader;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -22,117 +25,70 @@ using WonderLab.Views;
 namespace WonderLab.ViewModels
 {
     //MetMod
-    public partial class HomeViewModel : ViewModelBase
+    public partial class HomeViewModel : ReactiveObject
     {
-        public HomeViewModel()
-        {
+        public HomeViewModel() {
+            PropertyChanged += OnPropertyChanged;
             GameSearchAsync();
+            SelectedGameCore = GameCoreToolkit.GetGameCore(App.Data.FooterPath, App.Data.SelectedGameCore);
+        }
+
+        private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e) {
+            if (e.PropertyName is nameof(SelectedGameCore)) {
+                App.Data.SelectedGameCore = (SelectedGameCore is not null ? GameCoreToolkit.GetGameCore(App.Data.FooterPath, SelectedGameCore.Id).Id : null);
+            }
         }
 
         public void NavigationToUser() => _ = MainView.mv.FrameView.Navigate(typeof(UsersView));
 
-        public void GameSearchAsync()
-        {
+        public void GameSearchAsync() {       
             BackgroundWorker worker = new();
             worker.DoWork += (_, _) =>
             {
                 GameCores.Clear();
-                List<GameCore> lmlist = new();
-                var game = new GameCoreToolkit(App.Data.FooterPath).GetGameCores();
-                foreach (var i in game)
-                {
-                    string type = string.Empty;
-                    if (i.Type is "release" || i.Type.Contains("正式版"))
-                        type = "正式版";
-                    else if (i.Type is "snapshot" || i.Type.Contains("快照版"))
-                        type = "快照版";
-                    else if (i.Type.Contains("old_alpha") || i.Type.Contains("远古版"))
-                        type = "远古版";
-                    var res = i.HasModLoader ? $"{type} 继承自 {i.Source}" : $"{type} {i.Source}";
-                    i.Type = res;
-                    lmlist.Add(i);
-                }
-                GameCores = lmlist;
-                
-                Trace.WriteLine($"[DeBug] 索引值为 {App.Data.SelectedGameCore} ");
-                var core = GameCores.GetGameCoreInIndex(App.Data.SelectedGameCore!);
 
-                if (!string.IsNullOrEmpty(App.Data.SelectedGameCore) && core is not null) {
-                    SelectedGameCore = core;
-                }
+                var game = new GameCoreToolkit(App.Data.FooterPath).GetGameCores().Distinct();
+                game.ToList().ForEach(async x =>
+                {
+                    var type = x.Type!.ToVersionType();
+                    x.Type = x.HasModLoader ? $"{type} 继承自 {x.Source}" : $"{type} {x.Source}";
+                    GameCores.Add(x);
+                });              
             };
             worker.RunWorkerAsync();
         }
 
-        public void RefreshUserAsync()
-        {
-            UserInfo = App.Data.SelectedUser;
+        public void RefreshUserAsync() {       
+            UserInfo = App.Data.SelectedUser!;
         }
 
-        public async void LaunchAsync()
-        {
+        public void LaunchAsync() {       
             Enabled = false;            
             var e = new GameLaunchAsyncEvent(SelectedGameCore);
             Event.CallEvent(e);
-            if (e.IsCanceled)
-            {
+            if (e.IsCanceled) {           
                 MainWindow.ShowInfoBarAsync("提示：", $"游戏启动任务被取消", InfoBarSeverity.Informational);
             }
             Enabled = true;
         }
 
-        private void Button_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
-        {
+        private void Button_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e) {     
             Page.NavigatedToTaskView();
         }
     }
     //Property
     partial class HomeViewModel
     {
-        public bool Enabled
-        {
-            get => _Enabled;
-            set => RaiseAndSetIfChanged(ref _Enabled, value);
-        }
-        public UserDataModels UserInfo
-        {
-            get => _UserInfo;
-            set => RaiseAndSetIfChanged(ref _UserInfo, value);
-        }
-        public List<GameCore> GameCores
-        {
-            get => _GameCores;
-            set => RaiseAndSetIfChanged(ref _GameCores, value);
-        }
-        public List<GameCore> DemoGameCores => new()
-        {
-            new()
-            {
-                Id = "1",
-                Type = "11"
-            },
-            new()
-            {
-                Id = "2",
-                Type = "22"
-            },
-        };
-        public GameCore SelectedGameCore
-        {
-            get => _SelectedGameCore;
-            set
-            {
-                if (RaiseAndSetIfChanged(ref _SelectedGameCore, value))
-                    App.Data.SelectedGameCore = (SelectedGameCore is not null ? GameCoreToolkit.GetGameCore(App.Data.FooterPath, SelectedGameCore.Id).Id : null);
-            }
-        }
-    }
-    //Field
-    partial class HomeViewModel
-    {
-        bool _Enabled = true;
-        UserDataModels _UserInfo = App.Data.SelectedUser;
-        List<GameCore> _GameCores = new();
-        GameCore _SelectedGameCore = GameCoreToolkit.GetGameCore(App.Data.FooterPath, App.Data.SelectedGameCore);
+        [Reactive]
+        public bool Enabled { get; set; } = true;
+
+        [Reactive]
+        public UserDataModels UserInfo { get; set; } = App.Data.SelectedUser;
+
+        [Reactive]
+        public ObservableCollection<GameCore> GameCores { get; set; } = new();
+
+        [Reactive]
+        public GameCore SelectedGameCore { get; set; }
     }
 }

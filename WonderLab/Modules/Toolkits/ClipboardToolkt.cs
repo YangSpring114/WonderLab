@@ -9,6 +9,9 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace WonderLab.Modules.Toolkits
 {
+    /// <summary>
+    /// 剪贴板操作工具类
+    /// </summary>
     public class ClipboardToolkt
     {
         public static async ValueTask CopyToClipboard(string text)

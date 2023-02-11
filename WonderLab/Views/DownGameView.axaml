@@ -263,25 +263,29 @@
 			</StackPanel>
 		</ScrollViewer>
 
-		<Grid Grid.Row="2" VerticalAlignment="Bottom" Background="{DynamicResource ControlFillColorDefaultBrush}">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="1*"/>
-				<ColumnDefinition Width="0.10*" MaxWidth="10"/>
-				<ColumnDefinition Width="Auto"/>
-			</Grid.ColumnDefinitions>
-			<StackPanel Spacing="10" Margin="5 10 10 10" HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="2">
-				<Button Click="ButtonClick" Command="{Binding InstallAsync}" Content="安装现有整合包" />
-				<Button Click="ButtonClick" Command="{Binding InstallAsync}" Width="150" Name="InstallGame" Content="安装" Classes="accent" />
-			</StackPanel>
+		<Border Grid.Row="2" VerticalAlignment="Bottom" 
+				Background="{DynamicResource ControlFillColorDefaultBrush}"
+				BoxShadow="0 8 32 0 #66000000">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="1*"/>
+					<ColumnDefinition Width="0.10*" MaxWidth="10"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<StackPanel Spacing="10" Margin="5 10 10 10" HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="2">
+					<Button Click="ButtonClick" Command="{Binding InstallAsync}" Content="安装现有整合包" />
+					<Button Click="ButtonClick" Command="{Binding InstallAsync}" Width="150" Name="InstallGame" Content="安装" Classes="accent" />
+				</StackPanel>
 
-			<Grid HorizontalAlignment="Left" Margin="10,0,0,0" >
-				
-				<ui:IconSourceElement HorizontalAlignment="Left" IconSource="{StaticResource SaveIcon}" />
-				<Grid Margin="30,0,0,0" VerticalAlignment="Center">
-					<TextBlock Margin="0,0,0,10" Name="downversion" Text="{Binding DownloadCore}" FontFamily="Din Pro"/>
-					<TextBlock TextTrimming="CharacterEllipsis" Margin="0,17,0,0" FontSize="12" Name="downloader" Opacity="0.65" Text="{Binding DownloadCoreType}"/>
+				<Grid HorizontalAlignment="Left" Margin="10,0,0,0" >
+
+					<ui:IconSourceElement HorizontalAlignment="Left" IconSource="{StaticResource SaveIcon}" />
+					<Grid Margin="30,0,0,0" VerticalAlignment="Center">
+						<TextBlock Margin="0,0,0,10" Name="downversion" Text="{Binding DownloadCore}" FontFamily="Din Pro"/>
+						<TextBlock TextTrimming="CharacterEllipsis" Margin="0,17,0,0" FontSize="12" Name="downloader" Opacity="0.65" Text="{Binding DownloadCoreType}"/>
+					</Grid>
 				</Grid>
 			</Grid>
-		</Grid>
+		</Border>
 	</Panel>
 </UserControl>
