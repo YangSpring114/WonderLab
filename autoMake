@@ -60,6 +60,7 @@ function package()
     cd "${ROOTDIR}" || die 2 "无法变更目录到 ${ROOTDIR}"
 
     # 初始化输出目录
+    local _finalDir="${ROOTDIR}/bin"
     rm -rf "${_finalDir}"
     mkdir -vp "${_finalDir}"
 
@@ -71,7 +72,6 @@ function package()
         -t:CreateDeb -t:CreateRpm
 
     local _publishDir="${BINDIR}/${_targetRuntime}/publish"
-    local _finalDir="${ROOTDIR}/bin"
 
     # 移动deb和rpm包到输出目录中
     local _archiveName="${BINDIR}/${_targetRuntime}/WonderLab.$Ver.${_targetRuntime}"
