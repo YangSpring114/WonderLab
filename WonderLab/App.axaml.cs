@@ -179,6 +179,24 @@ namespace WonderLab
         private readonly Typeface _defaultTypeface =
             new Typeface("dejavu");
 
+        private readonly string[] _fallbackFontFamilies =
+        {
+            "Microsoft YaHei", //微软雅黑
+
+            "Noto Sans CJK SC", //NotoSansCJK全家桶
+            "Noto Sans CJK TC",
+            "Noto Sans CJK HK",
+            "Noto Sans CJK JP",
+            "Noto Sans CJK KR",
+
+            "WenQuanYi Micro Hei", //文泉驿微米黑
+
+            "Segoe UI",
+            "Ubuntu", //Ubuntu自带字体
+        };
+
+        private SKTypeface? _fallbackTypeFace;
+
         public CustomFontManagerImpl()
         {
             _customTypefaces = new[] { _defaultTypeface };
@@ -235,7 +253,34 @@ namespace WonderLab
                     break;
             }
 
+            if (skTypeface != null)
+                return new GlyphTypefaceImpl(skTypeface);
+
+            if (_fallbackTypeFace != null)
+                return new GlyphTypefaceImpl(_fallbackTypeFace);
+
+            foreach (var name in _fallbackFontFamilies)
+            {
+                var fbTypeFace = SKTypeface.FromFamilyName(name);
+                if (fbTypeFace == null) continue;
+
+                skTypeface = fbTypeFace;
+                _fallbackTypeFace = fbTypeFace;
+                break;
+            }
+
+            if (skTypeface == null)
+                throw new FontNotFoundException($"未能为{typeface.FontFamily.FamilyNames}找到合适的Fallback字体");
+
             return new GlyphTypefaceImpl(skTypeface);
+        }
+    }
+
+    public class FontNotFoundException : Exception
+    {
+        public FontNotFoundException(String msg)
+            : base(msg)
+        {
         }
     }
 }
