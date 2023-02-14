@@ -80,9 +80,8 @@ namespace WonderLab
 
                     if (InfoConst.IsLinux)
                     {
-                        var info = new ProcessStartInfo($"chmod 777 {PathConst.DownloaderPath}")
+                        var info = new ProcessStartInfo("chmod", $"+x {PathConst.DownloaderPath}")
                         {
-                            FileName = "/bin/bash",
                             RedirectStandardOutput = true
                         };
 
