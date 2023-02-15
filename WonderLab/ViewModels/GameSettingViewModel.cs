@@ -294,7 +294,7 @@ namespace WonderLab.ViewModels
                         var basePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
                         basePath = Path.Combine(basePath, ".minecraft", "runtime");
                         var paths = new[] { "java-runtime-alpha", "java-runtime-beta", "jre-legacy" };
-                        App.Data.JavaList.AddRange(paths.Select(path => Path.Combine(basePath, path, "bin", "javaw.exe")).Where(File.Exists).Distinct());
+                        App.Data.JavaList.AddRange(paths.Select(path => Path.Combine(basePath, path, "bin", "java")).Where(File.Exists).Distinct());
                     }
                     else//傻逼MacOS
                     {
@@ -303,9 +303,14 @@ namespace WonderLab.ViewModels
                         var basePath = Path.Combine(path, "Application Support");
                         basePath = Path.Combine(basePath, ".minecraft", "runtime");
                         var paths = new[] { "java-runtime-alpha", "java-runtime-beta", "jre-legacy" };
-                        App.Data.JavaList.AddRange(paths.Select(path => Path.Combine(basePath, path, "bin", "javaw.exe")).Where(File.Exists).Distinct());
+                        App.Data.JavaList.AddRange(paths.Select(path => Path.Combine(basePath, path, "bin", "java")).Where(File.Exists).Distinct());
                     }
-
+                    //使用javaSearcher项目的跨平台搜索方法
+                    var javas = javaInfo.JavaInfo.FindJava().ToList();
+                    foreach (var java in javas)
+                        App.Data.JavaList.Add(java.Path);
+                    App.Data.JavaList = new List<string>(App.Data.JavaList.Distinct());
+                    //END
                     Javas.AddRange(App.Data.JavaList.Distinct());
                     Javas = Javas.Distinct().BuildObservableCollection();
                     IsSearchJavaLoading = false;
@@ -329,14 +334,16 @@ namespace WonderLab.ViewModels
 
         public void FindJavasAction()
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+                || RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
+                || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
                 MainWindow.ShowInfoBarAsync("提示", "正在搜索Java", FluentAvalonia.UI.Controls.InfoBarSeverity.Informational);
                 FindJavas();
             }
             else
             {
-                MainWindow.win.ShowDialog("错误", "回肠抱歉，该功能只能在Windows上跑（正在研究当中）");
+                MainWindow.win.ShowDialog("错误", "回肠抱歉，这个功能还不支持你的系统（正在研究当中）");
             }
         }
 
