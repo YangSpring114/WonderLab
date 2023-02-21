@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WonderLab.Desktop", "WonderLab.Desktop\WonderLab.Desktop.csproj", "{ECF723A1-0651-4B50-BA7F-536D2822B5AC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "javaInfo", "javaInfo\javaInfo\javaInfo.csproj", "{0FF8425E-E614-4329-9F77-C376D6047868}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +68,14 @@ Global
 		{ECF723A1-0651-4B50-BA7F-536D2822B5AC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ECF723A1-0651-4B50-BA7F-536D2822B5AC}.Release|x64.ActiveCfg = Release|Any CPU
 		{ECF723A1-0651-4B50-BA7F-536D2822B5AC}.Release|x64.Build.0 = Release|Any CPU
+		{0FF8425E-E614-4329-9F77-C376D6047868}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FF8425E-E614-4329-9F77-C376D6047868}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FF8425E-E614-4329-9F77-C376D6047868}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0FF8425E-E614-4329-9F77-C376D6047868}.Debug|x64.Build.0 = Debug|Any CPU
+		{0FF8425E-E614-4329-9F77-C376D6047868}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FF8425E-E614-4329-9F77-C376D6047868}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FF8425E-E614-4329-9F77-C376D6047868}.Release|x64.ActiveCfg = Release|Any CPU
+		{0FF8425E-E614-4329-9F77-C376D6047868}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

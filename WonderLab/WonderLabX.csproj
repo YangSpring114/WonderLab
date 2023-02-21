@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
 	  <RuntimeIdentifiers>osx-x64</RuntimeIdentifiers>
     <Nullable>enable</Nullable>
     <!--Avalonia doesen't support TrimMode=link currently,but we are working on that https://github.com/AvaloniaUI/Avalonia/issues/6892 -->
@@ -101,6 +101,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\ControlX\ControlX.csproj" />
 	  <ProjectReference Include="..\GithubLib\GithubLib.csproj" />
+	  <ProjectReference Include="..\javaInfo\javaInfo\javaInfo.csproj" />
 	  <ProjectReference Include="..\PluginLoader\PluginLoader.csproj" />
 	</ItemGroup>	
 	

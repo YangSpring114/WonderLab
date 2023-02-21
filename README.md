@@ -53,6 +53,10 @@ Avalonia是一个跨平台UI框架，提供灵活的样式系统并支持广泛�
 将更多的 Fluent 设计和 WinUI 控件引入 Avalonia。
 [GitHub](https://github.com/amwx/FluentAvalonia)
 
+#### JavaSearcher
+一个简单的java路径和版本搜索工具。
+[Github](https://github.com/HainanWinter-l/JavaSearcher)
+
 ## 鸣谢
 
 #### MCBBS
