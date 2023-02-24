@@ -5,8 +5,7 @@ on:
     branches: [ "master"]
 
 jobs:
-
-  build:
+  build_Windows:
     runs-on: windows-latest
     env:
       Solution_Name: WonderLabX.sln
@@ -35,5 +34,67 @@ jobs:
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: Results
+        name: Windows
+        path: WonderLab\bin\release\net6.0
+  build_Linux:
+    runs-on: ubuntu-latest
+    env:
+      Solution_Name: WonderLabX.sln
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    # Install the .NET Core workload
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+        
+    #- name: Setup MSBuild.exe
+    #  uses: microsoft/setup-msbuild@v1.0.2
+
+    # Execute all unit tests in the solution
+    - name: Execute unit tests
+      run: dotnet test
+      
+    - name: Build
+      run: dotnet build WonderLabX.sln --configuration Release
+      
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: Linux
+        path: WonderLab\bin\release\net6.0
+  build_MacOS:
+    runs-on: macOS-latest
+    env:
+      Solution_Name: WonderLabX.sln
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    # Install the .NET Core workload
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+        
+    #- name: Setup MSBuild.exe
+    #  uses: microsoft/setup-msbuild@v1.0.2
+
+    # Execute all unit tests in the solution
+    - name: Execute unit tests
+      run: dotnet test
+      
+    - name: Build
+      run: dotnet build WonderLabX.sln --configuration Release
+      
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: MacOS
         path: WonderLab\bin\release\net6.0
