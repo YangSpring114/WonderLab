@@ -6,5 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-
+<RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+<RuntimeIdentifier>osx-x64</RuntimeIdentifier>
 </Project>
