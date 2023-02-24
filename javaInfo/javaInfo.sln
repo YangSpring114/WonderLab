@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "javaInfo", "javaInfo\javaInfo.csproj", "{50A9D36A-25F2-43F3-910E-DD6BEFA1C236}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{50A9D36A-25F2-43F3-910E-DD6BEFA1C236}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50A9D36A-25F2-43F3-910E-DD6BEFA1C236}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50A9D36A-25F2-43F3-910E-DD6BEFA1C236}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50A9D36A-25F2-43F3-910E-DD6BEFA1C236}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
