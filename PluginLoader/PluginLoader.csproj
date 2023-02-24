@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+    <RuntimeIdentifiers>osx-x64</RuntimeIdentifiers>
+	  <RuntimeIdentifiers>linux-x64</RuntimeIdentifiers>
+          <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
