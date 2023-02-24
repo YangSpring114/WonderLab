@@ -35,9 +35,9 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Windows
-        path: WonderLab\bin\release\net6.0
+        path: WonderLab\bin\Release\net6.0
   build_Linux:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     env:
       Solution_Name: WonderLabX.sln
     steps:
@@ -60,7 +60,7 @@ jobs:
       run: dotnet test
       
     - name: Build
-      run: dotnet build WonderLabX.sln --configuration Release
+      run: dotnet build WonderLabX.sln --configuration Release -p:RuntimeIdentifier=linux-x64
       
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
@@ -68,7 +68,7 @@ jobs:
         name: Linux
         path: WonderLab\bin\Release\net6.0
   build_MacOS:
-    runs-on: macOS-latest
+    runs-on: windows-latest
     env:
       Solution_Name: WonderLabX.sln
     steps:
@@ -91,7 +91,7 @@ jobs:
       run: dotnet test
       
     - name: Build
-      run: dotnet build WonderLabX.sln --configuration Release
+      run: dotnet build WonderLabX.sln --configuration Release -t:BundleApp -p:RuntimeIdentifier=osx-x64
       
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
