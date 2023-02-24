@@ -26,10 +26,16 @@ body:
     id: issue-description
     attributes:
       label: 问题描述
-      description: 在此详细描述你遇到的问题
+      description: 在此详细描述你遇到的问题(日志和此处二选一 都提交可以让我们更快修复)
     validations:
       required: true
-
+  - type: textarea
+    id: issue-log
+    attributes:
+      label: 日志
+      description: 在此提交崩溃日志
+    validations:
+      required: false
   - type: dropdown
     id: reproducibility
     attributes:
