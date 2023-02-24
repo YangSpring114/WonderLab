@@ -3,10 +3,10 @@
     <PropertyGroup>
         <OutputType>Library</OutputType>
         <TargetFramework>net6.0</TargetFramework>
+        <RuntimeIdentifiers>osx-x64</RuntimeIdentifiers>
+	  <RuntimeIdentifiers>linux-x64</RuntimeIdentifiers>
+          <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-<RuntimeIdentifier>linux-x64</RuntimeIdentifier>
-<RuntimeIdentifier>win-x64</RuntimeIdentifier>
-<RuntimeIdentifier>osx-x64</RuntimeIdentifier>
 </Project>
