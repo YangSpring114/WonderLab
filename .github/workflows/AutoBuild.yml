@@ -122,11 +122,7 @@ jobs:
       run: dotnet test
       
     - name: Build
-      run: dotnet publish WonderLab\WonderLabX.csproj -c Release -r "linux-x64" \
-        --self-contained true \
-        -p:PublishSingleFile="false" \
-        -p:PublishReadyToRun=true \
-        -t:CreateDeb -t:CreateRpm
+      run: dotnet publish WonderLab\WonderLabX.csproj -c Release -r "linux-x64" -p:PublishSingleFile="false" -p:PublishReadyToRun=true -t:CreateDeb -t:CreateRpm
       
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
