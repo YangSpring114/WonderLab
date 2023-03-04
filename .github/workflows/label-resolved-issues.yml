@@ -13,7 +13,7 @@ jobs:
 
     name: Label Issue
     runs-on: ubuntu-latest
-    if: contains(github.event.issue.labels.*.name, 'bug')
+    if: (contains(github.event.issue.labels.*.name, 'bug') || contains(github.event.issue.labels.*.name, '建议')) && contains(github.event.issue.labels.*.name, '无效') == false 
 
     steps:
       - name: Query recent commits
@@ -29,3 +29,12 @@ jobs:
           token: ${{ secrets.ACCESS_TOKEN }}
           issue_number: ${{ github.event.issue.number }}
           labels: '已解决'
+      - name: Create a comment
+        uses: maxkomarychev/octions/octions/issues/create-comment@master
+        with:
+          token: ${{ secrets.ACCESS_TOKEN }}
+          issue_number: ${{ github.event.issue.number }}
+          body: |-
+           你的议题已解决
+           感谢反馈
+           [点击这里反馈新问题](https://github.com/Blessing-Studio/WonderLab/issues/new/choose)
