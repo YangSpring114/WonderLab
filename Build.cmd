@@ -1,8 +1,18 @@
 @echo off
-echo ÇëÈ·ÈÏÄãÒÑ¾­°²×°ÁË.net6 sdk
+ver|findstr /r /i " [ç‰ˆæœ¬ 10.0.*]" > NUL && goto Windows10+
+goto UnknownVersion
+
+:Windows10+
+winget install Microsoft.Dotnet.SDK.6
+goto Build
+
+:UnknownVersion
+echo è¯·ç¡®è®¤ä½ å·²ç»å®‰è£…äº†.net6 sdk
 pause
+goto Build
+
+:Build
 dotnet build --configuration Release
 
-echo ±àÒëÍê³É Çëµ½WonderLab\WonderLab\bin²é¿´½á¹û
-echo byDdggdd135
+echo ç¼–è¯‘å®Œæˆ è¯·åˆ°WonderLab\WonderLab\binæŸ¥çœ‹ç»“æœ
 pause
