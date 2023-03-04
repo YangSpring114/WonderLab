@@ -1,0 +1,34 @@
+name: Close invalid Issue
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  comment:
+
+    name: Invalid Issues
+    runs-on: ubuntu-latest
+
+    if: contains(github.event.issue.labels.*.name, 'bug') == false && contains(github.event.issue.labels.*.name, '建议') == false
+    steps:
+    - name: Close Issue
+      uses: maxkomarychev/octions/octions/issues/update@master
+      with:
+         token: ${{ secrets.ACCESS_TOKEN }}
+         issue_number: ${{ github.event.issue.number }}
+         state: closed
+    - name: Add invalid label
+      uses: maxkomarychev/octions/octions/issues/add-labels@master
+      with:
+         token: ${{ secrets.ACCESS_TOKEN }}
+         issue_number: ${{ github.event.issue.number }}
+         labels: '无效'
+    - name: Create a comment
+      uses: maxkomarychev/octions/octions/issues/create-comment@master
+      with:
+         token: ${{ secrets.ACCESS_TOKEN }}
+         issue_number: ${{ github.event.issue.number }}
+         body: |-
+           你的议题必须使用我们的模版
+           [点击这里选择一个模版并创建新议题](https://github.com/Blessing-Studio/WonderLab/issues/new/choose)
