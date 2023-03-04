@@ -1,7 +1,7 @@
 name: 建议反馈
 description: 反馈你的想法
 labels:
-  - "🌐 建议"
+  - "建议"
 
 body:
   - type: markdown
