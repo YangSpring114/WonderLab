@@ -128,7 +128,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Linux-deb
-        path: WonderLab/bin/Release/net6.0/linux-x64/publish/?.deb
+        path: WonderLab/bin/Release/net6.0/linux-x64/WonderLab?.deb
   build_Linux_Rpm:
     runs-on: ubuntu-latest
     env:
@@ -158,5 +158,4 @@ jobs:
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: Linux-rpm
-        path: WonderLab/bin/Release/net6.0/linux-x64/?.rpm
+        path: WonderLab/bin/Release/net6.0/linux-x64/WonderLab?.rpm
