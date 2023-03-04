@@ -24,7 +24,6 @@ jobs:
           max_commits: 20
 
       - name: Add label
-        if: contains(steps.resolved.outputs.issues, github.event.issue.number)
         uses: maxkomarychev/octions/octions/issues/add-labels@master
         with:
           token: ${{ secrets.ACCESS_TOKEN }}
