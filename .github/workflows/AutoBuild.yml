@@ -2,8 +2,10 @@ name: AutoBuild
 
 on:
   push:
-    branches: [ "master"]
-
+    branches: ["master"]
+  pull_request:
+    types:
+      - opened
 jobs:
   build_Windows:
     runs-on: windows-latest
