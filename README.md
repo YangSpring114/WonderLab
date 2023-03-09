@@ -86,3 +86,17 @@ Avalonia是一个跨平台UI框架，提供灵活的样式系统并支持广泛�
 #### 帮助测试的群友
 
 他们帮忙找到了WonderLab的很多Bug。
+
+## 开发团队
+
+#### [mail_set](https://mailset.top)
+
+测试修复并编译Linux版本。
+
+#### [Ddggdd135](https://github.com/JWJUN233233)
+
+后端主要编写成员
+
+#### [hei-shou](https://github.com/JWJUN233233)
+
+前端主要设计、编写成员
