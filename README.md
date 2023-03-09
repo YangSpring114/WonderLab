@@ -80,10 +80,6 @@ Avalonia是一个跨平台UI框架，提供灵活的样式系统并支持广泛�
 
 帮忙测试/杂项。
 
-#### 好大个qq ("duhiqc", "duhqc", "hiduqd")
-
-帮忙编译MacOS版本。
-
 [GitHub](https://github.com/duhiqc)
 [BiliBili](https://space.bilibili.com/1934472678?spm_id_from=333.1007.0.0)
 
