@@ -167,30 +167,30 @@ jobs:
     needs: [build_Windows, build_MacOs, build_Linux_Deb, build_Linux_Rpm]
     steps:
     - name: Download WindowsBuild
-       uses: actions/download-artifact@v3
-       with:
+      uses: actions/download-artifact@v3
+      with:
        name: Windows
        path: Release/Windows
     - name: CreateWindowsZIP
-       uses: thedoctor0/zip-release@0.7.1
-       with:
+      uses: thedoctor0/zip-release@0.7.1
+      with:
          type: 'zip'
          filename: 'WonderLab_Windows.zip'
          directory: 'Release/Windows'
     - name: CreateRelease
-       uses: actions/create-release@v1
-       env:
+      uses: actions/create-release@v1
+      env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-       with:
+      with:
           tag_name: "AutoBuild"
           release_name: "WonderLab 自动构建版本"
           draft: false
           prerelease: true
     - name: Upload Windows Release Asset
-       uses: actions/upload-release-asset@v1
-       env:
+      uses: actions/upload-release-asset@v1
+      env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-       with:
+      with:
           upload_url: ${{ steps.CreateRelease.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
           asset_path: ./WonderLab_Windows.zip
           asset_name: WonderLab_Windows.zip
