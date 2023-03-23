@@ -131,4 +131,3 @@ jobs:
           title: "自动构建版本"
           files: |
             *.zip
-            
