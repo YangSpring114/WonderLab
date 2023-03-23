@@ -1,7 +1,7 @@
 name: AutoBuild
 on:
   push:
-    branches: [ "master"]
+    branches: ["master"]
   pull_request:
     types:
       - opened
@@ -118,16 +118,16 @@ jobs:
     - name: CreateWindowsZIP
       uses: thedoctor0/zip-release@0.7.1
       with:
-         type: 'zip'
-         filename: 'WonderLab_Windows.zip'
-         directory: 'Release/Windows'
+       type: 'zip'
+       filename: 'WonderLab_Windows.zip'
+       directory: 'Release/Windows'
     - name: CreateRelease
       if: github.event_name != 'pull_request'
       uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "AutoBuild"
-          prerelease: true
-          title: "自动构建版本"
-          files: |
-            *.zip
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "AutoBuild"
+        prerelease: true
+        title: "自动构建版本"
+        files: |
+          *.zip
