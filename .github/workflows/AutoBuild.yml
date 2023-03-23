@@ -121,26 +121,14 @@ jobs:
          type: 'zip'
          filename: 'WonderLab_Windows.zip'
          directory: 'Release/Windows'
-    - name: CreateRelease
+    - name: Release
       if: github.event_name != 'pull_request'
-      uses: actions/create-release@v1
-      env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-          tag_name: "AutoBuild"
-          release_name: "自动构建版本"
-          draft: false
+      uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "AutoBuild"
           prerelease: true
-          body: |
-            "Actions自动构建版本"
-    - name: Upload Windows Release Asset
-      if: github.event_name != 'pull_request'
-      uses: actions/upload-release-asset@v1
-      env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-          upload_url: ${{ steps.CreateRelease.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ./WonderLab_Windows.zip
-          asset_name: WonderLab_Windows.zip
-          asset_content_type: application/zip
-         
+          title: "自动构建版本"
+          files: |
+            *.zip
+            
