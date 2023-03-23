@@ -121,7 +121,7 @@ jobs:
          type: 'zip'
          filename: 'WonderLab_Windows.zip'
          directory: 'Release/Windows'
-    - name: Release
+    - name: CreateRelease
       if: github.event_name != 'pull_request'
       uses: "marvinpinto/action-automatic-releases@latest"
         with:
