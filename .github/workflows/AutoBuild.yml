@@ -8,8 +8,6 @@ on:
 jobs:
   build_Windows:
     runs-on: windows-latest
-    env:
-      Solution_Name: WonderLabX.sln
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -22,8 +20,7 @@ jobs:
     - name: Execute unit tests
       run: dotnet test
     - name: Build
-      run: dotnet build WonderLab\WonderLabX.csproj --configuration Release
-      
+      run: dotnet build WonderLab\WonderLabX.csproj --configuration Release -p:RuntimeIdentifier=win-x64
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
@@ -31,8 +28,6 @@ jobs:
         path: WonderLab\bin\Release\net6.0
   build_Linux:
     runs-on: windows-latest
-    env:
-      Solution_Name: WonderLabX.sln
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -53,8 +48,6 @@ jobs:
         path: WonderLab\bin\Release\net6.0
   build_MacOS:
     runs-on: windows-latest
-    env:
-      Solution_Name: WonderLabX.sln
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -75,8 +68,6 @@ jobs:
         path: WonderLab\bin\Release\net6.0
   build_Linux_Deb:
     runs-on: ubuntu-latest
-    env:
-      Solution_Name: WonderLabX.sln
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -97,8 +88,6 @@ jobs:
         path: 'WonderLab/bin/Release/net6.0/linux-x64/*.deb'
   build_Linux_Rpm:
     runs-on: ubuntu-latest
-    env:
-      Solution_Name: WonderLabX.sln
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -133,15 +122,19 @@ jobs:
          filename: 'WonderLab_Windows.zip'
          directory: 'Release/Windows'
     - name: CreateRelease
+      if: github.event_name != 'pull_request'
       uses: actions/create-release@v1
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
           tag_name: "AutoBuild"
-          release_name: "WonderLab 自动构建版本"
+          release_name: "自动构建版本"
           draft: false
           prerelease: true
+          body: |
+            "Actions自动构建版本"
     - name: Upload Windows Release Asset
+      if: github.event_name != 'pull_request'
       uses: actions/upload-release-asset@v1
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
