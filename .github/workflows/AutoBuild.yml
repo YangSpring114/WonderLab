@@ -188,8 +188,8 @@ jobs:
       uses: "softprops/action-gh-release@v1"
       with:
         token: "${{ secrets.GITHUB_TOKEN }}"
-        tag——name: "AutoBuild"
+        tag_name: "AutoBuild"
         prerelease: true
-        title: "自动构建版本"
+        name: "自动构建版本"
         files: |
             *.zip
