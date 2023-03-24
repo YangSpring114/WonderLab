@@ -107,7 +107,7 @@ jobs:
         name: Linux_Rpm
         path: 'WonderLab/bin/Release/net6.0/linux-x64/*.rpm'
   build_Common:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -120,12 +120,12 @@ jobs:
     - name: Execute unit tests
       run: dotnet test
     - name: Build
-      run: dotnet build WonderLab\WonderLabX.csproj --configuration Release
+      run: dotnet build WonderLab/WonderLabX.csproj --configuration Release
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
         name: Common
-        path: WonderLab\bin\Release\net6.0
+        path: WonderLab/bin/Release/net6.0
   Release:
     runs-on: ubuntu-latest
     needs: [build_Windows, build_MacOS, build_Linux_Deb, build_Linux_Rpm, build_Linux, build_Common]
@@ -188,8 +188,7 @@ jobs:
       uses: "softprops/action-gh-release@v1"
       with:
         token: "${{ secrets.GITHUB_TOKEN }}"
-        tag_name: "AutoBuild"
-        prerelease: true
+        prerelease: false
         name: "自动构建版本"
         files: |
-            *.zip
+            WonderLab_Common.zip
