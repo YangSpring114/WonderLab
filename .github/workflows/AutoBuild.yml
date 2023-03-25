@@ -128,31 +128,31 @@ jobs:
         path: WonderLab/bin/Release/net6.0
   Release:
     permissions: write-all
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [build_Windows, build_MacOS, build_Linux_Deb, build_Linux_Rpm, build_Linux, build_Common]
     steps:
     - name: Download Windows Build
       uses: actions/download-artifact@v3
       with:
        name: Windows
-       path: Release/Windows
+       path: Release\Windows
     - name: Create Windows ZIP
       uses: thedoctor0/zip-release@0.7.1
       with:
          type: 'zip'
          filename: 'WonderLab_Windows.zip'
-         path: 'Release/Windows'
+         path: 'Release\Windows'
     - name: Download Linux Build
       uses: actions/download-artifact@v3
       with:
        name: Linux
-       path: Release/Linux
+       path: Release\Linux
     - name: Create Linux ZIP
       uses: thedoctor0/zip-release@0.7.1
       with:
          type: 'zip'
          filename: 'WonderLab_Linux.zip'
-         path: 'Release/Linux'
+         path: 'Release\Linux'
     - name: Download Deb Build
       uses: actions/download-artifact@v3
       with:
@@ -165,24 +165,24 @@ jobs:
       uses: actions/download-artifact@v3
       with:
        name: MacOS
-       path: Release/MacOS
+       path: Release\MacOS
     - name: Create MacOS ZIP
       uses: thedoctor0/zip-release@0.7.1
       with:
          type: 'zip'
          filename: 'WonderLab_MacOS.zip'
-         path: 'Release/MacOS'
+         path: 'Release\MacOS'
     - name: Download Common Build
       uses: actions/download-artifact@v3
       with:
        name: Common
-       path: Release/Common
+       path: Release\Common
     - name: Create Common ZIP
       uses: thedoctor0/zip-release@0.7.1
       with:
          type: 'zip'
          filename: 'WonderLab_Common.zip'
-         path: 'Release/Common'
+         path: 'Release\Common'
 
     - name: CreateRelease
       if: github.event_name != 'pull_request' 
