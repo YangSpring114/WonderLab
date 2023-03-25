@@ -107,7 +107,7 @@ jobs:
         name: Linux_Rpm
         path: 'WonderLab/bin/Release/net6.0/linux-x64/*.rpm'
   build_Common:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Windows]
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -128,7 +128,7 @@ jobs:
         path: WonderLab/bin/Release/net6.0
   Release:
     permissions: write-all
-    runs-on: self-hosted
+    runs-on: [self-hosted, Linux]
     needs: [build_Windows, build_MacOS, build_Linux_Deb, build_Linux_Rpm, build_Linux, build_Common]
     steps:
     - name: Download Windows Build
