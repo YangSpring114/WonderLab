@@ -1,7 +1,7 @@
 name: AutoBuild
 on:
   push:
-    branches: ["master"]
+    branches: ["master", "dev"]
   pull_request:
     types:
       - opened
@@ -60,7 +60,7 @@ jobs:
     - name: Execute unit tests
       run: dotnet test
     - name: Build
-      run: dotnet build WonderLab/WonderLabX.csproj --configuration Release -t:BundleApp -p:RuntimeIdentifier=osx-x64
+      run: dotnet build WonderLab/WonderLabX.csproj --configuration Release -p:RuntimeIdentifier=osx-x64
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
@@ -101,6 +101,8 @@ jobs:
         dotnet-version: 6.0.x
     - name: Execute unit tests
       run: dotnet test
+    - name: Install Rpm Tool
+      run: dotnet tool install --global dotnet-rpm
     - name: Build
       run: dotnet publish WonderLab/WonderLabX.csproj -c Release -r "linux-x64" -p:PublishSingleFile="false" -p:PublishReadyToRun=true -t:CreateRpm
     - name: Upload build artifacts
