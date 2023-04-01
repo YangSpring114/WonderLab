@@ -29,8 +29,8 @@ namespace WonderLab
             {
                 JsonToolkit.JsonWrite();
                 Trace.WriteLine(ex.ToString());
-                MainWindow.ShowInfoBarAsync("´íÎó£º",$"WonderLab ÔÚÊ¹ÓÃÖÐÓöµ½ÁË²»¿ÉÃèÊöµÄÒì³£,Õâ¿ÉÄÜ»áÓ°ÏìÄúµÄÊ¹ÓÃÌåÑé£¡\nÒì³£¶ÑÕ»£º {ex}");
-                File.WriteAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop),$"±ÀÀ£ÈÕÖ¾-{ex.GetType().Name}.txt"), ex.ToString());
+                MainWindow.ShowInfoBarAsync("é”™è¯¯ï¼š",$"WonderLab åœ¨ä½¿ç”¨ä¸­é‡åˆ°äº†ä¸å¯æè¿°çš„å¼‚å¸¸,è¿™å¯èƒ½ä¼šå½±å“æ‚¨çš„ä½¿ç”¨ä½“éªŒï¼\nå¼‚å¸¸å †æ ˆï¼š {ex}");
+                File.WriteAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop),$"å´©æºƒæ—¥å¿—-{ex.GetType().Name}.txt"), ex.ToString());
             }
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             PluginLoader.PluginLoader.UnloadAll();
@@ -40,10 +40,14 @@ namespace WonderLab
         public static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<App>()
                 .UsePlatformDetect()
-                .With(new Win32PlatformOptions
-                {
-                    UseWindowsUIComposition = true,
-                })
-                .UseReactiveUI();
+                 .With(new Win32PlatformOptions
+                 {
+                     UseWgl = true,
+                     AllowEglInitialization = true,
+                 })
+                 .With(new SkiaOptions
+                 {
+                     MaxGpuResourceSizeBytes = 1024000000,
+                 }).LogToTrace();
     }
 }
