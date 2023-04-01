@@ -67,7 +67,7 @@ jobs:
         name: MacOS
         path: WonderLab/bin/Release/net6.0
   build_Linux_Deb:
-    runs-on: [self-hosted, Windows]
+    runs-on:  ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -186,7 +186,7 @@ jobs:
          filename: 'WonderLab_Common.zip'
          path: 'Release\Common'
 
-    - name: CreateRelease
+    - name: Create Release
       if: github.event_name != 'pull_request' 
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
