@@ -22,6 +22,7 @@
     <None Remove="Resources\xcmy.jpg" />
   </ItemGroup>
 	<ItemGroup>
+		<EmbeddedResource Include="Resources\xcmy.jpg" />
 		<Content Include="WonderLab.png" CopyToPublishDirectory="PreserveNewest">
 			<LinuxPath>/usr/share/icons/WonderLab.png</LinuxPath>
 		</Content>
@@ -98,15 +99,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-	<ItemGroup>
-		<EmbeddedResource Include="Resources\xcmy.jpg" />
-		<Content Include="WonderLab.png" CopyToPublishDirectory="PreserveNewest">
-			<LinuxPath>/usr/share/icons/wonderlab.png</LinuxPath>
-		</Content>
-		<Content Include="WonderLab.desktop" CopyToPublishDirectory="PreserveNewest">
-			<LinuxPath>/usr/share/applications/wonderlab.desktop</LinuxPath>
-		</Content>
-	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\ControlX\ControlX.csproj" />
 	  <ProjectReference Include="..\GithubLib\GithubLib.csproj" />
