@@ -23,13 +23,13 @@
   </ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="Resources\xcmy.jpg" />
-		<Content Include="WonderLab.png" CopyToPublishDirectory="PreserveNewest">
-			<LinuxPath>/usr/share/icons/WonderLab.png</LinuxPath>
+		<Content Include="wonderlab.png" CopyToPublishDirectory="PreserveNewest">
+			<LinuxPath>/usr/share/icons/wonderlab.png</LinuxPath>
 		</Content>
 	</ItemGroup>
 	  <ItemGroup>
-    <Content Include="WonderLab.desktop" CopyToPublishDirectory="PreserveNewest">
-      <LinuxPath>/usr/share/applications/WonderLab.desktop</LinuxPath>
+    <Content Include="wonderlab.desktop" CopyToPublishDirectory="PreserveNewest">
+      <LinuxPath>/usr/share/applications/wonderlab.desktop</LinuxPath>
     </Content>
   </ItemGroup>
 	<ItemGroup>
