@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
@@ -19,7 +19,6 @@
 	<AvaloniaResources Include="Resources\**" />
 	<AvaloniaResources Remove="Resources\xcmy.jpg" />
     <None Remove=".gitignore" />
-    <None Remove="icon.ico" />
     <None Remove="Resources\xcmy.jpg" />
   </ItemGroup>
 	<ItemGroup>
