@@ -79,6 +79,8 @@ jobs:
         dotnet-version: 6.0.x
     - name: Execute unit tests
       run: dotnet test
+    - name: Install Deb Tool
+      run: dotnet tool install --global dotnet-deb
     - name: Build
       run: dotnet publish WonderLab/WonderLabX.csproj -c Release -r "linux-x64" -p:PublishSingleFile="false" -p:PublishReadyToRun=true -t:CreateDeb
     - name: Upload build artifacts

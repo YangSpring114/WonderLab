@@ -19,10 +19,20 @@
 	<AvaloniaResources Include="Resources\**" />
 	<AvaloniaResources Remove="Resources\xcmy.jpg" />
     <None Remove=".gitignore" />
+    <None Remove="icon.ico" />
     <None Remove="Resources\xcmy.jpg" />
-    <None Remove="半圆.ico" />
   </ItemGroup>
-  <ItemGroup>
+	<ItemGroup>
+		<Content Include="WonderLab.png" CopyToPublishDirectory="PreserveNewest">
+			<LinuxPath>/usr/share/icons/WonderLab.png</LinuxPath>
+		</Content>
+	</ItemGroup>
+	  <ItemGroup>
+    <Content Include="WonderLab.desktop" CopyToPublishDirectory="PreserveNewest">
+      <LinuxPath>/usr/share/applications/WonderLab.desktop</LinuxPath>
+    </Content>
+  </ItemGroup>
+	<ItemGroup>
     <EmbeddedResource Include="Resources\fabric.png" />
     <EmbeddedResource Include="Resources\forge.png" />
 	<EmbeddedResource Include="Resources\normal.png" />
@@ -30,7 +40,7 @@
     <EmbeddedResource Include="Resources\WonderLab.Desktop-Linux" />
     <EmbeddedResource Include="Resources\WonderLab.Desktop.exe" />
     <EmbeddedResource Include="Resources\Icon.ico" />
-    <EmbeddedResource Include="半圆.ico" />
+    <EmbeddedResource Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
@@ -91,10 +101,10 @@
   </ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="Resources\xcmy.jpg" />
-		<Content Include="wonderlab.png" CopyToPublishDirectory="PreserveNewest">
+		<Content Include="WonderLab.png" CopyToPublishDirectory="PreserveNewest">
 			<LinuxPath>/usr/share/icons/wonderlab.png</LinuxPath>
 		</Content>
-		<Content Include="wonderlab.desktop" CopyToPublishDirectory="PreserveNewest">
+		<Content Include="WonderLab.desktop" CopyToPublishDirectory="PreserveNewest">
 			<LinuxPath>/usr/share/applications/wonderlab.desktop</LinuxPath>
 		</Content>
 	</ItemGroup>
@@ -110,7 +120,7 @@
 		<!-- Also defines .app file name -->
 		<CFBundleDisplayName>WonderLab</CFBundleDisplayName>
 		<CFBundleIdentifier>com.wonderlabx.macos</CFBundleIdentifier>
-		<CFBundleVersion>1.0.0</CFBundleVersion>
+		<CFBundleVersion>1.2.0</CFBundleVersion>
 		<CFBundlePackageType>APPL</CFBundlePackageType>
 		<CFBundleSignature>????</CFBundleSignature>
 		<CFBundleExecutable>AppName</CFBundleExecutable>
@@ -118,9 +128,9 @@
 		<!-- Will be copied from output directory -->
 		<NSPrincipalClass>NSApplication</NSPrincipalClass>
 		<NSHighResolutionCapable>true</NSHighResolutionCapable>
-		<CFBundleShortVersionString>1.0.0</CFBundleShortVersionString>
+		<CFBundleShortVersionString>12.0.2.0</CFBundleShortVersionString>
 		<SignAssembly>True</SignAssembly>
-		<ApplicationIcon>半圆.ico</ApplicationIcon>
+		<ApplicationIcon>icon.ico</ApplicationIcon>
 	</PropertyGroup>
 	
 	<ProjectExtensions><VisualStudio><UserProperties resources_4moddata_1json__JsonSchema="https://appsemble.app/api.json" /></VisualStudio></ProjectExtensions>
