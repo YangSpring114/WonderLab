@@ -67,7 +67,7 @@ jobs:
         name: MacOS
         path: WonderLab/bin/Release/net6.0
   build_Linux_Deb:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Windows]
     steps:
     - name: Checkout
       uses: actions/checkout@v3
