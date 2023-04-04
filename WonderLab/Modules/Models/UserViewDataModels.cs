@@ -40,8 +40,8 @@ namespace WonderLab.Modules.Models
         }
 
         public UserModels Current => this;
-
-        public string Name { get; set; }
+        public string _Name;
+        public string Name { get => _Name; set => _Name = value; }
 
         public string Jvm { get; set; }
 

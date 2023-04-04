@@ -1,3 +1,4 @@
+using DynamicData;
 using FluentAvalonia.UI.Controls;
 using MinecaftOAuth.Authenticator;
 using System;
@@ -19,6 +20,7 @@ namespace WonderLab.ViewModels
     //Binding
     public partial class UsersViewModel : ViewModelBase
     {
+        public string UserNameText { get => _UserNameText; set => RaiseAndSetIfChanged(ref _UserNameText, value); }
         public string SelectedAuthenticator { get => _SelectedAuthenticator; set => RaiseAndSetIfChanged(ref _SelectedAuthenticator, value); }
 
         public string UrlTextBoxText { get => _UrlTextBoxText; set => RaiseAndSetIfChanged(ref _UrlTextBoxText, value); }
@@ -57,10 +59,10 @@ namespace WonderLab.ViewModels
     //Methods
     partial class UsersViewModel
     {
-        //public UsersViewModel() => GetSaveUserInfo();
 
         public async ValueTask AuthAsync()
         {
+            TextBoxText = string.Empty;
             FirstBoxVisibility = false;
             PasswordBoxVisibility = false;
             TextBoxVisibility = false;
@@ -174,10 +176,11 @@ namespace WonderLab.ViewModels
                     UserType = "离线账户"
                 };
                 App.Data.UserList.Add(user);
+                Users.Add(new(user));
                 MainWindow.ShowInfoBarAsync("添加账户成功：", $"{user.UserType} {user.UserName} 欢迎回来,{user.UserName}", InfoBarSeverity.Success);
                 UsersView.CloseDialog();
             }
-            GetSaveUserInfo();
+            JsonToolkit.JsonAllWrite();
             StringsRefresh();
         }
 
@@ -192,22 +195,13 @@ namespace WonderLab.ViewModels
             DeviceTips = "";
         }
 
-        public void GetSaveUserInfo()
+        public void GetSavedUserInfo()
         {
-            BackgroundWorker worker = new();
-            worker.DoWork += (_, _) =>
+            JsonToolkit.JsonAllWrite();
+            App.Data.UserList.ForEach((x) =>
             {
-                App.Data.UserList.ForEach(async x =>
-                {
-                    await Task.Run(async () =>
-                    {
-                        Users.Add(new(x));
-                        await Task.Delay(1000);
-                    });
-                });
-            };
-
-            worker.RunWorkerAsync();
+                Users.Add(new(x));
+            });
             //CurrentUser = Users.GetUserInIndex(App.Data.SelectedUser.UserName);
         }
 
@@ -225,6 +219,7 @@ namespace WonderLab.ViewModels
         public bool _PasswordBoxVisibility = false;
         public bool _ProgressBarVisibility = false;
         public bool _FirstBoxVisibility = false;
+        public string _UserNameText = string.Empty;
         public string _SelectedAuthenticator = "微软验证";
         public string _UrlTextBoxText = string.Empty;
         public string _TextBoxText = string.Empty;

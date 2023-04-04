@@ -5,6 +5,7 @@ using Avalonia.Media;
 using Avalonia.Threading;
 using FluentAvalonia.UI.Controls;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -56,7 +57,10 @@ namespace WonderLab.Views
         private async void ShowUserInfoDialogClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e) {
             var Skin = ((sender as Button)!.DataContext as UserModels)!.SkinBytes;
             var Data = ((sender as Button)!.DataContext as UserModels)!;
-
+            ViewModel.UserNameText = string.Format("{0}  的账户信息", Data.Name);
+            UserInfoTitle.Text = ViewModel.UserNameText;
+            DeleteButton.DataContext = Data;
+            SaveButton.DataContext = Data;
             try
             {
                 if (Data.Type.Contains("微软"))
@@ -99,26 +103,43 @@ namespace WonderLab.Views
 
         private void CancelButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => AuthenticatorTypeDialog.Hide();
 
-        private void CancelButtonClick1(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => LoginDialog.Hide();
+        private void CancelButtonClick1(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => UserInfoDialog.Hide();
+        private void CancelButtonClick2(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => LoginDialog.Hide();
 
         private void DeleteButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             var user = (UserModels)(sender as Button).DataContext!;
-            
-            for (int i = 0; i < App.Data.UserList.Count; i++)
-            {
-                if (ViewModel.Users[i].Name == App.Data.UserList[i].UserName && ViewModel.Users[i].Uuid == App.Data.UserList[i].UserUuid)
-                    App.Data.UserList.Remove(App.Data.UserList[i]);
-            }
 
-            ViewModel.Users.Remove(user.Current);
-            var temp = ViewModel.Users;
-            ViewModel.Users = null;
-            ViewModel.Users = new(temp);
+            App.Data.UserList.RemoveAll((x) => x.UserUuid == user.Uuid && x.UserName == user.Name && x.UserType == user.Type);
+
+            List<UserModels> tmp = new(ViewModel.Users);
+                tmp.RemoveAll((x) => x.Uuid == user.Uuid && x.Name == user.Name && x.Type == user.Type);
+            ViewModel.Users = new(tmp);
             if (App.Data.SelectedUser is not null && App.Data.SelectedUser.UserName.Equals(user.Name) && App.Data.SelectedUser.UserUuid.Equals(user.Uuid))
                 App.Data.SelectedUser = null;
-
+            JsonToolkit.JsonAllWrite();
+            UserInfoDialog.Hide();
             MainWindow.ShowInfoBarAsync("成功:",$"账户 {user.Name} 已成功被移除！", InfoBarSeverity.Success);
+        }
+        private void SaveButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            var user = (UserModels)(sender as Button).DataContext!;
+            
+            List<UserModels> tmp = new(ViewModel.Users);
+            tmp.RemoveAll((x) => x.Uuid == user.Uuid && x.Name == user.Name && x.Type == user.Type);
+            ViewModel.Users = new(tmp);
+            if (NameInputTextBox.Text != null)
+            {
+                user.Name = NameInputTextBox.Text;
+            }
+            ViewModel.Users.Add(user);
+            App.Data.UserList.Find((x)=> {
+                return x.UserName == user.Name && x.UserUuid == user.Uuid && x.UserType == user.Type;
+
+            }).UserName = user.Name;
+
+            JsonToolkit.JsonAllWrite();
+            UserInfoDialog.Hide();
         }
 
         private async void UserSettingOpenPointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
