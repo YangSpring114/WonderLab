@@ -110,7 +110,7 @@
 							Command="{Binding CopyCodeAsync}"
 		                    Classes="accent" Content="将代码复制至剪贴板"/>
 					<Button Command="{Binding StringsRefresh}"	
-                        Width="75" Click="CancelButtonClick1"
+                        Width="75" Click="CancelButtonClick2"
                         Margin="15,0,0,0">
 						<TextBlock Text="取消" />
 					</Button>
@@ -132,7 +132,7 @@
                     VerticalAlignment="Center"
                     FontSize="18"
                     FontWeight="Bold"
-                    Text="Starcloudsea 的账户信息" />
+                    x:Name="UserInfoTitle" />
 
 				<Grid HorizontalAlignment="Stretch" Margin="0 10 0 0" Grid.Row="1">
 					<Grid.ColumnDefinitions>
@@ -187,14 +187,14 @@
 					<Grid HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="2">
 
 						<StackPanel Margin="0 0 0 10" Spacing="10" Width="350">
-							<TextBox HorizontalAlignment="Stretch" Watermark="请输入您的游戏名"/>
+							<TextBox x:Name="NameInputTextBox" HorizontalAlignment="Stretch" Watermark="请输入您的游戏名"/>
 
 							<DockPanel Width="350">
 								<Button DockPanel.Dock="Right" Width="40" VerticalAlignment="Stretch" HorizontalAlignment="Left" Classes="accent">
 									<ui:SymbolIcon Symbol="Add"/>
 								</Button>
 
-								<TextBox DockPanel.Dock="Left" Margin="0 0 10 0" Width="300" Watermark="请输入您的角色皮肤路径"/>
+								<TextBox x:Name="SkinFilePath" DockPanel.Dock="Left" Margin="0 0 10 0" Width="300" Watermark="请输入您的角色皮肤路径"/>
 							</DockPanel>
 							
 						</StackPanel>
@@ -206,12 +206,15 @@
                             	Orientation="Horizontal">
 							
 							<Button
-	                                Width="100" Click="CancelButtonClick1"
+								x:Name="DeleteButton"
+	                                Width="100" Click="DeleteButtonClick"
 	                                Margin="0,0,15,0" Background="Red">
 								<TextBlock Text="删除此档案" />
 							</Button>
 
 							<Button Width="75"
+									x:Name="SaveButton"
+									Click="SaveButtonClick"
 								Classes="accent" IsVisible="{Binding TextBoxVisibility}"
 								Foreground="White">
 								<TextBlock Text="确定" />

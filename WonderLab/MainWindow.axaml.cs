@@ -510,7 +510,7 @@ namespace WonderLab
         {
             await Task.Run(() =>
             {
-                UsersView.ViewModel.GetSaveUserInfo();
+                UsersView.ViewModel.GetSavedUserInfo();
             });
             await Task.Delay(2500);
             cover.Opacity= 0;
